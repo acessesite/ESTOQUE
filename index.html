@@ -273,6 +273,7 @@ li.tar.done b{text-decoration:line-through;color:var(--muted)}
   <div class="kpis" id="kpis"></div>
   <div class="grid-dash">
     <div class="panel"><h2>Tarefas — próximos 7 dias</h2><ul class="list" id="dash-tarefas"></ul></div>
+    <div class="panel"><h2>⚠ Itens parados na rua (GPS)</h2><ul class="list" id="dash-parados"></ul></div>
     <div class="panel"><h2>Agenda de hoje</h2><ul class="list" id="dash-hoje"></ul></div>
     <div class="panel"><h2>Próximos eventos</h2><ul class="list" id="dash-prox"></ul></div>
     <div class="panel"><h2>Lembretes atrasados</h2><ul class="list" id="dash-atras"></ul></div>
@@ -381,6 +382,7 @@ li.tar.done b{text-decoration:line-through;color:var(--muted)}
     <button class="chip" data-f="rua">Na rua</button>
     <button class="chip" data-f="estoque">No estoque</button>
     <button class="chip" data-f="n2">Nitrogênio</button>
+    <button class="chip" data-f="parados">⚠ Parados</button>
   </div>
   <div class="muted small" id="gps-resumo" style="margin-bottom:10px"></div>
   <div class="gcards" id="gps-cards"></div>
@@ -464,6 +466,17 @@ li.tar.done b{text-decoration:line-through;color:var(--muted)}
       </div>
     </div>
     <div class="panel cfg">
+      <h2>Alerta de item parado na rua (GPS)</h2>
+      <p class="hint">O Dashboard avisa quando um item do GPS está com a mesma pessoa há este número de dias ou mais. Vale para todos os computadores.</p>
+      <form id="f-cfg-gps" novalidate>
+        <div class="grid2">
+          <div class="field"><label for="cfg-dias-item">Itens em geral (dias)</label><input id="cfg-dias-item" type="number" min="1" step="1" inputmode="numeric"></div>
+          <div class="field"><label for="cfg-dias-n2">Bujões de nitrogênio (dias)</label><input id="cfg-dias-n2" type="number" min="1" step="1" inputmode="numeric"></div>
+        </div>
+        <div class="cfg-actions"><button class="btn primary" type="submit">Salvar limites</button></div>
+      </form>
+    </div>
+    <div class="panel cfg">
       <h2>Exportar para Excel</h2>
       <p class="hint">Gera uma planilha com todos os produtos (quantidade, unidade, localização e status) e, em abas separadas, entradas, saídas, ajustes, histórico, comentários, GPS de itens (com o histórico completo), compras, tarefas, notas, lembretes e um resumo.</p>
       <div class="cfg-actions">
@@ -537,10 +550,10 @@ const firebaseConfig = {
 };
 const FB_VER = '10.14.1';
 const COL = {produtos: 'produtos', movs: 'movimentacoes', lembretes: 'lembretes',
-  gps: 'gps_itens', gpsMovs: 'gps_movimentacoes', compras: 'compras', tarefas: 'tarefas', notas: 'notas'};
+  gps: 'gps_itens', gpsMovs: 'gps_movimentacoes', compras: 'compras', tarefas: 'tarefas', notas: 'notas', config: 'configuracoes'};
 /* Coleções originais: sem elas o sistema não funciona. As novas, se o Firebase recusar, só desativam a aba correspondente. */
 const CORE = ['produtos', 'movs', 'lembretes'];
-const COL_ABA = {gps: 'GPS Itens', gpsMovs: 'GPS Itens', compras: 'Últimas compras', tarefas: 'Tarefas', notas: 'Notas'};
+const COL_ABA = {gps: 'GPS Itens', gpsMovs: 'GPS Itens', compras: 'Últimas compras', tarefas: 'Tarefas', notas: 'Notas', config: 'Configurações (alerta do GPS)'};
 
 function emptyDb(){ const d = {}; Object.keys(COL).forEach(k => d[k] = []); return d; }
 function limpaDb(d){
@@ -762,7 +775,7 @@ document.addEventListener('click', e => {
 });
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && !$('#modal').hidden) closeModal();
-  if (e.key === 'Enter' && e.target.matches('[data-mov],[data-lemb],[data-prod],[data-tar],[data-compra]') && e.target.tagName !== 'BUTTON') e.target.click();
+  if (e.key === 'Enter' && e.target.matches('[data-mov],[data-lemb],[data-prod],[data-tar],[data-compra],[data-gps]') && e.target.tagName !== 'BUTTON') e.target.click();
 });
 /* ---------- Campos de pessoa: nome completo digitado (sugere nomes já usados) ---------- */
 function pessoaHTML(p, label){
@@ -825,7 +838,7 @@ function lerProd(p, idAtual){
 /* ================= Render ================= */
 function renderAll(){
   renderDashboard(); renderEstoque(); renderBusca(); renderEntradas(); renderSaidas(); renderLembretes();
-  renderGps(); renderCompras(); renderTarefas(); renderNotas(); fillSelects();
+  renderGps(); renderCompras(); renderTarefas(); renderNotas(); preencheCfgGps(); fillSelects();
 }
 function fillSelects(){
   [['#ent-prod', true], ['#sai-prod', false]].forEach(([s, novo]) => {
@@ -858,15 +871,19 @@ function renderDashboard(){
   const lim7 = addDias(hoje, 7);
   const tar7 = tarAbertas.filter(t => t.prazo && t.prazo <= lim7).sort((a, b) => tarKey(a).localeCompare(tarKey(b)));
   const naRua = db.gps.filter(g => g.local === 'rua').length;
+  const parados = db.gps.filter(g => gpsParado(g) != null).sort((a, b) => gpsParado(b) - gpsParado(a));
   $('#kpis').innerHTML = `
     <button class="kpi ${tarAtras.length ? 'alert' : ''}" data-tab="tarefas"><div class="n">${tarAbertas.length}</div><div class="l">Tarefas em aberto${tarAtras.length ? ` · ${tarAtras.length} atrasada(s)` : ''}</div></button>
     <button class="kpi" data-tab="lembretes"><div class="n">${abertos.length}</div><div class="l">Lembretes em aberto</div></button>
     <button class="kpi ${atras.length ? 'alert' : ''}" data-tab="lembretes"><div class="n">${atras.length}</div><div class="l">Lembretes atrasados</div></button>
     <button class="kpi" data-tab="estoque"><div class="n">${db.produtos.length}</div><div class="l">Produtos cadastrados</div></button>
     <button class="kpi ${baixos.length ? 'warn' : ''}" data-tab="estoque"><div class="n">${baixos.length}</div><div class="l">Estoque baixo / zerado</div></button>
-    <button class="kpi" data-tab="gps"><div class="n">${naRua}</div><div class="l">Itens na rua (GPS)</div></button>`;
+    <button class="kpi ${parados.length ? 'alert' : ''}" data-tab="gps"><div class="n">${naRua}</div><div class="l">Itens na rua (GPS)${parados.length ? ` · ${parados.length} parado(s)` : ''}</div></button>`;
   const vazio = t => `<li class="empty">${t}</li>`;
   $('#dash-tarefas').innerHTML = tar7.length ? tar7.map(tarItem).join('') : vazio('Nenhuma tarefa com prazo nos próximos 7 dias.');
+  const lim = gpsLimites();
+  $('#dash-parados').innerHTML = parados.length ? parados.map(g => `<li class="li-click" data-gps="${g.id}" tabindex="0"><div><b>${esc(gpsTitulo(g))}</b><small>Com ${esc(g.responsavel)} · ${esc(g.obra)} · desde ${fmtData(g.desde)}</small></div><span class="badge l-atrasado">${gpsParado(g)} dias</span></li>`).join('')
+    : vazio(`Nenhum item parado. Alerta a partir de ${lim.item} dias com a mesma pessoa (nitrogênio: ${lim.n2} dias).`);
   $('#dash-hoje').innerHTML = hojeL.length ? hojeL.map(lembItem).join('') : vazio('Nada agendado para hoje.');
   $('#dash-prox').innerHTML = prox.length ? prox.map(lembItem).join('') : vazio('Nenhum evento futuro.');
   $('#dash-atras').innerHTML = atras.length ? atras.map(lembItem).join('') : vazio('Nenhum lembrete atrasado.');
@@ -1251,6 +1268,19 @@ function abrirLembrete(id){
    gps_movimentacoes (histórico completo, sem limite). O card mostra o ciclo atual: até 15 movimentações;
    na 16ª o contador zera e começa o ciclo seguinte. */
 const GPS_LIMITE = 15;
+/* Alerta de item parado na rua: dias com a mesma pessoa (configurável em Configurações) */
+const GPS_DIAS_PADRAO = {item: 15, n2: 7};
+function gpsLimites(){
+  const c = db.config.find(x => x.id === 'geral') || {};
+  const ok = n => Number.isInteger(n) && n > 0;
+  return {item: ok(c.gpsDiasItem) ? c.gpsDiasItem : GPS_DIAS_PADRAO.item, n2: ok(c.gpsDiasN2) ? c.gpsDiasN2 : GPS_DIAS_PADRAO.n2};
+}
+/* Retorna os dias parado se passou do limite; senão null */
+function gpsParado(g){
+  if (g.local !== 'rua' || !dataValida(g.desde)) return null;
+  const dias = diasEntre(g.desde, hojeISO()); const lim = gpsLimites();
+  return dias >= (g.nitrogenio ? lim.n2 : lim.item) ? dias : null;
+}
 const ehNitroNome = s => norm(s).includes('nitrog');
 const gpsById = id => db.gps.find(g => g.id === id);
 const gpsTitulo = g => g.nitrogenio ? `${g.nome} — Bujão nº ${g.numeroBujao}` : g.nome + (g.identificacao ? ` (${g.identificacao})` : '');
@@ -1295,7 +1325,7 @@ function gpsInfoHTML(g){
   }
   return `<dl class="g-info">${linhas.map(([a, b]) => `<dt>${a}</dt><dd>${b}</dd>`).join('')}</dl>`;
 }
-const gpsBadges = g => `<span class="badge ${g.local === 'rua' ? 'b-rua' : 'b-est'}">${g.local === 'rua' ? '📍 Na rua' : '📦 No estoque'}</span>${g.nitrogenio ? ` <span class="badge b-n2">Nitrogênio · nº ${esc(g.numeroBujao)}</span>` : ''}`;
+const gpsBadges = g => { const pd = gpsParado(g); return `<span class="badge ${g.local === 'rua' ? 'b-rua' : 'b-est'}">${g.local === 'rua' ? '📍 Na rua' : '📦 No estoque'}</span>${g.nitrogenio ? ` <span class="badge b-n2">Nitrogênio · nº ${esc(g.numeroBujao)}</span>` : ''}${pd != null ? ` <span class="badge l-atrasado">⚠ Parado há ${pd} dias</span>` : ''}`; };
 function gpsBotoes(g){
   return g.local === 'rua'
     ? `<button class="btn sm primary" data-gacao="transferencia" data-id="${g.id}">⇄ Passar responsabilidade</button><button class="btn sm" data-gacao="retorno" data-id="${g.id}">↩ Voltou ao estoque</button>`
@@ -1322,6 +1352,7 @@ function renderGps(){
   let gs = [...db.gps].sort(ordGps);
   if (filtroGps === 'rua' || filtroGps === 'estoque') gs = gs.filter(g => g.local === filtroGps);
   else if (filtroGps === 'n2') gs = gs.filter(g => g.nitrogenio);
+  else if (filtroGps === 'parados') gs = gs.filter(g => gpsParado(g) != null).sort((a, b) => gpsParado(b) - gpsParado(a));
   if (q) gs = gs.filter(g => [g.nome, g.identificacao, g.numeroBujao, g.responsavel, g.obra].some(x => norm(x).includes(q)));
   const rua = db.gps.filter(g => g.local === 'rua').length;
   $('#gps-resumo').textContent = `${db.gps.length} item(ns) cadastrado(s) · ${rua} na rua · ${db.gps.length - rua} no estoque`;
@@ -2145,6 +2176,24 @@ $('#btn-nova-nota').onclick = async () => {
 /* Salva notas em edição antes de sair da página */
 window.addEventListener('beforeunload', () => Object.keys(notaTimers).forEach(id => salvarNota(id)));
 
+/* ================= Configurações: limites do alerta do GPS ================= */
+function preencheCfgGps(){
+  const f = $('#f-cfg-gps'); if (f.contains(document.activeElement)) return;
+  const l = gpsLimites(); $('#cfg-dias-item').value = l.item; $('#cfg-dias-n2').value = l.n2;
+}
+$('#f-cfg-gps').addEventListener('submit', async e => {
+  e.preventDefault(); clearErr(e.currentTarget); const errs = [];
+  if (!abaDisponivel('config')) return;
+  const a = Number($('#cfg-dias-item').value), b = Number($('#cfg-dias-n2').value);
+  if (!Number.isInteger(a) || a < 1) errs.push([$('#cfg-dias-item'), 'Informe um número inteiro de dias (1 ou mais).']);
+  if (!Number.isInteger(b) || b < 1) errs.push([$('#cfg-dias-n2'), 'Informe um número inteiro de dias (1 ou mais).']);
+  if (errs.length) return showErrs(errs);
+  if (await commit(d => {
+    let c = d.config.find(x => x.id === 'geral'); if (!c) { c = {id: 'geral'}; d.config.push(c); }
+    c.gpsDiasItem = a; c.gpsDiasN2 = b; c.editadoEm = new Date().toISOString();
+  })) { document.activeElement.blur(); preencheCfgGps(); toast(`Limites salvos: ${a} dias (itens) e ${b} dias (nitrogênio).`); }
+});
+
 /* ================= Configurações: backup e exportação ================= */
 function baixar(blob, nome){
   const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = nome; document.body.appendChild(a); a.click(); a.remove();
@@ -2463,6 +2512,7 @@ function gerarPlanilha(){
     kv('Tarefas em aberto', db.tarefas.filter(t => !t.concluida).length),
     kv('Tarefas atrasadas', db.tarefas.filter(t => stTar(t) === 'atrasada').length),
     kv('Notas', db.notas.length),
+    kv(`Itens do GPS parados na rua (limite ${gpsLimites().item} dias; nitrogênio ${gpsLimites().n2})`, db.gps.filter(g => gpsParado(g) != null).length),
     R([]),
     R([{v: 'Aba', t: 's', s: XS.head}, {v: 'Conteúdo', t: 's', s: XS.head}], 22),
     ...[
@@ -2512,6 +2562,7 @@ $('#imp-file').addEventListener('change', e => {
 renderAll();
 conectar();
 setInterval(() => { renderDashboard(); renderLembretes(); renderTarefas(); }, 30000);
+setInterval(() => renderGps(), 10 * 60000);
 </script>
 </body>
 </html>
