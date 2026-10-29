@@ -1,0 +1,1299 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CRM de Estoque</title>
+<style>
+:root{
+  --bg:#f3f4f6;--surface:#ffffff;--surface-2:#f8f9fb;--border:#e1e4ea;--text:#1b2230;--muted:#667085;
+  --primary:#2453c9;--primary-ink:#fff;--primary-soft:#e7edfb;
+  --ok:#17784a;--ok-soft:#e2f4ea;--warn:#9a5800;--warn-soft:#fff1d6;--danger:#c0302b;--danger-soft:#fde7e6;
+  --in:#17784a;--out:#b3471d;--radius:10px;--shadow:0 1px 2px rgba(16,24,40,.06),0 2px 6px rgba(16,24,40,.06);
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#0e1116;--surface:#171b22;--surface-2:#1d222b;--border:#2b313c;--text:#e6e9ef;--muted:#98a2b3;
+  --primary:#6b93ff;--primary-ink:#0e1116;--primary-soft:#1d2a4a;
+  --ok:#4cc38a;--ok-soft:#14301f;--warn:#f0b04a;--warn-soft:#33270f;--danger:#ff7a72;--danger-soft:#3a1715;
+  --in:#4cc38a;--out:#ff9a6b;--shadow:none;}}
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+html,body{margin:0}
+body{background:var(--bg);color:var(--text);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+body.noscroll{overflow:hidden}
+button,input,select,textarea{font:inherit;color:inherit}
+header.top{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:20}
+.top-in{max-width:1200px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.brand{font-weight:700;font-size:17px;white-space:nowrap}
+nav.tabs{display:flex;gap:4px;overflow-x:auto;flex:1;scrollbar-width:none}
+nav.tabs::-webkit-scrollbar{display:none}
+.tab{background:none;border:0;padding:8px 12px;border-radius:8px;cursor:pointer;color:var(--muted);font-weight:600;white-space:nowrap}
+.tab:hover{background:var(--surface-2);color:var(--text)}
+.tab.active{background:var(--primary-soft);color:var(--primary)}
+main{max-width:1200px;margin:0 auto;padding:20px 16px 60px}
+h1{font-size:22px;margin:0 0 16px}
+h2{font-size:16px;margin:0 0 12px}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);margin-bottom:16px}
+.grid-dash{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.grid-dash .panel{margin:0}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:16px}
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px;cursor:pointer;text-align:left;box-shadow:var(--shadow)}
+.kpi:hover{border-color:var(--primary)}
+.kpi .n{font-size:28px;font-weight:700;line-height:1.1}
+.kpi .l{color:var(--muted);font-size:13px}
+.kpi.alert .n{color:var(--danger)}
+.kpi.warn .n{color:var(--warn)}
+ul.list{list-style:none;margin:0;padding:0}
+ul.list li{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 6px;border-bottom:1px solid var(--border)}
+ul.list li:last-child{border-bottom:0}
+ul.list li small{display:block;color:var(--muted)}
+.li-click{cursor:pointer;border-radius:6px}
+.li-click:hover{background:var(--surface-2)}
+.empty{color:var(--muted);padding:10px 4px;font-size:14px}
+.badge{display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;font-weight:600;white-space:nowrap}
+.b-ok,.l-concluido{background:var(--ok-soft);color:var(--ok)}
+.b-baixo,.l-pendente{background:var(--warn-soft);color:var(--warn)}
+.b-zero,.l-atrasado{background:var(--danger-soft);color:var(--danger)}
+.muted{color:var(--muted)}.small{font-size:13px}
+.btn{border:1px solid var(--border);background:var(--surface);padding:9px 14px;border-radius:8px;cursor:pointer;font-weight:600}
+.btn:hover{background:var(--surface-2)}
+.btn.primary{background:var(--primary);color:var(--primary-ink);border-color:var(--primary)}
+.btn.primary:hover{filter:brightness(1.07)}
+.btn.primary:disabled{opacity:.45;cursor:not-allowed;filter:none}
+.btn.danger{color:var(--danger);border-color:var(--danger)}
+.btn.sm{padding:6px 10px;font-size:13px}
+.actions{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;margin-top:14px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.field{display:flex;flex-direction:column;gap:4px;margin-bottom:12px}
+.field label{font-size:13px;font-weight:600}
+.field input,.field select,.field textarea{border:1px solid var(--border);background:var(--surface);border-radius:8px;padding:9px 10px;width:100%}
+.field input:focus,.field select:focus,.field textarea:focus{outline:2px solid var(--primary-soft);border-color:var(--primary)}
+.field.invalid input,.field.invalid select,.field.invalid textarea{border-color:var(--danger)}
+.err-msg{color:var(--danger);font-size:12px;font-weight:600}
+.req{color:var(--danger)}
+.check{display:flex;gap:6px;align-items:center;font-weight:400 !important;font-size:13px;margin-top:4px}
+.check input{width:auto}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:0 12px}
+.span2{grid-column:span 2}
+fieldset.loc{border:1px solid var(--border);border-radius:8px;padding:10px 12px 0;margin:0 0 12px}
+fieldset.loc legend{font-size:13px;font-weight:700;padding:0 4px}
+.hint{color:var(--muted);font-size:13px;margin:4px 0 0}
+.box-new{background:var(--surface-2);border:1px dashed var(--border);border-radius:8px;padding:12px;margin-bottom:12px}
+/* Busca */
+.search{display:flex;align-items:center;gap:10px;background:var(--surface);border:2px solid var(--primary);border-radius:12px;padding:10px 14px;margin-bottom:12px}
+.search svg{flex:none;width:26px;height:26px;color:var(--primary)}
+.search input{border:0;outline:0;background:transparent;font-size:17px;flex:1;min-width:0}
+.results{display:grid;gap:8px}
+.res{display:grid;grid-template-columns:1fr auto;gap:4px 12px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 14px;cursor:pointer;text-align:left;width:100%}
+.res:hover,.res:focus{border-color:var(--primary);outline:0}
+.res .nm{font-weight:700}
+.res .qt{font-weight:700;font-size:17px;text-align:right}
+.loc-line{font-weight:600}
+.loc-line .arr{color:var(--muted);margin:0 2px}
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.chip{border:1px solid var(--border);background:var(--surface);border-radius:999px;padding:5px 12px;cursor:pointer;font-size:13px;font-weight:600}
+.chip.on{background:var(--primary);color:var(--primary-ink);border-color:var(--primary)}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--border);vertical-align:top}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.03em;color:var(--muted)}
+tr.click{cursor:pointer}
+tr.click:hover td{background:var(--surface-2)}
+td.num,th.num{text-align:right;white-space:nowrap}
+/* Cards de movimentação */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.mcard{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--in);border-radius:10px;padding:12px;cursor:pointer;display:flex;flex-direction:column;gap:3px}
+.mcard.saida{border-left-color:var(--out)}
+.mcard:hover,.mcard:focus{border-color:var(--primary);outline:0}
+.mc-top{display:flex;justify-content:space-between;font-size:12px}
+.tag{font-weight:700;text-transform:uppercase;letter-spacing:.04em;font-size:11px}
+.mcard .mc-qtd{font-size:18px;font-weight:700}
+.mcard.entrada .mc-qtd,.mcard.entrada .tag{color:var(--in)}
+.mcard.saida .mc-qtd,.mcard.saida .tag{color:var(--out)}
+.okt{color:var(--ok)}
+.split{display:grid;grid-template-columns:minmax(300px,420px) 1fr;gap:16px;align-items:start}
+/* Autorização */
+.auth{border:2px solid var(--warn);background:var(--warn-soft);border-radius:10px;padding:12px;margin-bottom:12px}
+.auth-title{font-weight:800;font-size:16px;margin-bottom:8px;color:var(--text)}
+.auth .opts{display:flex;gap:10px}
+.auth .opt{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;border:2px solid var(--border);background:var(--surface);border-radius:8px;padding:10px;font-weight:700;cursor:pointer}
+.auth .opt input{width:auto;margin:0}
+.auth .opt:has(input:checked){border-color:var(--primary);background:var(--primary-soft)}
+.auth.invalid{border-color:var(--danger)}
+.alert-box{background:var(--danger-soft);color:var(--danger);border:1px solid var(--danger);border-radius:8px;padding:10px 12px;font-weight:700;margin:10px 0 0}
+.info-box{background:var(--primary-soft);border-radius:8px;padding:10px 12px;font-size:14px;margin-bottom:12px}
+.review{border:2px solid var(--primary);border-radius:10px;padding:14px;margin-top:12px;background:var(--surface-2)}
+.review dl{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin:0}
+.review dt{color:var(--muted);font-size:13px}
+.review dd{margin:0;font-weight:600}
+/* Modal */
+.modal{position:fixed;inset:0;background:rgba(10,14,20,.55);display:flex;align-items:flex-start;justify-content:center;padding:24px 12px;overflow-y:auto;z-index:50}
+.modal[hidden]{display:none}
+.modal-card{background:var(--surface);border-radius:12px;width:100%;max-width:720px;box-shadow:0 20px 50px rgba(0,0,0,.3)}
+.modal-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--border)}
+.modal-head h2{margin:0;font-size:18px}
+.x{background:none;border:0;font-size:24px;line-height:1;cursor:pointer;color:var(--muted);padding:4px 8px}
+.modal-body{padding:16px}
+.big-qty{font-size:34px;font-weight:800;line-height:1}
+.detail{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0}
+.detail div{background:var(--surface-2);border-radius:8px;padding:8px 10px}
+.detail span{display:block;font-size:12px;color:var(--muted)}
+.detail b{font-size:15px}
+.comments{display:flex;flex-direction:column;gap:8px;margin:10px 0}
+.cmt{background:var(--surface-2);border-radius:8px;padding:8px 10px;font-size:14px}
+.cmt .meta{font-size:12px;color:var(--muted);margin-bottom:2px}
+.cmt.oc{border-left:3px solid var(--danger)}
+.toasts{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;gap:8px;z-index:100;width:min(92vw,420px)}
+.toast{padding:10px 14px;border-radius:8px;font-weight:600;box-shadow:0 6px 20px rgba(0,0,0,.2);background:var(--ok);color:#fff}
+.toast.t-err{background:var(--danger)}
+.section-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.section-head h1,.section-head h2{margin:0}
+.inp{border:1px solid var(--border);background:var(--surface);border-radius:8px;padding:8px 10px}
+.conn{font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px;white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
+.conn::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor}
+.c-on{background:var(--ok-soft);color:var(--ok)}
+.c-off,.c-wait{background:var(--warn-soft);color:var(--warn)}
+.c-err{background:var(--danger-soft);color:var(--danger)}
+.banner{background:var(--danger);color:#fff;font-weight:600;text-align:center;padding:10px 16px}
+body.busy,body.busy *{cursor:progress !important}
+.grid-config{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;align-items:stretch}
+.grid-config .panel{margin:0}
+.cfg{display:flex;flex-direction:column}
+.cfg .hint{flex:1;margin:0 0 14px}
+.cfg-actions{display:flex;gap:8px;flex-wrap:wrap}
+.cfg-actions .btn{flex:1 1 200px;text-align:center}
+@media (max-width:820px){.split{grid-template-columns:1fr}}
+@media (max-width:560px){.grid2,.grid3{grid-template-columns:1fr}.span2{grid-column:auto}.top-in{gap:8px}.brand{width:100%}}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <div class="brand">📦 CRM de Estoque</div>
+  <nav class="tabs" id="tabs">
+    <button class="tab active" data-tab="dashboard">Dashboard</button>
+    <button class="tab" data-tab="estoque">Estoque</button>
+    <button class="tab" data-tab="entradas">Entradas</button>
+    <button class="tab" data-tab="saidas">Saídas</button>
+    <button class="tab" data-tab="lembretes">Lembretes</button>
+    <button class="tab" data-tab="config">Configurações</button>
+  </nav>
+  <span class="conn c-wait" id="conn">Conectando…</span>
+</div></header>
+<div class="banner" id="banner" hidden></div>
+
+<main>
+<!-- DASHBOARD -->
+<section class="view" id="v-dashboard">
+  <h1>Dashboard</h1>
+  <div class="kpis" id="kpis"></div>
+  <div class="grid-dash">
+    <div class="panel"><h2>Agenda de hoje</h2><ul class="list" id="dash-hoje"></ul></div>
+    <div class="panel"><h2>Próximos eventos</h2><ul class="list" id="dash-prox"></ul></div>
+    <div class="panel"><h2>Lembretes atrasados</h2><ul class="list" id="dash-atras"></ul></div>
+    <div class="panel"><h2>Estoque baixo / zerado</h2><ul class="list" id="dash-baixo"></ul></div>
+    <div class="panel"><h2>Últimas movimentações</h2><ul class="list" id="dash-movs"></ul></div>
+  </div>
+</section>
+
+<!-- ESTOQUE -->
+<section class="view" id="v-estoque" hidden>
+  <div class="section-head"><h1>Estoque</h1><button class="btn primary" id="btn-novo-prod">+ Novo produto</button></div>
+  <label class="search" for="busca">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.8-4.8"/></svg>
+    <input id="busca" type="search" placeholder="Pesquisar por nome do produto ou código/SKU…" autocomplete="off" aria-label="Pesquisar produto">
+  </label>
+  <div id="busca-area" hidden><div class="results" id="busca-res"></div></div>
+  <div id="lista-area" class="panel">
+    <div class="filters" id="est-filtros">
+      <button class="chip on" data-f="todos">Todos</button>
+      <button class="chip" data-f="baixo">Estoque baixo</button>
+      <button class="chip" data-f="zero">Sem estoque</button>
+    </div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Produto</th><th>Código</th><th class="num">Quantidade</th><th>Localização</th><th>Status</th></tr></thead>
+      <tbody id="est-tbody"></tbody>
+    </table></div>
+  </div>
+</section>
+
+<!-- ENTRADAS -->
+<section class="view" id="v-entradas" hidden>
+  <h1>Entradas</h1>
+  <div class="split">
+    <form class="panel" id="f-ent" novalidate>
+      <h2>Registrar entrada</h2>
+      <div class="field"><label for="ent-prod">Produto <b class="req">*</b></label><select id="ent-prod"></select></div>
+      <div id="ent-novo" class="box-new" hidden><b class="small">Cadastro do novo produto</b><div style="margin-top:8px" id="ent-novo-campos"></div></div>
+      <div class="grid2">
+        <div class="field"><label for="ent-qtd">Quantidade recebida <b class="req">*</b></label><input id="ent-qtd" type="number" min="0" step="any" inputmode="decimal"></div>
+        <div class="field"><label for="ent-data">Data da entrada <b class="req">*</b></label><input id="ent-data" type="date"></div>
+      </div>
+      <div id="ent-resp-wrap"></div>
+      <div class="field"><label for="ent-obs">Observação (opcional)</label><textarea id="ent-obs" rows="2"></textarea></div>
+      <div class="actions"><button type="reset" class="btn">Limpar</button><button class="btn primary" type="submit">Revisar entrada</button></div>
+      <div id="ent-review"></div>
+    </form>
+    <div>
+      <div class="section-head"><h2>Entradas registradas</h2><input class="inp" id="ent-filtro" type="search" placeholder="Filtrar…"></div>
+      <div class="cards" id="ent-cards"></div>
+    </div>
+  </div>
+</section>
+
+<!-- SAÍDAS -->
+<section class="view" id="v-saidas" hidden>
+  <h1>Saídas</h1>
+  <div class="split">
+    <form class="panel" id="f-sai" novalidate>
+      <h2>Registrar saída</h2>
+      <div class="field"><label for="sai-prod">Produto <b class="req">*</b></label><select id="sai-prod"></select></div>
+      <div id="sai-saldo"></div>
+      <div class="grid2">
+        <div class="field"><label for="sai-qtd">Quantidade retirada <b class="req">*</b></label><input id="sai-qtd" type="number" min="0" step="any" inputmode="decimal"></div>
+        <div class="field"><label for="sai-data">Data da retirada <b class="req">*</b></label><input id="sai-data" type="date"></div>
+      </div>
+      <div id="sai-quem-wrap"></div>
+      <div class="auth" id="sai-auth">
+        <div class="auth-title">Autorizado por Ricardo? <b class="req">*</b></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="sai-aut" value="sim"> Sim</label>
+          <label class="opt"><input type="radio" name="sai-aut" value="nao"> Não</label>
+        </div>
+        <div id="sai-aut-msg"></div>
+      </div>
+      <div class="field"><label for="sai-obs">Observação (opcional)</label><textarea id="sai-obs" rows="2"></textarea></div>
+      <div class="actions"><button type="reset" class="btn">Limpar</button><button class="btn primary" id="sai-btn" type="submit">Confirmar saída</button></div>
+    </form>
+    <div>
+      <div class="section-head"><h2>Saídas registradas</h2><input class="inp" id="sai-filtro" type="search" placeholder="Filtrar…"></div>
+      <div class="cards" id="sai-cards"></div>
+    </div>
+  </div>
+</section>
+
+<!-- LEMBRETES -->
+<section class="view" id="v-lembretes" hidden>
+  <h1>Lembretes</h1>
+  <div class="split">
+    <form class="panel" id="f-lemb" novalidate>
+      <h2>Novo lembrete</h2>
+      <div id="lemb-campos"></div>
+      <div class="actions"><button class="btn primary" type="submit">Salvar lembrete</button></div>
+    </form>
+    <div class="panel">
+      <div class="filters" id="lemb-filtros">
+        <button class="chip on" data-f="abertos">Em aberto</button>
+        <button class="chip" data-f="pendente">Pendentes</button>
+        <button class="chip" data-f="atrasado">Atrasados</button>
+        <button class="chip" data-f="concluido">Concluídos</button>
+        <button class="chip" data-f="todos">Todos</button>
+      </div>
+      <ul class="list" id="lemb-lista"></ul>
+    </div>
+  </div>
+</section>
+
+<!-- CONFIG -->
+<section class="view" id="v-config" hidden>
+  <h1>Configurações</h1>
+  <div class="grid-config">
+    <div class="panel cfg">
+      <h2>Backup dos dados</h2>
+      <p class="hint">Os dados ficam no banco online (Firebase) e aparecem em todos os computadores. Exporte um backup de vez em quando para ter uma cópia própria. Importar um backup substitui todos os dados do banco online.</p>
+      <div class="cfg-actions">
+        <button class="btn" id="btn-export">Exportar backup (.json)</button>
+        <label class="btn" for="imp-file">Importar backup</label>
+        <input type="file" id="imp-file" accept=".json,application/json" hidden>
+      </div>
+    </div>
+    <div class="panel cfg">
+      <h2>Exportar para Excel</h2>
+      <p class="hint">Gera uma planilha com todos os produtos (quantidade, unidade, localização e status) e, em abas separadas, entradas, saídas, ajustes, histórico, comentários, lembretes e um resumo.</p>
+      <div class="cfg-actions">
+        <button class="btn primary" id="btn-xlsx">Exportar Estoque Completo (.xlsx)</button>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<datalist id="pessoas"></datalist>
+<datalist id="unidades"><option value="un"><option value="m"><option value="cm"><option value="kg"><option value="g"><option value="rolo"><option value="peça"><option value="caixa"><option value="pacote"><option value="par"><option value="L"></datalist>
+
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal-card">
+    <div class="modal-head"><h2 id="modal-title"></h2><button class="x" data-close aria-label="Fechar">×</button></div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+<div class="toasts" id="toasts"></div>
+
+<script type="module">
+/* ================= Utilidades ================= */
+const KEY = 'crm_estoque_v1';
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 9);
+const norm = s => String(s ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+const pad = n => String(n).padStart(2, '0');
+const round3 = n => Math.round(n * 1000) / 1000;
+function hojeISO(){ const d = new Date(); return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+function fmtData(s){ if (!s) return '—'; const [y, m, d] = s.split('-'); return `${d}/${m}/${y}`; }
+function fmtHora(iso){ const d = new Date(iso); return pad(d.getHours()) + ':' + pad(d.getMinutes()); }
+function fmtDataHora(iso){ const d = new Date(iso); return `${pad(d.getDate())}/${pad(d.getMonth() + 1)}/${d.getFullYear()} às ${pad(d.getHours())}:${pad(d.getMinutes())}`; }
+function fmtQtd(n){ return Number(n).toLocaleString('pt-BR', {maximumFractionDigits: 3}); }
+function dataValida(s){
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(s || '')) return false;
+  const [y, m, d] = s.split('-').map(Number); const dt = new Date(y, m - 1, d);
+  return dt.getFullYear() === y && dt.getMonth() === m - 1 && dt.getDate() === d && y >= 2000 && y <= 2100;
+}
+function parseQtd(s){ const t = String(s ?? '').trim().replace(',', '.'); if (t === '') return NaN; return Number(t); }
+
+/* ================= Banco de dados online (Firebase Firestore) ================= */
+/* Configuração do seu projeto Firebase (copiada do console: Configurações do projeto → Seus apps). */
+const firebaseConfig = {
+  apiKey: "AIzaSyAIseV5i4YDenoBhMXlga5DptimLOxyW0I",
+  authDomain: "estoque-bbca8.firebaseapp.com",
+  projectId: "estoque-bbca8",
+  storageBucket: "estoque-bbca8.firebasestorage.app",
+  messagingSenderId: "460313875809",
+  appId: "1:460313875809:web:99b5b3f0c67e3dae82a120"
+};
+const FB_VER = '10.14.1';
+const COL = {produtos: 'produtos', movs: 'movimentacoes', lembretes: 'lembretes'};
+
+function emptyDb(){ return {produtos: [], movs: [], lembretes: []}; }
+function limpaDb(d){
+  const ok = a => Array.isArray(a) ? a.filter(x => x && typeof x.id === 'string' && x.id && !x.id.includes('/')) : [];
+  return {produtos: ok(d.produtos), movs: ok(d.movs), lembretes: ok(d.lembretes)};
+}
+let db = emptyDb();
+let FB = null, fsdb = null, pronto = false, salvando = false;
+
+/* Comparação estável (independe da ordem das chaves) */
+function stable(v){
+  if (v === null || v === undefined) return 'null';
+  if (typeof v !== 'object') return JSON.stringify(v);
+  if (Array.isArray(v)) return '[' + v.map(stable).join(',') + ']';
+  return '{' + Object.keys(v).filter(k => v[k] !== undefined).sort().map(k => JSON.stringify(k) + ':' + stable(v[k])).join(',') + '}';
+}
+function diffDb(a, b){
+  const ops = [];
+  Object.keys(COL).forEach(k => {
+    const A = new Map(a[k].map(x => [x.id, x])), B = new Map(b[k].map(x => [x.id, x]));
+    B.forEach((v, id) => { const o = A.get(id); if (!o || stable(o) !== stable(v)) ops.push({k, id, antes: o || null, depois: v}); });
+    A.forEach((v, id) => { if (!B.has(id)) ops.push({k, id, antes: v, depois: null}); });
+  });
+  return ops;
+}
+function aplicaOps(ops){
+  ops.forEach(o => {
+    const arr = db[o.k]; const i = arr.findIndex(x => x.id === o.id);
+    if (o.depois) { if (i >= 0) arr[i] = o.depois; else arr.push(o.depois); }
+    else if (i >= 0) arr.splice(i, 1);
+  });
+}
+function msgErroBanco(e){
+  if (e && e.message === 'CONFLITO') return 'Estes dados foram alterados em outro computador agora há pouco. A tela já foi atualizada: confira e repita a operação.';
+  if (e && e.code === 'permission-denied') return 'O Firebase recusou a gravação (verifique as regras do Firestore). Nada foi salvo.';
+  if (!navigator.onLine || (e && (e.code === 'unavailable' || e.code === 'deadline-exceeded'))) return 'Sem conexão com a internet. Nada foi salvo — tente novamente quando a conexão voltar.';
+  return 'Não foi possível salvar no banco online. Nada foi alterado.';
+}
+
+/* Toda alteração passa por aqui: aplica numa cópia, grava no Firestore numa transação
+   (tudo ou nada) e só então atualiza a tela. Se outro computador alterou os mesmos
+   registros nesse meio-tempo, a gravação é recusada — sem saldo incorreto. */
+async function commit(fn){
+  if (!pronto) { toast('Aguarde a conexão com o banco de dados.', 'err'); return false; }
+  if (salvando) { toast('Aguarde: salvando a operação anterior…', 'err'); return false; }
+  const draft = JSON.parse(JSON.stringify(db));
+  try { fn(draft); } catch (e) { toast(e.message || 'Operação não concluída.', 'err'); return false; }
+  const ops = diffDb(db, draft);
+  if (!ops.length) return true;
+  salvando = true; document.body.classList.add('busy');
+  try {
+    if (!navigator.onLine) { const er = new Error('offline'); er.code = 'unavailable'; throw er; }
+    await FB.runTransaction(fsdb, async tx => {
+      const refs = ops.map(o => FB.doc(fsdb, COL[o.k], o.id));
+      const snaps = [];
+      for (const r of refs) snaps.push(await tx.get(r));
+      snaps.forEach((s, i) => {
+        const atual = s.exists() ? stable({...s.data(), id: s.id}) : 'null';
+        if (atual !== stable(ops[i].antes)) throw new Error('CONFLITO');
+      });
+      ops.forEach((o, i) => o.depois ? tx.set(refs[i], o.depois) : tx.delete(refs[i]));
+    });
+    aplicaOps(ops); renderAll(); return true;
+  } catch (e) {
+    if (!(e && (e.message === 'CONFLITO' || e.code === 'unavailable'))) console.error(e);
+    toast(msgErroBanco(e), 'err'); return false;
+  } finally { salvando = false; document.body.classList.remove('busy'); }
+}
+
+/* Substitui todos os dados do banco (importação de backup), em lotes */
+async function substituirTudo(novo){
+  if (!navigator.onLine) { const er = new Error('offline'); er.code = 'unavailable'; throw er; }
+  const writes = [];
+  Object.keys(COL).forEach(k => {
+    const ids = new Set(novo[k].map(x => x.id));
+    db[k].forEach(x => { if (!ids.has(x.id)) writes.push({k, id: x.id, data: null}); });
+    novo[k].forEach(x => writes.push({k, id: x.id, data: x}));
+  });
+  for (let i = 0; i < writes.length; i += 400) {
+    const b = FB.writeBatch(fsdb);
+    writes.slice(i, i + 400).forEach(w => { const r = FB.doc(fsdb, COL[w.k], w.id); w.data ? b.set(r, w.data) : b.delete(r); });
+    await b.commit();
+  }
+}
+
+function setStatus(tipo, txt){
+  const el = $('#conn'); el.className = 'conn c-' + tipo; el.textContent = txt;
+}
+async function conectar(){
+  setStatus('wait', 'Conectando…');
+  try {
+    const base = `https://www.gstatic.com/firebasejs/${FB_VER}/`;
+    const [appMod, fsMod] = await Promise.all([import(base + 'firebase-app.js'), import(base + 'firebase-firestore.js')]);
+    const app = appMod.initializeApp(firebaseConfig);
+    try {
+      fsdb = fsMod.initializeFirestore(app, {ignoreUndefinedProperties: true, localCache: fsMod.persistentLocalCache({tabManager: fsMod.persistentMultipleTabManager()})});
+    } catch (e) {
+      fsdb = fsMod.initializeFirestore(app, {ignoreUndefinedProperties: true});
+    }
+    FB = fsMod;
+  } catch (e) {
+    console.error(e);
+    setStatus('err', 'Sem conexão');
+    $('#banner').hidden = false;
+    $('#banner').textContent = 'Não foi possível carregar o banco de dados online. Verifique a internet e recarregue a página. Nada pode ser registrado enquanto isso.';
+    return;
+  }
+  const carregado = {produtos: false, movs: false, lembretes: false};
+  const cache = {produtos: true, movs: true, lembretes: true};
+  Object.keys(COL).forEach(k => {
+    FB.onSnapshot(FB.collection(fsdb, COL[k]), {includeMetadataChanges: true}, snap => {
+      db[k] = snap.docs.map(d => ({...d.data(), id: d.id}));
+      carregado[k] = true; cache[k] = snap.metadata.fromCache;
+      const tudo = Object.values(carregado).every(Boolean);
+      if (tudo && !pronto) { pronto = true; $('#banner').hidden = true; aoConectar(); }
+      if (tudo) {
+        const off = Object.values(cache).some(Boolean);
+        setStatus(off ? 'off' : 'on', off ? 'Offline — só consulta' : 'Online');
+        renderAll();
+      }
+    }, err => {
+      console.error(err);
+      setStatus('err', 'Erro no banco');
+      $('#banner').hidden = false;
+      $('#banner').textContent = err.code === 'permission-denied'
+        ? 'O Firebase recusou o acesso aos dados. Confira as regras do Firestore (Firestore Database → Regras) e recarregue a página.'
+        : 'Erro ao ler o banco de dados online. Recarregue a página.';
+    });
+  });
+}
+/* Na primeira conexão: se o banco online está vazio e este navegador tem dados da versão anterior, oferece enviar */
+async function aoConectar(){
+  try {
+    const raw = localStorage.getItem(KEY);
+    if (!raw || localStorage.getItem(KEY + '_tratado')) return;
+    const local = limpaDb(JSON.parse(raw));
+    const nLocal = local.produtos.length + local.movs.length + local.lembretes.length;
+    const nOnline = db.produtos.length + db.movs.length + db.lembretes.length;
+    if (!nLocal) return;
+    if (nOnline) { localStorage.setItem(KEY + '_tratado', '1'); return; }
+    if (confirm(`Encontramos dados salvos neste navegador (${local.produtos.length} produto(s), ${local.movs.length} movimentação(ões), ${local.lembretes.length} lembrete(s)). Enviar para o banco online para que apareçam em todos os computadores?`)) {
+      await substituirTudo(local); toast('Dados deste navegador enviados ao banco online.');
+    }
+    localStorage.setItem(KEY + '_tratado', '1');
+  } catch (e) { console.error(e); toast(msgErroBanco(e), 'err'); }
+}
+
+const prodById = id => db.produtos.find(p => p.id === id);
+const nomeProd = m => (prodById(m.produtoId) || {}).nome || m.produtoNome;
+
+function statusEstoque(p){
+  if (p.saldo <= 0) return {k: 'zero', t: 'Sem estoque'};
+  if (p.minimo != null && p.saldo <= p.minimo) return {k: 'baixo', t: 'Estoque baixo'};
+  return {k: 'ok', t: 'Disponível'};
+}
+const badgeEst = p => { const s = statusEstoque(p); return `<span class="badge b-${s.k}">${s.t}</span>`; };
+const locHTML = p => `<span class="loc-line">Andar ${esc(p.andar)} <span class="arr">→</span> Estante ${esc(p.estante)} <span class="arr">→</span> Fileira ${esc(p.fileira)}</span>`;
+
+function stLemb(l){
+  if (l.concluido) return 'concluido';
+  const [y, m, d] = l.data.split('-').map(Number); const [hh, mm] = (l.hora || '23:59').split(':').map(Number);
+  return new Date(y, m - 1, d, hh, mm, 59) < new Date() ? 'atrasado' : 'pendente';
+}
+const ST_LEMB = {pendente: 'Pendente', concluido: 'Concluído', atrasado: 'Atrasado'};
+const lembKey = l => l.data + ' ' + (l.hora || '99:99');
+
+/* ================= Interface geral ================= */
+function toast(msg, type = 'ok'){ const t = document.createElement('div'); t.className = 'toast t-' + type; t.textContent = msg; $('#toasts').appendChild(t); setTimeout(() => t.remove(), 4500); }
+function openModal(title, html){ $('#modal-title').textContent = title; $('#modal-body').innerHTML = html; $('#modal').hidden = false; document.body.classList.add('noscroll'); $('#modal').scrollTop = 0; }
+function closeModal(){ $('#modal').hidden = true; $('#modal-body').innerHTML = ''; document.body.classList.remove('noscroll'); }
+function goTab(t){
+  $$('.tab').forEach(b => b.classList.toggle('active', b.dataset.tab === t));
+  $$('.view').forEach(v => v.hidden = v.id !== 'v-' + t);
+  window.scrollTo(0, 0);
+}
+function clearErr(scope){ $$('.invalid', scope).forEach(e => e.classList.remove('invalid')); $$('.err-msg', scope).forEach(e => e.remove()); }
+function setErr(el, msg){ const f = el.closest('.field') || el.closest('.auth') || el.parentElement; f.classList.add('invalid'); const m = document.createElement('div'); m.className = 'err-msg'; m.textContent = msg; f.appendChild(m); }
+function showErrs(errs){ errs.forEach(([el, m]) => setErr(el, m)); if (errs[0] && errs[0][0].focus) errs[0][0].focus(); toast('Preencha os campos obrigatórios destacados.', 'err'); }
+
+document.addEventListener('click', e => {
+  const t = e.target;
+  if (t.closest('[data-close]') || t === $('#modal')) { closeModal(); return; }
+  const tab = t.closest('[data-tab]'); if (tab) { goTab(tab.dataset.tab); return; }
+  const lemb = t.closest('[data-lemb]'); if (lemb) { abrirLembrete(lemb.dataset.lemb); return; }
+  const mov = t.closest('[data-mov]'); if (mov) { abrirMov(mov.dataset.mov); return; }
+  const prod = t.closest('[data-prod]'); if (prod) { abrirFicha(prod.dataset.prod); return; }
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && !$('#modal').hidden) closeModal();
+  if (e.key === 'Enter' && e.target.matches('[data-mov],[data-lemb],[data-prod]') && e.target.tagName !== 'BUTTON') e.target.click();
+});
+/* ---------- Campos de pessoa: nome completo digitado (sugere nomes já usados) ---------- */
+function pessoaHTML(p, label){
+  return `<div class="field"><label for="${p}-nome">${label} <b class="req">*</b></label>
+  <input id="${p}-nome" list="pessoas" autocomplete="off" placeholder="Nome completo (nome e sobrenome)"></div>`;
+}
+function lerPessoa(p, msgVazio){
+  const inp = $('#' + p + '-nome'); const n = inp.value.trim().replace(/\s+/g, ' ');
+  if (!n) return {err: [inp, msgVazio]};
+  if (n.split(' ').length < 2) return {err: [inp, 'Informe o nome completo (nome e sobrenome).']};
+  return {nome: n};
+}
+function resetPessoa(p){ $('#' + p + '-nome').value = ''; }
+
+/* ---------- Campos de produto (cadastro / edição / entrada) ---------- */
+function prodFieldsHTML(p, pr = {}){
+  return `<div class="grid2">
+    <div class="field span2"><label for="${p}-nome">Nome do produto <b class="req">*</b></label><input id="${p}-nome" value="${esc(pr.nome)}"></div>
+    <div class="field"><label for="${p}-sku">Código / SKU</label><input id="${p}-sku" value="${esc(pr.sku)}"></div>
+    <div class="field"><label for="${p}-unid">Unidade de medida <b class="req">*</b></label><input id="${p}-unid" list="unidades" value="${esc(pr.unidade)}" placeholder="ex.: m, kg, rolo, un"></div>
+  </div>
+  <fieldset class="loc"><legend>Localização física <b class="req">*</b></legend><div class="grid3">
+    <div class="field"><label for="${p}-andar">Andar</label><input id="${p}-andar" value="${esc(pr.andar)}" placeholder="ex.: 2"></div>
+    <div class="field"><label for="${p}-estante">Estante</label><input id="${p}-estante" value="${esc(pr.estante)}" placeholder="ex.: 07"></div>
+    <div class="field"><label for="${p}-fileira">Fileira</label><input id="${p}-fileira" value="${esc(pr.fileira)}" placeholder="ex.: C"></div>
+  </div></fieldset>
+  <div class="grid2"><div class="field"><label for="${p}-min">Estoque mínimo</label><input id="${p}-min" type="number" min="0" step="any" value="${pr.minimo ?? ''}"></div></div>
+  <div class="field"><label for="${p}-obs">Observações do cadastro</label><textarea id="${p}-obs" rows="2">${esc(pr.obs)}</textarea></div>`;
+}
+function lerProd(p, idAtual){
+  const g = k => $('#' + p + '-' + k);
+  const v = {nome: g('nome').value.trim().replace(/\s+/g, ' '), sku: g('sku').value.trim(), unidade: g('unid').value.trim(),
+    andar: g('andar').value.trim(), estante: g('estante').value.trim(), fileira: g('fileira').value.trim(), obs: g('obs').value.trim(), minimo: null};
+  const errs = [];
+  if (!v.nome) errs.push([g('nome'), 'Informe o nome do produto.']);
+  else if (db.produtos.some(x => x.id !== idAtual && norm(x.nome) === norm(v.nome))) errs.push([g('nome'), 'Já existe um produto com este nome.']);
+  if (v.sku && db.produtos.some(x => x.id !== idAtual && x.sku && norm(x.sku) === norm(v.sku))) errs.push([g('sku'), 'Este código já está em outro produto.']);
+  if (!v.unidade) errs.push([g('unid'), 'Informe a unidade de medida.']);
+  if (!v.andar) errs.push([g('andar'), 'Obrigatório.']);
+  if (!v.estante) errs.push([g('estante'), 'Obrigatório.']);
+  if (!v.fileira) errs.push([g('fileira'), 'Obrigatório.']);
+  const mr = g('min').value.trim();
+  if (mr !== '' || g('min').validity.badInput) { const n = parseQtd(mr); if (!isFinite(n) || n < 0) errs.push([g('min'), 'Valor inválido.']); else v.minimo = n; }
+  return {v, errs};
+}
+
+/* ================= Render ================= */
+function renderAll(){
+  renderDashboard(); renderEstoque(); renderBusca(); renderEntradas(); renderSaidas(); renderLembretes(); fillSelects();
+}
+function fillSelects(){
+  [['#ent-prod', true], ['#sai-prod', false]].forEach(([s, novo]) => {
+    const sel = $(s); const v = sel.value; const ps = [...db.produtos].sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR'));
+    sel.innerHTML = `<option value="">Selecione o produto…</option>` + ps.map(p => `<option value="${p.id}">${esc(p.nome)}${p.sku ? ' · ' + esc(p.sku) : ''} — ${fmtQtd(p.saldo)} ${esc(p.unidade)}</option>`).join('') + (novo ? `<option value="__novo">+ Cadastrar novo produto</option>` : '');
+    if ([...sel.options].some(o => o.value === v)) sel.value = v;
+  });
+  const nomes = new Map();
+  db.movs.forEach(m => [m.responsavel, m.quemRetirou].forEach(n => { if (n && !nomes.has(norm(n))) nomes.set(norm(n), n); }));
+  $('#pessoas').innerHTML = [...nomes.values()].sort((a, b) => a.localeCompare(b, 'pt-BR')).map(n => `<option value="${esc(n)}">`).join('');
+  atualizaSaldoSaida();
+}
+
+function renderDashboard(){
+  const hoje = hojeISO();
+  const abertos = db.lembretes.filter(l => !l.concluido);
+  const atras = abertos.filter(l => stLemb(l) === 'atrasado').sort((a, b) => lembKey(a).localeCompare(lembKey(b)));
+  const hojeL = db.lembretes.filter(l => l.data === hoje).sort((a, b) => lembKey(a).localeCompare(lembKey(b)));
+  const prox = abertos.filter(l => l.data > hoje).sort((a, b) => lembKey(a).localeCompare(lembKey(b))).slice(0, 8);
+  const baixos = db.produtos.filter(p => statusEstoque(p).k !== 'ok');
+  $('#kpis').innerHTML = `
+    <button class="kpi" data-tab="lembretes"><div class="n">${abertos.length}</div><div class="l">Tarefas pendentes</div></button>
+    <button class="kpi ${atras.length ? 'alert' : ''}" data-tab="lembretes"><div class="n">${atras.length}</div><div class="l">Lembretes atrasados</div></button>
+    <button class="kpi" data-tab="estoque"><div class="n">${db.produtos.length}</div><div class="l">Produtos cadastrados</div></button>
+    <button class="kpi ${baixos.length ? 'warn' : ''}" data-tab="estoque"><div class="n">${baixos.length}</div><div class="l">Estoque baixo / zerado</div></button>`;
+  const vazio = t => `<li class="empty">${t}</li>`;
+  $('#dash-hoje').innerHTML = hojeL.length ? hojeL.map(lembItem).join('') : vazio('Nada agendado para hoje.');
+  $('#dash-prox').innerHTML = prox.length ? prox.map(lembItem).join('') : vazio('Nenhum evento futuro.');
+  $('#dash-atras').innerHTML = atras.length ? atras.map(lembItem).join('') : vazio('Nenhum lembrete atrasado.');
+  $('#dash-baixo').innerHTML = baixos.length ? baixos.sort((a, b) => a.saldo - b.saldo).slice(0, 8).map(p =>
+    `<li class="li-click" data-prod="${p.id}" tabindex="0"><div><b>${esc(p.nome)}</b><small>${fmtQtd(p.saldo)} ${esc(p.unidade)}${p.minimo != null ? ' · mínimo ' + fmtQtd(p.minimo) : ''}</small></div>${badgeEst(p)}</li>`).join('') : vazio('Todos os produtos com saldo adequado.');
+  const ult = [...db.movs].sort((a, b) => b.registradoEm.localeCompare(a.registradoEm)).slice(0, 6);
+  $('#dash-movs').innerHTML = ult.length ? ult.map(m => `<li class="li-click" data-mov="${m.id}" tabindex="0"><div><b>${esc(nomeProd(m))}</b><small>${tipoLabel(m)} · ${fmtData(m.data)} ${fmtHora(m.registradoEm)} · ${esc(m.tipo === 'saida' ? m.quemRetirou : m.responsavel)}</small></div><b style="color:var(${m.qtd < 0 || m.tipo === 'saida' ? '--out' : '--in'})">${sinal(m)}${fmtQtd(Math.abs(m.qtd))}</b></li>`).join('') : vazio('Nenhuma movimentação ainda.');
+}
+function lembItem(l){
+  const s = stLemb(l);
+  return `<li class="li-click" data-lemb="${l.id}" tabindex="0"><div><b>${esc(l.titulo)}</b><small>${fmtData(l.data)}${l.hora ? ' · ' + l.hora : ''}</small></div><span class="badge l-${s}">${ST_LEMB[s]}</span></li>`;
+}
+const tipoLabel = m => ({entrada: 'Entrada', saida: 'Saída', ajuste: 'Ajuste'}[m.tipo]);
+const sinal = m => m.tipo === 'saida' ? '−' : m.tipo === 'entrada' ? '+' : (m.qtd >= 0 ? '+' : '−');
+
+/* ---------- Estoque ---------- */
+let filtroEst = 'todos';
+function renderEstoque(){
+  let ps = [...db.produtos].sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR'));
+  if (filtroEst !== 'todos') ps = ps.filter(p => statusEstoque(p).k === filtroEst);
+  $('#est-tbody').innerHTML = ps.length ? ps.map(p => `<tr class="click" data-prod="${p.id}" tabindex="0">
+    <td><b>${esc(p.nome)}</b></td><td>${esc(p.sku) || '<span class="muted">—</span>'}</td>
+    <td class="num"><b>${fmtQtd(p.saldo)}</b> ${esc(p.unidade)}</td><td>${locHTML(p)}</td><td>${badgeEst(p)}</td></tr>`).join('')
+    : `<tr><td colspan="5" class="empty">${db.produtos.length ? 'Nenhum produto neste filtro.' : 'Nenhum produto cadastrado. Clique em "+ Novo produto".'}</td></tr>`;
+}
+$('#est-filtros').addEventListener('click', e => { const c = e.target.closest('.chip'); if (!c) return; filtroEst = c.dataset.f; $$('#est-filtros .chip').forEach(x => x.classList.toggle('on', x === c)); renderEstoque(); });
+
+function renderBusca(){
+  const q = norm($('#busca').value);
+  $('#busca-area').hidden = !q; $('#lista-area').hidden = !!q;
+  if (!q) return;
+  const res = db.produtos.filter(p => norm(p.nome).includes(q) || (p.sku && norm(p.sku).includes(q)))
+    .sort((a, b) => (norm(a.nome).startsWith(q) ? 0 : 1) - (norm(b.nome).startsWith(q) ? 0 : 1) || a.nome.localeCompare(b.nome, 'pt-BR'));
+  $('#busca-res').innerHTML = res.length ? res.map(p => `<button class="res" data-prod="${p.id}">
+      <span class="nm">${esc(p.nome)}${p.sku ? ` <span class="muted small">· ${esc(p.sku)}</span>` : ''}</span>
+      <span class="qt">${fmtQtd(p.saldo)} <span class="small muted">${esc(p.unidade)}</span></span>
+      <span class="small">Localização: ${locHTML(p)}</span><span>${badgeEst(p)}</span></button>`).join('')
+    : `<div class="panel" style="text-align:center"><p style="font-weight:700;margin:0 0 10px">Nenhum produto encontrado</p><button class="btn primary" id="btn-cad-busca">+ Cadastrar novo item</button></div>`;
+  const b = $('#btn-cad-busca'); if (b) b.onclick = () => abrirCadastro(null, $('#busca').value.trim());
+}
+$('#busca').addEventListener('input', renderBusca);
+$('#btn-novo-prod').onclick = () => abrirCadastro(null);
+
+function abrirCadastro(id, prefill){
+  const pr = id ? prodById(id) : {nome: prefill || ''};
+  openModal(id ? 'Editar cadastro' : 'Novo produto', `<form id="f-prod" novalidate>${prodFieldsHTML('cp', pr)}
+    ${id ? '' : '<p class="hint">O saldo começa em 0. Registre a quantidade recebida pela aba Entradas.</p>'}
+    <div class="actions"><button type="button" class="btn" data-close>Cancelar</button><button class="btn primary" type="submit">${id ? 'Salvar alterações' : 'Cadastrar produto'}</button></div></form>`);
+  $('#cp-nome').focus();
+  $('#f-prod').onsubmit = async e => {
+    e.preventDefault(); clearErr(e.target);
+    const {v, errs} = lerProd('cp', id); if (errs.length) return showErrs(errs);
+    const novoId = id || uid();
+    const ok = await commit(d => {
+      const agora = new Date().toISOString();
+      if (id) {
+        const p = d.produtos.find(x => x.id === id); if (!p) throw new Error('Produto não encontrado.');
+        const campos = ['nome', 'sku', 'unidade', 'andar', 'estante', 'fileira', 'minimo', 'obs'].filter(k => String(p[k] ?? '') !== String(v[k] ?? ''));
+        Object.assign(p, v); if (campos.length) (p.alteracoes = p.alteracoes || []).push({em: agora, campos});
+      } else d.produtos.push({id: novoId, ...v, saldo: 0, criadoEm: agora, alteracoes: []});
+    });
+    if (ok) { toast(id ? 'Cadastro atualizado.' : 'Produto cadastrado.'); abrirFicha(novoId); }
+  };
+}
+
+const CAMPO_LABEL = {nome: 'nome', sku: 'código', unidade: 'unidade', andar: 'andar', estante: 'estante', fileira: 'fileira', minimo: 'estoque mínimo', obs: 'observações'};
+function abrirFicha(id){
+  const p = prodById(id); if (!p) return;
+  const movs = db.movs.filter(m => m.produtoId === id).sort((a, b) => b.registradoEm.localeCompare(a.registradoEm));
+  openModal(p.nome, `
+    <div class="row" style="justify-content:space-between;align-items:flex-end">
+      <div><div class="muted small">Quantidade atual</div><div class="big-qty">${fmtQtd(p.saldo)} <span style="font-size:18px">${esc(p.unidade)}</span></div></div>${badgeEst(p)}
+    </div>
+    <p style="margin:14px 0 0;font-size:16px">Localização: ${locHTML(p)}</p>
+    <div class="detail">
+      <div><span>Nome do item</span><b>${esc(p.nome)}</b></div>
+      <div><span>Unidade de medida</span><b>${esc(p.unidade)}</b></div>
+      <div><span>Andar</span><b>${esc(p.andar)}</b></div>
+      <div><span>Estante</span><b>${esc(p.estante)}</b></div>
+      <div><span>Fileira</span><b>${esc(p.fileira)}</b></div>
+      <div><span>Código / SKU</span><b>${esc(p.sku) || '—'}</b></div>
+      <div><span>Estoque mínimo</span><b>${p.minimo != null ? fmtQtd(p.minimo) + ' ' + esc(p.unidade) : 'Não configurado'}</b></div>
+    </div>
+    <div class="field"><label>Observações do cadastro</label><div>${p.obs ? esc(p.obs) : '<span class="muted">Sem observações.</span>'}</div></div>
+    <div class="row">
+      <button class="btn primary sm" id="fx-ent">+ Registrar entrada</button>
+      <button class="btn primary sm" id="fx-sai">− Registrar saída</button>
+      <button class="btn sm" id="fx-edit">Editar cadastro</button>
+      <button class="btn sm" id="fx-aj">Ajustar saldo</button>
+    </div>
+    <h2 style="margin-top:20px">Histórico de entradas, saídas e ajustes</h2>
+    <div class="table-wrap"><table><thead><tr><th>Data</th><th>Tipo</th><th class="num">Qtd</th><th class="num">Saldo</th><th>Pessoa</th></tr></thead><tbody>
+    ${movs.length ? movs.map(m => `<tr class="click" data-mov="${m.id}" tabindex="0"><td>${fmtData(m.data)}<br><span class="muted small">reg. ${fmtHora(m.registradoEm)}</span></td><td>${tipoLabel(m)}</td>
+      <td class="num">${sinal(m)}${fmtQtd(Math.abs(m.qtd))}</td><td class="num">${fmtQtd(m.saldoAnt)} → ${fmtQtd(m.saldoPost)}</td>
+      <td>${esc(m.tipo === 'saida' ? m.quemRetirou : m.responsavel)}${m.tipo === 'saida' ? '<br><span class="small okt">Autorizado por Ricardo: Sim</span>' : ''}</td></tr>`).join('')
+      : '<tr><td colspan="5" class="empty">Nenhuma movimentação registrada.</td></tr>'}
+    </tbody></table></div>
+    ${(p.alteracoes || []).length ? `<h2 style="margin-top:16px">Alterações de cadastro</h2><ul class="list">${p.alteracoes.slice().reverse().map(a => `<li><span>${a.campos.map(c => CAMPO_LABEL[c] || c).join(', ')}</span><small>${fmtDataHora(a.em)}</small></li>`).join('')}</ul>` : ''}
+    <p class="hint">Cadastrado em ${fmtDataHora(p.criadoEm)}.</p>`);
+  $('#fx-ent').onclick = () => { closeModal(); goTab('entradas'); $('#ent-prod').value = id; $('#ent-prod').dispatchEvent(new Event('change')); $('#ent-qtd').focus(); };
+  $('#fx-sai').onclick = () => { closeModal(); goTab('saidas'); $('#sai-prod').value = id; atualizaSaldoSaida(); $('#sai-qtd').focus(); };
+  $('#fx-edit').onclick = () => abrirCadastro(id);
+  $('#fx-aj').onclick = () => abrirAjuste(id);
+}
+
+function abrirAjuste(id){
+  const p = prodById(id);
+  openModal('Ajustar saldo — ' + p.nome, `<form id="f-aj" novalidate>
+    <div class="info-box">Saldo atual no sistema: <b>${fmtQtd(p.saldo)} ${esc(p.unidade)}</b>. Use o ajuste para corrigir divergências de contagem.</div>
+    <div class="grid2"><div class="field"><label for="aj-qtd">Saldo contado <b class="req">*</b></label><input id="aj-qtd" type="number" min="0" step="any"></div>
+    <div class="field"><label for="aj-data">Data <b class="req">*</b></label><input id="aj-data" type="date" value="${hojeISO()}"></div></div>
+    ${pessoaHTML('aj', 'Responsável pelo ajuste')}
+    <div class="field"><label for="aj-mot">Motivo <b class="req">*</b></label><textarea id="aj-mot" rows="2"></textarea></div>
+    <div class="actions"><button type="button" class="btn" data-close>Cancelar</button><button class="btn primary" type="submit">Registrar ajuste</button></div></form>`);
+  $('#f-aj').onsubmit = async e => {
+    e.preventDefault(); clearErr(e.target); const errs = [];
+    const n = parseQtd($('#aj-qtd').value); if (!isFinite(n) || n < 0) errs.push([$('#aj-qtd'), 'Informe o saldo contado (0 ou mais).']);
+    const data = $('#aj-data').value; if (!dataValida(data)) errs.push([$('#aj-data'), 'Data inválida.']);
+    const pes = lerPessoa('aj', 'Informe o responsável.'); if (pes.err) errs.push(pes.err);
+    const mot = $('#aj-mot').value.trim(); if (!mot) errs.push([$('#aj-mot'), 'Informe o motivo.']);
+    if (errs.length) return showErrs(errs);
+    if (round3(n) === p.saldo) { toast('O saldo contado é igual ao saldo atual. Nenhum ajuste necessário.', 'err'); return; }
+    const ok = await commit(d => {
+      const pp = d.produtos.find(x => x.id === id); const ant = pp.saldo; pp.saldo = round3(n);
+      d.movs.push({id: uid(), tipo: 'ajuste', produtoId: id, produtoNome: pp.nome, unidade: pp.unidade, qtd: round3(pp.saldo - ant), saldoAnt: ant, saldoPost: pp.saldo, data, registradoEm: new Date().toISOString(), responsavel: pes.nome, obs: mot, comentarios: []});
+    });
+    if (ok) { toast('Ajuste registrado.'); abrirFicha(id); }
+  };
+}
+
+/* ---------- Cards de movimentação ---------- */
+function movCard(m){
+  const s = m.tipo === 'saida';
+  return `<article class="mcard ${s ? 'saida' : 'entrada'}" data-mov="${m.id}" tabindex="0">
+    <div class="mc-top"><span class="tag">${s ? 'Saída' : 'Entrada'}</span><span class="muted">${fmtData(m.data)} · ${fmtHora(m.registradoEm)}</span></div>
+    <b>${esc(nomeProd(m))}</b>
+    <div class="mc-qtd">${s ? '−' : '+'}${fmtQtd(m.qtd)} ${esc(m.unidade)}</div>
+    <div class="muted small">Saldo ${fmtQtd(m.saldoAnt)} → ${fmtQtd(m.saldoPost)}</div>
+    ${s ? `<div class="small">Retirado por: <b>${esc(m.quemRetirou)}</b></div><div class="small">Autorizado por Ricardo: <b class="okt">Sim ✓</b></div>`
+        : `<div class="small">Responsável: <b>${esc(m.responsavel)}</b></div>`}
+    <div class="muted small">💬 ${m.comentarios.length} comentário(s)</div></article>`;
+}
+function filtraMovs(tipo, q){
+  q = norm(q);
+  return db.movs.filter(m => m.tipo === tipo).filter(m => !q || [nomeProd(m), m.responsavel, m.quemRetirou, m.obs].some(x => norm(x).includes(q)))
+    .sort((a, b) => b.registradoEm.localeCompare(a.registradoEm));
+}
+function renderEntradas(){ const ms = filtraMovs('entrada', $('#ent-filtro').value); $('#ent-cards').innerHTML = ms.length ? ms.map(movCard).join('') : '<p class="empty">Nenhuma entrada registrada.</p>'; }
+function renderSaidas(){ const ms = filtraMovs('saida', $('#sai-filtro').value); $('#sai-cards').innerHTML = ms.length ? ms.map(movCard).join('') : '<p class="empty">Nenhuma saída registrada.</p>'; }
+$('#ent-filtro').addEventListener('input', renderEntradas);
+$('#sai-filtro').addEventListener('input', renderSaidas);
+
+function abrirMov(id){
+  const m = db.movs.find(x => x.id === id); if (!m) return;
+  const s = m.tipo === 'saida';
+  const linhas = [
+    ['Produto', `<span class="li-click" data-prod="${m.produtoId}" style="text-decoration:underline">${esc(nomeProd(m))}</span>`],
+    [s ? 'Quantidade retirada' : m.tipo === 'entrada' ? 'Quantidade recebida' : 'Diferença ajustada', `${sinal(m)}${fmtQtd(Math.abs(m.qtd))} ${esc(m.unidade)}`],
+    ['Saldo anterior → posterior', `${fmtQtd(m.saldoAnt)} → ${fmtQtd(m.saldoPost)} ${esc(m.unidade)}`],
+    [s ? 'Data da retirada' : 'Data', fmtData(m.data)],
+    ['Registrado em', fmtDataHora(m.registradoEm)],
+  ];
+  if (s) {
+    linhas.push(['Quem retirou', esc(m.quemRetirou)]);
+    linhas.push(['Autorizado por Ricardo?', `<span class="okt">${esc(m.autorizadoRicardo || 'Sim')}</span>`]);
+  } else linhas.push([m.tipo === 'ajuste' ? 'Responsável pelo ajuste' : 'Responsável pelo lançamento', esc(m.responsavel)]);
+  linhas.push([m.tipo === 'ajuste' ? 'Motivo' : 'Observação', m.obs ? esc(m.obs) : '<span class="muted">—</span>']);
+  openModal(`${tipoLabel(m)} — ${nomeProd(m)}`, `
+    <div class="review" style="margin-top:0"><dl>${linhas.map(([a, b]) => `<dt>${a}</dt><dd>${b}</dd>`).join('')}</dl></div>
+    <h2 style="margin-top:18px">Comentários${s ? ' e ocorrências' : ''}</h2>
+    <div class="comments">${m.comentarios.length ? m.comentarios.map(c => `<div class="cmt ${c.tipo === 'ocorrencia' ? 'oc' : ''}"><div class="meta">${c.tipo === 'ocorrencia' ? '<b style="color:var(--danger)">OCORRÊNCIA</b> · ' : ''}${esc(c.autor)} · ${fmtDataHora(c.em)}</div>${esc(c.texto).replace(/\n/g, '<br>')}</div>`).join('') : '<p class="empty">Nenhum comentário.</p>'}</div>
+    <form id="f-cmt" novalidate>
+      <div class="grid2">
+        <div class="field"><label for="cmt-autor">Seu nome <b class="req">*</b></label><input id="cmt-autor"></div>
+        ${s ? `<div class="field"><label for="cmt-tipo">Tipo</label><select id="cmt-tipo"><option value="comentario">Comentário</option><option value="ocorrencia">Ocorrência</option></select></div>` : ''}
+      </div>
+      <div class="field"><label for="cmt-txt">Comentário <b class="req">*</b></label><textarea id="cmt-txt" rows="2"></textarea></div>
+      <div class="actions"><button class="btn primary" type="submit">Adicionar comentário</button></div>
+    </form>
+    <p class="hint">Movimentações confirmadas não podem ser excluídas. Para corrigir um saldo, use "Ajustar saldo" na ficha do produto.</p>`);
+  try { $('#cmt-autor').value = localStorage.getItem('crm_ultimo_autor') || ''; } catch (e) {}
+  $('#f-cmt').onsubmit = async e => {
+    e.preventDefault(); clearErr(e.target); const errs = [];
+    const autor = $('#cmt-autor').value.trim(), texto = $('#cmt-txt').value.trim();
+    if (!autor) errs.push([$('#cmt-autor'), 'Informe seu nome.']);
+    if (!texto) errs.push([$('#cmt-txt'), 'Escreva o comentário.']);
+    if (errs.length) return showErrs(errs);
+    const tipo = s ? $('#cmt-tipo').value : 'comentario';
+    const ok = await commit(d => { const mm = d.movs.find(x => x.id === id); mm.comentarios.push({id: uid(), autor, texto, tipo, em: new Date().toISOString()}); });
+    if (ok) { try { localStorage.setItem('crm_ultimo_autor', autor); } catch (e) {} toast('Comentário adicionado.'); abrirMov(id); }
+  };
+}
+
+/* ================= Entradas ================= */
+$('#ent-resp-wrap').innerHTML = pessoaHTML('ent', 'Responsável pelo lançamento');
+$('#ent-data').value = hojeISO();
+let entPend = null;
+$('#ent-prod').addEventListener('change', () => {
+  const novo = $('#ent-prod').value === '__novo';
+  $('#ent-novo').hidden = !novo;
+  if (novo && !$('#np-nome')) $('#ent-novo-campos').innerHTML = prodFieldsHTML('np');
+});
+$('#f-ent').addEventListener('input', () => { if (entPend) { entPend = null; $('#ent-review').innerHTML = ''; } });
+$('#f-ent').addEventListener('change', () => { if (entPend) { entPend = null; $('#ent-review').innerHTML = ''; } });
+$('#f-ent').addEventListener('reset', () => setTimeout(() => {
+  entPend = null; $('#ent-review').innerHTML = ''; clearErr($('#f-ent')); $('#ent-novo').hidden = true; $('#ent-novo-campos').innerHTML = '';
+  $('#ent-data').value = hojeISO(); resetPessoa('ent');
+}));
+$('#f-ent').addEventListener('submit', e => {
+  e.preventDefault(); const f = e.currentTarget; clearErr(f); entPend = null; $('#ent-review').innerHTML = '';
+  const errs = []; const sel = $('#ent-prod'); let novoProduto = null, prod = null;
+  if (!sel.value) errs.push([sel, 'Selecione um produto ou cadastre um novo.']);
+  else if (sel.value === '__novo') { const r = lerProd('np', null); errs.push(...r.errs); novoProduto = r.v; }
+  else { prod = prodById(sel.value); if (!prod) errs.push([sel, 'Produto não encontrado.']); }
+  const qtd = parseQtd($('#ent-qtd').value);
+  if (!isFinite(qtd) || qtd <= 0) errs.push([$('#ent-qtd'), 'A quantidade deve ser maior que zero.']);
+  const data = $('#ent-data').value; if (!dataValida(data)) errs.push([$('#ent-data'), 'Informe uma data válida.']);
+  const pes = lerPessoa('ent', 'Informe o responsável pelo lançamento.'); if (pes.err) errs.push(pes.err);
+  const obs = $('#ent-obs').value.trim();
+  if (errs.length) return showErrs(errs);
+  const unidade = novoProduto ? novoProduto.unidade : prod.unidade; const ant = novoProduto ? 0 : prod.saldo;
+  entPend = {produtoId: prod && prod.id, novoProduto, qtd: round3(qtd), data, responsavel: pes.nome, obs};
+  const loc = novoProduto || prod;
+  $('#ent-review').innerHTML = `<div class="review"><h2>Revise antes de confirmar</h2><dl>
+    <dt>Produto</dt><dd>${esc(loc.nome)}${novoProduto ? ' <span class="badge b-baixo">novo cadastro</span>' : ''}</dd>
+    <dt>Localização</dt><dd>${locHTML(loc)}</dd>
+    <dt>Quantidade</dt><dd>+${fmtQtd(qtd)} ${esc(unidade)}</dd>
+    <dt>Saldo</dt><dd>${fmtQtd(ant)} → ${fmtQtd(round3(ant + qtd))} ${esc(unidade)}</dd>
+    <dt>Data</dt><dd>${fmtData(data)}</dd><dt>Responsável</dt><dd>${esc(pes.nome)}</dd>
+    ${obs ? `<dt>Observação</dt><dd>${esc(obs)}</dd>` : ''}</dl>
+    <div class="actions"><button type="button" class="btn" id="ent-corrigir">Corrigir</button><button type="button" class="btn primary" id="ent-confirmar">Confirmar entrada</button></div></div>`;
+  $('#ent-confirmar').focus();
+  $('#ent-corrigir').onclick = () => { entPend = null; $('#ent-review').innerHTML = ''; };
+  $('#ent-confirmar').onclick = confirmarEntrada;
+});
+async function confirmarEntrada(){
+  const e = entPend; if (!e) return;
+  let pidFinal = e.produtoId;
+  const ok = await commit(d => {
+    const agora = new Date().toISOString();
+    if (e.novoProduto) {
+      if (d.produtos.some(x => norm(x.nome) === norm(e.novoProduto.nome))) throw new Error('Já existe um produto com este nome.');
+      pidFinal = uid(); d.produtos.push({id: pidFinal, ...e.novoProduto, saldo: 0, criadoEm: agora, alteracoes: []});
+    }
+    const p = d.produtos.find(x => x.id === pidFinal); if (!p) throw new Error('Produto não encontrado.');
+    const ant = p.saldo; p.saldo = round3(ant + e.qtd);
+    d.movs.push({id: uid(), tipo: 'entrada', produtoId: p.id, produtoNome: p.nome, unidade: p.unidade, qtd: e.qtd, saldoAnt: ant, saldoPost: p.saldo, data: e.data, registradoEm: agora, responsavel: e.responsavel, obs: e.obs, comentarios: []});
+  });
+  if (ok) { toast('Entrada registrada. Saldo atualizado.'); $('#f-ent').reset(); }
+}
+
+/* ================= Saídas ================= */
+$('#sai-quem-wrap').innerHTML = pessoaHTML('sai', 'Quem retirou');
+$('#sai-data').value = hojeISO();
+const MSG_NAO = 'Retirada não autorizada. Solicite autorização antes de concluir esta operação.';
+function atualizaSaldoSaida(){
+  const p = prodById($('#sai-prod').value);
+  $('#sai-saldo').innerHTML = p ? `<div class="info-box">Disponível: <b>${fmtQtd(p.saldo)} ${esc(p.unidade)}</b><br>Localização: ${locHTML(p)}</div>` : '';
+}
+$('#sai-prod').addEventListener('change', atualizaSaldoSaida);
+function autSaida(){ const r = $('input[name="sai-aut"]:checked'); return r ? r.value : ''; }
+function atualizaAut(){
+  const v = autSaida();
+  $('#sai-aut-msg').innerHTML = v === 'nao' ? `<div class="alert-box" role="alert">${MSG_NAO}</div>` : '';
+  $('#sai-btn').disabled = v === 'nao';
+}
+$$('input[name="sai-aut"]').forEach(r => r.addEventListener('change', () => { clearErr($('#sai-auth').parentElement); $('#sai-auth').classList.remove('invalid'); atualizaAut(); }));
+$('#f-sai').addEventListener('reset', () => setTimeout(() => {
+  clearErr($('#f-sai')); $('#sai-auth').classList.remove('invalid'); $('#sai-data').value = hojeISO(); resetPessoa('sai'); atualizaAut(); atualizaSaldoSaida();
+}));
+$('#f-sai').addEventListener('submit', async e => {
+  e.preventDefault(); const f = e.currentTarget; clearErr(f); $('#sai-auth').classList.remove('invalid');
+  const aut = autSaida();
+  if (aut === 'nao') { atualizaAut(); toast(MSG_NAO, 'err'); return; }
+  const errs = []; const sel = $('#sai-prod'); const p = prodById(sel.value);
+  if (!p) errs.push([sel, 'Selecione o produto.']);
+  const qtd = parseQtd($('#sai-qtd').value);
+  if (!isFinite(qtd) || qtd <= 0) errs.push([$('#sai-qtd'), 'A quantidade deve ser maior que zero.']);
+  else if (p && round3(qtd) > p.saldo) errs.push([$('#sai-qtd'), `Saldo insuficiente. Disponível: ${fmtQtd(p.saldo)} ${p.unidade}.`]);
+  const data = $('#sai-data').value; if (!dataValida(data)) errs.push([$('#sai-data'), 'Informe a data da retirada.']);
+  const pes = lerPessoa('sai', 'Informe quem retirou a mercadoria.'); if (pes.err) errs.push(pes.err);
+  if (!aut) { $('#sai-auth').classList.add('invalid'); errs.push([$('input[name="sai-aut"]'), 'Responda se a retirada foi autorizada por Ricardo.']); }
+  if (errs.length) return showErrs(errs);
+  const obs = $('#sai-obs').value.trim(); const pid = p.id;
+  const ok = await commit(d => {
+    const pp = d.produtos.find(x => x.id === pid); if (!pp) throw new Error('Produto não encontrado.');
+    if (round3(qtd) > pp.saldo) throw new Error('Saldo insuficiente.');
+    const ant = pp.saldo; pp.saldo = round3(ant - qtd);
+    d.movs.push({id: uid(), tipo: 'saida', produtoId: pid, produtoNome: pp.nome, unidade: pp.unidade, qtd: round3(qtd), saldoAnt: ant, saldoPost: pp.saldo, data, registradoEm: new Date().toISOString(),
+      quemRetirou: pes.nome, autorizadoRicardo: 'Sim', obs, comentarios: []});
+  });
+  if (ok) { toast('Saída registrada. Saldo atualizado.'); f.reset(); }
+});
+
+/* ================= Lembretes ================= */
+function lembCampos(p, l = {}){
+  return `<div class="field"><label for="${p}-tit">Título da tarefa <b class="req">*</b></label><input id="${p}-tit" value="${esc(l.titulo)}" placeholder="ex.: Lembrar João de separar o tecido"></div>
+  <div class="field"><label for="${p}-desc">Descrição</label><textarea id="${p}-desc" rows="3">${esc(l.descricao)}</textarea></div>
+  <div class="grid2"><div class="field"><label for="${p}-data">Data do evento <b class="req">*</b></label><input id="${p}-data" type="date" value="${esc(l.data || hojeISO())}"></div>
+  <div class="field"><label for="${p}-hora">Horário (opcional)</label><input id="${p}-hora" type="time" value="${esc(l.hora)}"></div></div>`;
+}
+function lerLemb(p){
+  const v = {titulo: $('#' + p + '-tit').value.trim(), descricao: $('#' + p + '-desc').value.trim(), data: $('#' + p + '-data').value, hora: $('#' + p + '-hora').value};
+  const errs = [];
+  if (!v.titulo) errs.push([$('#' + p + '-tit'), 'Informe o título.']);
+  if (!dataValida(v.data)) errs.push([$('#' + p + '-data'), 'Informe uma data válida.']);
+  if (v.hora && !/^\d{2}:\d{2}$/.test(v.hora)) errs.push([$('#' + p + '-hora'), 'Horário inválido.']);
+  return {v, errs};
+}
+$('#lemb-campos').innerHTML = lembCampos('lb');
+$('#f-lemb').addEventListener('submit', async e => {
+  e.preventDefault(); clearErr(e.currentTarget);
+  const {v, errs} = lerLemb('lb'); if (errs.length) return showErrs(errs);
+  if (await commit(d => { d.lembretes.push({id: uid(), ...v, concluido: false, criadoEm: new Date().toISOString()}); })) {
+    toast('Lembrete salvo.'); $('#lemb-campos').innerHTML = lembCampos('lb');
+  }
+});
+let filtroLemb = 'abertos';
+$('#lemb-filtros').addEventListener('click', e => { const c = e.target.closest('.chip'); if (!c) return; filtroLemb = c.dataset.f; $$('#lemb-filtros .chip').forEach(x => x.classList.toggle('on', x === c)); renderLembretes(); });
+function renderLembretes(){
+  let ls = db.lembretes.slice();
+  if (filtroLemb === 'abertos') ls = ls.filter(l => !l.concluido);
+  else if (filtroLemb !== 'todos') ls = ls.filter(l => stLemb(l) === filtroLemb);
+  ls.sort((a, b) => filtroLemb === 'concluido' ? lembKey(b).localeCompare(lembKey(a)) : lembKey(a).localeCompare(lembKey(b)));
+  $('#lemb-lista').innerHTML = ls.length ? ls.map(lembItem).join('') : '<li class="empty">Nenhum lembrete neste filtro.</li>';
+}
+function abrirLembrete(id){
+  const l = db.lembretes.find(x => x.id === id); if (!l) return; const s = stLemb(l);
+  openModal(l.titulo, `<div class="row" style="justify-content:space-between"><span>${fmtData(l.data)}${l.hora ? ' às ' + l.hora : ' (sem horário)'}</span><span class="badge l-${s}">${ST_LEMB[s]}</span></div>
+    <div style="margin:14px 0;white-space:pre-wrap">${l.descricao ? esc(l.descricao) : '<span class="muted">Sem descrição.</span>'}</div>
+    ${l.concluido && l.concluidoEm ? `<p class="hint">Concluído em ${fmtDataHora(l.concluidoEm)}.</p>` : ''}
+    <div class="actions"><button class="btn danger" id="lx-del">Excluir</button><button class="btn" id="lx-edit">Editar</button>
+    <button class="btn primary" id="lx-conc">${l.concluido ? 'Reabrir' : 'Marcar como concluído'}</button></div>`);
+  $('#lx-conc').onclick = async () => { if (await commit(d => { const x = d.lembretes.find(y => y.id === id); x.concluido = !x.concluido; x.concluidoEm = x.concluido ? new Date().toISOString() : null; })) { toast(l.concluido ? 'Lembrete reaberto.' : 'Lembrete concluído.'); closeModal(); } };
+  $('#lx-del').onclick = async () => { if (confirm('Excluir este lembrete?') && await commit(d => { d.lembretes = d.lembretes.filter(y => y.id !== id); })) { toast('Lembrete excluído.'); closeModal(); } };
+  $('#lx-edit').onclick = () => {
+    openModal('Editar lembrete', `<form id="f-lemb-ed" novalidate>${lembCampos('le', l)}<div class="actions"><button type="button" class="btn" data-close>Cancelar</button><button class="btn primary" type="submit">Salvar</button></div></form>`);
+    $('#f-lemb-ed').onsubmit = async e => {
+      e.preventDefault(); clearErr(e.target); const {v, errs} = lerLemb('le'); if (errs.length) return showErrs(errs);
+      if (await commit(d => { Object.assign(d.lembretes.find(y => y.id === id), v); })) { toast('Lembrete atualizado.'); abrirLembrete(id); }
+    };
+  };
+}
+
+/* ================= Configurações: backup e exportação ================= */
+function baixar(blob, nome){
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = nome; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+}
+$('#btn-export').onclick = () => baixar(new Blob([JSON.stringify(db, null, 2)], {type: 'application/json'}), `backup-estoque-${hojeISO()}.json`);
+function exportarPlanilha(){
+  try { baixar(gerarPlanilha(), `estoque-completo-${hojeISO()}.xlsx`); toast('Planilha Excel gerada.'); }
+  catch (e) { console.error(e); toast('Não foi possível gerar a planilha.', 'err'); }
+}
+$('#btn-xlsx').onclick = exportarPlanilha;
+
+/* ================= Planilha Excel (.xlsx) — gerada no navegador, sem dependências ================= */
+const XS = {head: 1, s: 2, wrap: 3, n: 4, d: 5, dt: 6, ok: 7, warn: 8, bad: 9, title: 10, label: 11, muted: 12, numB: 13, b: 14, info: 15, dtB: 16};
+function xmlEsc(s){
+  return String(s).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F￾￿]/g, '')
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+function colL(i){ let s = ''; i++; while (i > 0) { const m = (i - 1) % 26; s = String.fromCharCode(65 + m) + s; i = Math.floor((i - 1) / 26); } return s; }
+function serialDate(s){ if (!dataValida(s)) return null; const [y, m, d] = s.split('-').map(Number); return Date.UTC(y, m - 1, d) / 864e5 + 25569; }
+function serialDT(iso){ if (!iso) return null; const d = new Date(iso); if (isNaN(d)) return null; return Date.UTC(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds()) / 864e5 + 25569; }
+function cellXml(ref, v, t, s){
+  const vazio = `<c r="${ref}" s="${s}"/>`;
+  if (v === null || v === undefined || v === '') return vazio;
+  if (t === 'n' || t === 'numB') { const n = Number(v); return isFinite(n) ? `<c r="${ref}" s="${s}"><v>${n}</v></c>` : vazio; }
+  if (t === 'd' || t === 'dt' || t === 'dtB') { const n = t === 'd' ? serialDate(v) : serialDT(v); return n == null ? vazio : `<c r="${ref}" s="${s}"><v>${n}</v></c>`; }
+  let str = String(v); if (str.length > 32767) str = str.slice(0, 32767);
+  return `<c r="${ref}" s="${s}" t="inlineStr"><is><t xml:space="preserve">${xmlEsc(str)}</t></is></c>`;
+}
+/* Tabela padrão: cabeçalho congelado + filtro + larguras e alturas calculadas */
+function xTabela(name, cols, data){
+  const widths = cols.map((c, i) => {
+    if (c.w) return c.w;
+    let m = c.h.length;
+    data.forEach(r => {
+      const v = r[i]; if (v === null || v === undefined || v === '') return;
+      const len = c.t === 'd' ? 10 : c.t === 'dt' ? 16 : c.t === 'n' ? String(Math.round(Number(v) * 1000) / 1000).length : Math.max(...String(v).split('\n').map(x => x.length));
+      if (len > m) m = len;
+    });
+    return Math.min(Math.max(m + 3, c.min || 9), 48);
+  });
+  const rows = [{ht: 24, cells: cols.map(c => ({v: c.h, t: 's', s: XS.head}))}];
+  data.forEach(r => {
+    let lines = 1;
+    const cells = cols.map((c, i) => {
+      const v = r[i]; const t = c.t || 's';
+      const s = c.st ? c.st(v) : XS[t] ?? XS.s;
+      if ((t === 'wrap' || t === 'b') && v) {
+        const cpl = Math.max(widths[i] - 2, 4);
+        const l = String(v).split('\n').reduce((a, seg) => a + Math.max(1, Math.ceil(seg.length / cpl)), 0);
+        if (l > lines) lines = l;
+      }
+      return {v, t, s};
+    });
+    rows.push({ht: lines > 1 ? Math.min(lines * 15 + 3, 409) : null, cells});
+  });
+  const last = colL(cols.length - 1) + rows.length;
+  return {name, widths, rows, freeze: 1, filter: 'A1:' + last, printTitles: true};
+}
+function xSheetXml(sh, idx){
+  const nCols = Math.max(1, sh.widths.length);
+  let x = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">';
+  x += '<sheetPr><pageSetUpPr fitToPage="1"/></sheetPr>';
+  x += `<dimension ref="A1:${colL(nCols - 1)}${Math.max(1, sh.rows.length)}"/>`;
+  x += `<sheetViews><sheetView ${sh.noGrid ? 'showGridLines="0" ' : ''}${idx === 0 ? 'tabSelected="1" ' : ''}workbookViewId="0">`;
+  if (sh.freeze) x += `<pane ySplit="${sh.freeze}" topLeftCell="A${sh.freeze + 1}" activePane="bottomLeft" state="frozen"/><selection pane="bottomLeft" activeCell="A${sh.freeze + 1}" sqref="A${sh.freeze + 1}"/>`;
+  x += '</sheetView></sheetViews><sheetFormatPr defaultRowHeight="15"/>';
+  x += '<cols>' + sh.widths.map((w, i) => `<col min="${i + 1}" max="${i + 1}" width="${w}" customWidth="1"/>`).join('') + '</cols><sheetData>';
+  sh.rows.forEach((row, r) => {
+    x += `<row r="${r + 1}"${row.ht ? ` ht="${row.ht}" customHeight="1"` : ''}>`;
+    row.cells.forEach((c, ci) => { if (c) x += cellXml(colL(ci) + (r + 1), c.v, c.t, c.s); });
+    x += '</row>';
+  });
+  x += '</sheetData>';
+  if (sh.filter) x += `<autoFilter ref="${sh.filter}"/>`;
+  x += '<pageMargins left="0.4" right="0.4" top="0.5" bottom="0.5" header="0.3" footer="0.3"/><pageSetup paperSize="9" orientation="landscape" fitToWidth="1" fitToHeight="0"/></worksheet>';
+  return x;
+}
+const X_STYLES = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n<styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">' +
+  '<numFmts count="2"><numFmt numFmtId="164" formatCode="dd/mm/yyyy"/><numFmt numFmtId="165" formatCode="dd/mm/yyyy hh:mm"/></numFmts>' +
+  '<fonts count="9">' +
+  '<font><sz val="11"/><name val="Calibri"/><family val="2"/></font>' +
+  '<font><b/><sz val="11"/><color rgb="FFFFFFFF"/><name val="Calibri"/><family val="2"/></font>' +
+  '<font><b/><sz val="11"/><name val="Calibri"/><family val="2"/></font>' +
+  '<font><b/><sz val="16"/><color rgb="FF1F3A8A"/><name val="Calibri"/><family val="2"/></font>' +
+  '<font><b/><sz val="11"/><color rgb="FF17784A"/><name val="Calibri"/><family val="2"/></font>' +
+  '<font><b/><sz val="11"/><color rgb="FF9A5800"/><name val="Calibri"/><family val="2"/></font>' +
+  '<font><b/><sz val="11"/><color rgb="FFC0302B"/><name val="Calibri"/><family val="2"/></font>' +
+  '<font><i/><sz val="10"/><color rgb="FF667085"/><name val="Calibri"/><family val="2"/></font>' +
+  '<font><b/><sz val="11"/><color rgb="FF2453C9"/><name val="Calibri"/><family val="2"/></font>' +
+  '</fonts><fills count="8">' +
+  '<fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill>' +
+  ['FF2453C9', 'FFE2F4EA', 'FFFFF1D6', 'FFFDE7E6', 'FFF1F3F6', 'FFE7EDFB'].map(c => `<fill><patternFill patternType="solid"><fgColor rgb="${c}"/><bgColor indexed="64"/></patternFill></fill>`).join('') +
+  '</fills><borders count="2"><border><left/><right/><top/><bottom/><diagonal/></border>' +
+  '<border>' + ['left', 'right', 'top', 'bottom'].map(s => `<${s} style="thin"><color rgb="FFD0D5DD"/></${s}>`).join('') + '<diagonal/></border></borders>' +
+  '<cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs>' +
+  (() => {
+    const xf = (nf, f, fi, b, al) => `<xf numFmtId="${nf}" fontId="${f}" fillId="${fi}" borderId="${b}" xfId="0" applyNumberFormat="1" applyFont="1" applyFill="1" applyBorder="1" applyAlignment="1"><alignment ${al}/></xf>`;
+    const T = 'vertical="top"', C = 'horizontal="center" vertical="top"';
+    const list = [
+      '<xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/>',
+      xf(0, 1, 2, 1, 'horizontal="center" vertical="center" wrapText="1"'), // 1 cabeçalho
+      xf(0, 0, 0, 1, T),                       // 2 texto
+      xf(0, 0, 0, 1, T + ' wrapText="1"'),     // 3 texto longo
+      xf(0, 0, 0, 1, T),                       // 4 número
+      xf(164, 0, 0, 1, C),                     // 5 data
+      xf(165, 0, 0, 1, C),                     // 6 data e hora
+      xf(0, 4, 3, 1, C),                       // 7 verde
+      xf(0, 5, 4, 1, C),                       // 8 âmbar
+      xf(0, 6, 5, 1, C),                       // 9 vermelho
+      xf(0, 3, 0, 0, 'vertical="center"'),     // 10 título
+      xf(0, 2, 6, 1, T),                       // 11 rótulo
+      xf(0, 7, 0, 0, T),                       // 12 nota
+      xf(0, 2, 0, 1, 'horizontal="left" vertical="top"'), // 13 número em destaque
+      xf(0, 2, 0, 1, T + ' wrapText="1"'),     // 14 texto em negrito
+      xf(0, 8, 7, 1, C),                       // 15 azul
+      xf(165, 2, 0, 1, 'horizontal="left" vertical="top"') // 16 data e hora em destaque
+    ];
+    return `<cellXfs count="${list.length}">${list.join('')}</cellXfs>`;
+  })() +
+  '<cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>';
+
+const CRC_T = (() => { const t = new Uint32Array(256); for (let n = 0; n < 256; n++) { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; } return t; })();
+function crc32(u8){ let c = 0xFFFFFFFF; for (let i = 0; i < u8.length; i++) c = CRC_T[(c ^ u8[i]) & 255] ^ (c >>> 8); return (c ^ 0xFFFFFFFF) >>> 0; }
+function zipStore(files, mime){
+  const enc = new TextEncoder(); const parts = [], central = []; let offset = 0;
+  const d = new Date();
+  const dosTime = (d.getHours() << 11) | (d.getMinutes() << 5) | (d.getSeconds() >> 1);
+  const dosDate = ((d.getFullYear() - 1980) << 9) | ((d.getMonth() + 1) << 5) | d.getDate();
+  files.forEach(f => {
+    const name = enc.encode(f.name); const data = typeof f.data === 'string' ? enc.encode(f.data) : f.data; const crc = crc32(data);
+    const lh = new DataView(new ArrayBuffer(30));
+    lh.setUint32(0, 0x04034b50, true); lh.setUint16(4, 20, true); lh.setUint16(10, dosTime, true); lh.setUint16(12, dosDate, true);
+    lh.setUint32(14, crc, true); lh.setUint32(18, data.length, true); lh.setUint32(22, data.length, true); lh.setUint16(26, name.length, true);
+    parts.push(new Uint8Array(lh.buffer), name, data);
+    const ch = new DataView(new ArrayBuffer(46));
+    ch.setUint32(0, 0x02014b50, true); ch.setUint16(4, 20, true); ch.setUint16(6, 20, true); ch.setUint16(12, dosTime, true); ch.setUint16(14, dosDate, true);
+    ch.setUint32(16, crc, true); ch.setUint32(20, data.length, true); ch.setUint32(24, data.length, true); ch.setUint16(28, name.length, true); ch.setUint32(42, offset, true);
+    central.push(new Uint8Array(ch.buffer), name);
+    offset += 30 + name.length + data.length;
+  });
+  const cdSize = central.reduce((a, b) => a + b.length, 0);
+  const end = new DataView(new ArrayBuffer(22));
+  end.setUint32(0, 0x06054b50, true); end.setUint16(8, files.length, true); end.setUint16(10, files.length, true); end.setUint32(12, cdSize, true); end.setUint32(16, offset, true);
+  return new Blob([...parts, ...central, new Uint8Array(end.buffer)], {type: mime});
+}
+function xMontar(sheets){
+  const ns = 'http://schemas.openxmlformats.org/';
+  const head = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n';
+  const q = n => `'${n.replace(/'/g, "''")}'`;
+  const names = [];
+  sheets.forEach((s, i) => {
+    if (s.filter) names.push(`<definedName name="_xlnm._FilterDatabase" localSheetId="${i}" hidden="1">${q(s.name)}!$${s.filter.replace(':', ':$').replace(/([A-Z]+)(\d+)/g, '$1$$$2')}</definedName>`);
+    if (s.printTitles) names.push(`<definedName name="_xlnm.Print_Titles" localSheetId="${i}">${q(s.name)}!$1:$1</definedName>`);
+  });
+  const agora = new Date().toISOString().replace(/\.\d{3}Z$/, 'Z');
+  const files = [
+    {name: '[Content_Types].xml', data: head + `<Types xmlns="${ns}package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/>` +
+      sheets.map((s, i) => `<Override PartName="/xl/worksheets/sheet${i + 1}.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>`).join('') +
+      `<Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/><Override PartName="/docProps/core.xml" ContentType="application/vnd.openxmlformats-package.core-properties+xml"/><Override PartName="/docProps/app.xml" ContentType="application/vnd.openxmlformats-officedocument.extended-properties+xml"/></Types>`},
+    {name: '_rels/.rels', data: head + `<Relationships xmlns="${ns}package/2006/relationships"><Relationship Id="rId1" Type="${ns}officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/><Relationship Id="rId2" Type="${ns}package/2006/relationships/metadata/core-properties" Target="docProps/core.xml"/><Relationship Id="rId3" Type="${ns}officeDocument/2006/relationships/extended-properties" Target="docProps/app.xml"/></Relationships>`},
+    {name: 'docProps/core.xml', data: head + `<cp:coreProperties xmlns:cp="${ns}package/2006/metadata/core-properties" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dcmitype="http://purl.org/dc/dcmitype/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><dc:title>CRM de Estoque — Relatório completo</dc:title><dc:creator>CRM de Estoque</dc:creator><dcterms:created xsi:type="dcterms:W3CDTF">${agora}</dcterms:created><dcterms:modified xsi:type="dcterms:W3CDTF">${agora}</dcterms:modified></cp:coreProperties>`},
+    {name: 'docProps/app.xml', data: head + `<Properties xmlns="${ns}officeDocument/2006/extended-properties"><Application>CRM de Estoque</Application></Properties>`},
+    {name: 'xl/workbook.xml', data: head + `<workbook xmlns="${ns}spreadsheetml/2006/main" xmlns:r="${ns}officeDocument/2006/relationships"><bookViews><workbookView activeTab="0"/></bookViews><sheets>` +
+      sheets.map((s, i) => `<sheet name="${xmlEsc(s.name)}" sheetId="${i + 1}" r:id="rId${i + 1}"/>`).join('') + '</sheets>' +
+      (names.length ? `<definedNames>${names.join('')}</definedNames>` : '') + '</workbook>'},
+    {name: 'xl/_rels/workbook.xml.rels', data: head + `<Relationships xmlns="${ns}package/2006/relationships">` +
+      sheets.map((s, i) => `<Relationship Id="rId${i + 1}" Type="${ns}officeDocument/2006/relationships/worksheet" Target="worksheets/sheet${i + 1}.xml"/>`).join('') +
+      `<Relationship Id="rId${sheets.length + 1}" Type="${ns}officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>`},
+    {name: 'xl/styles.xml', data: X_STYLES},
+    ...sheets.map((s, i) => ({name: `xl/worksheets/sheet${i + 1}.xml`, data: xSheetXml(s, i)}))
+  ];
+  return zipStore(files, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+}
+
+function gerarPlanilha(){
+  const agora = new Date().toISOString();
+  const porNome = (a, b) => a.nome.localeCompare(b.nome, 'pt-BR');
+  const P = [...db.produtos].sort(porNome);
+  const M = [...db.movs].sort((a, b) => (a.data + a.registradoEm).localeCompare(b.data + b.registradoEm));
+  const sku = m => (prodById(m.produtoId) || {}).sku || '';
+  const nomeMov = m => nomeProd(m) || '';
+  const cmtTxt = m => m.comentarios.map(c => `${fmtDataHora(c.em)} — ${c.tipo === 'ocorrencia' ? '[OCORRÊNCIA] ' : ''}${c.autor}: ${c.texto}`).join('\n');
+  const loc = p => `Andar ${p.andar} → Estante ${p.estante} → Fileira ${p.fileira}`;
+  const stProd = v => v === 'Disponível' ? XS.ok : v === 'Estoque baixo' ? XS.warn : XS.bad;
+  const stLe = v => v === 'Concluído' ? XS.ok : v === 'Pendente' ? XS.warn : XS.bad;
+  const stTipo = v => v === 'Entrada' ? XS.ok : v === 'Saída' ? XS.warn : XS.info;
+  const stSim = v => v === 'Sim' ? XS.ok : v === 'Não' ? XS.bad : XS.s;
+  const soma = (arr) => round3(arr.reduce((a, m) => a + m.qtd, 0));
+  const ents = M.filter(m => m.tipo === 'entrada'), sais = M.filter(m => m.tipo === 'saida'), ajs = M.filter(m => m.tipo === 'ajuste');
+  const lembs = [...db.lembretes].sort((a, b) => lembKey(a).localeCompare(lembKey(b)));
+  const nCmt = db.movs.reduce((a, m) => a + m.comentarios.length, 0);
+  const nOc = db.movs.reduce((a, m) => a + m.comentarios.filter(c => c.tipo === 'ocorrencia').length, 0);
+
+  const estoque = xTabela('Estoque', [
+    {h: 'Produto', t: 'b', min: 18}, {h: 'Código / SKU'}, {h: 'Quantidade atual', t: 'n'}, {h: 'Unidade'},
+    {h: 'Andar'}, {h: 'Estante'}, {h: 'Fileira'}, {h: 'Localização', min: 32}, {h: 'Estoque mínimo', t: 'n'}, {h: 'Status', st: stProd, min: 15},
+    {h: 'Total de entradas', t: 'n'}, {h: 'Total de saídas', t: 'n'}, {h: 'Total ajustado', t: 'n'}, {h: 'Última movimentação', t: 'dt'},
+    {h: 'Observações do cadastro', t: 'wrap', w: 40}, {h: 'Cadastrado em', t: 'dt'}, {h: 'Última alteração do cadastro', t: 'dt'}
+  ], P.map(p => {
+    const ms = db.movs.filter(m => m.produtoId === p.id);
+    const ult = ms.reduce((a, m) => !a || m.registradoEm > a ? m.registradoEm : a, null);
+    const alt = (p.alteracoes || []).slice(-1)[0];
+    return [p.nome, p.sku, p.saldo, p.unidade, p.andar, p.estante, p.fileira, loc(p), p.minimo, statusEstoque(p).t,
+      soma(ms.filter(m => m.tipo === 'entrada')), soma(ms.filter(m => m.tipo === 'saida')), soma(ms.filter(m => m.tipo === 'ajuste')),
+      ult, p.obs, p.criadoEm, alt && alt.em];
+  }));
+
+  const entradas = xTabela('Entradas', [
+    {h: 'Data da entrada', t: 'd'}, {h: 'Registrado em', t: 'dt'}, {h: 'Produto', t: 'b', min: 18}, {h: 'Código / SKU'},
+    {h: 'Quantidade recebida', t: 'n'}, {h: 'Unidade'}, {h: 'Saldo anterior', t: 'n'}, {h: 'Saldo posterior', t: 'n'},
+    {h: 'Responsável pelo lançamento', min: 20}, {h: 'Observação', t: 'wrap', w: 36}, {h: 'Nº de comentários', t: 'n'}, {h: 'Comentários', t: 'wrap', w: 60}
+  ], ents.map(m => [m.data, m.registradoEm, nomeMov(m), sku(m), m.qtd, m.unidade, m.saldoAnt, m.saldoPost, m.responsavel, m.obs, m.comentarios.length, cmtTxt(m)]));
+
+  const saidas = xTabela('Saídas', [
+    {h: 'Data da retirada', t: 'd'}, {h: 'Registrado em', t: 'dt'}, {h: 'Produto', t: 'b', min: 18}, {h: 'Código / SKU'},
+    {h: 'Quantidade retirada', t: 'n'}, {h: 'Unidade'}, {h: 'Saldo anterior', t: 'n'}, {h: 'Saldo posterior', t: 'n'},
+    {h: 'Quem retirou', min: 20}, {h: 'Autorizado por Ricardo?', st: stSim},
+    {h: 'Observação', t: 'wrap', w: 36}, {h: 'Nº de comentários', t: 'n'}, {h: 'Nº de ocorrências', t: 'n'}, {h: 'Comentários e ocorrências', t: 'wrap', w: 60}
+  ], sais.map(m => [m.data, m.registradoEm, nomeMov(m), sku(m), m.qtd, m.unidade, m.saldoAnt, m.saldoPost, m.quemRetirou,
+    m.autorizadoRicardo || 'Sim', m.obs, m.comentarios.length, m.comentarios.filter(c => c.tipo === 'ocorrencia').length, cmtTxt(m)]));
+
+  const ajustes = xTabela('Ajustes', [
+    {h: 'Data do ajuste', t: 'd'}, {h: 'Registrado em', t: 'dt'}, {h: 'Produto', t: 'b', min: 18}, {h: 'Código / SKU'},
+    {h: 'Diferença ajustada', t: 'n'}, {h: 'Unidade'}, {h: 'Saldo anterior', t: 'n'}, {h: 'Saldo posterior', t: 'n'},
+    {h: 'Responsável pelo ajuste', min: 20}, {h: 'Motivo', t: 'wrap', w: 40}, {h: 'Comentários', t: 'wrap', w: 60}
+  ], ajs.map(m => [m.data, m.registradoEm, nomeMov(m), sku(m), m.qtd, m.unidade, m.saldoAnt, m.saldoPost, m.responsavel, m.obs, cmtTxt(m)]));
+
+  const historico = xTabela('Histórico', [
+    {h: 'Data', t: 'd'}, {h: 'Registrado em', t: 'dt'}, {h: 'Tipo', st: stTipo, min: 10}, {h: 'Produto', t: 'b', min: 18}, {h: 'Código / SKU'},
+    {h: 'Movimento (+/−)', t: 'n'}, {h: 'Unidade'}, {h: 'Saldo anterior', t: 'n'}, {h: 'Saldo posterior', t: 'n'},
+    {h: 'Pessoa', min: 20}, {h: 'Função da pessoa', min: 16}, {h: 'Autorizado por Ricardo?', st: stSim}, {h: 'Observação / motivo', t: 'wrap', w: 40}, {h: 'Nº de comentários', t: 'n'}
+  ], M.map(m => {
+    const s = m.tipo === 'saida';
+    return [m.data, m.registradoEm, tipoLabel(m), nomeMov(m), sku(m), m.tipo === 'saida' ? -m.qtd : m.qtd, m.unidade, m.saldoAnt, m.saldoPost,
+      s ? m.quemRetirou : m.responsavel, s ? 'Retirou' : m.tipo === 'ajuste' ? 'Responsável pelo ajuste' : 'Responsável pelo lançamento',
+      s ? (m.autorizadoRicardo || 'Sim') : '', m.obs, m.comentarios.length];
+  }));
+
+  const cmts = [];
+  db.movs.forEach(m => m.comentarios.forEach(c => cmts.push({c, m})));
+  cmts.sort((a, b) => a.c.em.localeCompare(b.c.em));
+  const comentarios = xTabela('Comentários', [
+    {h: 'Registrado em', t: 'dt'}, {h: 'Tipo', st: v => v === 'Ocorrência' ? XS.bad : XS.s, min: 12}, {h: 'Autor', min: 18}, {h: 'Comentário', t: 'wrap', w: 60},
+    {h: 'Movimentação', st: stTipo, min: 13}, {h: 'Produto', t: 'b', min: 18}, {h: 'Data da movimentação', t: 'd'}, {h: 'Quantidade', t: 'n'}, {h: 'Unidade'}, {h: 'Pessoa da movimentação', min: 20}
+  ], cmts.map(({c, m}) => [c.em, c.tipo === 'ocorrencia' ? 'Ocorrência' : 'Comentário', c.autor, c.texto, tipoLabel(m), nomeMov(m), m.data,
+    m.tipo === 'saida' ? -m.qtd : m.qtd, m.unidade, m.tipo === 'saida' ? m.quemRetirou : m.responsavel]));
+
+  const lembretes = xTabela('Lembretes', [
+    {h: 'Título da tarefa', t: 'b', min: 24, w: 36}, {h: 'Descrição', t: 'wrap', w: 50}, {h: 'Data do evento', t: 'd'}, {h: 'Horário'},
+    {h: 'Status', st: stLe, min: 12}, {h: 'Criado em', t: 'dt'}, {h: 'Concluído em', t: 'dt'}
+  ], lembs.map(l => [l.titulo, l.descricao, l.data, l.hora || 'Sem horário', ST_LEMB[stLemb(l)], l.criadoEm, l.concluido ? l.concluidoEm : '']));
+
+  const alts = [];
+  db.produtos.forEach(p => (p.alteracoes || []).forEach(a => alts.push({p, a})));
+  alts.sort((x, y) => x.a.em.localeCompare(y.a.em));
+  const alteracoes = xTabela('Alterações de cadastro', [
+    {h: 'Alterado em', t: 'dt'}, {h: 'Produto', t: 'b', min: 18}, {h: 'Código / SKU'}, {h: 'Campos alterados', t: 'wrap', w: 40}, {h: 'Localização atual', min: 32}
+  ], alts.map(({p, a}) => [a.em, p.nome, p.sku, a.campos.map(c => CAMPO_LABEL[c] || c).join(', '), loc(p)]));
+
+  /* Resumo (primeira aba) */
+  const R = (cells, ht) => ({ht, cells});
+  const kv = (k, v, t = 'numB') => R([{v: k, t: 's', s: XS.label}, {v, t, s: t === 'numB' ? XS.numB : XS.s}]);
+  const atras = db.lembretes.filter(l => stLemb(l) === 'atrasado').length;
+  const resumoRows = [
+    R([{v: 'CRM de Estoque — Relatório completo', t: 's', s: XS.title}], 30),
+    R([{v: 'Gerado em', t: 's', s: XS.label}, {v: agora, t: 'dtB', s: XS.dtB}]),
+    R([]),
+    R([{v: 'Indicador', t: 's', s: XS.head}, {v: 'Valor', t: 's', s: XS.head}], 22),
+    kv('Produtos cadastrados', db.produtos.length),
+    kv('Produtos com estoque baixo', db.produtos.filter(p => statusEstoque(p).k === 'baixo').length),
+    kv('Produtos sem estoque', db.produtos.filter(p => statusEstoque(p).k === 'zero').length),
+    kv('Entradas registradas', ents.length),
+    kv('Saídas registradas', sais.length),
+    kv('Ajustes de saldo', ajs.length),
+    kv('Comentários nas movimentações', nCmt),
+    kv('Ocorrências registradas', nOc),
+    kv('Tarefas pendentes (lembretes em aberto)', db.lembretes.filter(l => !l.concluido).length),
+    kv('Lembretes atrasados', atras),
+    kv('Lembretes concluídos', db.lembretes.filter(l => l.concluido).length),
+    R([]),
+    R([{v: 'Aba', t: 's', s: XS.head}, {v: 'Conteúdo', t: 's', s: XS.head}], 22),
+    ...[
+      ['Estoque', 'Todos os produtos: quantidade atual, unidade, localização (andar, estante e fileira), estoque mínimo, status, totais e observações.'],
+      ['Entradas', 'Cada entrada com data, horário do registro, quantidade, saldo anterior e posterior, responsável, observação e comentários.'],
+      ['Saídas', 'Cada retirada com quem retirou, resposta de "Autorizado por Ricardo?", saldos, observação, comentários e ocorrências.'],
+      ['Ajustes', 'Correções de saldo com diferença, saldos, responsável e motivo.'],
+      ['Histórico', 'Todas as movimentações em ordem cronológica (entradas positivas, saídas negativas).'],
+      ['Comentários', 'Cada comentário ou ocorrência em uma linha, ligado à sua movimentação.'],
+      ['Lembretes', 'Tarefas com descrição, data, horário e status (pendente, atrasado ou concluído).'],
+      ['Alterações de cadastro', 'Registro de quando cada produto teve o cadastro alterado e quais campos mudaram.']
+    ].map(([a, c]) => R([{v: a, t: 's', s: XS.label}, {v: c, t: 's', s: XS.wrap}], 32)),
+    R([]),
+    R([{v: 'Datas e quantidades estão em formato de número do Excel: podem ser filtradas, ordenadas e somadas.', t: 's', s: XS.muted}])
+  ];
+  const resumo = {name: 'Resumo', widths: [40, 90], rows: resumoRows, noGrid: true};
+
+  return xMontar([estoque, entradas, saidas, ajustes, historico, comentarios, lembretes, alteracoes, resumo]);
+}
+$('#imp-file').addEventListener('change', e => {
+  const file = e.target.files[0]; if (!file) return;
+  const r = new FileReader();
+  r.onload = () => {
+    try {
+      const d = JSON.parse(r.result);
+      if (!Array.isArray(d.produtos) || !Array.isArray(d.movs) || !Array.isArray(d.lembretes)) throw new Error();
+      if (!pronto) { toast('Aguarde a conexão com o banco de dados.', 'err'); return; }
+      if (!confirm(`Importar backup com ${d.produtos.length} produto(s), ${d.movs.length} movimentação(ões) e ${d.lembretes.length} lembrete(s)? TODOS os dados atuais do banco online serão substituídos, em todos os computadores.`)) return;
+      const novo = limpaDb(d);
+      document.body.classList.add('busy');
+      substituirTudo(novo).then(() => toast('Backup importado.')).catch(er => { console.error(er); toast(msgErroBanco(er), 'err'); })
+        .finally(() => document.body.classList.remove('busy'));
+    } catch (err) { toast('Arquivo de backup inválido.', 'err'); }
+    finally { e.target.value = ''; }
+  };
+  r.readAsText(file);
+});
+
+/* ================= Início ================= */
+renderAll();
+conectar();
+setInterval(() => { renderDashboard(); renderLembretes(); }, 30000);
+</script>
+</body>
+</html>
