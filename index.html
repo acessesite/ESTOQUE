@@ -208,6 +208,10 @@ body.busy,body.busy *{cursor:progress !important}
 .it-num{font-size:12px;font-weight:700;color:var(--muted);text-align:right}
 .it-novo{grid-column:1/-1;background:var(--warn-soft);border:1px dashed var(--warn);border-radius:8px;padding:8px 10px;margin:0 36px 6px 36px}
 .it-novo-tit{font-size:13px;font-weight:700}
+.it-exist{grid-column:1/-1;background:var(--ok-soft);border:1px solid var(--ok);border-radius:8px;padding:6px 10px;margin:0 36px 6px 36px;font-size:13px}
+.it-exist .ex-conv{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:6px;font-weight:600}
+.it-exist .ex-conv input{max-width:130px}
+.it-exist .check{margin:4px 0 0}
 .it-novo .check{margin:6px 0 0}
 .np-grid{display:grid;grid-template-columns:repeat(3,minmax(70px,1fr)) minmax(90px,1fr) minmax(150px,2.2fr);gap:6px;margin-top:6px}
 .np-grid label{display:block;font-size:12px;font-weight:600;margin-bottom:2px}
@@ -239,7 +243,7 @@ li.tar.done b{text-decoration:line-through;color:var(--muted)}
 .note-foot{font-size:11px;color:rgba(0,0,0,.5)}
 @media (min-width:821px){nav.tabs{flex-wrap:wrap;overflow:visible}}
 @media (max-width:820px){.split{grid-template-columns:1fr}}
-@media (max-width:640px){.it-novo{margin:0}.np-grid{grid-template-columns:1fr 1fr 1fr}.np-grid .np-f-obs,.np-grid .np-f-min{grid-column:span 3}.it-row{grid-template-columns:1fr 1fr;padding:8px;border:1px solid var(--border);border-radius:8px}.it-row .it-n{grid-column:span 2}.it-num{text-align:left}.it-head{display:none}}
+@media (max-width:640px){.it-novo,.it-exist{margin:0}.np-grid{grid-template-columns:1fr 1fr 1fr}.np-grid .np-f-obs,.np-grid .np-f-min{grid-column:span 3}.it-row{grid-template-columns:1fr 1fr;padding:8px;border:1px solid var(--border);border-radius:8px}.it-row .it-n{grid-column:span 2}.it-num{text-align:left}.it-head{display:none}}
 @media (max-width:560px){.grid2,.grid3{grid-template-columns:1fr}.span2{grid-column:auto}.top-in{gap:8px}.brand{width:100%}}
 </style>
 </head>
@@ -1674,6 +1678,11 @@ function itemRowHTML(i = {}){
     <input class="it-v" inputmode="decimal" placeholder="Valor unit. (R$)" value="${i.valorUnit != null ? fmtDec2(i.valorUnit) : ''}" aria-label="Valor da unidade">
     <input class="it-t" inputmode="decimal" placeholder="Total do item (R$)" value="${i.valorTotal != null ? fmtDec2(i.valorTotal) : ''}" ${i.valorTotal != null && round2(i.qtd * i.valorUnit) !== i.valorTotal ? 'data-manual="1"' : ''} aria-label="Valor total do item">
     <button type="button" class="it-del" title="Remover item" aria-label="Remover item">×</button>
+    <div class="it-exist" hidden>
+      <div class="ex-tit"></div>
+      <div class="ex-conv" hidden><span class="ex-conv-lbl"></span><input class="ex-qtd" type="number" min="0" step="any" inputmode="decimal" value="${i.qtdEstoque ?? ''}" aria-label="Quantidade que entra no estoque"></div>
+      <label class="check"><input type="checkbox" class="ex-nao" ${i.naoSomar ? 'checked' : ''}> Não somar no estoque (ex.: já lancei pela aba Entradas)</label>
+    </div>
     <div class="it-novo" hidden>
       <div class="it-novo-tit"></div>
       <div class="np-corpo">
@@ -1689,11 +1698,40 @@ function itemRowHTML(i = {}){
     </div>
   </div>`;
 }
+/* Lança no estoque a diferença entre o que a compra já tinha lançado (anterior) e o que deve lançar agora (desejado).
+   Aumento = movimentação de Entrada; redução (compra corrigida ou excluída) = Ajuste negativo, sem deixar o saldo negativo. */
+function lancarCompraNoEstoque(d, anterior, desejado, o){
+  const ref = `compra de ${fmtData(o.data)}${o.fornecedor ? ' — ' + o.fornecedor : ''}${o.numeroNota ? ' (nota nº ' + o.numeroNota + ')' : ''}`;
+  const res = {criados: [], entradas: [], retirados: []};
+  new Set([...Object.keys(anterior), ...Object.keys(desejado)]).forEach(pid => {
+    const delta = round3((desejado[pid] || 0) - (anterior[pid] || 0));
+    const p = d.produtos.find(x => x.id === pid);
+    if (!delta || !p) return;
+    const ant = p.saldo || 0;
+    if (delta > 0) {
+      p.saldo = round3(ant + delta);
+      const novo = o.criadosIds.has(pid);
+      d.movs.push({id: uid(), tipo: 'entrada', produtoId: pid, produtoNome: p.nome, unidade: p.unidade, qtd: delta, saldoAnt: ant, saldoPost: p.saldo, data: o.data, registradoEm: o.agora,
+        responsavel: 'Últimas compras', obs: novo ? `Item criado automaticamente pela ${ref}.` : o.editando ? `Correção da ${ref}: quantidade aumentada.` : `Entrada pela ${ref}.`, comentarios: []});
+      (novo ? res.criados : res.entradas).push(`${p.nome} (+${fmtQtd(delta)} ${p.unidade})`);
+    } else {
+      const tira = Math.min(-delta, ant);
+      if (tira <= 0) return;
+      p.saldo = round3(ant - tira);
+      d.movs.push({id: uid(), tipo: 'ajuste', produtoId: pid, produtoNome: p.nome, unidade: p.unidade, qtd: -tira, saldoAnt: ant, saldoPost: p.saldo, data: hojeISO(), registradoEm: o.agora,
+        responsavel: 'Últimas compras', obs: (o.excluindo ? `Exclusão da ${ref}` : `Correção da ${ref}: quantidade reduzida`) + (tira < -delta ? ` (o estoque só tinha ${fmtQtd(ant)} ${p.unidade})` : '') + '.', comentarios: []});
+      res.retirados.push(`${p.nome} (−${fmtQtd(tira)} ${p.unidade})`);
+    }
+  });
+  return res;
+}
 function abrirCompra(id){
   if (!abaDisponivel('compras')) return;
   const c = id ? db.compras.find(x => x.id === id) : {data: hojeISO(), itens: [{}]};
   if (!c) return;
   const totalManual = id && round2(c.totalNota) !== compraTotalItens(c);
+  /* Compras registradas antes da integração com o estoque não têm "lancado": editar não mexe no saldo dos itens existentes */
+  const legado = !!id && !c.lancado;
   openModal(id ? 'Editar compra' : 'Registrar compra', `<form id="f-cp" novalidate>
     <div class="grid3">
       <div class="field"><label for="cpr-data">Data da compra <b class="req">*</b></label><input id="cpr-data" type="date" value="${esc(c.data)}"></div>
@@ -1723,7 +1761,22 @@ function abrirCompra(id){
     $$('.it-row', box).forEach((r, i) => {
       const nome = $('.it-n', r).value.trim().replace(/\s+/g, ' ');
       const novo = nome && !db.produtos.some(p => norm(p.nome) === norm(nome));
-      const pn = $('.it-novo', r);
+      const pn = $('.it-novo', r), pe = $('.it-exist', r);
+      const prod = nome && !novo ? db.produtos.find(p => norm(p.nome) === norm(nome)) : null;
+      pe.hidden = !prod;
+      if (prod) {
+        const q = parseQtd($('.it-q', r).value), un = $('.it-u', r).value, nao = $('.ex-nao', r).checked;
+        const difUn = un && un !== prod.unidade;
+        const lanc = legado ? null : (c.lancado || {})[prod.id];
+        $('.ex-conv', r).hidden = !difUn || nao || legado;
+        if (difUn) $('.ex-conv-lbl', r).textContent = `No estoque este item é contado em “${prod.unidade}”. Quantos ${prod.unidade} entram no estoque?`;
+        const qEst = difUn ? parseQtd($('.ex-qtd', r).value) : q;
+        $('.ex-tit', r).innerHTML = `✓ Já existe no estoque (saldo atual: <b>${fmtQtd(prod.saldo)} ${esc(prod.unidade)}</b>).` +
+          (legado ? ' Compra antiga: editar não altera o estoque deste item.'
+            : nao ? ' <b>Não</b> será somado no estoque.'
+            : lanc != null ? ` Esta compra já lançou ${fmtQtd(lanc)} ${esc(prod.unidade)}; ao salvar, o estoque acompanha a diferença.`
+            : ` Ao registrar, entra <b>+${isFinite(qEst) && qEst > 0 ? fmtQtd(round3(qEst)) : '?'} ${esc(prod.unidade)}</b> como entrada.`);
+      }
       if (!novo) { pn.hidden = true; delete pn.dataset.dup; return; }
       pn.hidden = false;
       const k = norm(nome), q = parseQtd($('.it-q', r).value);
@@ -1796,7 +1849,15 @@ function abrirCompra(id){
   });
   $('#cpr-total').addEventListener('input', e => { e.target.dataset.manual = e.target.value.trim() ? '1' : ''; recalc(); });
   recalc();
-  if (id) $('#cpr-del').onclick = async () => { if (confirm('Excluir esta compra?') && await commit(d => { d.compras = d.compras.filter(x => x.id !== id); })) { toast('Compra excluída.'); closeModal(); } };
+  if (id) $('#cpr-del').onclick = async () => {
+    const lanc = c.lancado || {}; const n = Object.values(lanc).filter(q => q > 0).length;
+    if (!confirm(n ? `Excluir esta compra? As quantidades que ela lançou no estoque (${n} item(ns)) serão retiradas do estoque.` : 'Excluir esta compra?')) return;
+    let res = null;
+    if (await commit(d => {
+      res = lancarCompraNoEstoque(d, lanc, {}, {data: c.data, fornecedor: c.fornecedor, numeroNota: c.numeroNota, agora: new Date().toISOString(), criadosIds: new Set(), excluindo: true});
+      d.compras = d.compras.filter(x => x.id !== id);
+    })) { toast('Compra excluída.' + (res.retirados.length ? ` Retirado do estoque: ${res.retirados.join(', ')}.` : '')); closeModal(); }
+  };
   $('#f-cp').onsubmit = async e => {
     e.preventDefault(); clearErr(e.target); const errs = [];
     $$('.bad', box).forEach(x => x.classList.remove('bad'));
@@ -1816,6 +1877,15 @@ function abrirCompra(id){
       if (!isFinite(t) || t < 0) ruim.push('.it-t');
       if (ruim.length) { ruim.forEach(s => $(s, r).classList.add('bad')); itemErr = itemErr || $(ruim[0], r); return; }
       const item = {nome, qtd: round3(q), unidade: un, valorUnit: round2(v), valorTotal: round2(t)};
+      const pe = $('.it-exist', r);
+      if (!pe.hidden) {
+        if ($('.ex-nao', r).checked) item.naoSomar = true;
+        else if (!$('.ex-conv', r).hidden) {
+          const qe = parseQtd($('.ex-qtd', r).value);
+          if (!isFinite(qe) || qe <= 0) { $('.ex-qtd', r).classList.add('bad'); locErr = locErr || $('.ex-qtd', r); }
+          else item.qtdEstoque = round3(qe);
+        }
+      }
       const pn = $('.it-novo', r);
       if (!pn.hidden) {
         const k = norm(nome);
@@ -1839,32 +1909,50 @@ function abrirCompra(id){
     });
     const anchor = $('#cpr-err-slot');
     if (itemErr) errs.push([anchor, 'Complete os itens destacados em vermelho (nome, quantidade, unidade e valor da unidade). O mesmo item novo deve ter a mesma unidade em todas as linhas.']);
-    else if (locErr) { itemErr = locErr; errs.push([anchor, 'Informe andar, estante e fileira dos itens novos (quadros amarelos) ou marque “Não guardar no estoque”.']); }
+    else if (locErr) { itemErr = locErr; errs.push([anchor, 'Complete os campos destacados: andar, estante e fileira dos itens novos (quadros amarelos) e a quantidade que entra no estoque quando a unidade é diferente (quadros verdes).']); }
     else if (!itens.length) { $('.it-n', box).classList.add('bad'); itemErr = $('.it-n', box); errs.push([anchor, 'Informe pelo menos um item.']); }
     const total = parseMoeda($('#cpr-total').value);
     if (!isFinite(total) || total < 0) errs.push([$('#cpr-total'), 'Informe o valor total da nota.']);
     if (errs.length) { showErrs(errs); if (errs[0][0] === anchor && itemErr) itemErr.focus(); return; }
     const v = {data, fornecedor: $('#cpr-forn').value.trim(), numeroNota: $('#cpr-num').value.trim(), itens, totalNota: round2(total), obs: $('#cpr-obs').value.trim()};
-    const criados = [];
+    let res = null;
     const ok = await commit(d => {
       const agora = new Date().toISOString();
-      criados.length = 0;
-      /* Itens novos: cria o produto no estoque já com a quantidade comprada e registra a entrada no histórico */
+      const x = id ? d.compras.find(y => y.id === id) : null;
+      if (id && !x) throw new Error('Compra não encontrada.');
+      const criadosIds = new Set();
+      /* 1) Itens novos: cria o produto no estoque (o saldo entra no passo 2, como entrada) */
       novos.forEach(n => {
         if (n.sem || d.produtos.some(p => norm(p.nome) === norm(n.nome))) return;
         const pid = uid();
         d.produtos.push({id: pid, nome: n.nome, unidade: n.unidade, andar: n.andar, estante: n.estante, fileira: n.fileira, obs: n.obs, minimo: n.minimo,
-          saldo: n.qtd, criadoEm: agora, alteracoes: [], origem: 'compra'});
-        d.movs.push({id: uid(), tipo: 'entrada', produtoId: pid, produtoNome: n.nome, unidade: n.unidade, qtd: n.qtd, saldoAnt: 0, saldoPost: n.qtd, data, registradoEm: agora,
-          responsavel: 'Últimas compras', obs: `Item criado automaticamente pela compra de ${fmtData(data)}${v.fornecedor ? ' — ' + v.fornecedor : ''}${v.numeroNota ? ' (nota nº ' + v.numeroNota + ')' : ''}.`, comentarios: []});
-        n.itens.forEach(it => { it.produtoId = pid; it.criouNoEstoque = true; });
-        criados.push(`${n.nome} (${fmtQtd(n.qtd)} ${n.unidade})`);
+          saldo: 0, criadoEm: agora, alteracoes: [], origem: 'compra'});
+        criadosIds.add(pid);
+        n.itens.forEach(it => { it.criouNoEstoque = true; });
       });
-      if (id) { const x = d.compras.find(y => y.id === id); if (!x) throw new Error('Compra não encontrada.'); Object.assign(x, v, {editadoEm: agora}); }
-      else d.compras.push({id: uid(), ...v, criadoEm: agora});
+      /* 2) Quanto esta compra deve ter lançado em cada produto */
+      const desejado = {};
+      v.itens.forEach(it => {
+        if (it.semEstoque) return;
+        const p = d.produtos.find(pp => norm(pp.nome) === norm(it.nome)); if (!p) return;
+        it.produtoId = p.id;
+        if (it.naoSomar) return;
+        if (legado && !criadosIds.has(p.id)) return;
+        desejado[p.id] = round3((desejado[p.id] || 0) + (it.qtdEstoque != null ? it.qtdEstoque : it.qtd));
+      });
+      const anterior = (x && x.lancado) || {};
+      res = lancarCompraNoEstoque(d, anterior, desejado, {data, fornecedor: v.fornecedor, numeroNota: v.numeroNota, agora, criadosIds, editando: !!x});
+      const reg = {...v, lancado: legado ? undefined : desejado};
+      if (legado) delete reg.lancado;
+      if (x) Object.assign(x, reg, {editadoEm: agora});
+      else d.compras.push({id: uid(), ...reg, criadoEm: agora});
     });
     if (ok) {
-      toast((id ? 'Compra atualizada.' : 'Compra registrada.') + (criados.length ? ` Criado(s) no estoque: ${criados.join(', ')}.` : ''));
+      const partes = [];
+      if (res.criados.length) partes.push(`Criado(s) no estoque: ${res.criados.join(', ')}`);
+      if (res.entradas.length) partes.push(`Entrada no estoque: ${res.entradas.join(', ')}`);
+      if (res.retirados.length) partes.push(`Retirado do estoque: ${res.retirados.join(', ')}`);
+      toast((id ? 'Compra atualizada.' : 'Compra registrada.') + (partes.length ? ' ' + partes.join('. ') + '.' : ''));
       closeModal();
     }
   };
