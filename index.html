@@ -201,7 +201,7 @@ body.busy,body.busy *{cursor:progress !important}
   <div class="section-head"><h1>Estoque</h1><button class="btn primary" id="btn-novo-prod">+ Novo produto</button></div>
   <label class="search" for="busca">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.8-4.8"/></svg>
-    <input id="busca" type="search" placeholder="Pesquisar por nome do produto ou código/SKU…" autocomplete="off" aria-label="Pesquisar produto">
+    <input id="busca" type="search" placeholder="Pesquisar pelo nome do produto…" autocomplete="off" aria-label="Pesquisar produto">
   </label>
   <div id="busca-area" hidden><div class="results" id="busca-res"></div></div>
   <div id="lista-area" class="panel">
@@ -211,7 +211,7 @@ body.busy,body.busy *{cursor:progress !important}
       <button class="chip" data-f="zero">Sem estoque</button>
     </div>
     <div class="table-wrap"><table>
-      <thead><tr><th>Produto</th><th>Código</th><th class="num">Quantidade</th><th>Localização</th><th>Status</th></tr></thead>
+      <thead><tr><th>Produto</th><th class="num">Quantidade</th><th>Localização</th><th>Status</th><th></th></tr></thead>
       <tbody id="est-tbody"></tbody>
     </table></div>
   </div>
@@ -319,7 +319,6 @@ body.busy,body.busy *{cursor:progress !important}
 </main>
 
 <datalist id="pessoas"></datalist>
-<datalist id="unidades"><option value="un"><option value="m"><option value="cm"><option value="kg"><option value="g"><option value="rolo"><option value="peça"><option value="caixa"><option value="pacote"><option value="par"><option value="L"></datalist>
 
 <div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="modal-title">
   <div class="modal-card">
@@ -514,9 +513,10 @@ const prodById = id => db.produtos.find(p => p.id === id);
 const nomeProd = m => (prodById(m.produtoId) || {}).nome || m.produtoNome;
 
 function statusEstoque(p){
-  if (p.saldo <= 0) return {k: 'zero', t: 'Sem estoque'};
-  if (p.minimo != null && p.saldo <= p.minimo) return {k: 'baixo', t: 'Estoque baixo'};
-  return {k: 'ok', t: 'Disponível'};
+  if (!(p.saldo > 0)) return {k: 'zero', t: 'Sem estoque'};
+  const t = `${fmtQtd(p.saldo)} ${p.unidade || ''} no estoque`.replace(/\s+/g, ' ');
+  if (p.minimo != null && p.saldo <= p.minimo) return {k: 'baixo', t};
+  return {k: 'ok', t};
 }
 const badgeEst = p => { const s = statusEstoque(p); return `<span class="badge b-${s.k}">${s.t}</span>`; };
 const locHTML = p => `<span class="loc-line">Andar ${esc(p.andar)} <span class="arr">→</span> Estante ${esc(p.estante)} <span class="arr">→</span> Fileira ${esc(p.fileira)}</span>`;
@@ -548,6 +548,7 @@ document.addEventListener('click', e => {
   const tab = t.closest('[data-tab]'); if (tab) { goTab(tab.dataset.tab); return; }
   const lemb = t.closest('[data-lemb]'); if (lemb) { abrirLembrete(lemb.dataset.lemb); return; }
   const mov = t.closest('[data-mov]'); if (mov) { abrirMov(mov.dataset.mov); return; }
+  const del = t.closest('[data-del]'); if (del) { excluirProduto(del.dataset.del); return; }
   const prod = t.closest('[data-prod]'); if (prod) { abrirFicha(prod.dataset.prod); return; }
 });
 document.addEventListener('keydown', e => {
@@ -568,12 +569,20 @@ function lerPessoa(p, msgVazio){
 function resetPessoa(p){ $('#' + p + '-nome').value = ''; }
 
 /* ---------- Campos de produto (cadastro / edição / entrada) ---------- */
-function prodFieldsHTML(p, pr = {}){
+const UNIDADES = ['un', 'kg', 'mm', 'm', 'l', 'cm', 'g', 'caixa', 'pacote', 'par'];
+function unidOptions(atual){
+  const lista = atual && !UNIDADES.includes(atual) ? [atual, ...UNIDADES] : UNIDADES;
+  return `<option value="">Selecione…</option>` + lista.map(u => `<option value="${esc(u)}"${u === atual ? ' selected' : ''}>${esc(u)}</option>`).join('');
+}
+/* comQtd = false no cadastro feito pela aba Entradas (lá a quantidade é a "Quantidade recebida") */
+function prodFieldsHTML(p, pr = {}, comQtd = true){
+  const qtdVal = pr.id ? pr.saldo : '';
   return `<div class="grid2">
     <div class="field span2"><label for="${p}-nome">Nome do produto <b class="req">*</b></label><input id="${p}-nome" value="${esc(pr.nome)}"></div>
-    <div class="field"><label for="${p}-sku">Código / SKU</label><input id="${p}-sku" value="${esc(pr.sku)}"></div>
-    <div class="field"><label for="${p}-unid">Unidade de medida <b class="req">*</b></label><input id="${p}-unid" list="unidades" value="${esc(pr.unidade)}" placeholder="ex.: m, kg, rolo, un"></div>
+    ${comQtd ? `<div class="field"><label for="${p}-qtd">Quantidade <b class="req">*</b></label><input id="${p}-qtd" type="number" min="0" step="any" inputmode="decimal" value="${qtdVal ?? ''}" placeholder="ex.: 25"></div>` : ''}
+    <div class="field${comQtd ? '' : ' span2'}"><label for="${p}-unid">Unidade de medida <b class="req">*</b></label><select id="${p}-unid">${unidOptions(pr.unidade)}</select></div>
   </div>
+  ${comQtd ? '<p class="hint" style="margin:-4px 0 12px">A quantidade define o status: 0 = Sem estoque; acima de 0 = “X unidade no estoque”.</p>' : ''}
   <fieldset class="loc"><legend>Localização física <b class="req">*</b></legend><div class="grid3">
     <div class="field"><label for="${p}-andar">Andar</label><input id="${p}-andar" value="${esc(pr.andar)}" placeholder="ex.: 2"></div>
     <div class="field"><label for="${p}-estante">Estante</label><input id="${p}-estante" value="${esc(pr.estante)}" placeholder="ex.: 07"></div>
@@ -584,19 +593,24 @@ function prodFieldsHTML(p, pr = {}){
 }
 function lerProd(p, idAtual){
   const g = k => $('#' + p + '-' + k);
-  const v = {nome: g('nome').value.trim().replace(/\s+/g, ' '), sku: g('sku').value.trim(), unidade: g('unid').value.trim(),
+  const v = {nome: g('nome').value.trim().replace(/\s+/g, ' '), unidade: g('unid').value.trim(),
     andar: g('andar').value.trim(), estante: g('estante').value.trim(), fileira: g('fileira').value.trim(), obs: g('obs').value.trim(), minimo: null};
   const errs = [];
   if (!v.nome) errs.push([g('nome'), 'Informe o nome do produto.']);
   else if (db.produtos.some(x => x.id !== idAtual && norm(x.nome) === norm(v.nome))) errs.push([g('nome'), 'Já existe um produto com este nome.']);
-  if (v.sku && db.produtos.some(x => x.id !== idAtual && x.sku && norm(x.sku) === norm(v.sku))) errs.push([g('sku'), 'Este código já está em outro produto.']);
   if (!v.unidade) errs.push([g('unid'), 'Informe a unidade de medida.']);
   if (!v.andar) errs.push([g('andar'), 'Obrigatório.']);
   if (!v.estante) errs.push([g('estante'), 'Obrigatório.']);
   if (!v.fileira) errs.push([g('fileira'), 'Obrigatório.']);
   const mr = g('min').value.trim();
   if (mr !== '' || g('min').validity.badInput) { const n = parseQtd(mr); if (!isFinite(n) || n < 0) errs.push([g('min'), 'Valor inválido.']); else v.minimo = n; }
-  return {v, errs};
+  let qtd = null;
+  if (g('qtd')) {
+    qtd = parseQtd(g('qtd').value);
+    if (g('qtd').validity.badInput || !isFinite(qtd) || qtd < 0) { errs.push([g('qtd'), 'Informe a quantidade (0 ou mais).']); qtd = null; }
+    else qtd = round3(qtd);
+  }
+  return {v, errs, qtd};
 }
 
 /* ================= Render ================= */
@@ -606,7 +620,7 @@ function renderAll(){
 function fillSelects(){
   [['#ent-prod', true], ['#sai-prod', false]].forEach(([s, novo]) => {
     const sel = $(s); const v = sel.value; const ps = [...db.produtos].sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR'));
-    sel.innerHTML = `<option value="">Selecione o produto…</option>` + ps.map(p => `<option value="${p.id}">${esc(p.nome)}${p.sku ? ' · ' + esc(p.sku) : ''} — ${fmtQtd(p.saldo)} ${esc(p.unidade)}</option>`).join('') + (novo ? `<option value="__novo">+ Cadastrar novo produto</option>` : '');
+    sel.innerHTML = `<option value="">Selecione o produto…</option>` + ps.map(p => `<option value="${p.id}">${esc(p.nome)} — ${fmtQtd(p.saldo)} ${esc(p.unidade)}</option>`).join('') + (novo ? `<option value="__novo">+ Cadastrar novo produto</option>` : '');
     if ([...sel.options].some(o => o.value === v)) sel.value = v;
   });
   const nomes = new Map();
@@ -649,8 +663,8 @@ function renderEstoque(){
   let ps = [...db.produtos].sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR'));
   if (filtroEst !== 'todos') ps = ps.filter(p => statusEstoque(p).k === filtroEst);
   $('#est-tbody').innerHTML = ps.length ? ps.map(p => `<tr class="click" data-prod="${p.id}" tabindex="0">
-    <td><b>${esc(p.nome)}</b></td><td>${esc(p.sku) || '<span class="muted">—</span>'}</td>
-    <td class="num"><b>${fmtQtd(p.saldo)}</b> ${esc(p.unidade)}</td><td>${locHTML(p)}</td><td>${badgeEst(p)}</td></tr>`).join('')
+    <td><b>${esc(p.nome)}</b></td>
+    <td class="num"><b>${fmtQtd(p.saldo)}</b> ${esc(p.unidade)}</td><td>${locHTML(p)}</td><td>${badgeEst(p)}</td><td class="num"><button class="btn danger sm" data-del="${p.id}" title="Excluir produto">Excluir</button></td></tr>`).join('')
     : `<tr><td colspan="5" class="empty">${db.produtos.length ? 'Nenhum produto neste filtro.' : 'Nenhum produto cadastrado. Clique em "+ Novo produto".'}</td></tr>`;
 }
 $('#est-filtros').addEventListener('click', e => { const c = e.target.closest('.chip'); if (!c) return; filtroEst = c.dataset.f; $$('#est-filtros .chip').forEach(x => x.classList.toggle('on', x === c)); renderEstoque(); });
@@ -659,10 +673,10 @@ function renderBusca(){
   const q = norm($('#busca').value);
   $('#busca-area').hidden = !q; $('#lista-area').hidden = !!q;
   if (!q) return;
-  const res = db.produtos.filter(p => norm(p.nome).includes(q) || (p.sku && norm(p.sku).includes(q)))
+  const res = db.produtos.filter(p => norm(p.nome).includes(q))
     .sort((a, b) => (norm(a.nome).startsWith(q) ? 0 : 1) - (norm(b.nome).startsWith(q) ? 0 : 1) || a.nome.localeCompare(b.nome, 'pt-BR'));
   $('#busca-res').innerHTML = res.length ? res.map(p => `<button class="res" data-prod="${p.id}">
-      <span class="nm">${esc(p.nome)}${p.sku ? ` <span class="muted small">· ${esc(p.sku)}</span>` : ''}</span>
+      <span class="nm">${esc(p.nome)}</span>
       <span class="qt">${fmtQtd(p.saldo)} <span class="small muted">${esc(p.unidade)}</span></span>
       <span class="small">Localização: ${locHTML(p)}</span><span>${badgeEst(p)}</span></button>`).join('')
     : `<div class="panel" style="text-align:center"><p style="font-weight:700;margin:0 0 10px">Nenhum produto encontrado</p><button class="btn primary" id="btn-cad-busca">+ Cadastrar novo item</button></div>`;
@@ -674,20 +688,28 @@ $('#btn-novo-prod').onclick = () => abrirCadastro(null);
 function abrirCadastro(id, prefill){
   const pr = id ? prodById(id) : {nome: prefill || ''};
   openModal(id ? 'Editar cadastro' : 'Novo produto', `<form id="f-prod" novalidate>${prodFieldsHTML('cp', pr)}
-    ${id ? '' : '<p class="hint">O saldo começa em 0. Registre a quantidade recebida pela aba Entradas.</p>'}
+    ${id ? '<p class="hint">Se mudar a quantidade, a diferença fica registrada como ajuste no histórico do produto.</p>' : '<p class="hint">A quantidade informada vira o saldo inicial e fica registrada como entrada no histórico.</p>'}
     <div class="actions"><button type="button" class="btn" data-close>Cancelar</button><button class="btn primary" type="submit">${id ? 'Salvar alterações' : 'Cadastrar produto'}</button></div></form>`);
   $('#cp-nome').focus();
   $('#f-prod').onsubmit = async e => {
     e.preventDefault(); clearErr(e.target);
-    const {v, errs} = lerProd('cp', id); if (errs.length) return showErrs(errs);
+    const {v, errs, qtd} = lerProd('cp', id); if (errs.length) return showErrs(errs);
     const novoId = id || uid();
     const ok = await commit(d => {
-      const agora = new Date().toISOString();
+      const agora = new Date().toISOString(); const hoje = hojeISO();
       if (id) {
         const p = d.produtos.find(x => x.id === id); if (!p) throw new Error('Produto não encontrado.');
-        const campos = ['nome', 'sku', 'unidade', 'andar', 'estante', 'fileira', 'minimo', 'obs'].filter(k => String(p[k] ?? '') !== String(v[k] ?? ''));
+        const campos = ['nome', 'unidade', 'andar', 'estante', 'fileira', 'minimo', 'obs'].filter(k => String(p[k] ?? '') !== String(v[k] ?? ''));
         Object.assign(p, v); if (campos.length) (p.alteracoes = p.alteracoes || []).push({em: agora, campos});
-      } else d.produtos.push({id: novoId, ...v, saldo: 0, criadoEm: agora, alteracoes: []});
+        if (qtd != null && qtd !== p.saldo) {
+          const ant = p.saldo; p.saldo = qtd;
+          d.movs.push({id: uid(), tipo: 'ajuste', produtoId: id, produtoNome: p.nome, unidade: p.unidade, qtd: round3(qtd - ant), saldoAnt: ant, saldoPost: qtd, data: hoje, registradoEm: agora, responsavel: 'Edição do cadastro', obs: 'Quantidade alterada na edição do cadastro.', comentarios: []});
+        }
+      } else {
+        const q = qtd || 0;
+        d.produtos.push({id: novoId, ...v, saldo: q, criadoEm: agora, alteracoes: []});
+        if (q > 0) d.movs.push({id: uid(), tipo: 'entrada', produtoId: novoId, produtoNome: v.nome, unidade: v.unidade, qtd: q, saldoAnt: 0, saldoPost: q, data: hoje, registradoEm: agora, responsavel: 'Cadastro do produto', obs: 'Quantidade inicial informada no cadastro.', comentarios: []});
+      }
     });
     if (ok) { toast(id ? 'Cadastro atualizado.' : 'Produto cadastrado.'); abrirFicha(novoId); }
   };
@@ -708,7 +730,6 @@ function abrirFicha(id){
       <div><span>Andar</span><b>${esc(p.andar)}</b></div>
       <div><span>Estante</span><b>${esc(p.estante)}</b></div>
       <div><span>Fileira</span><b>${esc(p.fileira)}</b></div>
-      <div><span>Código / SKU</span><b>${esc(p.sku) || '—'}</b></div>
       <div><span>Estoque mínimo</span><b>${p.minimo != null ? fmtQtd(p.minimo) + ' ' + esc(p.unidade) : 'Não configurado'}</b></div>
     </div>
     <div class="field"><label>Observações do cadastro</label><div>${p.obs ? esc(p.obs) : '<span class="muted">Sem observações.</span>'}</div></div>
@@ -717,6 +738,7 @@ function abrirFicha(id){
       <button class="btn primary sm" id="fx-sai">− Registrar saída</button>
       <button class="btn sm" id="fx-edit">Editar cadastro</button>
       <button class="btn sm" id="fx-aj">Ajustar saldo</button>
+      <button class="btn danger sm" data-del="${p.id}">Excluir produto</button>
     </div>
     <h2 style="margin-top:20px">Histórico de entradas, saídas e ajustes</h2>
     <div class="table-wrap"><table><thead><tr><th>Data</th><th>Tipo</th><th class="num">Qtd</th><th class="num">Saldo</th><th>Pessoa</th></tr></thead><tbody>
@@ -731,6 +753,17 @@ function abrirFicha(id){
   $('#fx-sai').onclick = () => { closeModal(); goTab('saidas'); $('#sai-prod').value = id; atualizaSaldoSaida(); $('#sai-qtd').focus(); };
   $('#fx-edit').onclick = () => abrirCadastro(id);
   $('#fx-aj').onclick = () => abrirAjuste(id);
+}
+
+/* Exclusão livre: qualquer produto, com qualquer saldo. O histórico de movimentações
+   continua guardado (com o nome do produto) para as abas Entradas/Saídas e o Excel. */
+async function excluirProduto(id){
+  const p = prodById(id); if (!p) return;
+  if (!confirm(`Excluir "${p.nome}" do estoque?`)) return;
+  if (await commit(d => { d.produtos = d.produtos.filter(x => x.id !== id); })) {
+    if (!$('#modal').hidden) closeModal();
+    toast('Produto excluído.');
+  }
 }
 
 function abrirAjuste(id){
@@ -828,7 +861,7 @@ let entPend = null;
 $('#ent-prod').addEventListener('change', () => {
   const novo = $('#ent-prod').value === '__novo';
   $('#ent-novo').hidden = !novo;
-  if (novo && !$('#np-nome')) $('#ent-novo-campos').innerHTML = prodFieldsHTML('np');
+  if (novo && !$('#np-nome')) $('#ent-novo-campos').innerHTML = prodFieldsHTML('np', {}, false);
 });
 $('#f-ent').addEventListener('input', () => { if (entPend) { entPend = null; $('#ent-review').innerHTML = ''; } });
 $('#f-ent').addEventListener('change', () => { if (entPend) { entPend = null; $('#ent-review').innerHTML = ''; } });
@@ -1152,11 +1185,10 @@ function gerarPlanilha(){
   const porNome = (a, b) => a.nome.localeCompare(b.nome, 'pt-BR');
   const P = [...db.produtos].sort(porNome);
   const M = [...db.movs].sort((a, b) => (a.data + a.registradoEm).localeCompare(b.data + b.registradoEm));
-  const sku = m => (prodById(m.produtoId) || {}).sku || '';
   const nomeMov = m => nomeProd(m) || '';
   const cmtTxt = m => m.comentarios.map(c => `${fmtDataHora(c.em)} — ${c.tipo === 'ocorrencia' ? '[OCORRÊNCIA] ' : ''}${c.autor}: ${c.texto}`).join('\n');
   const loc = p => `Andar ${p.andar} → Estante ${p.estante} → Fileira ${p.fileira}`;
-  const stProd = v => v === 'Disponível' ? XS.ok : v === 'Estoque baixo' ? XS.warn : XS.bad;
+  const stProd = v => v === 'Sem estoque' ? XS.bad : XS.ok;
   const stLe = v => v === 'Concluído' ? XS.ok : v === 'Pendente' ? XS.warn : XS.bad;
   const stTipo = v => v === 'Entrada' ? XS.ok : v === 'Saída' ? XS.warn : XS.info;
   const stSim = v => v === 'Sim' ? XS.ok : v === 'Não' ? XS.bad : XS.s;
@@ -1167,46 +1199,46 @@ function gerarPlanilha(){
   const nOc = db.movs.reduce((a, m) => a + m.comentarios.filter(c => c.tipo === 'ocorrencia').length, 0);
 
   const estoque = xTabela('Estoque', [
-    {h: 'Produto', t: 'b', min: 18}, {h: 'Código / SKU'}, {h: 'Quantidade atual', t: 'n'}, {h: 'Unidade'},
-    {h: 'Andar'}, {h: 'Estante'}, {h: 'Fileira'}, {h: 'Localização', min: 32}, {h: 'Estoque mínimo', t: 'n'}, {h: 'Status', st: stProd, min: 15},
+    {h: 'Produto', t: 'b', min: 18}, {h: 'Quantidade atual', t: 'n'}, {h: 'Unidade'},
+    {h: 'Andar'}, {h: 'Estante'}, {h: 'Fileira'}, {h: 'Localização', min: 32}, {h: 'Estoque mínimo', t: 'n'}, {h: 'Status', st: stProd, min: 22},
     {h: 'Total de entradas', t: 'n'}, {h: 'Total de saídas', t: 'n'}, {h: 'Total ajustado', t: 'n'}, {h: 'Última movimentação', t: 'dt'},
     {h: 'Observações do cadastro', t: 'wrap', w: 40}, {h: 'Cadastrado em', t: 'dt'}, {h: 'Última alteração do cadastro', t: 'dt'}
   ], P.map(p => {
     const ms = db.movs.filter(m => m.produtoId === p.id);
     const ult = ms.reduce((a, m) => !a || m.registradoEm > a ? m.registradoEm : a, null);
     const alt = (p.alteracoes || []).slice(-1)[0];
-    return [p.nome, p.sku, p.saldo, p.unidade, p.andar, p.estante, p.fileira, loc(p), p.minimo, statusEstoque(p).t,
+    return [p.nome, p.saldo, p.unidade, p.andar, p.estante, p.fileira, loc(p), p.minimo, statusEstoque(p).t,
       soma(ms.filter(m => m.tipo === 'entrada')), soma(ms.filter(m => m.tipo === 'saida')), soma(ms.filter(m => m.tipo === 'ajuste')),
       ult, p.obs, p.criadoEm, alt && alt.em];
   }));
 
   const entradas = xTabela('Entradas', [
-    {h: 'Data da entrada', t: 'd'}, {h: 'Registrado em', t: 'dt'}, {h: 'Produto', t: 'b', min: 18}, {h: 'Código / SKU'},
+    {h: 'Data da entrada', t: 'd'}, {h: 'Registrado em', t: 'dt'}, {h: 'Produto', t: 'b', min: 18},
     {h: 'Quantidade recebida', t: 'n'}, {h: 'Unidade'}, {h: 'Saldo anterior', t: 'n'}, {h: 'Saldo posterior', t: 'n'},
     {h: 'Responsável pelo lançamento', min: 20}, {h: 'Observação', t: 'wrap', w: 36}, {h: 'Nº de comentários', t: 'n'}, {h: 'Comentários', t: 'wrap', w: 60}
-  ], ents.map(m => [m.data, m.registradoEm, nomeMov(m), sku(m), m.qtd, m.unidade, m.saldoAnt, m.saldoPost, m.responsavel, m.obs, m.comentarios.length, cmtTxt(m)]));
+  ], ents.map(m => [m.data, m.registradoEm, nomeMov(m), m.qtd, m.unidade, m.saldoAnt, m.saldoPost, m.responsavel, m.obs, m.comentarios.length, cmtTxt(m)]));
 
   const saidas = xTabela('Saídas', [
-    {h: 'Data da retirada', t: 'd'}, {h: 'Registrado em', t: 'dt'}, {h: 'Produto', t: 'b', min: 18}, {h: 'Código / SKU'},
+    {h: 'Data da retirada', t: 'd'}, {h: 'Registrado em', t: 'dt'}, {h: 'Produto', t: 'b', min: 18},
     {h: 'Quantidade retirada', t: 'n'}, {h: 'Unidade'}, {h: 'Saldo anterior', t: 'n'}, {h: 'Saldo posterior', t: 'n'},
     {h: 'Quem retirou', min: 20}, {h: 'Autorizado por Ricardo?', st: stSim},
     {h: 'Observação', t: 'wrap', w: 36}, {h: 'Nº de comentários', t: 'n'}, {h: 'Nº de ocorrências', t: 'n'}, {h: 'Comentários e ocorrências', t: 'wrap', w: 60}
-  ], sais.map(m => [m.data, m.registradoEm, nomeMov(m), sku(m), m.qtd, m.unidade, m.saldoAnt, m.saldoPost, m.quemRetirou,
+  ], sais.map(m => [m.data, m.registradoEm, nomeMov(m), m.qtd, m.unidade, m.saldoAnt, m.saldoPost, m.quemRetirou,
     m.autorizadoRicardo || 'Sim', m.obs, m.comentarios.length, m.comentarios.filter(c => c.tipo === 'ocorrencia').length, cmtTxt(m)]));
 
   const ajustes = xTabela('Ajustes', [
-    {h: 'Data do ajuste', t: 'd'}, {h: 'Registrado em', t: 'dt'}, {h: 'Produto', t: 'b', min: 18}, {h: 'Código / SKU'},
+    {h: 'Data do ajuste', t: 'd'}, {h: 'Registrado em', t: 'dt'}, {h: 'Produto', t: 'b', min: 18},
     {h: 'Diferença ajustada', t: 'n'}, {h: 'Unidade'}, {h: 'Saldo anterior', t: 'n'}, {h: 'Saldo posterior', t: 'n'},
     {h: 'Responsável pelo ajuste', min: 20}, {h: 'Motivo', t: 'wrap', w: 40}, {h: 'Comentários', t: 'wrap', w: 60}
-  ], ajs.map(m => [m.data, m.registradoEm, nomeMov(m), sku(m), m.qtd, m.unidade, m.saldoAnt, m.saldoPost, m.responsavel, m.obs, cmtTxt(m)]));
+  ], ajs.map(m => [m.data, m.registradoEm, nomeMov(m), m.qtd, m.unidade, m.saldoAnt, m.saldoPost, m.responsavel, m.obs, cmtTxt(m)]));
 
   const historico = xTabela('Histórico', [
-    {h: 'Data', t: 'd'}, {h: 'Registrado em', t: 'dt'}, {h: 'Tipo', st: stTipo, min: 10}, {h: 'Produto', t: 'b', min: 18}, {h: 'Código / SKU'},
+    {h: 'Data', t: 'd'}, {h: 'Registrado em', t: 'dt'}, {h: 'Tipo', st: stTipo, min: 10}, {h: 'Produto', t: 'b', min: 18},
     {h: 'Movimento (+/−)', t: 'n'}, {h: 'Unidade'}, {h: 'Saldo anterior', t: 'n'}, {h: 'Saldo posterior', t: 'n'},
     {h: 'Pessoa', min: 20}, {h: 'Função da pessoa', min: 16}, {h: 'Autorizado por Ricardo?', st: stSim}, {h: 'Observação / motivo', t: 'wrap', w: 40}, {h: 'Nº de comentários', t: 'n'}
   ], M.map(m => {
     const s = m.tipo === 'saida';
-    return [m.data, m.registradoEm, tipoLabel(m), nomeMov(m), sku(m), m.tipo === 'saida' ? -m.qtd : m.qtd, m.unidade, m.saldoAnt, m.saldoPost,
+    return [m.data, m.registradoEm, tipoLabel(m), nomeMov(m), m.tipo === 'saida' ? -m.qtd : m.qtd, m.unidade, m.saldoAnt, m.saldoPost,
       s ? m.quemRetirou : m.responsavel, s ? 'Retirou' : m.tipo === 'ajuste' ? 'Responsável pelo ajuste' : 'Responsável pelo lançamento',
       s ? (m.autorizadoRicardo || 'Sim') : '', m.obs, m.comentarios.length];
   }));
@@ -1229,8 +1261,8 @@ function gerarPlanilha(){
   db.produtos.forEach(p => (p.alteracoes || []).forEach(a => alts.push({p, a})));
   alts.sort((x, y) => x.a.em.localeCompare(y.a.em));
   const alteracoes = xTabela('Alterações de cadastro', [
-    {h: 'Alterado em', t: 'dt'}, {h: 'Produto', t: 'b', min: 18}, {h: 'Código / SKU'}, {h: 'Campos alterados', t: 'wrap', w: 40}, {h: 'Localização atual', min: 32}
-  ], alts.map(({p, a}) => [a.em, p.nome, p.sku, a.campos.map(c => CAMPO_LABEL[c] || c).join(', '), loc(p)]));
+    {h: 'Alterado em', t: 'dt'}, {h: 'Produto', t: 'b', min: 18}, {h: 'Campos alterados', t: 'wrap', w: 40}, {h: 'Localização atual', min: 32}
+  ], alts.map(({p, a}) => [a.em, p.nome, a.campos.map(c => CAMPO_LABEL[c] || c).join(', '), loc(p)]));
 
   /* Resumo (primeira aba) */
   const R = (cells, ht) => ({ht, cells});
