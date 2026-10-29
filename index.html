@@ -163,7 +163,73 @@ body.busy,body.busy *{cursor:progress !important}
 .cfg .hint{flex:1;margin:0 0 14px}
 .cfg-actions{display:flex;gap:8px;flex-wrap:wrap}
 .cfg-actions .btn{flex:1 1 200px;text-align:center}
+.list-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap}
+.list-head .filters{margin-bottom:10px}
+.ordem{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;margin-bottom:10px}
+/* GPS Itens */
+.gcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px}
+.gcard{background:var(--surface);border:1px solid var(--border);border-left:5px solid var(--ok);border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;box-shadow:var(--shadow)}
+.gcard.rua{border-left-color:var(--out)}
+.g-top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.g-nome{font-weight:700;font-size:16px;cursor:pointer;background:none;border:0;padding:0;text-align:left}
+.g-nome:hover{color:var(--primary);text-decoration:underline}
+.b-rua{background:var(--warn-soft);color:var(--out)}
+.b-est{background:var(--ok-soft);color:var(--ok)}
+.b-n2{background:var(--primary-soft);color:var(--primary)}
+.b-neutro{background:var(--surface-2);color:var(--muted);border:1px solid var(--border)}
+.g-info{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;margin:0;font-size:14px}
+.g-info dt{color:var(--muted)}
+.g-info dd{margin:0;font-weight:600}
+.ciclo{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);font-weight:600}
+.ciclo .bar{flex:1;height:7px;background:var(--surface-2);border:1px solid var(--border);border-radius:99px;overflow:hidden}
+.ciclo .bar i{display:block;height:100%;background:var(--primary)}
+.tl{list-style:none;margin:0;padding:6px 0 0;max-height:230px;overflow-y:auto;border-top:1px solid var(--border)}
+.tl li{position:relative;margin-left:6px;padding:3px 0 8px 16px;border-left:2px solid var(--border);font-size:13px}
+.tl li:last-child{padding-bottom:2px}
+.tl li::before{content:"";position:absolute;left:-6px;top:7px;width:10px;height:10px;border-radius:50%;background:var(--primary)}
+.tl li.t-saida::before{background:var(--out)}
+.tl li.t-retorno::before{background:var(--ok)}
+.tl .tl-meta{color:var(--muted);font-size:12px}
+.tl .tl-cmt{background:var(--surface-2);border-radius:6px;padding:3px 7px;margin-top:3px;white-space:pre-wrap}
+.ciclo-h{font-size:13px;font-weight:700;margin:16px 0 6px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.opts-row{display:flex;gap:10px;margin-bottom:12px}
+.opts-row .opt{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;border:2px solid var(--border);background:var(--surface);border-radius:8px;padding:10px;font-weight:700;cursor:pointer}
+.opts-row .opt input{width:auto;margin:0}
+.opts-row .opt:has(input:checked){border-color:var(--primary);background:var(--primary-soft)}
+.box-n2{border:2px solid var(--primary);background:var(--primary-soft);border-radius:10px;padding:10px 12px 0;margin-bottom:12px}
+.box-n2 > b{display:block;margin-bottom:8px}
+/* Últimas compras */
+.compra{cursor:pointer}
+.compra:hover{border-color:var(--primary)}
+.compra-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+.compra-total{font-size:18px;font-weight:800;white-space:nowrap}
+.it-row{display:grid;grid-template-columns:2.2fr .8fr .9fr 1fr 1fr auto;gap:6px;align-items:start;margin-bottom:6px}
+.it-row input,.it-row select{border:1px solid var(--border);background:var(--surface);border-radius:8px;padding:8px;width:100%;min-width:0}
+.it-row.invalid-row input:invalid{border-color:var(--danger)}
+.it-row .it-tot{background:var(--surface-2)}
+.it-head{font-size:12px;font-weight:700;color:var(--muted);margin-bottom:4px}
+.it-del{border:0;background:none;color:var(--danger);font-size:22px;line-height:1;cursor:pointer;padding:4px 6px}
+.it-row .bad{border-color:var(--danger) !important}
+tr.ultima td{background:var(--ok-soft)}
+/* Tarefas */
+ul.list li.tar{justify-content:flex-start}
+ul.list li.tar > div{flex:1;min-width:0}
+.tk{width:20px;height:20px;flex:none;cursor:pointer;accent-color:var(--primary)}
+li.tar.done b{text-decoration:line-through;color:var(--muted)}
+/* Notas autoadesivas */
+.notes{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+.note{border-radius:6px;padding:8px 10px;min-height:210px;display:flex;flex-direction:column;gap:4px;box-shadow:0 2px 8px rgba(0,0,0,.18);color:#262626}
+.note-bar{display:flex;align-items:center;gap:5px}
+.note-dot{width:16px;height:16px;border-radius:50%;border:1px solid rgba(0,0,0,.25);cursor:pointer;padding:0}
+.note-dot.on{outline:2px solid rgba(0,0,0,.55);outline-offset:1px}
+.note-del{margin-left:auto;background:none;border:0;font-size:22px;line-height:1;cursor:pointer;color:rgba(0,0,0,.5);padding:0 4px}
+.note-del:hover{color:#b00}
+.note textarea{flex:1;min-height:150px;background:transparent;border:0;outline:0;resize:vertical;font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#262626;padding:2px}
+.note textarea::placeholder{color:rgba(0,0,0,.4)}
+.note-foot{font-size:11px;color:rgba(0,0,0,.5)}
+@media (min-width:821px){nav.tabs{flex-wrap:wrap;overflow:visible}}
 @media (max-width:820px){.split{grid-template-columns:1fr}}
+@media (max-width:640px){.it-row{grid-template-columns:1fr 1fr;padding:8px;border:1px solid var(--border);border-radius:8px}.it-row .it-n{grid-column:span 2}.it-head{display:none}}
 @media (max-width:560px){.grid2,.grid3{grid-template-columns:1fr}.span2{grid-column:auto}.top-in{gap:8px}.brand{width:100%}}
 </style>
 </head>
@@ -175,6 +241,10 @@ body.busy,body.busy *{cursor:progress !important}
     <button class="tab" data-tab="estoque">Estoque</button>
     <button class="tab" data-tab="entradas">Entradas</button>
     <button class="tab" data-tab="saidas">Saídas</button>
+    <button class="tab" data-tab="gps">GPS Itens</button>
+    <button class="tab" data-tab="compras">Últimas compras</button>
+    <button class="tab" data-tab="tarefas">Tarefas</button>
+    <button class="tab" data-tab="notas">Notas</button>
     <button class="tab" data-tab="lembretes">Lembretes</button>
     <button class="tab" data-tab="config">Configurações</button>
   </nav>
@@ -188,6 +258,7 @@ body.busy,body.busy *{cursor:progress !important}
   <h1>Dashboard</h1>
   <div class="kpis" id="kpis"></div>
   <div class="grid-dash">
+    <div class="panel"><h2>Tarefas — próximos 7 dias</h2><ul class="list" id="dash-tarefas"></ul></div>
     <div class="panel"><h2>Agenda de hoje</h2><ul class="list" id="dash-hoje"></ul></div>
     <div class="panel"><h2>Próximos eventos</h2><ul class="list" id="dash-prox"></ul></div>
     <div class="panel"><h2>Lembretes atrasados</h2><ul class="list" id="dash-atras"></ul></div>
@@ -205,10 +276,21 @@ body.busy,body.busy *{cursor:progress !important}
   </label>
   <div id="busca-area" hidden><div class="results" id="busca-res"></div></div>
   <div id="lista-area" class="panel">
-    <div class="filters" id="est-filtros">
-      <button class="chip on" data-f="todos">Todos</button>
-      <button class="chip" data-f="baixo">Estoque baixo</button>
-      <button class="chip" data-f="zero">Sem estoque</button>
+    <div class="list-head">
+      <div class="filters" id="est-filtros">
+        <button class="chip on" data-f="todos">Todos</button>
+        <button class="chip" data-f="baixo">Estoque baixo</button>
+        <button class="chip" data-f="zero">Sem estoque</button>
+      </div>
+      <label class="ordem" for="est-ordem">Ordenar por
+        <select id="est-ordem" class="inp">
+          <option value="nome">Nome (A → Z, 1 → 9)</option>
+          <option value="nome-desc">Nome (Z → A, 9 → 1)</option>
+          <option value="qtd">Quantidade (menor → maior)</option>
+          <option value="qtd-desc">Quantidade (maior → menor)</option>
+          <option value="loc">Localização (andar, estante, fileira)</option>
+        </select>
+      </label>
     </div>
     <div class="table-wrap"><table>
       <thead><tr><th>Produto</th><th class="num">Quantidade</th><th>Localização</th><th>Status</th><th></th></tr></thead>
@@ -272,6 +354,66 @@ body.busy,body.busy *{cursor:progress !important}
   </div>
 </section>
 
+<!-- GPS ITENS -->
+<section class="view" id="v-gps" hidden>
+  <div class="section-head"><h1>GPS Itens</h1><button class="btn primary" id="btn-novo-gps">+ Cadastrar item</button></div>
+  <p class="hint" style="margin:-6px 0 12px">Itens que saem do estoque para a rua e podem voltar. Cada card mostra com quem o item está, em qual obra e a passagem de responsabilidade. O card mostra até 15 movimentações por ciclo; na 16ª o contador zera e começa um novo ciclo — o histórico completo continua guardado em “Histórico completo”.</p>
+  <label class="search" for="gps-busca">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.8-4.8"/></svg>
+    <input id="gps-busca" type="search" placeholder="Pesquisar item, responsável, obra ou nº do bujão…" autocomplete="off" aria-label="Pesquisar item do GPS">
+  </label>
+  <div class="filters" id="gps-filtros">
+    <button class="chip on" data-f="todos">Todos</button>
+    <button class="chip" data-f="rua">Na rua</button>
+    <button class="chip" data-f="estoque">No estoque</button>
+    <button class="chip" data-f="n2">Nitrogênio</button>
+  </div>
+  <div class="muted small" id="gps-resumo" style="margin-bottom:10px"></div>
+  <div class="gcards" id="gps-cards"></div>
+</section>
+
+<!-- ÚLTIMAS COMPRAS -->
+<section class="view" id="v-compras" hidden>
+  <div class="section-head"><h1>Últimas compras</h1><button class="btn primary" id="btn-nova-compra">+ Registrar compra</button></div>
+  <label class="search" for="compras-busca">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.8-4.8"/></svg>
+    <input id="compras-busca" type="search" placeholder="Pesquisar item, fornecedor ou nº da nota…" autocomplete="off" aria-label="Pesquisar compras">
+  </label>
+  <div id="compras-itens"></div>
+  <div id="compras-lista"></div>
+</section>
+
+<!-- TAREFAS -->
+<section class="view" id="v-tarefas" hidden>
+  <h1>Tarefas</h1>
+  <div class="split">
+    <form class="panel" id="f-tar" novalidate>
+      <h2>Nova tarefa</h2>
+      <div id="tar-campos"></div>
+      <div class="actions"><button class="btn primary" type="submit">Adicionar tarefa</button></div>
+    </form>
+    <div class="panel">
+      <div class="filters" id="tar-filtros">
+        <button class="chip on" data-f="abertas">Em aberto</button>
+        <button class="chip" data-f="7dias">Próximos 7 dias</button>
+        <button class="chip" data-f="atrasada">Atrasadas</button>
+        <button class="chip" data-f="semprazo">Sem prazo</button>
+        <button class="chip" data-f="concluida">Concluídas</button>
+        <button class="chip" data-f="todas">Todas</button>
+      </div>
+      <ul class="list" id="tar-lista"></ul>
+    </div>
+  </div>
+</section>
+
+<!-- NOTAS -->
+<section class="view" id="v-notas" hidden>
+  <div class="section-head"><h1>Notas</h1>
+    <div class="row"><input class="inp" id="notas-busca" type="search" placeholder="Pesquisar nas notas…" aria-label="Pesquisar nas notas"><button class="btn primary" id="btn-nova-nota">+ Nova nota</button></div>
+  </div>
+  <div class="notes" id="notas-grid"></div>
+</section>
+
 <!-- LEMBRETES -->
 <section class="view" id="v-lembretes" hidden>
   <h1>Lembretes</h1>
@@ -309,7 +451,7 @@ body.busy,body.busy *{cursor:progress !important}
     </div>
     <div class="panel cfg">
       <h2>Exportar para Excel</h2>
-      <p class="hint">Gera uma planilha com todos os produtos (quantidade, unidade, localização e status) e, em abas separadas, entradas, saídas, ajustes, histórico, comentários, lembretes e um resumo.</p>
+      <p class="hint">Gera uma planilha com todos os produtos (quantidade, unidade, localização e status) e, em abas separadas, entradas, saídas, ajustes, histórico, comentários, GPS de itens (com o histórico completo), compras, tarefas, notas, lembretes e um resumo.</p>
       <div class="cfg-actions">
         <button class="btn primary" id="btn-xlsx">Exportar Estoque Completo (.xlsx)</button>
       </div>
@@ -319,6 +461,8 @@ body.busy,body.busy *{cursor:progress !important}
 </main>
 
 <datalist id="pessoas"></datalist>
+<datalist id="obras"></datalist>
+<datalist id="itens-nomes"></datalist>
 
 <div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="modal-title">
   <div class="modal-card">
@@ -349,6 +493,23 @@ function dataValida(s){
   return dt.getFullYear() === y && dt.getMonth() === m - 1 && dt.getDate() === d && y >= 2000 && y <= 2100;
 }
 function parseQtd(s){ const t = String(s ?? '').trim().replace(',', '.'); if (t === '') return NaN; return Number(t); }
+/* Ordem alfabética e numérica natural: "Item 2" vem antes de "Item 10"; maiúsculas e acentos não atrapalham */
+const COLLATOR = new Intl.Collator('pt-BR', {numeric: true, sensitivity: 'base'});
+const cmpTxt = (a, b) => COLLATOR.compare(String(a ?? ''), String(b ?? ''));
+const porNome = (a, b) => cmpTxt(a.nome, b.nome);
+const round2 = n => Math.round(n * 100) / 100;
+function addDias(iso, n){ const [y, m, d] = iso.split('-').map(Number); const dt = new Date(y, m - 1, d + n); return dt.getFullYear() + '-' + pad(dt.getMonth() + 1) + '-' + pad(dt.getDate()); }
+function diasEntre(a, b){ const u = s => { const [y, m, d] = s.split('-').map(Number); return Date.UTC(y, m - 1, d); }; return Math.round((u(b) - u(a)) / 864e5); }
+/* Valores em reais: aceita "12,50", "1.234,56", "R$ 10" ou "10.5" */
+function parseMoeda(s){
+  let t = String(s ?? '').replace(/R\$|\s/g, '');
+  if (!t) return NaN;
+  if (t.includes(',')) t = t.replace(/\./g, '').replace(',', '.');
+  else if (/^\d{1,3}(\.\d{3})+$/.test(t)) t = t.replace(/\./g, '');
+  return Number(t);
+}
+const fmtMoeda = n => Number(n || 0).toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
+const fmtDec2 = n => Number(n || 0).toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2});
 
 /* ================= Banco de dados online (Firebase Firestore) ================= */
 /* Configuração do seu projeto Firebase (copiada do console: Configurações do projeto → Seus apps). */
@@ -361,12 +522,16 @@ const firebaseConfig = {
   appId: "1:460313875809:web:99b5b3f0c67e3dae82a120"
 };
 const FB_VER = '10.14.1';
-const COL = {produtos: 'produtos', movs: 'movimentacoes', lembretes: 'lembretes'};
+const COL = {produtos: 'produtos', movs: 'movimentacoes', lembretes: 'lembretes',
+  gps: 'gps_itens', gpsMovs: 'gps_movimentacoes', compras: 'compras', tarefas: 'tarefas', notas: 'notas'};
+/* Coleções originais: sem elas o sistema não funciona. As novas, se o Firebase recusar, só desativam a aba correspondente. */
+const CORE = ['produtos', 'movs', 'lembretes'];
+const COL_ABA = {gps: 'GPS Itens', gpsMovs: 'GPS Itens', compras: 'Últimas compras', tarefas: 'Tarefas', notas: 'Notas'};
 
-function emptyDb(){ return {produtos: [], movs: [], lembretes: []}; }
+function emptyDb(){ const d = {}; Object.keys(COL).forEach(k => d[k] = []); return d; }
 function limpaDb(d){
   const ok = a => Array.isArray(a) ? a.filter(x => x && typeof x.id === 'string' && x.id && !x.id.includes('/')) : [];
-  return {produtos: ok(d.produtos), movs: ok(d.movs), lembretes: ok(d.lembretes)};
+  const r = {}; Object.keys(COL).forEach(k => r[k] = ok(d[k])); return r;
 }
 let db = emptyDb();
 let FB = null, fsdb = null, pronto = false, salvando = false;
@@ -431,11 +596,12 @@ async function commit(fn){
   } finally { salvando = false; document.body.classList.remove('busy'); }
 }
 
-/* Substitui todos os dados do banco (importação de backup), em lotes */
-async function substituirTudo(novo){
+/* Substitui os dados do banco (importação de backup), em lotes. "chaves" = coleções presentes no backup
+   (um backup antigo, sem as abas novas, não apaga GPS, compras, tarefas e notas). */
+async function substituirTudo(novo, chaves = Object.keys(COL)){
   if (!navigator.onLine) { const er = new Error('offline'); er.code = 'unavailable'; throw er; }
   const writes = [];
-  Object.keys(COL).forEach(k => {
+  chaves.forEach(k => {
     const ids = new Set(novo[k].map(x => x.id));
     db[k].forEach(x => { if (!ids.has(x.id)) writes.push({k, id: x.id, data: null}); });
     novo[k].forEach(x => writes.push({k, id: x.id, data: x}));
@@ -469,21 +635,30 @@ async function conectar(){
     $('#banner').textContent = 'Não foi possível carregar o banco de dados online. Verifique a internet e recarregue a página. Nada pode ser registrado enquanto isso.';
     return;
   }
-  const carregado = {produtos: false, movs: false, lembretes: false};
-  const cache = {produtos: true, movs: true, lembretes: true};
+  const carregado = {}, cache = {};
+  Object.keys(COL).forEach(k => { carregado[k] = false; cache[k] = true; });
+  const verifica = () => {
+    const tudo = Object.values(carregado).every(Boolean);
+    if (tudo && !pronto) { pronto = true; $('#banner').hidden = true; avisoIndisp(); aoConectar(); }
+    if (tudo) {
+      const off = Object.values(cache).some(Boolean);
+      setStatus(off ? 'off' : 'on', off ? 'Offline — só consulta' : 'Online');
+      renderAll();
+    }
+  };
   Object.keys(COL).forEach(k => {
     FB.onSnapshot(FB.collection(fsdb, COL[k]), {includeMetadataChanges: true}, snap => {
       db[k] = snap.docs.map(d => ({...d.data(), id: d.id}));
       carregado[k] = true; cache[k] = snap.metadata.fromCache;
-      const tudo = Object.values(carregado).every(Boolean);
-      if (tudo && !pronto) { pronto = true; $('#banner').hidden = true; aoConectar(); }
-      if (tudo) {
-        const off = Object.values(cache).some(Boolean);
-        setStatus(off ? 'off' : 'on', off ? 'Offline — só consulta' : 'Online');
-        renderAll();
-      }
+      verifica();
     }, err => {
       console.error(err);
+      if (!CORE.includes(k)) {
+        /* Coleção nova sem permissão: o resto do sistema continua funcionando */
+        indisp.add(k); carregado[k] = true; cache[k] = false;
+        if (pronto) avisoIndisp();
+        verifica(); return;
+      }
       setStatus('err', 'Erro no banco');
       $('#banner').hidden = false;
       $('#banner').textContent = err.code === 'permission-denied'
@@ -491,6 +666,19 @@ async function conectar(){
         : 'Erro ao ler o banco de dados online. Recarregue a página.';
     });
   });
+}
+const indisp = new Set();
+function avisoIndisp(){
+  if (!indisp.size) return;
+  const abas = [...new Set([...indisp].map(k => COL_ABA[k]))].join(', ');
+  const cols = [...indisp].map(k => COL[k]).join(', ');
+  $('#banner').hidden = false;
+  $('#banner').textContent = `As abas ${abas} ainda não têm permissão no Firebase. No console do Firebase, em Firestore Database → Regras, libere as coleções: ${cols}. O restante do sistema funciona normalmente.`;
+}
+function abaDisponivel(...ks){
+  const k = ks.find(x => indisp.has(x));
+  if (k) { toast(`A aba ${COL_ABA[k]} está sem permissão no Firebase (coleção ${COL[k]}). Veja o aviso no topo da página.`, 'err'); return false; }
+  return true;
 }
 /* Na primeira conexão: se o banco online está vazio e este navegador tem dados da versão anterior, oferece enviar */
 async function aoConectar(){
@@ -503,7 +691,7 @@ async function aoConectar(){
     if (!nLocal) return;
     if (nOnline) { localStorage.setItem(KEY + '_tratado', '1'); return; }
     if (confirm(`Encontramos dados salvos neste navegador (${local.produtos.length} produto(s), ${local.movs.length} movimentação(ões), ${local.lembretes.length} lembrete(s)). Enviar para o banco online para que apareçam em todos os computadores?`)) {
-      await substituirTudo(local); toast('Dados deste navegador enviados ao banco online.');
+      await substituirTudo(local, CORE); toast('Dados deste navegador enviados ao banco online.');
     }
     localStorage.setItem(KEY + '_tratado', '1');
   } catch (e) { console.error(e); toast(msgErroBanco(e), 'err'); }
@@ -546,6 +734,11 @@ document.addEventListener('click', e => {
   const t = e.target;
   if (t.closest('[data-close]') || t === $('#modal')) { closeModal(); return; }
   const tab = t.closest('[data-tab]'); if (tab) { goTab(tab.dataset.tab); return; }
+  const ga = t.closest('[data-gacao]'); if (ga) { gpsAcao(ga.dataset.id, ga.dataset.gacao); return; }
+  const gp = t.closest('[data-gps]'); if (gp) { abrirGps(gp.dataset.gps); return; }
+  const tk = t.closest('[data-tar-check]'); if (tk) { e.preventDefault(); alternarTarefa(tk.dataset.tarCheck); return; }
+  const tar = t.closest('[data-tar]'); if (tar) { abrirTarefa(tar.dataset.tar); return; }
+  const cp = t.closest('[data-compra]'); if (cp) { abrirCompra(cp.dataset.compra); return; }
   const lemb = t.closest('[data-lemb]'); if (lemb) { abrirLembrete(lemb.dataset.lemb); return; }
   const mov = t.closest('[data-mov]'); if (mov) { abrirMov(mov.dataset.mov); return; }
   const del = t.closest('[data-del]'); if (del) { excluirProduto(del.dataset.del); return; }
@@ -553,7 +746,7 @@ document.addEventListener('click', e => {
 });
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && !$('#modal').hidden) closeModal();
-  if (e.key === 'Enter' && e.target.matches('[data-mov],[data-lemb],[data-prod]') && e.target.tagName !== 'BUTTON') e.target.click();
+  if (e.key === 'Enter' && e.target.matches('[data-mov],[data-lemb],[data-prod],[data-tar],[data-compra]') && e.target.tagName !== 'BUTTON') e.target.click();
 });
 /* ---------- Campos de pessoa: nome completo digitado (sugere nomes já usados) ---------- */
 function pessoaHTML(p, label){
@@ -615,17 +808,25 @@ function lerProd(p, idAtual){
 
 /* ================= Render ================= */
 function renderAll(){
-  renderDashboard(); renderEstoque(); renderBusca(); renderEntradas(); renderSaidas(); renderLembretes(); fillSelects();
+  renderDashboard(); renderEstoque(); renderBusca(); renderEntradas(); renderSaidas(); renderLembretes();
+  renderGps(); renderCompras(); renderTarefas(); renderNotas(); fillSelects();
 }
 function fillSelects(){
   [['#ent-prod', true], ['#sai-prod', false]].forEach(([s, novo]) => {
-    const sel = $(s); const v = sel.value; const ps = [...db.produtos].sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR'));
+    const sel = $(s); const v = sel.value; const ps = [...db.produtos].sort(porNome);
     sel.innerHTML = `<option value="">Selecione o produto…</option>` + ps.map(p => `<option value="${p.id}">${esc(p.nome)} — ${fmtQtd(p.saldo)} ${esc(p.unidade)}</option>`).join('') + (novo ? `<option value="__novo">+ Cadastrar novo produto</option>` : '');
     if ([...sel.options].some(o => o.value === v)) sel.value = v;
   });
-  const nomes = new Map();
-  db.movs.forEach(m => [m.responsavel, m.quemRetirou].forEach(n => { if (n && !nomes.has(norm(n))) nomes.set(norm(n), n); }));
-  $('#pessoas').innerHTML = [...nomes.values()].sort((a, b) => a.localeCompare(b, 'pt-BR')).map(n => `<option value="${esc(n)}">`).join('');
+  const lista = (vals, ignora = []) => {
+    const m = new Map(); vals.forEach(n => { n = String(n ?? '').trim(); if (n && !ignora.includes(n) && !m.has(norm(n))) m.set(norm(n), n); });
+    return [...m.values()].sort(cmpTxt).map(n => `<option value="${esc(n)}">`).join('');
+  };
+  $('#pessoas').innerHTML = lista([
+    ...db.movs.flatMap(m => [m.responsavel, m.quemRetirou]),
+    ...db.gps.map(g => g.responsavel), ...db.gpsMovs.flatMap(m => [m.de, m.para])
+  ], ['Estoque', 'Cadastro do produto', 'Edição do cadastro']);
+  $('#obras').innerHTML = lista([...db.gps.map(g => g.obra), ...db.gpsMovs.map(m => m.obra)]);
+  $('#itens-nomes').innerHTML = lista([...db.produtos.map(p => p.nome), ...db.gps.map(g => g.nome), ...db.compras.flatMap(c => (c.itens || []).map(i => i.nome))]);
   atualizaSaldoSaida();
 }
 
@@ -636,12 +837,20 @@ function renderDashboard(){
   const hojeL = db.lembretes.filter(l => l.data === hoje).sort((a, b) => lembKey(a).localeCompare(lembKey(b)));
   const prox = abertos.filter(l => l.data > hoje).sort((a, b) => lembKey(a).localeCompare(lembKey(b))).slice(0, 8);
   const baixos = db.produtos.filter(p => statusEstoque(p).k !== 'ok');
+  const tarAbertas = db.tarefas.filter(t => !t.concluida);
+  const tarAtras = tarAbertas.filter(t => stTar(t) === 'atrasada');
+  const lim7 = addDias(hoje, 7);
+  const tar7 = tarAbertas.filter(t => t.prazo && t.prazo <= lim7).sort((a, b) => tarKey(a).localeCompare(tarKey(b)));
+  const naRua = db.gps.filter(g => g.local === 'rua').length;
   $('#kpis').innerHTML = `
-    <button class="kpi" data-tab="lembretes"><div class="n">${abertos.length}</div><div class="l">Tarefas pendentes</div></button>
+    <button class="kpi ${tarAtras.length ? 'alert' : ''}" data-tab="tarefas"><div class="n">${tarAbertas.length}</div><div class="l">Tarefas em aberto${tarAtras.length ? ` · ${tarAtras.length} atrasada(s)` : ''}</div></button>
+    <button class="kpi" data-tab="lembretes"><div class="n">${abertos.length}</div><div class="l">Lembretes em aberto</div></button>
     <button class="kpi ${atras.length ? 'alert' : ''}" data-tab="lembretes"><div class="n">${atras.length}</div><div class="l">Lembretes atrasados</div></button>
     <button class="kpi" data-tab="estoque"><div class="n">${db.produtos.length}</div><div class="l">Produtos cadastrados</div></button>
-    <button class="kpi ${baixos.length ? 'warn' : ''}" data-tab="estoque"><div class="n">${baixos.length}</div><div class="l">Estoque baixo / zerado</div></button>`;
+    <button class="kpi ${baixos.length ? 'warn' : ''}" data-tab="estoque"><div class="n">${baixos.length}</div><div class="l">Estoque baixo / zerado</div></button>
+    <button class="kpi" data-tab="gps"><div class="n">${naRua}</div><div class="l">Itens na rua (GPS)</div></button>`;
   const vazio = t => `<li class="empty">${t}</li>`;
+  $('#dash-tarefas').innerHTML = tar7.length ? tar7.map(tarItem).join('') : vazio('Nenhuma tarefa com prazo nos próximos 7 dias.');
   $('#dash-hoje').innerHTML = hojeL.length ? hojeL.map(lembItem).join('') : vazio('Nada agendado para hoje.');
   $('#dash-prox').innerHTML = prox.length ? prox.map(lembItem).join('') : vazio('Nenhum evento futuro.');
   $('#dash-atras').innerHTML = atras.length ? atras.map(lembItem).join('') : vazio('Nenhum lembrete atrasado.');
@@ -659,8 +868,24 @@ const sinal = m => m.tipo === 'saida' ? '−' : m.tipo === 'entrada' ? '+' : (m.
 
 /* ---------- Estoque ---------- */
 let filtroEst = 'todos';
+let ordemEst = 'nome';
+try { ordemEst = localStorage.getItem('crm_ordem_estoque') || 'nome'; } catch (e) {}
+const ORDENS_EST = {
+  'nome': porNome,
+  'nome-desc': (a, b) => porNome(b, a),
+  'qtd': (a, b) => (a.saldo - b.saldo) || porNome(a, b),
+  'qtd-desc': (a, b) => (b.saldo - a.saldo) || porNome(a, b),
+  'loc': (a, b) => cmpTxt(a.andar, b.andar) || cmpTxt(a.estante, b.estante) || cmpTxt(a.fileira, b.fileira) || porNome(a, b)
+};
+if (!ORDENS_EST[ordemEst]) ordemEst = 'nome';
+$('#est-ordem').value = ordemEst;
+$('#est-ordem').addEventListener('change', e => {
+  ordemEst = ORDENS_EST[e.target.value] ? e.target.value : 'nome';
+  try { localStorage.setItem('crm_ordem_estoque', ordemEst); } catch (er) {}
+  renderEstoque();
+});
 function renderEstoque(){
-  let ps = [...db.produtos].sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR'));
+  let ps = [...db.produtos].sort(ORDENS_EST[ordemEst]);
   if (filtroEst !== 'todos') ps = ps.filter(p => statusEstoque(p).k === filtroEst);
   $('#est-tbody').innerHTML = ps.length ? ps.map(p => `<tr class="click" data-prod="${p.id}" tabindex="0">
     <td><b>${esc(p.nome)}</b></td>
@@ -674,7 +899,7 @@ function renderBusca(){
   $('#busca-area').hidden = !q; $('#lista-area').hidden = !!q;
   if (!q) return;
   const res = db.produtos.filter(p => norm(p.nome).includes(q))
-    .sort((a, b) => (norm(a.nome).startsWith(q) ? 0 : 1) - (norm(b.nome).startsWith(q) ? 0 : 1) || a.nome.localeCompare(b.nome, 'pt-BR'));
+    .sort((a, b) => (norm(a.nome).startsWith(q) ? 0 : 1) - (norm(b.nome).startsWith(q) ? 0 : 1) || porNome(a, b));
   $('#busca-res').innerHTML = res.length ? res.map(p => `<button class="res" data-prod="${p.id}">
       <span class="nm">${esc(p.nome)}</span>
       <span class="qt">${fmtQtd(p.saldo)} <span class="small muted">${esc(p.unidade)}</span></span>
@@ -1005,6 +1230,542 @@ function abrirLembrete(id){
   };
 }
 
+/* ================= GPS Itens ================= */
+/* Cada item tem um documento em gps_itens (situação atual) e cada movimentação um documento em
+   gps_movimentacoes (histórico completo, sem limite). O card mostra o ciclo atual: até 15 movimentações;
+   na 16ª o contador zera e começa o ciclo seguinte. */
+const GPS_LIMITE = 15;
+const ehNitroNome = s => norm(s).includes('nitrog');
+const gpsById = id => db.gps.find(g => g.id === id);
+const gpsTitulo = g => g.nitrogenio ? `${g.nome} — Bujão nº ${g.numeroBujao}` : g.nome + (g.identificacao ? ` (${g.identificacao})` : '');
+const gpsMovsDe = id => db.gpsMovs.filter(m => m.itemId === id).sort((a, b) => b.registradoEm.localeCompare(a.registradoEm));
+const GPS_TIPO = {cadastro: 'Cadastro', saida: 'Saída do estoque', transferencia: 'Passagem de responsabilidade', retorno: 'Volta ao estoque'};
+const ordGps = (a, b) => cmpTxt(a.nome, b.nome) || cmpTxt(a.numeroBujao || a.identificacao, b.numeroBujao || b.identificacao);
+
+function gpsMovTexto(m){
+  switch (m.tipo) {
+    case 'cadastro': return m.local === 'rua' ? `Cadastrado na rua com <b>${esc(m.para)}</b>` : 'Cadastrado no <b>estoque</b>';
+    case 'saida': return `Estoque → <b>${esc(m.para)}</b>`;
+    case 'transferencia': return `<b>${esc(m.de)}</b> → <b>${esc(m.para)}</b>`;
+    case 'retorno': return `<b>${esc(m.de)}</b> → <b>Estoque</b>`;
+  }
+  return esc(m.tipo);
+}
+function gpsMovLi(m){
+  const extras = [];
+  if (m.obra) extras.push((m.tipo === 'retorno' ? 'Voltou de: ' : 'Obra: ') + esc(m.obra));
+  if (m.nivelSaida) extras.push('Nível de saída: ' + esc(m.nivelSaida));
+  if (m.nivelVolta) extras.push('Nível de volta: ' + esc(m.nivelVolta));
+  if (m.nivel) extras.push((m.tipo === 'cadastro' ? 'Nível: ' : 'Nível na passagem: ') + esc(m.nivel));
+  const cls = m.tipo === 'retorno' || (m.tipo === 'cadastro' && m.local !== 'rua') ? 't-retorno' : m.tipo === 'saida' || m.tipo === 'cadastro' ? 't-saida' : '';
+  return `<li class="${cls}"><div><b>#${m.seq}</b> · ${gpsMovTexto(m)}</div>
+    <div class="tl-meta">${GPS_TIPO[m.tipo] || ''} · ${fmtData(m.data)} (reg. ${fmtDataHora(m.registradoEm)})</div>
+    ${extras.length ? `<div class="small">${extras.join(' · ')}</div>` : ''}
+    ${m.comentario ? `<div class="tl-cmt small">💬 ${esc(m.comentario)}</div>` : ''}</li>`;
+}
+function gpsInfoHTML(g){
+  const linhas = [];
+  if (g.local === 'rua') {
+    linhas.push(['Responsável', esc(g.responsavel)], ['Obra', esc(g.obra)]);
+    const n = g.desde ? diasEntre(g.desde, hojeISO()) : null;
+    linhas.push(['Com ele desde', fmtData(g.desde) + (n != null && n >= 0 ? ` <span class="muted small">(${n === 0 ? 'hoje' : n + ' dia(s)'})</span>` : '')]);
+    if (g.saiuEm && g.saiuEm !== g.desde) linhas.push(['Saiu do estoque em', fmtData(g.saiuEm)]);
+  } else linhas.push(['No estoque desde', fmtData(g.desde)]);
+  if (g.nitrogenio) {
+    if (g.local === 'rua') { linhas.push(['Nível de saída', g.nivelSaida ? esc(g.nivelSaida) : '—']); if (g.nivelAtual && g.nivelAtual !== g.nivelSaida) linhas.push(['Último nível informado', esc(g.nivelAtual)]); }
+    else { linhas.push(['Nível atual', g.nivelAtual ? esc(g.nivelAtual) : '—']); if (g.nivelSaida && g.nivelVolta) linhas.push(['Última viagem', `saiu com ${esc(g.nivelSaida)}, voltou com ${esc(g.nivelVolta)}`]); }
+  }
+  return `<dl class="g-info">${linhas.map(([a, b]) => `<dt>${a}</dt><dd>${b}</dd>`).join('')}</dl>`;
+}
+const gpsBadges = g => `<span class="badge ${g.local === 'rua' ? 'b-rua' : 'b-est'}">${g.local === 'rua' ? '📍 Na rua' : '📦 No estoque'}</span>${g.nitrogenio ? ` <span class="badge b-n2">Nitrogênio · nº ${esc(g.numeroBujao)}</span>` : ''}`;
+function gpsBotoes(g){
+  return g.local === 'rua'
+    ? `<button class="btn sm primary" data-gacao="transferencia" data-id="${g.id}">⇄ Passar responsabilidade</button><button class="btn sm" data-gacao="retorno" data-id="${g.id}">↩ Voltou ao estoque</button>`
+    : `<button class="btn sm primary" data-gacao="saida" data-id="${g.id}">➜ Saiu para a rua</button>`;
+}
+function gpsCard(g){
+  const ciclo = g.ciclo || 1, n = g.movsNoCiclo || 0;
+  const movs = db.gpsMovs.filter(m => m.itemId === g.id && (m.ciclo || 1) === ciclo).sort((a, b) => b.registradoEm.localeCompare(a.registradoEm));
+  return `<article class="gcard ${g.local === 'rua' ? 'rua' : ''}">
+    <div class="g-top"><div>${gpsBadges(g)}</div></div>
+    <button class="g-nome" data-gps="${g.id}">${esc(gpsTitulo(g))}</button>
+    ${gpsInfoHTML(g)}
+    <div class="row">${gpsBotoes(g)}</div>
+    <div class="ciclo"><span>Ciclo ${ciclo} · ${n}/${GPS_LIMITE}</span><span class="bar"><i style="width:${Math.min(100, n / GPS_LIMITE * 100)}%"></i></span></div>
+    <ul class="tl">${movs.length ? movs.map(gpsMovLi).join('') : '<li class="empty">Sem movimentações.</li>'}</ul>
+    <div class="row" style="justify-content:space-between"><span class="muted small">${g.totalMovs || 0} movimentação(ões) no total</span><button class="btn sm" data-gps="${g.id}">Histórico completo</button></div>
+  </article>`;
+}
+let filtroGps = 'todos';
+$('#gps-filtros').addEventListener('click', e => { const c = e.target.closest('.chip'); if (!c) return; filtroGps = c.dataset.f; $$('#gps-filtros .chip').forEach(x => x.classList.toggle('on', x === c)); renderGps(); });
+$('#gps-busca').addEventListener('input', () => renderGps());
+function renderGps(){
+  const q = norm($('#gps-busca').value);
+  let gs = [...db.gps].sort(ordGps);
+  if (filtroGps === 'rua' || filtroGps === 'estoque') gs = gs.filter(g => g.local === filtroGps);
+  else if (filtroGps === 'n2') gs = gs.filter(g => g.nitrogenio);
+  if (q) gs = gs.filter(g => [g.nome, g.identificacao, g.numeroBujao, g.responsavel, g.obra].some(x => norm(x).includes(q)));
+  const rua = db.gps.filter(g => g.local === 'rua').length;
+  $('#gps-resumo').textContent = `${db.gps.length} item(ns) cadastrado(s) · ${rua} na rua · ${db.gps.length - rua} no estoque`;
+  $('#gps-cards').innerHTML = gs.length ? gs.map(gpsCard).join('')
+    : `<div class="panel" style="grid-column:1/-1;text-align:center"><p class="empty" style="margin:0 0 10px">${db.gps.length ? 'Nenhum item encontrado neste filtro.' : 'Nenhum item cadastrado no GPS ainda.'}</p><button class="btn primary" id="btn-novo-gps-2">+ Cadastrar item</button></div>`;
+  const b = $('#btn-novo-gps-2'); if (b) b.onclick = () => abrirGpsCadastro(null, $('#gps-busca').value.trim());
+}
+$('#btn-novo-gps').onclick = () => abrirGpsCadastro(null);
+
+/* Campos comuns */
+const campoTxt = (id, label, req, attrs = '') => `<div class="field"><label for="${id}">${label}${req ? ' <b class="req">*</b>' : ''}</label><input id="${id}" autocomplete="off" ${attrs}></div>`;
+const NIVEL_PH = 'placeholder="ex.: 80% ou 25 kg"';
+
+function abrirGpsCadastro(id, prefill){
+  if (!abaDisponivel('gps', 'gpsMovs')) return;
+  const g = id ? gpsById(id) : {nome: prefill || ''};
+  const novo = !id;
+  openModal(novo ? 'Cadastrar item no GPS' : 'Editar cadastro do item', `<form id="f-gps" novalidate>
+    <div class="field"><label for="gc-nome">Nome do item <b class="req">*</b></label><input id="gc-nome" list="itens-nomes" autocomplete="off" value="${esc(g.nome)}" placeholder="ex.: Furadeira de impacto, Nitrogênio…"></div>
+    <label class="check" style="margin:-4px 0 12px;font-size:14px"><input type="checkbox" id="gc-n2" ${g.nitrogenio || (novo && ehNitroNome(g.nome)) ? 'checked' : ''}> Este item é um bujão de <b>nitrogênio</b></label>
+    <div id="gc-n2-box" class="box-n2"><b>Bujão de nitrogênio</b>
+      <div class="field"><label for="gc-num">Número do bujão <b class="req">*</b></label><input id="gc-num" autocomplete="off" value="${esc(g.numeroBujao)}" placeholder="ex.: 12"></div>
+    </div>
+    <div id="gc-ident-box">${campoTxt('gc-ident', 'Identificação / patrimônio (opcional)', false, `value="${esc(g.identificacao)}" placeholder="ex.: PAT-0045 ou nº de série"`)}</div>
+    ${novo ? `
+    <div class="field" id="gc-local-f">
+      <div class="auth-title" style="margin:4px 0 0">Onde está este item agora? <b class="req">*</b></div>
+      <div class="opts-row" id="gc-local" style="margin:0">
+        <label class="opt"><input type="radio" name="gc-local" value="estoque"> 📦 No estoque</label>
+        <label class="opt"><input type="radio" name="gc-local" value="rua"> 📍 Na rua</label>
+      </div>
+    </div>
+    <div id="gc-rua" hidden>
+      <div class="info-box">📍 Início do GPS: informe com quem o item está e em qual obra.</div>
+      <div class="grid2">
+        ${campoTxt('gc-resp', 'Responsável pelo material', true, 'list="pessoas" placeholder="Nome de quem está com o item"')}
+        ${campoTxt('gc-obra', 'Em qual obra está?', true, 'list="obras" placeholder="ex.: Obra Rua das Flores"')}
+      </div>
+    </div>
+    <div id="gc-nivel-box" hidden>${campoTxt('gc-nivel', '<span id="gc-nivel-lbl">Nível do bujão</span>', true, NIVEL_PH)}</div>
+    <div class="grid2"><div class="field"><label for="gc-data" id="gc-data-lbl">Data</label><input id="gc-data" type="date" value="${hojeISO()}"></div></div>
+    <div class="field"><label for="gc-cmt">Comentário (opcional)</label><textarea id="gc-cmt" rows="2"></textarea></div>` : `<p class="hint">Para mudar onde o item está ou com quem, use os botões do card (saída, passagem de responsabilidade ou volta ao estoque).</p>`}
+    <div class="actions"><button type="button" class="btn" data-close>Cancelar</button><button class="btn primary" type="submit">${novo ? 'Cadastrar item' : 'Salvar alterações'}</button></div>
+  </form>`);
+  const atualiza = () => {
+    const n2 = $('#gc-n2').checked; const loc = novo ? ($('input[name="gc-local"]:checked') || {}).value : null;
+    $('#gc-n2-box').hidden = !n2; $('#gc-ident-box').hidden = n2;
+    if (novo) {
+      $('#gc-rua').hidden = loc !== 'rua';
+      $('#gc-nivel-box').hidden = !(n2 && loc);
+      $('#gc-nivel-lbl').textContent = loc === 'rua' ? 'Nível de saída do bujão' : 'Nível atual do bujão';
+      $('#gc-data-lbl').textContent = loc === 'rua' ? 'Data em que saiu do estoque' : 'Data';
+    }
+  };
+  let marcouManual = false;
+  $('#gc-n2').addEventListener('change', () => { marcouManual = true; atualiza(); });
+  $('#gc-nome').addEventListener('input', () => { if (novo && !marcouManual) { $('#gc-n2').checked = ehNitroNome($('#gc-nome').value); atualiza(); } });
+  if (novo) $$('input[name="gc-local"]').forEach(r => r.addEventListener('change', () => { clearErr($('#gc-local-f').parentElement); $('#gc-local-f').classList.remove('invalid'); atualiza(); }));
+  atualiza(); $('#gc-nome').focus();
+
+  $('#f-gps').onsubmit = async e => {
+    e.preventDefault(); clearErr(e.target); const errs = [];
+    const nome = $('#gc-nome').value.trim().replace(/\s+/g, ' ');
+    const n2 = $('#gc-n2').checked;
+    const num = n2 ? $('#gc-num').value.trim() : '';
+    const ident = n2 ? '' : $('#gc-ident').value.trim();
+    if (!nome) errs.push([$('#gc-nome'), 'Informe o nome do item.']);
+    if (n2 && !num) errs.push([$('#gc-num'), 'Informe o número do bujão.']);
+    if (n2 && num && db.gps.some(x => x.id !== id && x.nitrogenio && norm(x.numeroBujao) === norm(num))) errs.push([$('#gc-num'), 'Já existe um bujão cadastrado com este número.']);
+    if (!n2 && nome && db.gps.some(x => x.id !== id && !x.nitrogenio && norm(x.nome) === norm(nome) && norm(x.identificacao) === norm(ident)))
+      errs.push([ident ? $('#gc-ident') : $('#gc-nome'), ident ? 'Já existe um item com este nome e esta identificação.' : 'Já existe um item com este nome. Preencha a identificação para diferenciar.']);
+    let loc, resp = '', obra = '', nivel = '', data = '', cmt = '';
+    if (novo) {
+      loc = ($('input[name="gc-local"]:checked') || {}).value;
+      if (!loc) errs.push([$('input[name="gc-local"]'), 'Informe se o item está no estoque ou na rua.']);
+      if (loc === 'rua') {
+        resp = $('#gc-resp').value.trim().replace(/\s+/g, ' '); obra = $('#gc-obra').value.trim().replace(/\s+/g, ' ');
+        if (!resp) errs.push([$('#gc-resp'), 'Informe o responsável pelo material.']);
+        if (!obra) errs.push([$('#gc-obra'), 'Informe em qual obra o item está.']);
+      }
+      if (n2 && loc) { nivel = $('#gc-nivel').value.trim(); if (!nivel) errs.push([$('#gc-nivel'), 'Informe o nível do bujão.']); }
+      data = $('#gc-data').value; if (!dataValida(data)) errs.push([$('#gc-data'), 'Informe uma data válida.']);
+      cmt = $('#gc-cmt').value.trim();
+    }
+    if (errs.length) return showErrs(errs);
+    const novoId = id || uid();
+    const ok = await commit(d => {
+      const agora = new Date().toISOString();
+      if (!novo) {
+        const x = d.gps.find(y => y.id === id); if (!x) throw new Error('Item não encontrado.');
+        Object.assign(x, {nome, nitrogenio: n2, numeroBujao: num, identificacao: ident, editadoEm: agora});
+        return;
+      }
+      const g = {id: novoId, nome, nitrogenio: n2, numeroBujao: num, identificacao: ident, local: loc,
+        responsavel: resp, obra, desde: data, saiuEm: loc === 'rua' ? data : '', nivelSaida: loc === 'rua' ? nivel : '', nivelVolta: '', nivelAtual: nivel,
+        ciclo: 1, movsNoCiclo: 0, totalMovs: 0, criadoEm: agora};
+      d.gps.push(g);
+      gpsNovoMov(d, novoId, {tipo: 'cadastro', local: loc, de: '', para: loc === 'rua' ? resp : 'Estoque', obra, nivel, data, comentario: cmt});
+    });
+    if (ok) { toast(novo ? 'Item cadastrado no GPS.' : 'Cadastro atualizado.'); closeModal(); if (novo) { goTab('gps'); } }
+  };
+}
+
+/* Registra uma movimentação no rascunho, controlando o ciclo de 15 */
+function gpsNovoMov(d, itemId, dados){
+  const g = d.gps.find(x => x.id === itemId); if (!g) throw new Error('Item não encontrado.');
+  let ciclo = g.ciclo || 1, seq = g.movsNoCiclo || 0;
+  if (seq >= GPS_LIMITE) { ciclo++; seq = 0; }
+  seq++;
+  d.gpsMovs.push({id: uid(), itemId, itemNome: gpsTitulo(g), numeroBujao: g.numeroBujao || '', ciclo, seq, registradoEm: new Date().toISOString(), ...dados});
+  g.ciclo = ciclo; g.movsNoCiclo = seq; g.totalMovs = (g.totalMovs || 0) + 1;
+  return g;
+}
+
+function gpsAcao(id, tipo){
+  if (tipo === 'hist') return abrirGps(id);
+  if (!abaDisponivel('gps', 'gpsMovs')) return;
+  const g = gpsById(id); if (!g) return;
+  if ((tipo === 'saida') !== (g.local !== 'rua')) { toast('A situação deste item mudou. A tela foi atualizada.', 'err'); return; }
+  const n2 = g.nitrogenio;
+  const titulo = {saida: 'Saída para a rua', transferencia: 'Passar responsabilidade', retorno: 'Volta ao estoque'}[tipo];
+  const atual = g.local === 'rua' ? `<div class="info-box">Hoje está com <b>${esc(g.responsavel)}</b> na obra <b>${esc(g.obra)}</b> desde ${fmtData(g.desde)}.${n2 && g.nivelSaida ? ` Saiu do estoque com nível <b>${esc(g.nivelSaida)}</b>.` : ''}</div>` : `<div class="info-box">O item está no <b>estoque</b>.${n2 && g.nivelAtual ? ` Nível atual: <b>${esc(g.nivelAtual)}</b>.` : ''}</div>`;
+  let campos = '';
+  if (tipo === 'saida') campos = `<div class="grid2">${campoTxt('gm-resp', 'Responsável pelo material', true, 'list="pessoas" placeholder="Quem levou o item"')}${campoTxt('gm-obra', 'Em qual obra vai ficar?', true, 'list="obras"')}</div>
+      ${n2 ? campoTxt('gm-nivel', 'Nível de saída do bujão', true, NIVEL_PH) : ''}`;
+  else if (tipo === 'transferencia') campos = `<div class="grid2">${campoTxt('gm-resp', 'Novo responsável', true, 'list="pessoas" placeholder="Com quem o item ficou"')}${campoTxt('gm-obra', 'Em qual obra está?', true, `list="obras" value="${esc(g.obra)}"`)}</div>
+      ${n2 ? campoTxt('gm-nivel', 'Nível do bujão na passagem (opcional)', false, NIVEL_PH) : ''}`;
+  else campos = n2 ? campoTxt('gm-nivel', 'Nível de volta do bujão', true, NIVEL_PH) : '';
+  openModal(`${titulo} — ${gpsTitulo(g)}`, `<form id="f-gm" novalidate>${atual}${campos}
+    <div class="grid2"><div class="field"><label for="gm-data">Data <b class="req">*</b></label><input id="gm-data" type="date" value="${hojeISO()}"></div></div>
+    <div class="field"><label for="gm-cmt">Comentário (opcional)</label><textarea id="gm-cmt" rows="2" placeholder="ex.: entregue na portaria, bujão com a válvula dura…"></textarea></div>
+    <div class="actions"><button type="button" class="btn" data-close>Cancelar</button><button class="btn primary" type="submit">Registrar</button></div></form>`);
+  const f1 = $('#f-gm input:not([type=date])'); if (f1) f1.focus();
+  $('#f-gm').onsubmit = async e => {
+    e.preventDefault(); clearErr(e.target); const errs = [];
+    const val = s => $(s) ? $(s).value.trim().replace(/\s+/g, ' ') : '';
+    const resp = val('#gm-resp'), obra = val('#gm-obra'), nivel = val('#gm-nivel'), data = $('#gm-data').value, cmt = $('#gm-cmt').value.trim();
+    if (tipo !== 'retorno') {
+      if (!resp) errs.push([$('#gm-resp'), 'Informe o responsável.']);
+      if (!obra) errs.push([$('#gm-obra'), 'Informe a obra.']);
+    }
+    if (tipo === 'transferencia' && resp && obra && norm(resp) === norm(g.responsavel) && norm(obra) === norm(g.obra)) errs.push([$('#gm-resp'), 'O item já está com esta pessoa nesta obra.']);
+    if (n2 && tipo !== 'transferencia' && !nivel) errs.push([$('#gm-nivel'), tipo === 'saida' ? 'Informe o nível de saída.' : 'Informe o nível de volta.']);
+    if (!dataValida(data)) errs.push([$('#gm-data'), 'Informe uma data válida.']);
+    if (errs.length) return showErrs(errs);
+    const ok = await commit(d => {
+      const x = d.gps.find(y => y.id === id); if (!x) throw new Error('Item não encontrado.');
+      if ((tipo === 'saida') !== (x.local !== 'rua')) throw new Error('A situação deste item mudou em outro computador. Confira e repita.');
+      if (tipo === 'saida') {
+        gpsNovoMov(d, id, {tipo, de: 'Estoque', para: resp, obra, nivelSaida: nivel, data, comentario: cmt});
+        Object.assign(x, {local: 'rua', responsavel: resp, obra, desde: data, saiuEm: data, nivelSaida: nivel, nivelVolta: '', nivelAtual: nivel || x.nivelAtual || ''});
+      } else if (tipo === 'transferencia') {
+        gpsNovoMov(d, id, {tipo, de: x.responsavel, para: resp, obraAnterior: x.obra, obra, nivel, data, comentario: cmt});
+        Object.assign(x, {responsavel: resp, obra, desde: data}); if (nivel) x.nivelAtual = nivel;
+      } else {
+        gpsNovoMov(d, id, {tipo, de: x.responsavel, para: 'Estoque', obra: x.obra, nivelVolta: nivel, data, comentario: cmt});
+        Object.assign(x, {local: 'estoque', responsavel: '', obra: '', desde: data, nivelVolta: nivel}); if (nivel) x.nivelAtual = nivel;
+      }
+    });
+    if (ok) {
+      const gg = gpsById(id);
+      toast(gg && gg.movsNoCiclo === 1 && gg.ciclo > 1 ? `Registrado. O ciclo de ${GPS_LIMITE} fechou e começou o ciclo ${gg.ciclo}.` : 'Movimentação registrada.');
+      closeModal();
+    }
+  };
+}
+
+function abrirGps(id){
+  const g = gpsById(id); if (!g) return;
+  const movs = gpsMovsDe(id);
+  const ciclos = [...new Set(movs.map(m => m.ciclo || 1))].sort((a, b) => b - a);
+  openModal(gpsTitulo(g), `
+    <div class="row" style="margin-bottom:10px">${gpsBadges(g)}</div>
+    ${gpsInfoHTML(g)}
+    <div class="row" style="margin-top:12px">${gpsBotoes(g)}<button class="btn sm" id="gx-edit">Editar cadastro</button><button class="btn danger sm" id="gx-del">Excluir item</button></div>
+    <h2 style="margin-top:20px">Histórico completo — ${movs.length} movimentação(ões)</h2>
+    <p class="hint" style="margin-top:-6px">Ciclo atual: ${g.ciclo || 1} (${g.movsNoCiclo || 0}/${GPS_LIMITE}). Mais recentes primeiro.</p>
+    ${ciclos.map(c => { const ms = movs.filter(m => (m.ciclo || 1) === c); return `<div class="ciclo-h">Ciclo ${c} · ${ms.length} movimentação(ões)</div><ul class="tl" style="max-height:none;border-top:0">${ms.map(gpsMovLi).join('')}</ul>`; }).join('') || '<p class="empty">Sem movimentações.</p>'}
+    <p class="hint">Cadastrado em ${fmtDataHora(g.criadoEm)}. As movimentações não podem ser apagadas.</p>`);
+  $('#gx-edit').onclick = () => abrirGpsCadastro(id);
+  $('#gx-del').onclick = async () => {
+    if (!confirm(`Excluir "${gpsTitulo(g)}" do GPS? O card some da tela; o histórico de movimentações continua guardado e sai na planilha Excel.`)) return;
+    if (await commit(d => { d.gps = d.gps.filter(x => x.id !== id); })) { toast('Item excluído do GPS.'); closeModal(); }
+  };
+}
+
+/* ================= Últimas compras ================= */
+const compraTotalItens = c => round2((c.itens || []).reduce((a, i) => a + (Number(i.valorTotal) || 0), 0));
+function itemRowHTML(i = {}){
+  return `<div class="it-row">
+    <input class="it-n" list="itens-nomes" placeholder="Nome do item" value="${esc(i.nome)}" aria-label="Nome do item">
+    <input class="it-q" type="number" min="0" step="any" inputmode="decimal" placeholder="Qtd" value="${i.qtd ?? ''}" aria-label="Quantidade">
+    <select class="it-u" aria-label="Unidade de medida">${unidOptions(i.unidade)}</select>
+    <input class="it-v" inputmode="decimal" placeholder="Valor unit. (R$)" value="${i.valorUnit != null ? fmtDec2(i.valorUnit) : ''}" aria-label="Valor da unidade">
+    <input class="it-t" inputmode="decimal" placeholder="Total do item (R$)" value="${i.valorTotal != null ? fmtDec2(i.valorTotal) : ''}" ${i.valorTotal != null && round2(i.qtd * i.valorUnit) !== i.valorTotal ? 'data-manual="1"' : ''} aria-label="Valor total do item">
+    <button type="button" class="it-del" title="Remover item" aria-label="Remover item">×</button>
+  </div>`;
+}
+function abrirCompra(id){
+  if (!abaDisponivel('compras')) return;
+  const c = id ? db.compras.find(x => x.id === id) : {data: hojeISO(), itens: [{}]};
+  if (!c) return;
+  const totalManual = id && round2(c.totalNota) !== compraTotalItens(c);
+  openModal(id ? 'Editar compra' : 'Registrar compra', `<form id="f-cp" novalidate>
+    <div class="grid3">
+      <div class="field"><label for="cpr-data">Data da compra <b class="req">*</b></label><input id="cpr-data" type="date" value="${esc(c.data)}"></div>
+      ${campoTxt('cpr-forn', 'Fornecedor', false, `value="${esc(c.fornecedor)}"`)}
+      ${campoTxt('cpr-num', 'Nº da nota', false, `value="${esc(c.numeroNota)}"`)}
+    </div>
+    <div class="it-row it-head"><span>Item *</span><span>Qtd *</span><span>Unidade *</span><span>Valor da unidade *</span><span>Total do item</span><span></span></div>
+    <div id="cpr-itens">${(c.itens && c.itens.length ? c.itens : [{}]).map(itemRowHTML).join('')}</div>
+    <div id="cpr-anchor"><button type="button" class="btn sm" id="cpr-add">+ Adicionar item</button></div>
+    <div class="grid2" style="margin-top:14px">
+      <div class="field"><label for="cpr-total">Valor total da nota (R$) <b class="req">*</b></label><input id="cpr-total" inputmode="decimal" value="${c.totalNota != null ? fmtDec2(c.totalNota) : ''}" ${totalManual ? 'data-manual="1"' : ''}>
+        <div class="hint" id="cpr-soma"></div></div>
+    </div>
+    <div class="field"><label for="cpr-obs">Observação (opcional)</label><textarea id="cpr-obs" rows="2">${esc(c.obs)}</textarea></div>
+    <div class="actions">${id ? '<button type="button" class="btn danger" id="cpr-del">Excluir compra</button>' : ''}<button type="button" class="btn" data-close>Cancelar</button><button class="btn primary" type="submit">${id ? 'Salvar alterações' : 'Registrar compra'}</button></div>
+  </form>`);
+  const box = $('#cpr-itens');
+  const recalc = () => {
+    let soma = 0;
+    $$('.it-row', box).forEach(r => {
+      const q = parseQtd($('.it-q', r).value), v = parseMoeda($('.it-v', r).value), t = $('.it-t', r);
+      if (!t.dataset.manual) t.value = isFinite(q) && isFinite(v) ? fmtDec2(round2(q * v)) : '';
+      const tv = parseMoeda(t.value); if (isFinite(tv)) soma += tv;
+    });
+    soma = round2(soma);
+    const tot = $('#cpr-total');
+    if (!tot.dataset.manual) tot.value = soma ? fmtDec2(soma) : '';
+    const tn = parseMoeda(tot.value);
+    $('#cpr-soma').innerHTML = `Soma dos itens: <b>${fmtMoeda(soma)}</b>` + (isFinite(tn) && round2(tn) !== soma ? ` · <span style="color:var(--warn)">diferença de ${fmtMoeda(round2(tn - soma))} (frete, desconto ou impostos?)</span>` : '');
+  };
+  box.addEventListener('input', e => { if (e.target.classList.contains('it-t')) e.target.dataset.manual = e.target.value.trim() ? '1' : ''; e.target.classList.remove('bad'); recalc(); });
+  box.addEventListener('change', e => e.target.classList.remove('bad'));
+  box.addEventListener('click', e => { const b = e.target.closest('.it-del'); if (!b) return; b.closest('.it-row').remove(); if (!$('.it-row', box)) box.insertAdjacentHTML('beforeend', itemRowHTML()); recalc(); });
+  $('#cpr-add').onclick = () => { box.insertAdjacentHTML('beforeend', itemRowHTML()); $$('.it-n', box).pop().focus(); };
+  $('#cpr-total').addEventListener('input', e => { e.target.dataset.manual = e.target.value.trim() ? '1' : ''; recalc(); });
+  recalc();
+  if (id) $('#cpr-del').onclick = async () => { if (confirm('Excluir esta compra?') && await commit(d => { d.compras = d.compras.filter(x => x.id !== id); })) { toast('Compra excluída.'); closeModal(); } };
+  $('#f-cp').onsubmit = async e => {
+    e.preventDefault(); clearErr(e.target); const errs = [];
+    $$('.bad', box).forEach(x => x.classList.remove('bad'));
+    const data = $('#cpr-data').value; if (!dataValida(data)) errs.push([$('#cpr-data'), 'Informe a data da compra.']);
+    const itens = []; let itemErr = null;
+    $$('.it-row', box).forEach(r => {
+      const nome = $('.it-n', r).value.trim().replace(/\s+/g, ' '), qs = $('.it-q', r).value, un = $('.it-u', r).value, vs = $('.it-v', r).value, ts = $('.it-t', r).value;
+      if (!nome && !qs.trim() && !vs.trim() && !ts.trim()) return; // linha em branco: ignora
+      const q = parseQtd(qs), v = parseMoeda(vs); let t = parseMoeda(ts);
+      const ruim = [];
+      if (!nome) ruim.push('.it-n');
+      if (!isFinite(q) || q <= 0) ruim.push('.it-q');
+      if (!un) ruim.push('.it-u');
+      if (!isFinite(v) || v < 0) ruim.push('.it-v');
+      if (!isFinite(t)) t = isFinite(q) && isFinite(v) ? round2(q * v) : NaN;
+      if (!isFinite(t) || t < 0) ruim.push('.it-t');
+      if (ruim.length) { ruim.forEach(s => $(s, r).classList.add('bad')); itemErr = itemErr || $(ruim[0], r); return; }
+      itens.push({nome, qtd: round3(q), unidade: un, valorUnit: round2(v), valorTotal: round2(t)});
+    });
+    const anchor = $('#cpr-anchor');
+    if (itemErr) errs.push([anchor, 'Complete os itens destacados em vermelho (nome, quantidade, unidade e valor da unidade).']);
+    else if (!itens.length) { $('.it-n', box).classList.add('bad'); itemErr = $('.it-n', box); errs.push([anchor, 'Informe pelo menos um item.']); }
+    const total = parseMoeda($('#cpr-total').value);
+    if (!isFinite(total) || total < 0) errs.push([$('#cpr-total'), 'Informe o valor total da nota.']);
+    if (errs.length) { showErrs(errs); if (errs[0][0] === anchor && itemErr) itemErr.focus(); return; }
+    const v = {data, fornecedor: $('#cpr-forn').value.trim(), numeroNota: $('#cpr-num').value.trim(), itens, totalNota: round2(total), obs: $('#cpr-obs').value.trim()};
+    const ok = await commit(d => {
+      const agora = new Date().toISOString();
+      if (id) { const x = d.compras.find(y => y.id === id); if (!x) throw new Error('Compra não encontrada.'); Object.assign(x, v, {editadoEm: agora}); }
+      else d.compras.push({id: uid(), ...v, criadoEm: agora});
+    });
+    if (ok) { toast(id ? 'Compra atualizada.' : 'Compra registrada.'); closeModal(); }
+  };
+}
+$('#btn-nova-compra').onclick = () => abrirCompra(null);
+$('#compras-busca').addEventListener('input', () => renderCompras());
+function renderCompras(){
+  const q = norm($('#compras-busca').value);
+  const ordC = (a, b) => b.data.localeCompare(a.data) || String(b.criadoEm).localeCompare(String(a.criadoEm));
+  let cs = [...db.compras].sort(ordC);
+  const itemBate = i => norm(i.nome).includes(q);
+  if (q) cs = cs.filter(c => [c.fornecedor, c.numeroNota, c.obs].some(x => norm(x).includes(q)) || (c.itens || []).some(itemBate));
+  /* Busca por item: tabela com cada compra daquele item, a mais recente primeiro (= última compra) */
+  if (q) {
+    const linhas = [];
+    cs.forEach(c => (c.itens || []).filter(itemBate).forEach(i => linhas.push({c, i})));
+    $('#compras-itens').innerHTML = linhas.length ? `<div class="panel"><h2>Itens encontrados — o mais recente primeiro</h2><div class="table-wrap"><table>
+      <thead><tr><th>Data</th><th>Item</th><th class="num">Qtd</th><th>Un.</th><th class="num">Valor da unidade</th><th class="num">Total do item</th><th>Fornecedor</th><th>Nota</th></tr></thead><tbody>
+      ${linhas.map(({c, i}, k) => `<tr class="click${k === 0 ? ' ultima' : ''}" data-compra="${c.id}" tabindex="0"><td>${fmtData(c.data)}${k === 0 ? '<br><span class="badge b-ok">última compra</span>' : ''}</td><td><b>${esc(i.nome)}</b></td><td class="num">${fmtQtd(i.qtd)}</td><td>${esc(i.unidade)}</td><td class="num">${fmtMoeda(i.valorUnit)}</td><td class="num">${fmtMoeda(i.valorTotal)}</td><td>${esc(c.fornecedor) || '—'}</td><td>${esc(c.numeroNota) || '—'}</td></tr>`).join('')}
+      </tbody></table></div></div>` : '';
+  } else $('#compras-itens').innerHTML = '';
+  $('#compras-lista').innerHTML = cs.length ? (q ? '<h2>Notas encontradas</h2>' : '') + cs.map(c => {
+    const soma = compraTotalItens(c);
+    return `<div class="panel compra" data-compra="${c.id}" tabindex="0">
+      <div class="compra-head"><div><b>${fmtData(c.data)}</b>${c.fornecedor ? ' · ' + esc(c.fornecedor) : ''}${c.numeroNota ? ` · <span class="muted">Nota nº ${esc(c.numeroNota)}</span>` : ''}
+        <div class="muted small">${(c.itens || []).length} item(ns)${soma !== round2(c.totalNota) ? ` · soma dos itens ${fmtMoeda(soma)}` : ''}</div></div>
+        <div class="compra-total"><span class="muted small" style="font-weight:600">Total da nota</span><br>${fmtMoeda(c.totalNota)}</div></div>
+      <div class="table-wrap"><table><thead><tr><th>Item</th><th class="num">Qtd</th><th>Un.</th><th class="num">Valor da unidade</th><th class="num">Total do item</th></tr></thead><tbody>
+        ${(c.itens || []).map(i => `<tr${q && itemBate(i) ? ' class="ultima"' : ''}><td>${esc(i.nome)}</td><td class="num">${fmtQtd(i.qtd)}</td><td>${esc(i.unidade)}</td><td class="num">${fmtMoeda(i.valorUnit)}</td><td class="num">${fmtMoeda(i.valorTotal)}</td></tr>`).join('')}
+      </tbody></table></div>
+      ${c.obs ? `<p class="hint">${esc(c.obs)}</p>` : ''}
+    </div>`; }).join('')
+    : `<div class="panel" style="text-align:center"><p class="empty">${db.compras.length ? 'Nenhuma compra encontrada para esta pesquisa.' : 'Nenhuma compra registrada ainda. Clique em “+ Registrar compra”.'}</p></div>`;
+}
+
+/* ================= Tarefas ================= */
+function stTar(t){
+  if (t.concluida) return 'concluida';
+  if (!t.prazo) return 'semprazo';
+  const h = hojeISO();
+  return t.prazo < h ? 'atrasada' : t.prazo === h ? 'hoje' : 'futura';
+}
+function tarKey(t){ return (t.prazo || '9999-12-31') + '|' + (t.criadoEm || ''); }
+function tarPrazoTxt(t){
+  if (!t.prazo) return 'Sem prazo';
+  const n = diasEntre(hojeISO(), t.prazo);
+  if (t.concluida) return 'Prazo ' + fmtData(t.prazo);
+  if (n < 0) return `Venceu em ${fmtData(t.prazo)} (há ${-n} dia${-n > 1 ? 's' : ''})`;
+  if (n === 0) return 'Vence hoje';
+  if (n === 1) return 'Vence amanhã · ' + fmtData(t.prazo);
+  return `Vence em ${n} dias · ${fmtData(t.prazo)}`;
+}
+const TAR_BADGE = {concluida: ['l-concluido', 'Concluída'], atrasada: ['l-atrasado', 'Atrasada'], hoje: ['l-pendente', 'Hoje'], futura: ['b-n2', 'No prazo'], semprazo: ['b-neutro', 'Sem prazo']};
+function tarItem(t){
+  const s = stTar(t); const [cls, lbl] = TAR_BADGE[s];
+  return `<li class="li-click tar ${t.concluida ? 'done' : ''}" data-tar="${t.id}" tabindex="0">
+    <input type="checkbox" class="tk" data-tar-check="${t.id}" ${t.concluida ? 'checked' : ''} aria-label="Marcar como concluída" title="${t.concluida ? 'Reabrir' : 'Concluir'}">
+    <div><b>${esc(t.titulo)}</b><small>${tarPrazoTxt(t)}${t.descricao ? ' · ' + esc(t.descricao.length > 60 ? t.descricao.slice(0, 60) + '…' : t.descricao) : ''}</small></div>
+    <span class="badge ${cls}">${lbl}</span></li>`;
+}
+function tarCampos(p, t = {}){
+  return `<div class="field"><label for="${p}-tit">Tarefa <b class="req">*</b></label><input id="${p}-tit" value="${esc(t.titulo)}" placeholder="ex.: Conferir bujões que voltaram"></div>
+  <div class="field"><label for="${p}-desc">Detalhes (opcional)</label><textarea id="${p}-desc" rows="2">${esc(t.descricao)}</textarea></div>
+  <div class="grid2"><div class="field"><label for="${p}-prazo">Prazo (opcional)</label><input id="${p}-prazo" type="date" value="${esc(t.prazo)}"><span class="hint">Deixe em branco para tarefa sem prazo.</span></div></div>`;
+}
+function lerTar(p){
+  const v = {titulo: $('#' + p + '-tit').value.trim(), descricao: $('#' + p + '-desc').value.trim(), prazo: $('#' + p + '-prazo').value};
+  const errs = [];
+  if (!v.titulo) errs.push([$('#' + p + '-tit'), 'Descreva a tarefa.']);
+  if (v.prazo && !dataValida(v.prazo)) errs.push([$('#' + p + '-prazo'), 'Data inválida.']);
+  if (!v.prazo && $('#' + p + '-prazo').validity.badInput) errs.push([$('#' + p + '-prazo'), 'Data inválida.']);
+  return {v, errs};
+}
+$('#tar-campos').innerHTML = tarCampos('tf');
+$('#f-tar').addEventListener('submit', async e => {
+  e.preventDefault(); clearErr(e.currentTarget);
+  if (!abaDisponivel('tarefas')) return;
+  const {v, errs} = lerTar('tf'); if (errs.length) return showErrs(errs);
+  if (await commit(d => { d.tarefas.push({id: uid(), ...v, concluida: false, criadoEm: new Date().toISOString()}); })) {
+    toast('Tarefa adicionada.'); $('#tar-campos').innerHTML = tarCampos('tf'); $('#tf-tit').focus();
+  }
+});
+let filtroTar = 'abertas';
+$('#tar-filtros').addEventListener('click', e => { const c = e.target.closest('.chip'); if (!c) return; filtroTar = c.dataset.f; $$('#tar-filtros .chip').forEach(x => x.classList.toggle('on', x === c)); renderTarefas(); });
+function renderTarefas(){
+  let ts = db.tarefas.slice(); const lim7 = addDias(hojeISO(), 7);
+  if (filtroTar === 'abertas') ts = ts.filter(t => !t.concluida);
+  else if (filtroTar === '7dias') ts = ts.filter(t => !t.concluida && t.prazo && t.prazo <= lim7);
+  else if (filtroTar !== 'todas') ts = ts.filter(t => stTar(t) === filtroTar);
+  if (filtroTar === 'concluida') ts.sort((a, b) => String(b.concluidaEm).localeCompare(String(a.concluidaEm)));
+  else ts.sort((a, b) => (a.concluida - b.concluida) || tarKey(a).localeCompare(tarKey(b)));
+  $('#tar-lista').innerHTML = ts.length ? ts.map(tarItem).join('') : '<li class="empty">Nenhuma tarefa neste filtro.</li>';
+}
+async function alternarTarefa(id){
+  if (!abaDisponivel('tarefas')) return;
+  const t = db.tarefas.find(x => x.id === id); if (!t) return;
+  const vai = !t.concluida;
+  if (await commit(d => { const x = d.tarefas.find(y => y.id === id); if (!x) throw new Error('Tarefa não encontrada.'); x.concluida = vai; x.concluidaEm = vai ? new Date().toISOString() : null; }))
+    toast(vai ? 'Tarefa concluída.' : 'Tarefa reaberta.');
+  else renderTarefas(), renderDashboard();
+}
+function abrirTarefa(id){
+  const t = db.tarefas.find(x => x.id === id); if (!t) return; const s = stTar(t); const [cls, lbl] = TAR_BADGE[s];
+  openModal(t.titulo, `<div class="row" style="justify-content:space-between"><span>${tarPrazoTxt(t)}</span><span class="badge ${cls}">${lbl}</span></div>
+    <div style="margin:14px 0;white-space:pre-wrap">${t.descricao ? esc(t.descricao) : '<span class="muted">Sem detalhes.</span>'}</div>
+    <p class="hint">Criada em ${fmtDataHora(t.criadoEm)}${t.concluida && t.concluidaEm ? ` · concluída em ${fmtDataHora(t.concluidaEm)}` : ''}.</p>
+    <div class="actions"><button class="btn danger" id="tx-del">Excluir</button><button class="btn" id="tx-edit">Editar</button>
+    <button class="btn primary" id="tx-conc">${t.concluida ? 'Reabrir' : 'Marcar como concluída'}</button></div>`);
+  $('#tx-conc').onclick = async () => { await alternarTarefa(id); closeModal(); };
+  $('#tx-del').onclick = async () => { if (confirm('Excluir esta tarefa?') && await commit(d => { d.tarefas = d.tarefas.filter(y => y.id !== id); })) { toast('Tarefa excluída.'); closeModal(); } };
+  $('#tx-edit').onclick = () => {
+    openModal('Editar tarefa', `<form id="f-tar-ed" novalidate>${tarCampos('te', t)}<div class="actions"><button type="button" class="btn" data-close>Cancelar</button><button class="btn primary" type="submit">Salvar</button></div></form>`);
+    $('#f-tar-ed').onsubmit = async e => {
+      e.preventDefault(); clearErr(e.target); const {v, errs} = lerTar('te'); if (errs.length) return showErrs(errs);
+      if (await commit(d => { const x = d.tarefas.find(y => y.id === id); if (!x) throw new Error('Tarefa não encontrada.'); Object.assign(x, v); })) { toast('Tarefa atualizada.'); abrirTarefa(id); }
+    };
+  };
+}
+
+/* ================= Notas autoadesivas ================= */
+const NOTA_CORES = {amarelo: '#fff3a0', rosa: '#ffd0e2', verde: '#cff3c8', azul: '#c8e7ff', roxo: '#e4d6ff', laranja: '#ffdcb2'};
+const notaTimers = {};
+let notasRenderPend = false;
+const notaFocada = () => { const a = document.activeElement; return a && a.matches && a.matches('[data-nota-txt]') ? a : null; };
+function renderNotas(){
+  if (notaFocada()) { notasRenderPend = true; return; } // não atrapalha quem está digitando
+  notasRenderPend = false;
+  const q = norm($('#notas-busca').value);
+  let ns = db.notas.slice().sort((a, b) => String(b.criadoEm).localeCompare(String(a.criadoEm)));
+  if (q) ns = ns.filter(n => norm(n.texto).includes(q));
+  $('#notas-grid').innerHTML = ns.length ? ns.map(n => `<div class="note" style="background:${NOTA_CORES[n.cor] || NOTA_CORES.amarelo}">
+      <div class="note-bar">${Object.entries(NOTA_CORES).map(([k, c]) => `<button type="button" class="note-dot${(n.cor || 'amarelo') === k ? ' on' : ''}" data-nota-cor="${k}" data-id="${n.id}" style="background:${c}" title="${k}" aria-label="Cor ${k}"></button>`).join('')}
+        <button type="button" class="note-del" data-nota-del="${n.id}" title="Excluir nota" aria-label="Excluir nota">×</button></div>
+      <textarea data-nota-txt="${n.id}" placeholder="Escreva sua nota…" aria-label="Texto da nota">${esc(n.texto)}</textarea>
+      <div class="note-foot">${n.editadoEm ? 'Editada em ' + fmtDataHora(n.editadoEm) : 'Criada em ' + fmtDataHora(n.criadoEm)}</div>
+    </div>`).join('')
+    : `<p class="empty">${db.notas.length ? 'Nenhuma nota encontrada.' : 'Nenhuma nota ainda. Clique em “+ Nova nota”.'}</p>`;
+}
+async function salvarNota(id){
+  clearTimeout(notaTimers[id]); delete notaTimers[id];
+  const ta = $(`[data-nota-txt="${id}"]`); const n = db.notas.find(x => x.id === id);
+  if (!ta || !n || ta.value === (n.texto || '')) return;
+  if (salvando || !pronto) { notaTimers[id] = setTimeout(() => salvarNota(id), 600); return; }
+  const texto = ta.value;
+  await commit(d => { const x = d.notas.find(y => y.id === id); if (!x) throw new Error('Esta nota foi excluída em outro computador.'); x.texto = texto; x.editadoEm = new Date().toISOString(); });
+}
+const gridNotas = $('#notas-grid');
+gridNotas.addEventListener('input', e => { const id = e.target.dataset.notaTxt; if (!id) return; clearTimeout(notaTimers[id]); notaTimers[id] = setTimeout(() => salvarNota(id), 1200); });
+gridNotas.addEventListener('focusout', e => {
+  const id = e.target.dataset.notaTxt; if (!id) return;
+  salvarNota(id).finally(() => setTimeout(() => { if (notasRenderPend && !notaFocada()) renderNotas(); }, 50));
+});
+const esperaLivre = () => new Promise(r => { const f = () => salvando ? setTimeout(f, 80) : r(); f(); });
+/* Botões de cor/excluir não tiram o foco do texto (evita a nota ser redesenhada no meio do clique) */
+gridNotas.addEventListener('mousedown', e => { if (e.target.closest('[data-nota-cor],[data-nota-del]')) e.preventDefault(); });
+gridNotas.addEventListener('click', async e => {
+  const cor = e.target.closest('[data-nota-cor]');
+  if (cor) {
+    const id = cor.dataset.id, k = cor.dataset.notaCor; const card = cor.closest('.note');
+    const f = notaFocada(); await esperaLivre(); if (f) await salvarNota(f.dataset.notaTxt); await esperaLivre();
+    if (await commit(d => { const x = d.notas.find(y => y.id === id); if (x) x.cor = k; })) {
+      try { localStorage.setItem('crm_nota_cor', k); } catch (er) {}
+      if (card && card.isConnected) { card.style.background = NOTA_CORES[k]; $$('.note-dot', card).forEach(b => b.classList.toggle('on', b.dataset.notaCor === k)); }
+    }
+    return;
+  }
+  const del = e.target.closest('[data-nota-del]');
+  if (del) {
+    const id = del.dataset.notaDel; const n = db.notas.find(x => x.id === id); if (!n) return;
+    const ta = $(`[data-nota-txt="${id}"]`);
+    if ((ta ? ta.value : n.texto || '').trim() && !confirm('Excluir esta nota?')) return;
+    clearTimeout(notaTimers[id]); delete notaTimers[id];
+    const f = notaFocada(); await esperaLivre(); if (f && f !== ta) await salvarNota(f.dataset.notaTxt); await esperaLivre();
+    if (await commit(d => { d.notas = d.notas.filter(y => y.id !== id); })) {
+      toast('Nota excluída.');
+      if (notaFocada()) notaFocada().blur();
+      renderNotas();
+    }
+  }
+});
+$('#notas-busca').addEventListener('input', () => renderNotas());
+$('#btn-nova-nota').onclick = async () => {
+  if (!abaDisponivel('notas')) return;
+  let cor = 'amarelo'; try { cor = localStorage.getItem('crm_nota_cor') || 'amarelo'; } catch (e) {}
+  if (!NOTA_CORES[cor]) cor = 'amarelo';
+  const id = uid();
+  $('#notas-busca').value = '';
+  if (await commit(d => { d.notas.push({id, texto: '', cor, criadoEm: new Date().toISOString()}); })) { const ta = $(`[data-nota-txt="${id}"]`); if (ta) ta.focus(); }
+};
+/* Salva notas em edição antes de sair da página */
+window.addEventListener('beforeunload', () => Object.keys(notaTimers).forEach(id => salvarNota(id)));
+
 /* ================= Configurações: backup e exportação ================= */
 function baixar(blob, nome){
   const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = nome; document.body.appendChild(a); a.click(); a.remove();
@@ -1018,7 +1779,7 @@ function exportarPlanilha(){
 $('#btn-xlsx').onclick = exportarPlanilha;
 
 /* ================= Planilha Excel (.xlsx) — gerada no navegador, sem dependências ================= */
-const XS = {head: 1, s: 2, wrap: 3, n: 4, d: 5, dt: 6, ok: 7, warn: 8, bad: 9, title: 10, label: 11, muted: 12, numB: 13, b: 14, info: 15, dtB: 16};
+const XS = {head: 1, s: 2, wrap: 3, n: 4, d: 5, dt: 6, ok: 7, warn: 8, bad: 9, title: 10, label: 11, muted: 12, numB: 13, b: 14, info: 15, dtB: 16, money: 17};
 function xmlEsc(s){
   return String(s).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F￾￿]/g, '')
     .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -1029,7 +1790,7 @@ function serialDT(iso){ if (!iso) return null; const d = new Date(iso); if (isNa
 function cellXml(ref, v, t, s){
   const vazio = `<c r="${ref}" s="${s}"/>`;
   if (v === null || v === undefined || v === '') return vazio;
-  if (t === 'n' || t === 'numB') { const n = Number(v); return isFinite(n) ? `<c r="${ref}" s="${s}"><v>${n}</v></c>` : vazio; }
+  if (t === 'n' || t === 'numB' || t === 'money') { const n = Number(v); return isFinite(n) ? `<c r="${ref}" s="${s}"><v>${n}</v></c>` : vazio; }
   if (t === 'd' || t === 'dt' || t === 'dtB') { const n = t === 'd' ? serialDate(v) : serialDT(v); return n == null ? vazio : `<c r="${ref}" s="${s}"><v>${n}</v></c>`; }
   let str = String(v); if (str.length > 32767) str = str.slice(0, 32767);
   return `<c r="${ref}" s="${s}" t="inlineStr"><is><t xml:space="preserve">${xmlEsc(str)}</t></is></c>`;
@@ -1084,7 +1845,7 @@ function xSheetXml(sh, idx){
   return x;
 }
 const X_STYLES = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n<styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">' +
-  '<numFmts count="2"><numFmt numFmtId="164" formatCode="dd/mm/yyyy"/><numFmt numFmtId="165" formatCode="dd/mm/yyyy hh:mm"/></numFmts>' +
+  '<numFmts count="3"><numFmt numFmtId="164" formatCode="dd/mm/yyyy"/><numFmt numFmtId="165" formatCode="dd/mm/yyyy hh:mm"/><numFmt numFmtId="166" formatCode="&quot;R$&quot; #,##0.00"/></numFmts>' +
   '<fonts count="9">' +
   '<font><sz val="11"/><name val="Calibri"/><family val="2"/></font>' +
   '<font><b/><sz val="11"/><color rgb="FFFFFFFF"/><name val="Calibri"/><family val="2"/></font>' +
@@ -1121,7 +1882,8 @@ const X_STYLES = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n<styl
       xf(0, 2, 0, 1, 'horizontal="left" vertical="top"'), // 13 número em destaque
       xf(0, 2, 0, 1, T + ' wrapText="1"'),     // 14 texto em negrito
       xf(0, 8, 7, 1, C),                       // 15 azul
-      xf(165, 2, 0, 1, 'horizontal="left" vertical="top"') // 16 data e hora em destaque
+      xf(165, 2, 0, 1, 'horizontal="left" vertical="top"'), // 16 data e hora em destaque
+      xf(166, 0, 0, 1, T)                      // 17 moeda (R$)
     ];
     return `<cellXfs count="${list.length}">${list.join('')}</cellXfs>`;
   })() +
@@ -1182,7 +1944,6 @@ function xMontar(sheets){
 
 function gerarPlanilha(){
   const agora = new Date().toISOString();
-  const porNome = (a, b) => a.nome.localeCompare(b.nome, 'pt-BR');
   const P = [...db.produtos].sort(porNome);
   const M = [...db.movs].sort((a, b) => (a.data + a.registradoEm).localeCompare(b.data + b.registradoEm));
   const nomeMov = m => nomeProd(m) || '';
@@ -1264,6 +2025,38 @@ function gerarPlanilha(){
     {h: 'Alterado em', t: 'dt'}, {h: 'Produto', t: 'b', min: 18}, {h: 'Campos alterados', t: 'wrap', w: 40}, {h: 'Localização atual', min: 32}
   ], alts.map(({p, a}) => [a.em, p.nome, a.campos.map(c => CAMPO_LABEL[c] || c).join(', '), loc(p)]));
 
+  /* GPS de itens */
+  const simNao = v => v ? 'Sim' : 'Não';
+  const gpsItens = xTabela('GPS Itens', [
+    {h: 'Item', t: 'b', min: 18}, {h: 'Identificação / patrimônio'}, {h: 'Nitrogênio?'}, {h: 'Nº do bujão'},
+    {h: 'Situação', st: v => v === 'Na rua' ? XS.warn : XS.ok, min: 12}, {h: 'Responsável atual', min: 18}, {h: 'Obra atual', min: 18}, {h: 'Desde', t: 'd'},
+    {h: 'Nível de saída'}, {h: 'Nível de volta'}, {h: 'Último nível informado'}, {h: 'Ciclo atual', t: 'n'}, {h: 'Movimentações no ciclo (de 15)', t: 'n'}, {h: 'Total de movimentações', t: 'n'}, {h: 'Cadastrado em', t: 'dt'}
+  ], [...db.gps].sort(ordGps).map(g => [g.nome, g.identificacao, simNao(g.nitrogenio), g.numeroBujao, g.local === 'rua' ? 'Na rua' : 'No estoque',
+    g.responsavel, g.obra, g.desde, g.nivelSaida, g.nivelVolta, g.nivelAtual, g.ciclo || 1, g.movsNoCiclo || 0, g.totalMovs || 0, g.criadoEm]));
+  const GM = [...db.gpsMovs].sort((a, b) => a.registradoEm.localeCompare(b.registradoEm));
+  const gpsHist = xTabela('GPS Histórico', [
+    {h: 'Registrado em', t: 'dt'}, {h: 'Data', t: 'd'}, {h: 'Item', t: 'b', min: 18}, {h: 'Nº do bujão'}, {h: 'Ciclo', t: 'n'}, {h: 'Nº no ciclo', t: 'n'},
+    {h: 'Movimentação', min: 24}, {h: 'De', min: 16}, {h: 'Para', min: 16}, {h: 'Obra', min: 18}, {h: 'Nível de saída'}, {h: 'Nível de volta'}, {h: 'Nível na passagem / cadastro'}, {h: 'Comentário', t: 'wrap', w: 50}
+  ], GM.map(m => { const g = gpsById(m.itemId); return [m.registradoEm, m.data, g ? gpsTitulo(g) : m.itemNome, m.numeroBujao, m.ciclo || 1, m.seq,
+    GPS_TIPO[m.tipo] || m.tipo, m.de, m.para, m.obra, m.nivelSaida, m.nivelVolta, m.nivel, m.comentario]; }));
+
+  /* Compras: uma linha por item */
+  const CP = [...db.compras].sort((a, b) => b.data.localeCompare(a.data));
+  const compras = xTabela('Compras', [
+    {h: 'Data da compra', t: 'd'}, {h: 'Fornecedor', min: 16}, {h: 'Nº da nota'}, {h: 'Item', t: 'b', min: 18}, {h: 'Quantidade', t: 'n'}, {h: 'Unidade'},
+    {h: 'Valor da unidade', t: 'money', min: 14}, {h: 'Valor total do item', t: 'money', min: 14}, {h: 'Valor total da nota', t: 'money', min: 14}, {h: 'Observação', t: 'wrap', w: 36}
+  ], CP.flatMap(c => (c.itens || []).map(i => [c.data, c.fornecedor, c.numeroNota, i.nome, i.qtd, i.unidade, i.valorUnit, i.valorTotal, c.totalNota, c.obs])));
+
+  const TAR_ST = {concluida: 'Concluída', atrasada: 'Atrasada', hoje: 'Vence hoje', futura: 'No prazo', semprazo: 'Sem prazo'};
+  const tarefas = xTabela('Tarefas', [
+    {h: 'Tarefa', t: 'b', min: 24, w: 36}, {h: 'Detalhes', t: 'wrap', w: 50}, {h: 'Prazo', t: 'd'},
+    {h: 'Status', st: v => v === 'Concluída' ? XS.ok : v === 'Atrasada' ? XS.bad : XS.warn, min: 12}, {h: 'Criada em', t: 'dt'}, {h: 'Concluída em', t: 'dt'}
+  ], [...db.tarefas].sort((a, b) => tarKey(a).localeCompare(tarKey(b))).map(t => [t.titulo, t.descricao, t.prazo || '', TAR_ST[stTar(t)], t.criadoEm, t.concluida ? t.concluidaEm : '']));
+
+  const notas = xTabela('Notas', [
+    {h: 'Nota', t: 'wrap', w: 70}, {h: 'Cor'}, {h: 'Criada em', t: 'dt'}, {h: 'Editada em', t: 'dt'}
+  ], [...db.notas].sort((a, b) => String(b.criadoEm).localeCompare(String(a.criadoEm))).map(n => [n.texto, n.cor || 'amarelo', n.criadoEm, n.editadoEm]));
+
   /* Resumo (primeira aba) */
   const R = (cells, ht) => ({ht, cells});
   const kv = (k, v, t = 'numB') => R([{v: k, t: 's', s: XS.label}, {v, t, s: t === 'numB' ? XS.numB : XS.s}]);
@@ -1284,6 +2077,13 @@ function gerarPlanilha(){
     kv('Tarefas pendentes (lembretes em aberto)', db.lembretes.filter(l => !l.concluido).length),
     kv('Lembretes atrasados', atras),
     kv('Lembretes concluídos', db.lembretes.filter(l => l.concluido).length),
+    kv('Itens no GPS', db.gps.length),
+    kv('Itens do GPS na rua', db.gps.filter(g => g.local === 'rua').length),
+    kv('Movimentações do GPS (histórico completo)', db.gpsMovs.length),
+    kv('Compras registradas', db.compras.length),
+    kv('Tarefas em aberto', db.tarefas.filter(t => !t.concluida).length),
+    kv('Tarefas atrasadas', db.tarefas.filter(t => stTar(t) === 'atrasada').length),
+    kv('Notas', db.notas.length),
     R([]),
     R([{v: 'Aba', t: 's', s: XS.head}, {v: 'Conteúdo', t: 's', s: XS.head}], 22),
     ...[
@@ -1293,7 +2093,12 @@ function gerarPlanilha(){
       ['Ajustes', 'Correções de saldo com diferença, saldos, responsável e motivo.'],
       ['Histórico', 'Todas as movimentações em ordem cronológica (entradas positivas, saídas negativas).'],
       ['Comentários', 'Cada comentário ou ocorrência em uma linha, ligado à sua movimentação.'],
-      ['Lembretes', 'Tarefas com descrição, data, horário e status (pendente, atrasado ou concluído).'],
+      ['GPS Itens', 'Itens que saem do estoque para a rua: situação atual, responsável, obra, níveis do nitrogênio e ciclo de movimentações.'],
+      ['GPS Histórico', 'Todas as passagens de responsabilidade de todos os itens, sem limite, com ciclo e número no ciclo.'],
+      ['Compras', 'Cada item comprado em uma linha: data, fornecedor, nota, quantidade, unidade, valor da unidade, total do item e total da nota.'],
+      ['Tarefas', 'Tarefas da aba Tarefas, com prazo (ou sem prazo) e status.'],
+      ['Notas', 'Texto das notas autoadesivas.'],
+      ['Lembretes', 'Lembretes com descrição, data, horário e status (pendente, atrasado ou concluído).'],
       ['Alterações de cadastro', 'Registro de quando cada produto teve o cadastro alterado e quais campos mudaram.']
     ].map(([a, c]) => R([{v: a, t: 's', s: XS.label}, {v: c, t: 's', s: XS.wrap}], 32)),
     R([]),
@@ -1301,7 +2106,7 @@ function gerarPlanilha(){
   ];
   const resumo = {name: 'Resumo', widths: [40, 90], rows: resumoRows, noGrid: true};
 
-  return xMontar([estoque, entradas, saidas, ajustes, historico, comentarios, lembretes, alteracoes, resumo]);
+  return xMontar([estoque, entradas, saidas, ajustes, historico, comentarios, gpsItens, gpsHist, compras, tarefas, notas, lembretes, alteracoes, resumo]);
 }
 $('#imp-file').addEventListener('change', e => {
   const file = e.target.files[0]; if (!file) return;
@@ -1311,10 +2116,12 @@ $('#imp-file').addEventListener('change', e => {
       const d = JSON.parse(r.result);
       if (!Array.isArray(d.produtos) || !Array.isArray(d.movs) || !Array.isArray(d.lembretes)) throw new Error();
       if (!pronto) { toast('Aguarde a conexão com o banco de dados.', 'err'); return; }
-      if (!confirm(`Importar backup com ${d.produtos.length} produto(s), ${d.movs.length} movimentação(ões) e ${d.lembretes.length} lembrete(s)? TODOS os dados atuais do banco online serão substituídos, em todos os computadores.`)) return;
+      const chaves = Object.keys(COL).filter(k => Array.isArray(d[k]) && !indisp.has(k));
+      const extra = ['gps', 'compras', 'tarefas', 'notas'].filter(k => chaves.includes(k)).map(k => `${d[k].length} ${({gps: 'item(ns) do GPS', compras: 'compra(s)', tarefas: 'tarefa(s)', notas: 'nota(s)'})[k]}`);
+      if (!confirm(`Importar backup com ${d.produtos.length} produto(s), ${d.movs.length} movimentação(ões), ${d.lembretes.length} lembrete(s)${extra.length ? ', ' + extra.join(', ') : ''}? TODOS os dados atuais destas partes do banco online serão substituídos, em todos os computadores.`)) return;
       const novo = limpaDb(d);
       document.body.classList.add('busy');
-      substituirTudo(novo).then(() => toast('Backup importado.')).catch(er => { console.error(er); toast(msgErroBanco(er), 'err'); })
+      substituirTudo(novo, chaves).then(() => toast('Backup importado.')).catch(er => { console.error(er); toast(msgErroBanco(er), 'err'); })
         .finally(() => document.body.classList.remove('busy'));
     } catch (err) { toast('Arquivo de backup inválido.', 'err'); }
     finally { e.target.value = ''; }
@@ -1325,7 +2132,7 @@ $('#imp-file').addEventListener('change', e => {
 /* ================= Início ================= */
 renderAll();
 conectar();
-setInterval(() => { renderDashboard(); renderLembretes(); }, 30000);
+setInterval(() => { renderDashboard(); renderLembretes(); renderTarefas(); }, 30000);
 </script>
 </body>
 </html>
