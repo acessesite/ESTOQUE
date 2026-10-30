@@ -259,7 +259,6 @@ li.tar.done b{text-decoration:line-through;color:var(--muted)}
     <button class="tab" data-tab="compras">Últimas compras</button>
     <button class="tab" data-tab="tarefas">Tarefas</button>
     <button class="tab" data-tab="notas">Notas</button>
-    <button class="tab" data-tab="lembretes">Lembretes</button>
     <button class="tab" data-tab="config">Configurações</button>
   </nav>
   <span class="conn c-wait" id="conn">Conectando…</span>
@@ -272,11 +271,9 @@ li.tar.done b{text-decoration:line-through;color:var(--muted)}
   <h1>Dashboard</h1>
   <div class="kpis" id="kpis"></div>
   <div class="grid-dash">
+    <div class="panel"><h2>Tarefas de hoje e atrasadas</h2><ul class="list" id="dash-tar-hoje"></ul></div>
     <div class="panel"><h2>Tarefas — próximos 7 dias</h2><ul class="list" id="dash-tarefas"></ul></div>
     <div class="panel"><h2>⚠ Itens parados na rua (GPS)</h2><ul class="list" id="dash-parados"></ul></div>
-    <div class="panel"><h2>Agenda de hoje</h2><ul class="list" id="dash-hoje"></ul></div>
-    <div class="panel"><h2>Próximos eventos</h2><ul class="list" id="dash-prox"></ul></div>
-    <div class="panel"><h2>Lembretes atrasados</h2><ul class="list" id="dash-atras"></ul></div>
     <div class="panel"><h2>Estoque baixo / zerado</h2><ul class="list" id="dash-baixo"></ul></div>
     <div class="panel"><h2>Últimas movimentações</h2><ul class="list" id="dash-movs"></ul></div>
   </div>
@@ -430,27 +427,6 @@ li.tar.done b{text-decoration:line-through;color:var(--muted)}
   <div class="notes" id="notas-grid"></div>
 </section>
 
-<!-- LEMBRETES -->
-<section class="view" id="v-lembretes" hidden>
-  <h1>Lembretes</h1>
-  <div class="split">
-    <form class="panel" id="f-lemb" novalidate>
-      <h2>Novo lembrete</h2>
-      <div id="lemb-campos"></div>
-      <div class="actions"><button class="btn primary" type="submit">Salvar lembrete</button></div>
-    </form>
-    <div class="panel">
-      <div class="filters" id="lemb-filtros">
-        <button class="chip on" data-f="abertos">Em aberto</button>
-        <button class="chip" data-f="pendente">Pendentes</button>
-        <button class="chip" data-f="atrasado">Atrasados</button>
-        <button class="chip" data-f="concluido">Concluídos</button>
-        <button class="chip" data-f="todos">Todos</button>
-      </div>
-      <ul class="list" id="lemb-lista"></ul>
-    </div>
-  </div>
-</section>
 
 <!-- CONFIG -->
 <section class="view" id="v-config" hidden>
@@ -478,7 +454,7 @@ li.tar.done b{text-decoration:line-through;color:var(--muted)}
     </div>
     <div class="panel cfg">
       <h2>Exportar para Excel</h2>
-      <p class="hint">Gera uma planilha com todos os produtos (quantidade, unidade, localização e status) e, em abas separadas, entradas, saídas, ajustes, histórico, comentários, GPS de itens (com o histórico completo), compras, tarefas, notas, lembretes e um resumo.</p>
+      <p class="hint">Gera uma planilha com todos os produtos (quantidade, unidade, localização e status) e, em abas separadas, entradas, saídas, ajustes, histórico, comentários, GPS de itens (com o histórico completo), compras, tarefas, notas e um resumo.</p>
       <div class="cfg-actions">
         <button class="btn primary" id="btn-xlsx">Exportar Estoque Completo (.xlsx)</button>
       </div>
@@ -671,6 +647,7 @@ async function conectar(){
       const off = Object.values(cache).some(Boolean);
       setStatus(off ? 'off' : 'on', off ? 'Offline — só consulta' : 'Online');
       renderAll();
+      if (!off) migrarLembretes();
     }
   };
   Object.keys(COL).forEach(k => {
@@ -695,6 +672,27 @@ async function conectar(){
   });
 }
 const indisp = new Set();
+/* Lembretes agora fazem parte de Tarefas: os lembretes existentes são transferidos automaticamente (em lotes),
+   mantendo título, descrição, data, horário e situação. Também vale para lembretes de um backup antigo importado. */
+let migrando = false, migrados = 0;
+async function migrarLembretes(){
+  if (migrando || !pronto || !db.lembretes.length || indisp.has('tarefas') || !navigator.onLine) return;
+  if (salvando) { setTimeout(migrarLembretes, 1000); return; }
+  migrando = true;
+  try {
+    const lote = db.lembretes.slice(0, 150).map(l => l.id);
+    const ok = await commit(d => {
+      lote.forEach(id => {
+        const l = d.lembretes.find(x => x.id === id); if (!l) return;
+        if (!d.tarefas.some(t => t.id === l.id)) d.tarefas.push({id: l.id, titulo: l.titulo || 'Lembrete', descricao: l.descricao || '', prazo: dataValida(l.data) ? l.data : '',
+          hora: l.hora || '', concluida: !!l.concluido, concluidaEm: l.concluidoEm || null, criadoEm: l.criadoEm || new Date().toISOString(), origem: 'lembrete'});
+        d.lembretes = d.lembretes.filter(x => x.id !== id);
+      });
+    });
+    if (ok) { migrados += lote.length; if (!db.lembretes.length) { toast(`${migrados} lembrete(s) transferido(s) para a aba Tarefas.`); migrados = 0; } }
+  } finally { migrando = false; }
+  if (db.lembretes.length) setTimeout(migrarLembretes, 300);
+}
 function avisoIndisp(){
   if (!indisp.size) return;
   const abas = [...new Set([...indisp].map(k => COL_ABA[k]))].join(', ');
@@ -736,13 +734,6 @@ function statusEstoque(p){
 const badgeEst = p => { const s = statusEstoque(p); return `<span class="badge b-${s.k}">${s.t}</span>`; };
 const locHTML = p => `<span class="loc-line">Andar ${esc(p.andar)} <span class="arr">→</span> Estante ${esc(p.estante)} <span class="arr">→</span> Fileira ${esc(p.fileira)}</span>`;
 
-function stLemb(l){
-  if (l.concluido) return 'concluido';
-  const [y, m, d] = l.data.split('-').map(Number); const [hh, mm] = (l.hora || '23:59').split(':').map(Number);
-  return new Date(y, m - 1, d, hh, mm, 59) < new Date() ? 'atrasado' : 'pendente';
-}
-const ST_LEMB = {pendente: 'Pendente', concluido: 'Concluído', atrasado: 'Atrasado'};
-const lembKey = l => l.data + ' ' + (l.hora || '99:99');
 
 /* ================= Interface geral ================= */
 function toast(msg, type = 'ok'){ const t = document.createElement('div'); t.className = 'toast t-' + type; t.textContent = msg; $('#toasts').appendChild(t); setTimeout(() => t.remove(), 4500); }
@@ -768,14 +759,13 @@ document.addEventListener('click', e => {
   const tk = t.closest('[data-tar-check]'); if (tk) { e.preventDefault(); alternarTarefa(tk.dataset.tarCheck); return; }
   const tar = t.closest('[data-tar]'); if (tar) { abrirTarefa(tar.dataset.tar); return; }
   const cp = t.closest('[data-compra]'); if (cp) { abrirCompra(cp.dataset.compra); return; }
-  const lemb = t.closest('[data-lemb]'); if (lemb) { abrirLembrete(lemb.dataset.lemb); return; }
   const mov = t.closest('[data-mov]'); if (mov) { abrirMov(mov.dataset.mov); return; }
   const del = t.closest('[data-del]'); if (del) { excluirProduto(del.dataset.del); return; }
   const prod = t.closest('[data-prod]'); if (prod) { abrirFicha(prod.dataset.prod); return; }
 });
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && !$('#modal').hidden) closeModal();
-  if (e.key === 'Enter' && e.target.matches('[data-mov],[data-lemb],[data-prod],[data-tar],[data-compra],[data-gps]') && e.target.tagName !== 'BUTTON') e.target.click();
+  if (e.key === 'Enter' && e.target.matches('[data-mov],[data-prod],[data-tar],[data-compra],[data-gps]') && e.target.tagName !== 'BUTTON') e.target.click();
 });
 /* ---------- Campos de pessoa: nome completo digitado (sugere nomes já usados) ---------- */
 function pessoaHTML(p, label){
@@ -837,7 +827,7 @@ function lerProd(p, idAtual){
 
 /* ================= Render ================= */
 function renderAll(){
-  renderDashboard(); renderEstoque(); renderBusca(); renderEntradas(); renderSaidas(); renderLembretes();
+  renderDashboard(); renderEstoque(); renderBusca(); renderEntradas(); renderSaidas();
   renderGps(); renderCompras(); renderTarefas(); renderNotas(); preencheCfgGps(); fillSelects();
 }
 function fillSelects(){
@@ -861,40 +851,32 @@ function fillSelects(){
 
 function renderDashboard(){
   const hoje = hojeISO();
-  const abertos = db.lembretes.filter(l => !l.concluido);
-  const atras = abertos.filter(l => stLemb(l) === 'atrasado').sort((a, b) => lembKey(a).localeCompare(lembKey(b)));
-  const hojeL = db.lembretes.filter(l => l.data === hoje).sort((a, b) => lembKey(a).localeCompare(lembKey(b)));
-  const prox = abertos.filter(l => l.data > hoje).sort((a, b) => lembKey(a).localeCompare(lembKey(b))).slice(0, 8);
   const baixos = db.produtos.filter(p => statusEstoque(p).k !== 'ok');
   const tarAbertas = db.tarefas.filter(t => !t.concluida);
   const tarAtras = tarAbertas.filter(t => stTar(t) === 'atrasada');
   const lim7 = addDias(hoje, 7);
-  const tar7 = tarAbertas.filter(t => t.prazo && t.prazo <= lim7).sort((a, b) => tarKey(a).localeCompare(tarKey(b)));
+  const porKey = (a, b) => tarKey(a).localeCompare(tarKey(b));
+  const tarHoje = tarAbertas.filter(t => t.prazo && t.prazo <= hoje).sort(porKey);
+  const tar7 = tarAbertas.filter(t => t.prazo && t.prazo > hoje && t.prazo <= lim7).sort(porKey);
   const naRua = db.gps.filter(g => g.local === 'rua').length;
   const parados = db.gps.filter(g => gpsParado(g) != null).sort((a, b) => gpsParado(b) - gpsParado(a));
   $('#kpis').innerHTML = `
-    <button class="kpi ${tarAtras.length ? 'alert' : ''}" data-tab="tarefas"><div class="n">${tarAbertas.length}</div><div class="l">Tarefas em aberto${tarAtras.length ? ` · ${tarAtras.length} atrasada(s)` : ''}</div></button>
-    <button class="kpi" data-tab="lembretes"><div class="n">${abertos.length}</div><div class="l">Lembretes em aberto</div></button>
-    <button class="kpi ${atras.length ? 'alert' : ''}" data-tab="lembretes"><div class="n">${atras.length}</div><div class="l">Lembretes atrasados</div></button>
+    <button class="kpi" data-tab="tarefas"><div class="n">${tarAbertas.length}</div><div class="l">Tarefas em aberto</div></button>
+    <button class="kpi ${tarAtras.length ? 'alert' : ''}" data-tab="tarefas"><div class="n">${tarAtras.length}</div><div class="l">Tarefas atrasadas</div></button>
+    <button class="kpi" data-tab="tarefas"><div class="n">${tarHoje.length - tarAtras.length}</div><div class="l">Tarefas para hoje</div></button>
     <button class="kpi" data-tab="estoque"><div class="n">${db.produtos.length}</div><div class="l">Produtos cadastrados</div></button>
     <button class="kpi ${baixos.length ? 'warn' : ''}" data-tab="estoque"><div class="n">${baixos.length}</div><div class="l">Estoque baixo / zerado</div></button>
     <button class="kpi ${parados.length ? 'alert' : ''}" data-tab="gps"><div class="n">${naRua}</div><div class="l">Itens na rua (GPS)${parados.length ? ` · ${parados.length} parado(s)` : ''}</div></button>`;
   const vazio = t => `<li class="empty">${t}</li>`;
+  $('#dash-tar-hoje').innerHTML = tarHoje.length ? tarHoje.map(tarItem).join('') : vazio('Nada para hoje e nenhuma tarefa atrasada.');
   $('#dash-tarefas').innerHTML = tar7.length ? tar7.map(tarItem).join('') : vazio('Nenhuma tarefa com prazo nos próximos 7 dias.');
   const lim = gpsLimites();
   $('#dash-parados').innerHTML = parados.length ? parados.map(g => `<li class="li-click" data-gps="${g.id}" tabindex="0"><div><b>${esc(gpsTitulo(g))}</b><small>Com ${esc(g.responsavel)} · ${esc(g.obra)} · desde ${fmtData(g.desde)}</small></div><span class="badge l-atrasado">${gpsParado(g)} dias</span></li>`).join('')
     : vazio(`Nenhum item parado. Alerta a partir de ${lim.item} dias com a mesma pessoa (nitrogênio: ${lim.n2} dias).`);
-  $('#dash-hoje').innerHTML = hojeL.length ? hojeL.map(lembItem).join('') : vazio('Nada agendado para hoje.');
-  $('#dash-prox').innerHTML = prox.length ? prox.map(lembItem).join('') : vazio('Nenhum evento futuro.');
-  $('#dash-atras').innerHTML = atras.length ? atras.map(lembItem).join('') : vazio('Nenhum lembrete atrasado.');
   $('#dash-baixo').innerHTML = baixos.length ? baixos.sort((a, b) => a.saldo - b.saldo).slice(0, 8).map(p =>
     `<li class="li-click" data-prod="${p.id}" tabindex="0"><div><b>${esc(p.nome)}</b><small>${fmtQtd(p.saldo)} ${esc(p.unidade)}${p.minimo != null ? ' · mínimo ' + fmtQtd(p.minimo) : ''}</small></div>${badgeEst(p)}</li>`).join('') : vazio('Todos os produtos com saldo adequado.');
   const ult = [...db.movs].sort((a, b) => b.registradoEm.localeCompare(a.registradoEm)).slice(0, 6);
   $('#dash-movs').innerHTML = ult.length ? ult.map(m => `<li class="li-click" data-mov="${m.id}" tabindex="0"><div><b>${esc(nomeProd(m))}</b><small>${tipoLabel(m)} · ${fmtData(m.data)} ${fmtHora(m.registradoEm)} · ${esc(m.tipo === 'saida' ? m.quemRetirou : m.responsavel)}</small></div><b style="color:var(${m.qtd < 0 || m.tipo === 'saida' ? '--out' : '--in'})">${sinal(m)}${fmtQtd(Math.abs(m.qtd))}</b></li>`).join('') : vazio('Nenhuma movimentação ainda.');
-}
-function lembItem(l){
-  const s = stLemb(l);
-  return `<li class="li-click" data-lemb="${l.id}" tabindex="0"><div><b>${esc(l.titulo)}</b><small>${fmtData(l.data)}${l.hora ? ' · ' + l.hora : ''}</small></div><span class="badge l-${s}">${ST_LEMB[s]}</span></li>`;
 }
 const tipoLabel = m => ({entrada: 'Entrada', saida: 'Saída', ajuste: 'Ajuste'}[m.tipo]);
 const sinal = m => m.tipo === 'saida' ? '−' : m.tipo === 'entrada' ? '+' : (m.qtd >= 0 ? '+' : '−');
@@ -1212,56 +1194,6 @@ $('#f-sai').addEventListener('submit', async e => {
   });
   if (ok) { toast('Saída registrada. Saldo atualizado.'); f.reset(); }
 });
-
-/* ================= Lembretes ================= */
-function lembCampos(p, l = {}){
-  return `<div class="field"><label for="${p}-tit">Título da tarefa <b class="req">*</b></label><input id="${p}-tit" value="${esc(l.titulo)}" placeholder="ex.: Lembrar João de separar o tecido"></div>
-  <div class="field"><label for="${p}-desc">Descrição</label><textarea id="${p}-desc" rows="3">${esc(l.descricao)}</textarea></div>
-  <div class="grid2"><div class="field"><label for="${p}-data">Data do evento <b class="req">*</b></label><input id="${p}-data" type="date" value="${esc(l.data || hojeISO())}"></div>
-  <div class="field"><label for="${p}-hora">Horário (opcional)</label><input id="${p}-hora" type="time" value="${esc(l.hora)}"></div></div>`;
-}
-function lerLemb(p){
-  const v = {titulo: $('#' + p + '-tit').value.trim(), descricao: $('#' + p + '-desc').value.trim(), data: $('#' + p + '-data').value, hora: $('#' + p + '-hora').value};
-  const errs = [];
-  if (!v.titulo) errs.push([$('#' + p + '-tit'), 'Informe o título.']);
-  if (!dataValida(v.data)) errs.push([$('#' + p + '-data'), 'Informe uma data válida.']);
-  if (v.hora && !/^\d{2}:\d{2}$/.test(v.hora)) errs.push([$('#' + p + '-hora'), 'Horário inválido.']);
-  return {v, errs};
-}
-$('#lemb-campos').innerHTML = lembCampos('lb');
-$('#f-lemb').addEventListener('submit', async e => {
-  e.preventDefault(); clearErr(e.currentTarget);
-  const {v, errs} = lerLemb('lb'); if (errs.length) return showErrs(errs);
-  if (await commit(d => { d.lembretes.push({id: uid(), ...v, concluido: false, criadoEm: new Date().toISOString()}); })) {
-    toast('Lembrete salvo.'); $('#lemb-campos').innerHTML = lembCampos('lb');
-  }
-});
-let filtroLemb = 'abertos';
-$('#lemb-filtros').addEventListener('click', e => { const c = e.target.closest('.chip'); if (!c) return; filtroLemb = c.dataset.f; $$('#lemb-filtros .chip').forEach(x => x.classList.toggle('on', x === c)); renderLembretes(); });
-function renderLembretes(){
-  let ls = db.lembretes.slice();
-  if (filtroLemb === 'abertos') ls = ls.filter(l => !l.concluido);
-  else if (filtroLemb !== 'todos') ls = ls.filter(l => stLemb(l) === filtroLemb);
-  ls.sort((a, b) => filtroLemb === 'concluido' ? lembKey(b).localeCompare(lembKey(a)) : lembKey(a).localeCompare(lembKey(b)));
-  $('#lemb-lista').innerHTML = ls.length ? ls.map(lembItem).join('') : '<li class="empty">Nenhum lembrete neste filtro.</li>';
-}
-function abrirLembrete(id){
-  const l = db.lembretes.find(x => x.id === id); if (!l) return; const s = stLemb(l);
-  openModal(l.titulo, `<div class="row" style="justify-content:space-between"><span>${fmtData(l.data)}${l.hora ? ' às ' + l.hora : ' (sem horário)'}</span><span class="badge l-${s}">${ST_LEMB[s]}</span></div>
-    <div style="margin:14px 0;white-space:pre-wrap">${l.descricao ? esc(l.descricao) : '<span class="muted">Sem descrição.</span>'}</div>
-    ${l.concluido && l.concluidoEm ? `<p class="hint">Concluído em ${fmtDataHora(l.concluidoEm)}.</p>` : ''}
-    <div class="actions"><button class="btn danger" id="lx-del">Excluir</button><button class="btn" id="lx-edit">Editar</button>
-    <button class="btn primary" id="lx-conc">${l.concluido ? 'Reabrir' : 'Marcar como concluído'}</button></div>`);
-  $('#lx-conc').onclick = async () => { if (await commit(d => { const x = d.lembretes.find(y => y.id === id); x.concluido = !x.concluido; x.concluidoEm = x.concluido ? new Date().toISOString() : null; })) { toast(l.concluido ? 'Lembrete reaberto.' : 'Lembrete concluído.'); closeModal(); } };
-  $('#lx-del').onclick = async () => { if (confirm('Excluir este lembrete?') && await commit(d => { d.lembretes = d.lembretes.filter(y => y.id !== id); })) { toast('Lembrete excluído.'); closeModal(); } };
-  $('#lx-edit').onclick = () => {
-    openModal('Editar lembrete', `<form id="f-lemb-ed" novalidate>${lembCampos('le', l)}<div class="actions"><button type="button" class="btn" data-close>Cancelar</button><button class="btn primary" type="submit">Salvar</button></div></form>`);
-    $('#f-lemb-ed').onsubmit = async e => {
-      e.preventDefault(); clearErr(e.target); const {v, errs} = lerLemb('le'); if (errs.length) return showErrs(errs);
-      if (await commit(d => { Object.assign(d.lembretes.find(y => y.id === id), v); })) { toast('Lembrete atualizado.'); abrirLembrete(id); }
-    };
-  };
-}
 
 /* ================= GPS Itens ================= */
 /* Cada item tem um documento em gps_itens (situação atual) e cada movimentação um documento em
@@ -2024,17 +1956,20 @@ function stTar(t){
   if (t.concluida) return 'concluida';
   if (!t.prazo) return 'semprazo';
   const h = hojeISO();
-  return t.prazo < h ? 'atrasada' : t.prazo === h ? 'hoje' : 'futura';
+  if (t.prazo < h) return 'atrasada';
+  if (t.prazo > h) return 'futura';
+  if (t.hora) { const d = new Date(); if (t.hora < pad(d.getHours()) + ':' + pad(d.getMinutes())) return 'atrasada'; }
+  return 'hoje';
 }
-function tarKey(t){ return (t.prazo || '9999-12-31') + '|' + (t.criadoEm || ''); }
+function tarKey(t){ return (t.prazo || '9999-12-31') + ' ' + (t.hora || '99:99') + '|' + (t.criadoEm || ''); }
 function tarPrazoTxt(t){
   if (!t.prazo) return 'Sem prazo';
-  const n = diasEntre(hojeISO(), t.prazo);
-  if (t.concluida) return 'Prazo ' + fmtData(t.prazo);
-  if (n < 0) return `Venceu em ${fmtData(t.prazo)} (há ${-n} dia${-n > 1 ? 's' : ''})`;
-  if (n === 0) return 'Vence hoje';
-  if (n === 1) return 'Vence amanhã · ' + fmtData(t.prazo);
-  return `Vence em ${n} dias · ${fmtData(t.prazo)}`;
+  const n = diasEntre(hojeISO(), t.prazo); const hr = t.hora ? ' às ' + t.hora : '';
+  if (t.concluida) return 'Prazo ' + fmtData(t.prazo) + hr;
+  if (n < 0) return `Venceu em ${fmtData(t.prazo)}${hr} (há ${-n} dia${-n > 1 ? 's' : ''})`;
+  if (n === 0) return (stTar(t) === 'atrasada' ? 'Venceu hoje' : 'Vence hoje') + hr;
+  if (n === 1) return 'Vence amanhã' + hr + ' · ' + fmtData(t.prazo);
+  return `Vence em ${n} dias · ${fmtData(t.prazo)}${hr}`;
 }
 const TAR_BADGE = {concluida: ['l-concluido', 'Concluída'], atrasada: ['l-atrasado', 'Atrasada'], hoje: ['l-pendente', 'Hoje'], futura: ['b-n2', 'No prazo'], semprazo: ['b-neutro', 'Sem prazo']};
 function tarItem(t){
@@ -2047,14 +1982,18 @@ function tarItem(t){
 function tarCampos(p, t = {}){
   return `<div class="field"><label for="${p}-tit">Tarefa <b class="req">*</b></label><input id="${p}-tit" value="${esc(t.titulo)}" placeholder="ex.: Conferir bujões que voltaram"></div>
   <div class="field"><label for="${p}-desc">Detalhes (opcional)</label><textarea id="${p}-desc" rows="2">${esc(t.descricao)}</textarea></div>
-  <div class="grid2"><div class="field"><label for="${p}-prazo">Prazo (opcional)</label><input id="${p}-prazo" type="date" value="${esc(t.prazo)}"><span class="hint">Deixe em branco para tarefa sem prazo.</span></div></div>`;
+  <div class="grid2"><div class="field"><label for="${p}-prazo">Prazo (opcional)</label><input id="${p}-prazo" type="date" value="${esc(t.prazo)}"></div>
+  <div class="field"><label for="${p}-hora">Horário (opcional)</label><input id="${p}-hora" type="time" value="${esc(t.hora)}"></div></div>
+  <p class="hint" style="margin:-6px 0 8px">Deixe o prazo em branco para tarefa sem data. O horário só vale junto com o prazo.</p>`;
 }
 function lerTar(p){
-  const v = {titulo: $('#' + p + '-tit').value.trim(), descricao: $('#' + p + '-desc').value.trim(), prazo: $('#' + p + '-prazo').value};
+  const v = {titulo: $('#' + p + '-tit').value.trim(), descricao: $('#' + p + '-desc').value.trim(), prazo: $('#' + p + '-prazo').value, hora: $('#' + p + '-hora').value};
   const errs = [];
   if (!v.titulo) errs.push([$('#' + p + '-tit'), 'Descreva a tarefa.']);
   if (v.prazo && !dataValida(v.prazo)) errs.push([$('#' + p + '-prazo'), 'Data inválida.']);
   if (!v.prazo && $('#' + p + '-prazo').validity.badInput) errs.push([$('#' + p + '-prazo'), 'Data inválida.']);
+  if (v.hora && !/^\d{2}:\d{2}$/.test(v.hora)) errs.push([$('#' + p + '-hora'), 'Horário inválido.']);
+  else if (v.hora && !v.prazo) errs.push([$('#' + p + '-prazo'), 'Informe o prazo para usar o horário.']);
   return {v, errs};
 }
 $('#tar-campos').innerHTML = tarCampos('tf');
@@ -2383,7 +2322,6 @@ function gerarPlanilha(){
   const stSim = v => v === 'Sim' ? XS.ok : v === 'Não' ? XS.bad : XS.s;
   const soma = (arr) => round3(arr.reduce((a, m) => a + m.qtd, 0));
   const ents = M.filter(m => m.tipo === 'entrada'), sais = M.filter(m => m.tipo === 'saida'), ajs = M.filter(m => m.tipo === 'ajuste');
-  const lembs = [...db.lembretes].sort((a, b) => lembKey(a).localeCompare(lembKey(b)));
   const nCmt = db.movs.reduce((a, m) => a + m.comentarios.length, 0);
   const nOc = db.movs.reduce((a, m) => a + m.comentarios.filter(c => c.tipo === 'ocorrencia').length, 0);
 
@@ -2441,10 +2379,6 @@ function gerarPlanilha(){
   ], cmts.map(({c, m}) => [c.em, c.tipo === 'ocorrencia' ? 'Ocorrência' : 'Comentário', c.autor, c.texto, tipoLabel(m), nomeMov(m), m.data,
     m.tipo === 'saida' ? -m.qtd : m.qtd, m.unidade, m.tipo === 'saida' ? m.quemRetirou : m.responsavel]));
 
-  const lembretes = xTabela('Lembretes', [
-    {h: 'Título da tarefa', t: 'b', min: 24, w: 36}, {h: 'Descrição', t: 'wrap', w: 50}, {h: 'Data do evento', t: 'd'}, {h: 'Horário'},
-    {h: 'Status', st: stLe, min: 12}, {h: 'Criado em', t: 'dt'}, {h: 'Concluído em', t: 'dt'}
-  ], lembs.map(l => [l.titulo, l.descricao, l.data, l.hora || 'Sem horário', ST_LEMB[stLemb(l)], l.criadoEm, l.concluido ? l.concluidoEm : '']));
 
   const alts = [];
   db.produtos.forEach(p => (p.alteracoes || []).forEach(a => alts.push({p, a})));
@@ -2477,9 +2411,9 @@ function gerarPlanilha(){
 
   const TAR_ST = {concluida: 'Concluída', atrasada: 'Atrasada', hoje: 'Vence hoje', futura: 'No prazo', semprazo: 'Sem prazo'};
   const tarefas = xTabela('Tarefas', [
-    {h: 'Tarefa', t: 'b', min: 24, w: 36}, {h: 'Detalhes', t: 'wrap', w: 50}, {h: 'Prazo', t: 'd'},
+    {h: 'Tarefa', t: 'b', min: 24, w: 36}, {h: 'Detalhes', t: 'wrap', w: 50}, {h: 'Prazo', t: 'd'}, {h: 'Horário'},
     {h: 'Status', st: v => v === 'Concluída' ? XS.ok : v === 'Atrasada' ? XS.bad : XS.warn, min: 12}, {h: 'Criada em', t: 'dt'}, {h: 'Concluída em', t: 'dt'}
-  ], [...db.tarefas].sort((a, b) => tarKey(a).localeCompare(tarKey(b))).map(t => [t.titulo, t.descricao, t.prazo || '', TAR_ST[stTar(t)], t.criadoEm, t.concluida ? t.concluidaEm : '']));
+  ], [...db.tarefas].sort((a, b) => tarKey(a).localeCompare(tarKey(b))).map(t => [t.titulo, t.descricao, t.prazo || '', t.hora || '', TAR_ST[stTar(t)], t.criadoEm, t.concluida ? t.concluidaEm : '']));
 
   const notas = xTabela('Notas', [
     {h: 'Nota', t: 'wrap', w: 70}, {h: 'Cor'}, {h: 'Criada em', t: 'dt'}, {h: 'Editada em', t: 'dt'}
@@ -2488,7 +2422,6 @@ function gerarPlanilha(){
   /* Resumo (primeira aba) */
   const R = (cells, ht) => ({ht, cells});
   const kv = (k, v, t = 'numB') => R([{v: k, t: 's', s: XS.label}, {v, t, s: t === 'numB' ? XS.numB : XS.s}]);
-  const atras = db.lembretes.filter(l => stLemb(l) === 'atrasado').length;
   const resumoRows = [
     R([{v: 'CRM de Estoque — Relatório completo', t: 's', s: XS.title}], 30),
     R([{v: 'Gerado em', t: 's', s: XS.label}, {v: agora, t: 'dtB', s: XS.dtB}]),
@@ -2502,9 +2435,6 @@ function gerarPlanilha(){
     kv('Ajustes de saldo', ajs.length),
     kv('Comentários nas movimentações', nCmt),
     kv('Ocorrências registradas', nOc),
-    kv('Tarefas pendentes (lembretes em aberto)', db.lembretes.filter(l => !l.concluido).length),
-    kv('Lembretes atrasados', atras),
-    kv('Lembretes concluídos', db.lembretes.filter(l => l.concluido).length),
     kv('Itens no GPS', db.gps.length),
     kv('Itens do GPS na rua', db.gps.filter(g => g.local === 'rua').length),
     kv('Movimentações do GPS (histórico completo)', db.gpsMovs.length),
@@ -2525,9 +2455,8 @@ function gerarPlanilha(){
       ['GPS Itens', 'Itens que saem do estoque para a rua: situação atual, responsável, obra, níveis do nitrogênio e ciclo de movimentações.'],
       ['GPS Histórico', 'Todas as passagens de responsabilidade de todos os itens, sem limite, com ciclo e número no ciclo.'],
       ['Compras', 'Cada item comprado em uma linha: data, fornecedor, nota, quantidade, unidade, valor da unidade, total do item e total da nota.'],
-      ['Tarefas', 'Tarefas da aba Tarefas, com prazo (ou sem prazo) e status.'],
+      ['Tarefas', 'Tarefas da aba Tarefas (inclui os antigos lembretes), com prazo, horário e status.'],
       ['Notas', 'Texto das notas autoadesivas.'],
-      ['Lembretes', 'Lembretes com descrição, data, horário e status (pendente, atrasado ou concluído).'],
       ['Alterações de cadastro', 'Registro de quando cada produto teve o cadastro alterado e quais campos mudaram.']
     ].map(([a, c]) => R([{v: a, t: 's', s: XS.label}, {v: c, t: 's', s: XS.wrap}], 32)),
     R([]),
@@ -2535,7 +2464,7 @@ function gerarPlanilha(){
   ];
   const resumo = {name: 'Resumo', widths: [40, 90], rows: resumoRows, noGrid: true};
 
-  return xMontar([estoque, entradas, saidas, ajustes, historico, comentarios, gpsItens, gpsHist, compras, tarefas, notas, lembretes, alteracoes, resumo]);
+  return xMontar([estoque, entradas, saidas, ajustes, historico, comentarios, gpsItens, gpsHist, compras, tarefas, notas, alteracoes, resumo]);
 }
 $('#imp-file').addEventListener('change', e => {
   const file = e.target.files[0]; if (!file) return;
@@ -2543,11 +2472,11 @@ $('#imp-file').addEventListener('change', e => {
   r.onload = () => {
     try {
       const d = JSON.parse(r.result);
-      if (!Array.isArray(d.produtos) || !Array.isArray(d.movs) || !Array.isArray(d.lembretes)) throw new Error();
+      if (!Array.isArray(d.produtos) || !Array.isArray(d.movs)) throw new Error();
       if (!pronto) { toast('Aguarde a conexão com o banco de dados.', 'err'); return; }
       const chaves = Object.keys(COL).filter(k => Array.isArray(d[k]) && !indisp.has(k));
       const extra = ['gps', 'compras', 'tarefas', 'notas'].filter(k => chaves.includes(k)).map(k => `${d[k].length} ${({gps: 'item(ns) do GPS', compras: 'compra(s)', tarefas: 'tarefa(s)', notas: 'nota(s)'})[k]}`);
-      if (!confirm(`Importar backup com ${d.produtos.length} produto(s), ${d.movs.length} movimentação(ões), ${d.lembretes.length} lembrete(s)${extra.length ? ', ' + extra.join(', ') : ''}? TODOS os dados atuais destas partes do banco online serão substituídos, em todos os computadores.`)) return;
+      if (!confirm(`Importar backup com ${d.produtos.length} produto(s), ${d.movs.length} movimentação(ões)${(d.lembretes || []).length ? `, ${d.lembretes.length} lembrete(s) (viram tarefas)` : ''}${extra.length ? ', ' + extra.join(', ') : ''}? TODOS os dados atuais destas partes do banco online serão substituídos, em todos os computadores.`)) return;
       const novo = limpaDb(d);
       document.body.classList.add('busy');
       substituirTudo(novo, chaves).then(() => toast('Backup importado.')).catch(er => { console.error(er); toast(msgErroBanco(er), 'err'); })
@@ -2561,7 +2490,7 @@ $('#imp-file').addEventListener('change', e => {
 /* ================= Início ================= */
 renderAll();
 conectar();
-setInterval(() => { renderDashboard(); renderLembretes(); renderTarefas(); }, 30000);
+setInterval(() => { renderDashboard(); renderTarefas(); }, 30000);
 setInterval(() => renderGps(), 10 * 60000);
 </script>
 </body>
