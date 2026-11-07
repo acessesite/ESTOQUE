@@ -225,6 +225,34 @@ body.busy,body.busy *{cursor:progress !important}
 .it-del{border:0;background:none;color:var(--danger);font-size:22px;line-height:1;cursor:pointer;padding:4px 6px}
 .it-row .bad{border-color:var(--danger) !important}
 tr.ultima td{background:var(--ok-soft)}
+/* Saídas e entradas em lote */
+.lt-row{display:grid;grid-template-columns:30px minmax(180px,3fr) minmax(90px,1fr) minmax(90px,1fr) 30px;gap:6px;align-items:center;margin-bottom:6px}
+.lt-row input:not([type=checkbox]),.lt-row select{border:1px solid var(--border);background:var(--surface);border-radius:8px;padding:8px;width:100%;min-width:0}
+.lt-row .bad{border-color:var(--danger) !important}
+.lt-row .lt-q:disabled{background:var(--surface-2);color:var(--muted)}
+.lt-u{font-size:13px;font-weight:700;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lt-det{grid-column:1/-1;margin:0 36px 4px 36px;font-size:13px;border-radius:8px;padding:6px 10px;background:var(--surface-2);border:1px solid var(--border)}
+.lt-det.ok{background:var(--ok-soft);border-color:var(--ok)}
+.lt-det.nao{background:var(--danger-soft);border-color:var(--danger);color:var(--danger);font-weight:600}
+.lt-det.novo{background:var(--warn-soft);border:1px dashed var(--warn)}
+.lt-det.cobre{background:var(--primary-soft);border-color:var(--primary)}
+.lt-det .lt-linha{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:6px}
+.lt-det .lt-linha select,.lt-det .lt-linha input{width:auto;max-width:190px;border:1px solid var(--border);background:var(--surface);border-radius:8px;padding:6px 8px}
+.lt-det .lt-calc{font-weight:700}
+.lt-head{font-size:12px;font-weight:700;color:var(--muted);border-bottom:1px solid var(--border);padding:6px 0;margin-bottom:6px}
+.cobre-box{border:2px solid var(--primary);background:var(--primary-soft);border-radius:10px;padding:12px;margin-bottom:12px}
+.cobre-box .auth-title{font-size:15px}
+.cobre-box .opts-row{margin-bottom:8px}
+.cobre-calc{font-size:13px;font-weight:600;margin-top:4px}
+.mcard.lote{border-left-width:6px}
+.mcard.lote .tag{display:flex;gap:6px;align-items:center}
+.lote-itens{list-style:none;margin:4px 0;padding:0;font-size:13px}
+.lote-itens li{display:flex;gap:6px;padding:2px 0;border-bottom:1px dashed var(--border)}
+.lote-itens li:last-child{border-bottom:0}
+.lote-itens .q{font-weight:700;white-space:nowrap}
+.mcard.saida .lote-itens .q{color:var(--out)}
+.mcard.entrada .lote-itens .q{color:var(--in)}
+.qtd-m{display:block;font-size:12px;font-weight:600;color:var(--muted)}
 /* Tarefas */
 ul.list li.tar{justify-content:flex-start}
 ul.list li.tar > div{flex:1;min-width:0}
@@ -243,7 +271,7 @@ li.tar.done b{text-decoration:line-through;color:var(--muted)}
 .note-foot{font-size:11px;color:rgba(0,0,0,.5)}
 @media (min-width:821px){nav.tabs{flex-wrap:wrap;overflow:visible}}
 @media (max-width:820px){.split{grid-template-columns:1fr}}
-@media (max-width:640px){.it-novo,.it-exist{margin:0}.np-grid{grid-template-columns:1fr 1fr 1fr}.np-grid .np-f-obs,.np-grid .np-f-min{grid-column:span 3}.it-row{grid-template-columns:1fr 1fr;padding:8px;border:1px solid var(--border);border-radius:8px}.it-row .it-n{grid-column:span 2}.it-num{text-align:left}.it-head{display:none}}
+@media (max-width:640px){.lt-row{grid-template-columns:1fr 1fr;padding:8px;border:1px solid var(--border);border-radius:8px}.lt-row .lt-p{grid-column:span 2}.lt-row .it-num{text-align:left}.lt-det{margin:0}.lt-head{display:none}.it-novo,.it-exist{margin:0}.np-grid{grid-template-columns:1fr 1fr 1fr}.np-grid .np-f-obs,.np-grid .np-f-min{grid-column:span 3}.it-row{grid-template-columns:1fr 1fr;padding:8px;border:1px solid var(--border);border-radius:8px}.it-row .it-n{grid-column:span 2}.it-num{text-align:left}.it-head{display:none}}
 @media (max-width:560px){.grid2,.grid3{grid-template-columns:1fr}.span2{grid-column:auto}.top-in{gap:8px}.brand{width:100%}}
 </style>
 </head>
@@ -313,14 +341,14 @@ li.tar.done b{text-decoration:line-through;color:var(--muted)}
 
 <!-- ENTRADAS -->
 <section class="view" id="v-entradas" hidden>
-  <h1>Entradas</h1>
+  <div class="section-head"><h1>Entradas</h1><button class="btn primary" id="btn-lote-ent">+ Entrada em lote (vários itens)</button></div>
   <div class="split">
     <form class="panel" id="f-ent" novalidate>
       <h2>Registrar entrada</h2>
       <div class="field"><label for="ent-prod">Produto <b class="req">*</b></label><select id="ent-prod"></select></div>
       <div id="ent-novo" class="box-new" hidden><b class="small">Cadastro do novo produto</b><div style="margin-top:8px" id="ent-novo-campos"></div></div>
       <div class="grid2">
-        <div class="field"><label for="ent-qtd">Quantidade recebida <b class="req">*</b></label><input id="ent-qtd" type="number" min="0" step="any" inputmode="decimal"></div>
+        <div class="field"><label for="ent-qtd" id="ent-qtd-lbl">Quantidade recebida <b class="req">*</b></label><input id="ent-qtd" type="number" min="0" step="any" inputmode="decimal"><div class="hint" id="ent-cobre"></div></div>
         <div class="field"><label for="ent-data">Data da entrada <b class="req">*</b></label><input id="ent-data" type="date"></div>
       </div>
       <div id="ent-resp-wrap"></div>
@@ -337,14 +365,15 @@ li.tar.done b{text-decoration:line-through;color:var(--muted)}
 
 <!-- SAÍDAS -->
 <section class="view" id="v-saidas" hidden>
-  <h1>Saídas</h1>
+  <div class="section-head"><h1>Saídas</h1><button class="btn primary" id="btn-lote-sai">+ Saída em lote (vários itens)</button></div>
   <div class="split">
     <form class="panel" id="f-sai" novalidate>
       <h2>Registrar saída</h2>
       <div class="field"><label for="sai-prod">Produto <b class="req">*</b></label><select id="sai-prod"></select></div>
       <div id="sai-saldo"></div>
+      <div id="sai-cobre"></div>
       <div class="grid2">
-        <div class="field"><label for="sai-qtd">Quantidade retirada <b class="req">*</b></label><input id="sai-qtd" type="number" min="0" step="any" inputmode="decimal"></div>
+        <div class="field" id="sai-qtd-f"><label for="sai-qtd" id="sai-qtd-lbl">Quantidade retirada <b class="req">*</b></label><input id="sai-qtd" type="number" min="0" step="any" inputmode="decimal"></div>
         <div class="field"><label for="sai-data">Data da retirada <b class="req">*</b></label><input id="sai-data" type="date"></div>
       </div>
       <div id="sai-quem-wrap"></div>
@@ -466,6 +495,7 @@ li.tar.done b{text-decoration:line-through;color:var(--muted)}
 <datalist id="pessoas"></datalist>
 <datalist id="obras"></datalist>
 <datalist id="itens-nomes"></datalist>
+<datalist id="prod-nomes"></datalist>
 
 <div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="modal-title">
   <div class="modal-card">
@@ -723,11 +753,96 @@ async function aoConectar(){
 }
 
 const prodById = id => db.produtos.find(p => p.id === id);
+
+/* ================= Tubo de cobre em panqueca =================
+   Todo tubo de cobre chega em panquecas de 15 m. O produto fica no estoque com a unidade "panqueca".
+   Saída de panqueca inteira: baixa a quantidade de panquecas.
+   Saída de um pedaço: abre uma panqueca, tira o pedaço e a sobra vira (ou soma em) um produto separado,
+   "<nome> — sobra (m)", contado em metros, no mesmo lugar do estoque. */
+const PANQ_M = 15;
+const ehPanq = p => !!p && p.unidade === 'panqueca';
+const ehSobra = p => !!p && !!p.cobreBaseId;
+const pqTxt = n => `${fmtQtd(n)} panqueca${Number(n) === 1 ? '' : 's'}`;
+const inteirasTxt = n => `${pqTxt(n)} inteira${Number(n) === 1 ? '' : 's'}`;
+function fmtSaldo(p, q = p.saldo){
+  if (ehPanq(p)) return `${pqTxt(q)} (${fmtQtd(round3(q * PANQ_M))} m)`;
+  return `${fmtQtd(q)} ${p.unidade || ''}`.trim();
+}
+const nomeSobra = p => `${p.nome} — sobra (m)`;
+const sobraDoCobre = (p, base = db) => base.produtos.find(x => x.cobreBaseId === p.id) || base.produtos.find(x => norm(x.nome) === norm(nomeSobra(p)));
+/* Quantas panquecas um pedaço de "metros" consome e quanto sobra */
+function calcPedaco(metros){
+  const m = round3(metros);
+  const inteiras = Math.floor(m / PANQ_M + 1e-9);
+  const cortado = round3(m - inteiras * PANQ_M);
+  const abre = cortado > 0 ? 1 : 0;
+  return {metros: m, inteiras, cortado, abre, usa: inteiras + abre, sobra: abre ? round3(PANQ_M - cortado) : 0};
+}
+function textoPedaco(p, c){
+  const partes = [];
+  if (c.inteiras) partes.push(inteirasTxt(c.inteiras));
+  if (c.abre) partes.push(`abre 1 panqueca: tira ${fmtQtd(c.cortado)} m e a sobra de ${fmtQtd(c.sobra)} m vai para “${nomeSobra(p)}”`);
+  return partes.join(' + ');
+}
+function sobraDe(d, p, agora){
+  let s = d.produtos.find(x => x.cobreBaseId === p.id) || d.produtos.find(x => norm(x.nome) === norm(nomeSobra(p)));
+  if (!s) {
+    s = {id: uid(), nome: nomeSobra(p), unidade: 'm', andar: p.andar, estante: p.estante, fileira: p.fileira, minimo: null,
+      obs: `Sobras (pedaços) de ${p.nome}. Criado automaticamente quando uma panqueca de ${PANQ_M} m foi aberta.`,
+      saldo: 0, criadoEm: agora, alteracoes: [], cobreBaseId: p.id, origem: 'sobra-cobre'};
+    d.produtos.push(s);
+  } else if (!s.cobreBaseId) s.cobreBaseId = p.id;
+  return s;
+}
+/* Lança uma saída no rascunho "d". it = {pid, modo: 'normal' | 'inteira' | 'pedaco', qtd, metros}.
+   base = {data, agora, quemRetirou, obs, loteId, lote} */
+function aplicarSaida(d, it, base){
+  const p = d.produtos.find(x => x.id === it.pid); if (!p) throw new Error('Produto não encontrado.');
+  const extra = base.loteId ? {loteId: base.loteId, lote: base.lote} : {};
+  const novaMov = (q, ant, mais = {}) => d.movs.push({id: uid(), tipo: 'saida', produtoId: p.id, produtoNome: p.nome, unidade: p.unidade, qtd: q, saldoAnt: ant, saldoPost: p.saldo,
+    data: base.data, registradoEm: base.agora, quemRetirou: base.quemRetirou, autorizadoRicardo: 'Sim', obs: base.obs || '', comentarios: [], ...extra, ...mais});
+  if (it.modo === 'pedaco') {
+    const c = calcPedaco(it.metros);
+    if (!(c.metros > 0)) throw new Error('Informe quanto foi tirado do cobre.');
+    if (c.usa > p.saldo) throw new Error(`Saldo insuficiente de ${p.nome}: ${fmtQtd(c.metros)} m precisam de ${pqTxt(c.usa)} e há ${pqTxt(p.saldo)}.`);
+    const ant = p.saldo; p.saldo = round3(ant - c.usa);
+    novaMov(c.usa, ant, {metros: c.metros, cobre: {inteiras: c.inteiras, aberta: !!c.abre, cortado: c.cortado, sobra: c.sobra}});
+    if (c.sobra > 0) {
+      const s = sobraDe(d, p, base.agora); const a2 = s.saldo || 0; s.saldo = round3(a2 + c.sobra);
+      d.movs.push({id: uid(), tipo: 'entrada', produtoId: s.id, produtoNome: s.nome, unidade: s.unidade, qtd: c.sobra, saldoAnt: a2, saldoPost: s.saldo, data: base.data, registradoEm: base.agora,
+        responsavel: 'Sobra de panqueca', obs: `Sobra da panqueca de ${p.nome} aberta na saída para ${base.quemRetirou} (${fmtQtd(c.cortado)} m retirados).`, comentarios: [],
+        ...(base.loteId ? {origemLote: base.loteId} : {})});
+    }
+    return;
+  }
+  const q = round3(it.qtd);
+  if (!(q > 0)) throw new Error(`Informe a quantidade de ${p.nome}.`);
+  if (q > p.saldo) throw new Error(`Saldo insuficiente de ${p.nome}. Disponível: ${fmtSaldo(p)}.`);
+  const ant = p.saldo; p.saldo = round3(ant - q);
+  novaMov(q, ant, ehPanq(p) ? {metros: round3(q * PANQ_M)} : {});
+}
+/* Lança uma entrada no rascunho "d". it = {pid, qtd}; base = {data, agora, responsavel, obs, loteId, lote} */
+function aplicarEntrada(d, it, base){
+  const p = d.produtos.find(x => x.id === it.pid); if (!p) throw new Error('Produto não encontrado.');
+  const q = round3(it.qtd); if (!(q > 0)) throw new Error(`Informe a quantidade de ${p.nome}.`);
+  const ant = p.saldo || 0; p.saldo = round3(ant + q);
+  d.movs.push({id: uid(), tipo: 'entrada', produtoId: p.id, produtoNome: p.nome, unidade: p.unidade, qtd: q, saldoAnt: ant, saldoPost: p.saldo, data: base.data, registradoEm: base.agora,
+    responsavel: base.responsavel, obs: base.obs || '', comentarios: [], ...(ehPanq(p) ? {metros: round3(q * PANQ_M)} : {}), ...(base.loteId ? {loteId: base.loteId, lote: base.lote} : {})});
+}
+/* Texto da quantidade de uma movimentação (mostra os metros do cobre) */
+function qtdMovTxt(m){
+  const base = `${fmtQtd(Math.abs(m.qtd))} ${m.unidade || ''}`.trim();
+  if (m.cobre && m.metros) return `${fmtQtd(m.metros)} m (${m.cobre.aberta ? (m.cobre.inteiras ? inteirasTxt(m.cobre.inteiras) + ' + ' : '') + '1 panqueca aberta' : pqTxt(m.qtd)})`;
+  if (m.unidade === 'panqueca') return `${pqTxt(Math.abs(m.qtd))} (${fmtQtd(round3(Math.abs(m.qtd) * PANQ_M))} m)`;
+  return base;
+}
+const loteCod = id => String(id || '').slice(-6).toUpperCase();
+const CANAIS = ['WhatsApp', 'Ligação', 'Pessoalmente', 'E-mail', 'Outro'];
 const nomeProd = m => (prodById(m.produtoId) || {}).nome || m.produtoNome;
 
 function statusEstoque(p){
   if (!(p.saldo > 0)) return {k: 'zero', t: 'Sem estoque'};
-  const t = `${fmtQtd(p.saldo)} ${p.unidade || ''} no estoque`.replace(/\s+/g, ' ');
+  const t = `${fmtSaldo(p)} no estoque`.replace(/\s+/g, ' ');
   if (p.minimo != null && p.saldo <= p.minimo) return {k: 'baixo', t};
   return {k: 'ok', t};
 }
@@ -759,13 +874,19 @@ document.addEventListener('click', e => {
   const tk = t.closest('[data-tar-check]'); if (tk) { e.preventDefault(); alternarTarefa(tk.dataset.tarCheck); return; }
   const tar = t.closest('[data-tar]'); if (tar) { abrirTarefa(tar.dataset.tar); return; }
   const cp = t.closest('[data-compra]'); if (cp) { abrirCompra(cp.dataset.compra); return; }
+  const lt = t.closest('[data-lote]'); if (lt) { abrirLoteDet(lt.dataset.lote, lt.dataset.loteTipo); return; }
   const mov = t.closest('[data-mov]'); if (mov) { abrirMov(mov.dataset.mov); return; }
   const del = t.closest('[data-del]'); if (del) { excluirProduto(del.dataset.del); return; }
   const prod = t.closest('[data-prod]'); if (prod) { abrirFicha(prod.dataset.prod); return; }
 });
+document.addEventListener('input', e => {
+  const t = e.target; if (!t.id || !/^(cp|np)-nome$/.test(t.id)) return;
+  const u = $('#' + t.id.slice(0, 2) + '-unid');
+  if (u && !u.value && norm(t.value).includes('cobre')) { u.value = 'panqueca'; u.dispatchEvent(new Event('change', {bubbles: true})); toast(`Cobre: unidade definida como panqueca (${PANQ_M} m cada). Troque se não for tubo em panqueca.`); }
+});
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && !$('#modal').hidden) closeModal();
-  if (e.key === 'Enter' && e.target.matches('[data-mov],[data-prod],[data-tar],[data-compra],[data-gps]') && e.target.tagName !== 'BUTTON') e.target.click();
+  if (e.key === 'Enter' && e.target.matches('[data-mov],[data-lote],[data-prod],[data-tar],[data-compra],[data-gps]') && e.target.tagName !== 'BUTTON') e.target.click();
 });
 /* ---------- Campos de pessoa: nome completo digitado (sugere nomes já usados) ---------- */
 function pessoaHTML(p, label){
@@ -781,7 +902,7 @@ function lerPessoa(p, msgVazio){
 function resetPessoa(p){ $('#' + p + '-nome').value = ''; }
 
 /* ---------- Campos de produto (cadastro / edição / entrada) ---------- */
-const UNIDADES = ['un', 'kg', 'mm', 'm', 'l', 'cm', 'g', 'caixa', 'pacote', 'par'];
+const UNIDADES = ['un', 'panqueca', 'kg', 'mm', 'm', 'l', 'cm', 'g', 'caixa', 'pacote', 'par'];
 function unidOptions(atual){
   const lista = atual && !UNIDADES.includes(atual) ? [atual, ...UNIDADES] : UNIDADES;
   return `<option value="">Selecione…</option>` + lista.map(u => `<option value="${esc(u)}"${u === atual ? ' selected' : ''}>${esc(u)}</option>`).join('');
@@ -795,6 +916,7 @@ function prodFieldsHTML(p, pr = {}, comQtd = true){
     <div class="field${comQtd ? '' : ' span2'}"><label for="${p}-unid">Unidade de medida <b class="req">*</b></label><select id="${p}-unid">${unidOptions(pr.unidade)}</select></div>
   </div>
   ${comQtd ? '<p class="hint" style="margin:-4px 0 12px">A quantidade define o status: 0 = Sem estoque; acima de 0 = “X unidade no estoque”.</p>' : ''}
+  <p class="hint" style="margin:-4px 0 12px">Tubo de cobre: use a unidade <b>panqueca</b> (cada panqueca tem ${PANQ_M} m). Ao digitar “cobre” no nome, a unidade já vem preenchida.</p>
   <fieldset class="loc"><legend>Localização física <b class="req">*</b></legend><div class="grid3">
     <div class="field"><label for="${p}-andar">Andar</label><input id="${p}-andar" value="${esc(pr.andar)}" placeholder="ex.: 2"></div>
     <div class="field"><label for="${p}-estante">Estante</label><input id="${p}-estante" value="${esc(pr.estante)}" placeholder="ex.: 07"></div>
@@ -833,7 +955,7 @@ function renderAll(){
 function fillSelects(){
   [['#ent-prod', true], ['#sai-prod', false]].forEach(([s, novo]) => {
     const sel = $(s); const v = sel.value; const ps = [...db.produtos].sort(porNome);
-    sel.innerHTML = `<option value="">Selecione o produto…</option>` + ps.map(p => `<option value="${p.id}">${esc(p.nome)} — ${fmtQtd(p.saldo)} ${esc(p.unidade)}</option>`).join('') + (novo ? `<option value="__novo">+ Cadastrar novo produto</option>` : '');
+    sel.innerHTML = `<option value="">Selecione o produto…</option>` + ps.map(p => `<option value="${p.id}">${esc(p.nome)} — ${esc(fmtSaldo(p))}</option>`).join('') + (novo ? `<option value="__novo">+ Cadastrar novo produto</option>` : '');
     if ([...sel.options].some(o => o.value === v)) sel.value = v;
   });
   const lista = (vals, ignora = []) => {
@@ -844,7 +966,8 @@ function fillSelects(){
     ...db.movs.flatMap(m => [m.responsavel, m.quemRetirou]),
     ...db.gps.map(g => g.responsavel), ...db.gpsMovs.flatMap(m => [m.de, m.para])
   ], ['Estoque', 'Cadastro do produto', 'Edição do cadastro', 'Últimas compras']);
-  $('#obras').innerHTML = lista([...db.gps.map(g => g.obra), ...db.gpsMovs.map(m => m.obra)]);
+  $('#obras').innerHTML = lista([...db.gps.map(g => g.obra), ...db.gpsMovs.map(m => m.obra), ...db.movs.map(m => m.lote && m.lote.destino)]);
+  $('#prod-nomes').innerHTML = [...db.produtos].sort(porNome).map(p => `<option value="${esc(p.nome)}">${esc(fmtSaldo(p))}</option>`).join('');
   $('#itens-nomes').innerHTML = lista([...db.produtos.map(p => p.nome), ...db.gps.map(g => g.nome), ...db.compras.flatMap(c => (c.itens || []).map(i => i.nome))]);
   atualizaSaldoSaida();
 }
@@ -904,7 +1027,7 @@ function renderEstoque(){
   if (filtroEst !== 'todos') ps = ps.filter(p => statusEstoque(p).k === filtroEst);
   $('#est-tbody').innerHTML = ps.length ? ps.map(p => `<tr class="click" data-prod="${p.id}" tabindex="0">
     <td><b>${esc(p.nome)}</b></td>
-    <td class="num"><b>${fmtQtd(p.saldo)}</b> ${esc(p.unidade)}</td><td>${locHTML(p)}</td><td>${badgeEst(p)}</td><td class="num"><button class="btn danger sm" data-del="${p.id}" title="Excluir produto">Excluir</button></td></tr>`).join('')
+    <td class="num"><b>${fmtQtd(p.saldo)}</b> ${esc(p.unidade)}${ehPanq(p) ? `<span class="qtd-m">${fmtQtd(round3(p.saldo * PANQ_M))} m</span>` : ''}</td><td>${locHTML(p)}</td><td>${badgeEst(p)}</td><td class="num"><button class="btn danger sm" data-del="${p.id}" title="Excluir produto">Excluir</button></td></tr>`).join('')
     : `<tr><td colspan="5" class="empty">${db.produtos.length ? 'Nenhum produto neste filtro.' : 'Nenhum produto cadastrado. Clique em "+ Novo produto".'}</td></tr>`;
 }
 $('#est-filtros').addEventListener('click', e => { const c = e.target.closest('.chip'); if (!c) return; filtroEst = c.dataset.f; $$('#est-filtros .chip').forEach(x => x.classList.toggle('on', x === c)); renderEstoque(); });
@@ -917,7 +1040,7 @@ function renderBusca(){
     .sort((a, b) => (norm(a.nome).startsWith(q) ? 0 : 1) - (norm(b.nome).startsWith(q) ? 0 : 1) || porNome(a, b));
   $('#busca-res').innerHTML = res.length ? res.map(p => `<button class="res" data-prod="${p.id}">
       <span class="nm">${esc(p.nome)}</span>
-      <span class="qt">${fmtQtd(p.saldo)} <span class="small muted">${esc(p.unidade)}</span></span>
+      <span class="qt">${fmtQtd(p.saldo)} <span class="small muted">${esc(p.unidade)}${ehPanq(p) ? ' · ' + fmtQtd(round3(p.saldo * PANQ_M)) + ' m' : ''}</span></span>
       <span class="small">Localização: ${locHTML(p)}</span><span>${badgeEst(p)}</span></button>`).join('')
     : `<div class="panel" style="text-align:center"><p style="font-weight:700;margin:0 0 10px">Nenhum produto encontrado</p><button class="btn primary" id="btn-cad-busca">+ Cadastrar novo item</button></div>`;
   const b = $('#btn-cad-busca'); if (b) b.onclick = () => abrirCadastro(null, $('#busca').value.trim());
@@ -961,7 +1084,7 @@ function abrirFicha(id){
   const movs = db.movs.filter(m => m.produtoId === id).sort((a, b) => b.registradoEm.localeCompare(a.registradoEm));
   openModal(p.nome, `
     <div class="row" style="justify-content:space-between;align-items:flex-end">
-      <div><div class="muted small">Quantidade atual</div><div class="big-qty">${fmtQtd(p.saldo)} <span style="font-size:18px">${esc(p.unidade)}</span></div></div>${badgeEst(p)}
+      <div><div class="muted small">Quantidade atual</div><div class="big-qty">${fmtQtd(p.saldo)} <span style="font-size:18px">${esc(p.unidade)}</span></div>${ehPanq(p) ? `<div class="muted small">= ${fmtQtd(round3(p.saldo * PANQ_M))} m (${PANQ_M} m por panqueca)</div>` : ''}</div>${badgeEst(p)}
     </div>
     <p style="margin:14px 0 0;font-size:16px">Localização: ${locHTML(p)}</p>
     <div class="detail">
@@ -973,6 +1096,8 @@ function abrirFicha(id){
       <div><span>Estoque mínimo</span><b>${p.minimo != null ? fmtQtd(p.minimo) + ' ' + esc(p.unidade) : 'Não configurado'}</b></div>
     </div>
     <div class="field"><label>Observações do cadastro</label><div>${p.obs ? esc(p.obs) : '<span class="muted">Sem observações.</span>'}</div></div>
+    ${ehPanq(p) ? (s => `<div class="info-box">Tubo de cobre em panqueca de ${PANQ_M} m. ${s ? `Sobras (pedaços já abertos): <span class="li-click" data-prod="${s.id}" style="text-decoration:underline"><b>${fmtQtd(s.saldo)} m</b> em “${esc(s.nome)}”</span>.` : 'Ainda não há sobras: quando um pedaço for retirado, a sobra da panqueca aberta vai para um item separado, em metros.'}</div>`)(sobraDoCobre(p)) : ''}
+    ${ehSobra(p) ? (b => `<div class="info-box">Sobras em metros de panquecas de cobre já abertas${b ? ` de <span class="li-click" data-prod="${b.id}" style="text-decoration:underline"><b>${esc(b.nome)}</b></span> (${esc(fmtSaldo(b))} fechadas)` : ''}.</div>`)(prodById(p.cobreBaseId)) : ''}
     <div class="row">
       <button class="btn primary sm" id="fx-ent">+ Registrar entrada</button>
       <button class="btn primary sm" id="fx-sai">− Registrar saída</button>
@@ -983,7 +1108,7 @@ function abrirFicha(id){
     <h2 style="margin-top:20px">Histórico de entradas, saídas e ajustes</h2>
     <div class="table-wrap"><table><thead><tr><th>Data</th><th>Tipo</th><th class="num">Qtd</th><th class="num">Saldo</th><th>Pessoa</th></tr></thead><tbody>
     ${movs.length ? movs.map(m => `<tr class="click" data-mov="${m.id}" tabindex="0"><td>${fmtData(m.data)}<br><span class="muted small">reg. ${fmtHora(m.registradoEm)}</span></td><td>${tipoLabel(m)}</td>
-      <td class="num">${sinal(m)}${fmtQtd(Math.abs(m.qtd))}</td><td class="num">${fmtQtd(m.saldoAnt)} → ${fmtQtd(m.saldoPost)}</td>
+      <td class="num">${sinal(m)}${fmtQtd(Math.abs(m.qtd))}${m.metros ? `<span class="qtd-m">${fmtQtd(m.metros)} m</span>` : ''}</td><td class="num">${fmtQtd(m.saldoAnt)} → ${fmtQtd(m.saldoPost)}</td>
       <td>${esc(m.tipo === 'saida' ? m.quemRetirou : m.responsavel)}${m.tipo === 'saida' ? '<br><span class="small okt">Autorizado por Ricardo: Sim</span>' : ''}</td></tr>`).join('')
       : '<tr><td colspan="5" class="empty">Nenhuma movimentação registrada.</td></tr>'}
     </tbody></table></div>
@@ -1037,7 +1162,7 @@ function movCard(m){
   return `<article class="mcard ${s ? 'saida' : 'entrada'}" data-mov="${m.id}" tabindex="0">
     <div class="mc-top"><span class="tag">${s ? 'Saída' : 'Entrada'}</span><span class="muted">${fmtData(m.data)} · ${fmtHora(m.registradoEm)}</span></div>
     <b>${esc(nomeProd(m))}</b>
-    <div class="mc-qtd">${s ? '−' : '+'}${fmtQtd(m.qtd)} ${esc(m.unidade)}</div>
+    <div class="mc-qtd">${s ? '−' : '+'}${esc(qtdMovTxt(m))}</div>
     <div class="muted small">Saldo ${fmtQtd(m.saldoAnt)} → ${fmtQtd(m.saldoPost)}</div>
     ${s ? `<div class="small">Retirado por: <b>${esc(m.quemRetirou)}</b></div><div class="small">Autorizado por Ricardo: <b class="okt">Sim ✓</b></div>`
         : `<div class="small">Responsável: <b>${esc(m.responsavel)}</b></div>`}
@@ -1045,11 +1170,36 @@ function movCard(m){
 }
 function filtraMovs(tipo, q){
   q = norm(q);
-  return db.movs.filter(m => m.tipo === tipo).filter(m => !q || [nomeProd(m), m.responsavel, m.quemRetirou, m.obs].some(x => norm(x).includes(q)))
+  const campos = m => [nomeProd(m), m.responsavel, m.quemRetirou, m.obs, ...(m.lote ? [m.lote.quemPediu, m.lote.canal, m.lote.destino, m.lote.origem, loteCod(m.loteId)] : [])];
+  return db.movs.filter(m => m.tipo === tipo).filter(m => !q || campos(m).some(x => norm(x).includes(q)))
     .sort((a, b) => b.registradoEm.localeCompare(a.registradoEm));
 }
-function renderEntradas(){ const ms = filtraMovs('entrada', $('#ent-filtro').value); $('#ent-cards').innerHTML = ms.length ? ms.map(movCard).join('') : '<p class="empty">Nenhuma entrada registrada.</p>'; }
-function renderSaidas(){ const ms = filtraMovs('saida', $('#sai-filtro').value); $('#sai-cards').innerHTML = ms.length ? ms.map(movCard).join('') : '<p class="empty">Nenhuma saída registrada.</p>'; }
+/* Movimentações do mesmo lote viram um único card */
+function movsDoLote(id, tipo){ return db.movs.filter(m => m.loteId === id && m.tipo === tipo).sort((a, b) => cmpTxt(nomeProd(a), nomeProd(b))); }
+function loteCard(id, tipo){
+  const ms = movsDoLote(id, tipo); const m0 = ms[0]; const L = m0.lote || {}; const s = tipo === 'saida';
+  const max = 5;
+  return `<article class="mcard lote ${s ? 'saida' : 'entrada'}" data-lote="${id}" data-lote-tipo="${tipo}" tabindex="0">
+    <div class="mc-top"><span class="tag">📦 ${s ? 'Saída' : 'Entrada'} em lote · ${ms.length} ${ms.length === 1 ? 'item' : 'itens'}</span><span class="muted">${fmtData(m0.data)} · ${fmtHora(m0.registradoEm)}</span></div>
+    <b>${s ? `Para: ${esc(L.destino || '—')}` : `${L.origem ? 'De: ' + esc(L.origem) : 'Lote nº ' + loteCod(id)}`}</b>
+    <ul class="lote-itens">${ms.slice(0, max).map(m => `<li><span class="q">${s ? '−' : '+'}${esc(qtdMovTxt(m))}</span><span>${esc(nomeProd(m))}</span></li>`).join('')}</ul>
+    ${ms.length > max ? `<div class="muted small">+ ${ms.length - max} item(ns)…</div>` : ''}
+    ${s ? `<div class="small">Retirado por: <b>${esc(m0.quemRetirou)}</b></div>
+      <div class="small">Pedido por: <b>${esc(L.quemPediu || '—')}</b>${L.canal ? ` · via ${esc(L.canal)}` : ''}</div>
+      <div class="small">Autorizado por Ricardo: <b class="okt">Sim ✓</b></div>`
+      : `<div class="small">Responsável: <b>${esc(m0.responsavel)}</b></div>`}
+    <div class="muted small">Lote nº ${loteCod(id)}</div></article>`;
+}
+function cardsComLotes(ms){
+  const vistos = new Set();
+  return ms.map(m => {
+    if (!m.loteId) return movCard(m);
+    if (vistos.has(m.loteId)) return '';
+    vistos.add(m.loteId); return loteCard(m.loteId, m.tipo);
+  }).join('');
+}
+function renderEntradas(){ const ms = filtraMovs('entrada', $('#ent-filtro').value); $('#ent-cards').innerHTML = ms.length ? cardsComLotes(ms) : '<p class="empty">Nenhuma entrada registrada.</p>'; }
+function renderSaidas(){ const ms = filtraMovs('saida', $('#sai-filtro').value); $('#sai-cards').innerHTML = ms.length ? cardsComLotes(ms) : '<p class="empty">Nenhuma saída registrada.</p>'; }
 $('#ent-filtro').addEventListener('input', renderEntradas);
 $('#sai-filtro').addEventListener('input', renderSaidas);
 
@@ -1058,11 +1208,20 @@ function abrirMov(id){
   const s = m.tipo === 'saida';
   const linhas = [
     ['Produto', `<span class="li-click" data-prod="${m.produtoId}" style="text-decoration:underline">${esc(nomeProd(m))}</span>`],
-    [s ? 'Quantidade retirada' : m.tipo === 'entrada' ? 'Quantidade recebida' : 'Diferença ajustada', `${sinal(m)}${fmtQtd(Math.abs(m.qtd))} ${esc(m.unidade)}`],
+    [s ? 'Quantidade retirada' : m.tipo === 'entrada' ? 'Quantidade recebida' : 'Diferença ajustada', `${sinal(m)}${esc(qtdMovTxt(m))}`],
     ['Saldo anterior → posterior', `${fmtQtd(m.saldoAnt)} → ${fmtQtd(m.saldoPost)} ${esc(m.unidade)}`],
     [s ? 'Data da retirada' : 'Data', fmtData(m.data)],
     ['Registrado em', fmtDataHora(m.registradoEm)],
   ];
+  if (m.cobre) linhas.push(['Cobre', esc(m.cobre.aberta
+    ? `Pedaço de ${fmtQtd(m.metros)} m: ${m.cobre.inteiras ? inteirasTxt(m.cobre.inteiras) + ' + ' : ''}1 panqueca aberta (${fmtQtd(m.cobre.cortado)} m cortados; sobra de ${fmtQtd(m.cobre.sobra)} m foi para o item de sobras)`
+    : `${inteirasTxt(m.cobre.inteiras)} (${fmtQtd(m.metros)} m)`)]);
+  if (m.loteId) {
+    const L = m.lote || {};
+    linhas.push([`${s ? 'Saída' : 'Entrada'} em lote`, `<span class="li-click" data-lote="${m.loteId}" data-lote-tipo="${m.tipo}" style="text-decoration:underline">Lote nº ${loteCod(m.loteId)} — ver todos os itens</span>`]);
+    if (s) { linhas.push(['Quem pediu', esc(L.quemPediu || '—')]); linhas.push(['Pedido por', esc(L.canal || '—')]); linhas.push(['Para onde vai', esc(L.destino || '—')]); }
+    else if (L.origem) linhas.push(['De onde veio', esc(L.origem)]);
+  }
   if (s) {
     linhas.push(['Quem retirou', esc(m.quemRetirou)]);
     linhas.push(['Autorizado por Ricardo?', `<span class="okt">${esc(m.autorizadoRicardo || 'Sim')}</span>`]);
@@ -1102,12 +1261,24 @@ $('#ent-prod').addEventListener('change', () => {
   const novo = $('#ent-prod').value === '__novo';
   $('#ent-novo').hidden = !novo;
   if (novo && !$('#np-nome')) $('#ent-novo-campos').innerHTML = prodFieldsHTML('np', {}, false);
+  atualizaEntCobre();
 });
+/* Cobre: a quantidade da entrada é em panquecas (15 m cada) */
+function entUnidade(){ const v = $('#ent-prod').value; if (v === '__novo') return ($('#np-unid') || {}).value || ''; const p = prodById(v); return p ? p.unidade : ''; }
+function atualizaEntCobre(){
+  const pq = entUnidade() === 'panqueca';
+  $('#ent-qtd-lbl').innerHTML = pq ? `Quantas panquecas chegaram? <b class="req">*</b>` : 'Quantidade recebida <b class="req">*</b>';
+  $('#ent-qtd').step = pq ? '1' : 'any';
+  const q = parseQtd($('#ent-qtd').value);
+  $('#ent-cobre').textContent = pq ? `Cada panqueca de cobre tem ${PANQ_M} m.` + (isFinite(q) && q > 0 ? ` ${pqTxt(q)} = ${fmtQtd(round3(q * PANQ_M))} m.` : '') : '';
+}
+$('#f-ent').addEventListener('input', e => { if (e.target.id === 'ent-qtd' || e.target.id === 'np-unid') atualizaEntCobre(); });
+$('#f-ent').addEventListener('change', e => { if (e.target.id === 'np-unid') atualizaEntCobre(); });
 $('#f-ent').addEventListener('input', () => { if (entPend) { entPend = null; $('#ent-review').innerHTML = ''; } });
 $('#f-ent').addEventListener('change', () => { if (entPend) { entPend = null; $('#ent-review').innerHTML = ''; } });
 $('#f-ent').addEventListener('reset', () => setTimeout(() => {
   entPend = null; $('#ent-review').innerHTML = ''; clearErr($('#f-ent')); $('#ent-novo').hidden = true; $('#ent-novo-campos').innerHTML = '';
-  $('#ent-data').value = hojeISO(); resetPessoa('ent');
+  $('#ent-data').value = hojeISO(); resetPessoa('ent'); atualizaEntCobre();
 }));
 $('#f-ent').addEventListener('submit', e => {
   e.preventDefault(); const f = e.currentTarget; clearErr(f); entPend = null; $('#ent-review').innerHTML = '';
@@ -1117,6 +1288,7 @@ $('#f-ent').addEventListener('submit', e => {
   else { prod = prodById(sel.value); if (!prod) errs.push([sel, 'Produto não encontrado.']); }
   const qtd = parseQtd($('#ent-qtd').value);
   if (!isFinite(qtd) || qtd <= 0) errs.push([$('#ent-qtd'), 'A quantidade deve ser maior que zero.']);
+  else if (entUnidade() === 'panqueca' && !Number.isInteger(qtd)) errs.push([$('#ent-qtd'), `Informe o número de panquecas inteiras (cada uma tem ${PANQ_M} m).`]);
   const data = $('#ent-data').value; if (!dataValida(data)) errs.push([$('#ent-data'), 'Informe uma data válida.']);
   const pes = lerPessoa('ent', 'Informe o responsável pelo lançamento.'); if (pes.err) errs.push(pes.err);
   const obs = $('#ent-obs').value.trim();
@@ -1127,8 +1299,8 @@ $('#f-ent').addEventListener('submit', e => {
   $('#ent-review').innerHTML = `<div class="review"><h2>Revise antes de confirmar</h2><dl>
     <dt>Produto</dt><dd>${esc(loc.nome)}${novoProduto ? ' <span class="badge b-baixo">novo cadastro</span>' : ''}</dd>
     <dt>Localização</dt><dd>${locHTML(loc)}</dd>
-    <dt>Quantidade</dt><dd>+${fmtQtd(qtd)} ${esc(unidade)}</dd>
-    <dt>Saldo</dt><dd>${fmtQtd(ant)} → ${fmtQtd(round3(ant + qtd))} ${esc(unidade)}</dd>
+    <dt>Quantidade</dt><dd>+${fmtQtd(qtd)} ${esc(unidade)}${unidade === 'panqueca' ? ` (${fmtQtd(round3(qtd * PANQ_M))} m)` : ''}</dd>
+    <dt>Saldo</dt><dd>${fmtQtd(ant)} → ${fmtQtd(round3(ant + qtd))} ${esc(unidade)}${unidade === 'panqueca' ? ` (${fmtQtd(round3((ant + qtd) * PANQ_M))} m)` : ''}</dd>
     <dt>Data</dt><dd>${fmtData(data)}</dd><dt>Responsável</dt><dd>${esc(pes.nome)}</dd>
     ${obs ? `<dt>Observação</dt><dd>${esc(obs)}</dd>` : ''}</dl>
     <div class="actions"><button type="button" class="btn" id="ent-corrigir">Corrigir</button><button type="button" class="btn primary" id="ent-confirmar">Confirmar entrada</button></div></div>`;
@@ -1146,8 +1318,7 @@ async function confirmarEntrada(){
       pidFinal = uid(); d.produtos.push({id: pidFinal, ...e.novoProduto, saldo: 0, criadoEm: agora, alteracoes: []});
     }
     const p = d.produtos.find(x => x.id === pidFinal); if (!p) throw new Error('Produto não encontrado.');
-    const ant = p.saldo; p.saldo = round3(ant + e.qtd);
-    d.movs.push({id: uid(), tipo: 'entrada', produtoId: p.id, produtoNome: p.nome, unidade: p.unidade, qtd: e.qtd, saldoAnt: ant, saldoPost: p.saldo, data: e.data, registradoEm: agora, responsavel: e.responsavel, obs: e.obs, comentarios: []});
+    aplicarEntrada(d, {pid: p.id, qtd: e.qtd}, {data: e.data, agora, responsavel: e.responsavel, obs: e.obs});
   });
   if (ok) { toast('Entrada registrada. Saldo atualizado.'); $('#f-ent').reset(); }
 }
@@ -1158,8 +1329,52 @@ $('#sai-data').value = hojeISO();
 const MSG_NAO = 'Retirada não autorizada. Solicite autorização antes de concluir esta operação.';
 function atualizaSaldoSaida(){
   const p = prodById($('#sai-prod').value);
-  $('#sai-saldo').innerHTML = p ? `<div class="info-box">Disponível: <b>${fmtQtd(p.saldo)} ${esc(p.unidade)}</b><br>Localização: ${locHTML(p)}</div>` : '';
+  $('#sai-saldo').innerHTML = p ? `<div class="info-box">Disponível: <b>${esc(fmtSaldo(p))}</b><br>Localização: ${locHTML(p)}</div>` : '';
+  /* Só redesenha as perguntas do cobre quando o produto muda (não apaga o que já foi respondido) */
+  const box = $('#sai-cobre'), pid = p && (ehPanq(p) || ehSobra(p)) ? p.id : '';
+  if (box.dataset.pid !== pid) {
+    box.dataset.pid = pid;
+    box.innerHTML = !pid ? '' : ehPanq(p) ? `<div class="cobre-box">
+        <div class="auth-title">Tubo de cobre (${PANQ_M} m por panqueca). Tirou panqueca inteira? <b class="req">*</b></div>
+        <div class="opts-row">
+          <label class="opt"><input type="radio" name="sai-modo" value="inteira" checked> Sim, inteira(s)</label>
+          <label class="opt"><input type="radio" name="sai-modo" value="pedaco"> Não, só um pedaço</label>
+        </div>
+        <div id="sai-ped" class="grid2" hidden>
+          <div class="field"><label for="sai-m">Quanto foi tirado? <b class="req">*</b></label><input id="sai-m" type="number" min="0" step="any" inputmode="decimal" placeholder="ex.: 5"></div>
+          <div class="field"><label for="sai-mu">Medida em</label><select id="sai-mu"><option value="m">metros (m)</option><option value="cm">centímetros (cm)</option></select></div>
+        </div>
+        <div class="cobre-calc" id="sai-calc"></div></div>`
+      : `<div class="cobre-box"><div class="field" style="margin:0"><label for="sai-su">Sobra de cobre: a quantidade retirada está em</label>
+        <select id="sai-su"><option value="m">metros (m)</option><option value="cm">centímetros (cm)</option></select></div></div>`;
+  }
+  atualizaSaiCobre();
 }
+function saiModo(){ const r = $('input[name="sai-modo"]:checked'); return r ? r.value : 'inteira'; }
+function atualizaSaiCobre(){
+  const p = prodById($('#sai-prod').value); const pq = ehPanq(p), ped = pq && saiModo() === 'pedaco';
+  $('#sai-qtd-f').hidden = ped;
+  $('#sai-qtd-lbl').innerHTML = pq ? 'Quantas panquecas inteiras? <b class="req">*</b>' : 'Quantidade retirada <b class="req">*</b>';
+  $('#sai-qtd').step = pq ? '1' : 'any';
+  if (!pq) return;
+  $('#sai-ped').hidden = !ped;
+  const calc = $('#sai-calc'); const sob = sobraDoCobre(p);
+  const dicaSobra = sob && sob.saldo > 0 ? ` Já existe sobra de ${fmtQtd(sob.saldo)} m deste cobre: se o pedaço saiu da sobra, selecione o produto “${sob.nome}”.` : '';
+  if (!ped) {
+    const q = parseQtd($('#sai-qtd').value);
+    calc.textContent = isFinite(q) && q > 0 ? `${pqTxt(q)} = ${fmtQtd(round3(q * PANQ_M))} m. Fica no estoque: ${fmtSaldo(p, Math.max(0, round3(p.saldo - q)))}.` : '';
+    return;
+  }
+  const v = parseQtd($('#sai-m').value); const metros = $('#sai-mu').value === 'cm' ? v / 100 : v;
+  if (!(isFinite(metros) && metros > 0)) { calc.textContent = 'Informe quanto foi tirado.' + dicaSobra; return; }
+  const c = calcPedaco(metros);
+  const fica = Math.max(0, round3(p.saldo - c.usa));
+  calc.textContent = c.usa > p.saldo
+    ? `Saldo insuficiente: ${fmtQtd(c.metros)} m precisam de ${pqTxt(c.usa)} e há ${pqTxt(p.saldo)}.`
+    : `Saem ${fmtQtd(c.metros)} m: ${textoPedaco(p, c)}. Fica no estoque: ${fmtSaldo(p, fica)}${c.sobra ? ` + sobra de ${fmtQtd(round3((sob ? sob.saldo : 0) + c.sobra))} m` : ''}.` + dicaSobra;
+}
+$('#f-sai').addEventListener('input', e => { if (['sai-qtd', 'sai-m'].includes(e.target.id)) atualizaSaiCobre(); });
+$('#f-sai').addEventListener('change', e => { if (e.target.name === 'sai-modo' || e.target.id === 'sai-mu') atualizaSaiCobre(); });
 $('#sai-prod').addEventListener('change', atualizaSaldoSaida);
 function autSaida(){ const r = $('input[name="sai-aut"]:checked'); return r ? r.value : ''; }
 function atualizaAut(){
@@ -1169,7 +1384,7 @@ function atualizaAut(){
 }
 $$('input[name="sai-aut"]').forEach(r => r.addEventListener('change', () => { clearErr($('#sai-auth').parentElement); $('#sai-auth').classList.remove('invalid'); atualizaAut(); }));
 $('#f-sai').addEventListener('reset', () => setTimeout(() => {
-  clearErr($('#f-sai')); $('#sai-auth').classList.remove('invalid'); $('#sai-data').value = hojeISO(); resetPessoa('sai'); atualizaAut(); atualizaSaldoSaida();
+  clearErr($('#f-sai')); $('#sai-auth').classList.remove('invalid'); $('#sai-data').value = hojeISO(); resetPessoa('sai'); atualizaAut(); $('#sai-cobre').dataset.pid = 'x'; atualizaSaldoSaida();
 }));
 $('#f-sai').addEventListener('submit', async e => {
   e.preventDefault(); const f = e.currentTarget; clearErr(f); $('#sai-auth').classList.remove('invalid');
@@ -1177,23 +1392,314 @@ $('#f-sai').addEventListener('submit', async e => {
   if (aut === 'nao') { atualizaAut(); toast(MSG_NAO, 'err'); return; }
   const errs = []; const sel = $('#sai-prod'); const p = prodById(sel.value);
   if (!p) errs.push([sel, 'Selecione o produto.']);
-  const qtd = parseQtd($('#sai-qtd').value);
-  if (!isFinite(qtd) || qtd <= 0) errs.push([$('#sai-qtd'), 'A quantidade deve ser maior que zero.']);
-  else if (p && round3(qtd) > p.saldo) errs.push([$('#sai-qtd'), `Saldo insuficiente. Disponível: ${fmtQtd(p.saldo)} ${p.unidade}.`]);
+  const modo = ehPanq(p) ? saiModo() : 'normal';
+  let qtd = NaN, metros = NaN;
+  if (modo === 'pedaco') {
+    const v = parseQtd($('#sai-m').value); metros = $('#sai-mu').value === 'cm' ? v / 100 : v;
+    if (!isFinite(metros) || metros <= 0) errs.push([$('#sai-m'), 'Informe quanto foi tirado (em metros ou centímetros).']);
+    else if (calcPedaco(metros).usa > p.saldo) errs.push([$('#sai-m'), `Saldo insuficiente: ${fmtQtd(round3(metros))} m precisam de ${pqTxt(calcPedaco(metros).usa)} e há ${pqTxt(p.saldo)}.`]);
+  } else {
+    qtd = parseQtd($('#sai-qtd').value);
+    if (ehSobra(p) && $('#sai-su') && $('#sai-su').value === 'cm') qtd = qtd / 100;
+    if (!isFinite(qtd) || qtd <= 0) errs.push([$('#sai-qtd'), 'A quantidade deve ser maior que zero.']);
+    else if (modo === 'inteira' && !Number.isInteger(qtd)) errs.push([$('#sai-qtd'), 'Informe o número de panquecas inteiras. Se foi só um pedaço, marque “Não, só um pedaço”.']);
+    else if (p && round3(qtd) > p.saldo) errs.push([$('#sai-qtd'), `Saldo insuficiente. Disponível: ${fmtSaldo(p)}.`]);
+  }
   const data = $('#sai-data').value; if (!dataValida(data)) errs.push([$('#sai-data'), 'Informe a data da retirada.']);
   const pes = lerPessoa('sai', 'Informe quem retirou a mercadoria.'); if (pes.err) errs.push(pes.err);
   if (!aut) { $('#sai-auth').classList.add('invalid'); errs.push([$('input[name="sai-aut"]'), 'Responda se a retirada foi autorizada por Ricardo.']); }
   if (errs.length) return showErrs(errs);
   const obs = $('#sai-obs').value.trim(); const pid = p.id;
   const ok = await commit(d => {
-    const pp = d.produtos.find(x => x.id === pid); if (!pp) throw new Error('Produto não encontrado.');
-    if (round3(qtd) > pp.saldo) throw new Error('Saldo insuficiente.');
-    const ant = pp.saldo; pp.saldo = round3(ant - qtd);
-    d.movs.push({id: uid(), tipo: 'saida', produtoId: pid, produtoNome: pp.nome, unidade: pp.unidade, qtd: round3(qtd), saldoAnt: ant, saldoPost: pp.saldo, data, registradoEm: new Date().toISOString(),
-      quemRetirou: pes.nome, autorizadoRicardo: 'Sim', obs, comentarios: []});
+    aplicarSaida(d, {pid, modo, qtd, metros}, {data, agora: new Date().toISOString(), quemRetirou: pes.nome, obs});
   });
   if (ok) { toast('Saída registrada. Saldo atualizado.'); f.reset(); }
 });
+
+/* ================= Saídas e entradas em lote ================= */
+const LOTE_MAX = 80;
+function loteRowHTML(){
+  return `<div class="lt-row">
+    <span class="it-num"></span>
+    <input class="lt-p" list="prod-nomes" placeholder="Produto (digite para buscar)" autocomplete="off" aria-label="Produto">
+    <input class="lt-q" type="number" min="0" step="any" inputmode="decimal" placeholder="Qtd" aria-label="Quantidade">
+    <span class="lt-u"></span>
+    <button type="button" class="it-del" title="Remover item" aria-label="Remover item">×</button>
+    <div class="lt-det" hidden></div>
+  </div>`;
+}
+function abrirLote(tipo){
+  const s = tipo === 'saida';
+  openModal(s ? 'Saída em lote — vários itens de uma vez' : 'Entrada em lote — vários itens de uma vez', `<form id="f-lote" novalidate>
+    <div class="grid3">
+      <div class="field"><label for="lt-data">${s ? 'Data da retirada' : 'Data da entrada'} <b class="req">*</b></label><input id="lt-data" type="date" value="${hojeISO()}"></div>
+      ${s ? pessoaHTML('lt-ret', 'Quem retirou') : pessoaHTML('lt-resp', 'Responsável pelo lançamento')}
+      ${s ? pessoaHTML('lt-ped', 'Quem pediu') : campoTxt('lt-orig', 'De onde veio (opcional)', false, 'list="obras" placeholder="ex.: fornecedor, devolução de obra…"')}
+    </div>
+    ${s ? `<div class="grid2">
+      <div class="field"><label for="lt-canal">Por onde pediu? <b class="req">*</b></label><select id="lt-canal"><option value="">Selecione…</option>${CANAIS.map(c => `<option>${c}</option>`).join('')}</select>
+        <input id="lt-canal-outro" placeholder="Qual?" style="margin-top:6px" hidden></div>
+      ${campoTxt('lt-dest', 'Para onde vão os itens? <b class="req">*</b>', false, 'list="obras" placeholder="ex.: Obra Rua das Flores, bolsa do técnico…"')}
+    </div>` : ''}
+    <p class="hint" style="margin:0 0 8px">Digite o nome do produto e escolha na lista. Ao preencher a última linha aparece outra em branco. <b>Enter</b> desce para a linha de baixo. Também dá para colar várias linhas de uma planilha (colunas: produto, quantidade).</p>
+    <div class="lt-row lt-head"><span>#</span><span>Produto *</span><span>Quantidade *</span><span>Unidade</span><span></span></div>
+    <div id="lt-itens">${loteRowHTML()}</div>
+    <div class="itens-bar"><button type="button" class="btn sm" id="lt-add">+ Adicionar item</button><span class="muted small" id="lt-cont"></span><i id="lt-err-slot" hidden></i></div>
+    ${s ? `<div class="auth" id="lt-auth" style="margin-top:14px">
+      <div class="auth-title">Autorizado por Ricardo? <b class="req">*</b></div>
+      <div class="opts"><label class="opt"><input type="radio" name="lt-aut" value="sim"> Sim</label><label class="opt"><input type="radio" name="lt-aut" value="nao"> Não</label></div>
+      <div id="lt-aut-msg"></div></div>` : ''}
+    <div class="field" style="margin-top:12px"><label for="lt-obs">Observação (opcional)</label><textarea id="lt-obs" rows="2"></textarea></div>
+    <div class="actions"><button type="button" class="btn" data-close>Cancelar</button><button class="btn primary" type="submit" id="lt-btn">Revisar ${s ? 'saída' : 'entrada'}</button></div>
+    <div id="lt-review"></div>
+  </form>`);
+  $('.modal-card').classList.add('wide');
+  const box = $('#lt-itens'), form = $('#f-lote');
+  try { if (s) $('#lt-ret-nome').value = localStorage.getItem('crm_ultimo_retirou') || ''; } catch (e) {}
+  const prodDaLinha = r => { const n = $('.lt-p', r).value.trim().replace(/\s+/g, ' '); return n ? db.produtos.find(p => norm(p.nome) === norm(n)) : null; };
+  const linhaVazia = r => !$('.lt-p', r).value.trim() && !$('.lt-q', r).value.trim();
+  const novaLinha = () => { box.insertAdjacentHTML('beforeend', loteRowHTML()); return $$('.lt-row', box).pop(); };
+  const garanteVazia = () => { const rs = $$('.lt-row', box); if (!rs.length || !linhaVazia(rs[rs.length - 1])) novaLinha(); };
+  let pend = null;
+  const limpaReview = () => { if (pend) { pend = null; $('#lt-review').innerHTML = ''; } };
+
+  /* Quadro de cada linha: saldo, localização e as perguntas do cobre */
+  const desenhaDet = r => {
+    const det = $('.lt-det', r), nome = $('.lt-p', r).value.trim(), p = prodDaLinha(r);
+    const key = (p ? p.id : 'x:' + norm(nome)) + '|' + tipo;
+    if (det.dataset.key === key) return;
+    det.dataset.key = key; det.className = 'lt-det'; $('.lt-q', r).disabled = false; $('.lt-q', r).step = 'any'; $('.lt-q', r).placeholder = 'Qtd';
+    $('.lt-u', r).textContent = p ? p.unidade : '';
+    if (!nome) { det.hidden = true; det.innerHTML = ''; return; }
+    det.hidden = false;
+    if (!p) {
+      if (s) { det.classList.add('nao'); det.innerHTML = 'Produto não encontrado no estoque. Escolha um nome da lista.'; return; }
+      const cob = norm(nome).includes('cobre');
+      det.classList.add('novo');
+      det.innerHTML = `<b>📦 Item novo:</b> “${esc(nome)}” não existe no estoque e será cadastrado. Onde vai ficar guardado?
+        <div class="lt-linha">
+          <select class="ln-unid" aria-label="Unidade de medida">${unidOptions(cob ? 'panqueca' : '')}</select>
+          <input class="ln-andar" placeholder="Andar *" aria-label="Andar"><input class="ln-estante" placeholder="Estante *" aria-label="Estante"><input class="ln-fileira" placeholder="Fileira *" aria-label="Fileira">
+        </div><div class="lt-calc"></div>`;
+      return;
+    }
+    const info = `${s ? 'Disponível' : 'Saldo atual'}: <b>${esc(fmtSaldo(p))}</b> · ${locHTML(p)}`;
+    if (ehPanq(p)) {
+      det.classList.add('cobre');
+      $('.lt-q', r).step = '1'; $('.lt-q', r).placeholder = 'Panquecas';
+      det.innerHTML = `${info}<br>Tubo de cobre: ${PANQ_M} m por panqueca.` + (s ? `
+        <div class="lt-linha"><b>Tirou panqueca inteira?</b>
+          <select class="lt-modo" aria-label="Panqueca inteira ou pedaço"><option value="inteira">Sim, inteira(s)</option><option value="pedaco">Não, só um pedaço</option></select>
+          <span class="lt-ped" hidden>Quanto? <input class="lt-m" type="number" min="0" step="any" inputmode="decimal" placeholder="ex.: 5" aria-label="Quanto foi tirado">
+          <select class="lt-mu" aria-label="Medida"><option value="m">m</option><option value="cm">cm</option></select></span>
+        </div>` : '') + '<div class="lt-calc"></div>';
+      return;
+    }
+    if (ehSobra(p) && s) {
+      det.classList.add('ok');
+      det.innerHTML = `${info}<div class="lt-linha">Quantidade em <select class="lt-su" aria-label="Medida"><option value="m">metros (m)</option><option value="cm">centímetros (cm)</option></select></div><div class="lt-calc"></div>`;
+      return;
+    }
+    det.classList.add('ok'); det.innerHTML = info + '<div class="lt-calc"></div>';
+  };
+  /* Quanto cada linha pede, somando linhas repetidas do mesmo produto */
+  const lerLinha = r => {
+    const p = prodDaLinha(r), modo = p && ehPanq(p) && s ? ($('.lt-modo', r) || {}).value || 'inteira' : 'normal';
+    let q = parseQtd($('.lt-q', r).value), metros = NaN;
+    if (modo === 'pedaco') { const v = parseQtd($('.lt-m', r).value); metros = $('.lt-mu', r).value === 'cm' ? v / 100 : v; }
+    else if (p && ehSobra(p) && s && $('.lt-su', r) && $('.lt-su', r).value === 'cm') q = q / 100;
+    return {p, modo, q, metros};
+  };
+  const usoPanq = l => l.modo === 'pedaco' ? (isFinite(l.metros) && l.metros > 0 ? calcPedaco(l.metros).usa : 0) : (isFinite(l.q) && l.q > 0 ? l.q : 0);
+  const recalc = () => {
+    garanteVazia();
+    const rs = $$('.lt-row', box);
+    rs.forEach((r, i) => { $('.it-num', r).textContent = i + 1; desenhaDet(r); });
+    /* Total pedido por produto, para avisar quando passa do saldo */
+    const tot = new Map();
+    rs.forEach(r => { const l = lerLinha(r); if (l.p) tot.set(l.p.id, round3((tot.get(l.p.id) || 0) + usoPanq(l))); });
+    rs.forEach(r => {
+      const l = lerLinha(r), calc = $('.lt-calc', r); if (!calc) return;
+      const pedaco = l.modo === 'pedaco';
+      if ($('.lt-ped', r)) $('.lt-ped', r).hidden = !pedaco;
+      if (l.p && ehPanq(l.p) && s) { $('.lt-q', r).disabled = pedaco; if (pedaco) $('.lt-q', r).value = ''; }
+      if (!l.p) { const u = $('.ln-unid', r); calc.textContent = u && u.value === 'panqueca' && isFinite(l.q) && l.q > 0 ? `${pqTxt(l.q)} = ${fmtQtd(round3(l.q * PANQ_M))} m` : ''; return; }
+      let t = '';
+      if (pedaco && isFinite(l.metros) && l.metros > 0) { const c = calcPedaco(l.metros); t = `Saem ${fmtQtd(c.metros)} m: ${textoPedaco(l.p, c)}.`; }
+      else if (ehPanq(l.p) && isFinite(l.q) && l.q > 0) t = `${pqTxt(l.q)} = ${fmtQtd(round3(l.q * PANQ_M))} m.`;
+      else if (ehSobra(l.p) && s && isFinite(l.q) && l.q > 0) t = `= ${fmtQtd(round3(l.q))} m.`;
+      if (s && tot.get(l.p.id) > l.p.saldo) t += ` ⚠ Saldo insuficiente: o lote pede ${fmtSaldo(l.p, tot.get(l.p.id))} e há ${fmtSaldo(l.p)}.`;
+      calc.textContent = t;
+    });
+    const n = rs.filter(r => !linhaVazia(r)).length;
+    $('#lt-cont').textContent = n ? `${n} item(ns) no lote` : '';
+  };
+  box.addEventListener('input', e => { e.target.classList.remove('bad'); limpaReview(); recalc(); });
+  box.addEventListener('change', e => { e.target.classList.remove('bad'); limpaReview(); recalc(); });
+  form.addEventListener('input', e => { if (!box.contains(e.target)) limpaReview(); });
+  form.addEventListener('change', e => { if (!box.contains(e.target)) limpaReview(); });
+  box.addEventListener('click', e => { const b = e.target.closest('.it-del'); if (!b) return; b.closest('.lt-row').remove(); limpaReview(); recalc(); });
+  $('#lt-add').onclick = () => { garanteVazia(); $$('.lt-p', box).pop().focus(); };
+  box.addEventListener('keydown', e => {
+    if (e.key !== 'Enter' || e.target.tagName === 'BUTTON' || e.target.tagName === 'SELECT') return;
+    e.preventDefault(); recalc();
+    const r = e.target.closest('.lt-row'); const cls = e.target.classList.contains('lt-q') ? 'lt-q' : 'lt-p';
+    let prox = r.nextElementSibling; if (!prox) prox = novaLinha();
+    const alvo = $('.' + cls, prox); alvo.focus(); if (alvo.select) alvo.select();
+  });
+  box.addEventListener('paste', e => {
+    const txt = (e.clipboardData || window.clipboardData).getData('text');
+    if (!txt || (!txt.includes('\n') && !txt.includes('\t'))) return;
+    const linhas = txt.replace(/\r/g, '').split('\n').map(l => l.split('\t').map(x => x.trim())).filter(l => l.some(Boolean));
+    if (!linhas.length) return;
+    e.preventDefault();
+    let r = e.target.closest('.lt-row');
+    linhas.forEach((cols, i) => {
+      if (i > 0 || !r) r = r && r.nextElementSibling && linhaVazia(r.nextElementSibling) ? r.nextElementSibling : novaLinha();
+      const [nome, q] = cols;
+      if (nome) { const p = db.produtos.find(x => norm(x.nome) === norm(nome)); $('.lt-p', r).value = p ? p.nome : nome; }
+      if (q) { const n = parseMoeda(q); $('.lt-q', r).value = isFinite(n) ? n : ''; }
+    });
+    recalc(); toast(`${linhas.length} linha(s) colada(s). Confira os itens.`);
+  });
+  if (s) {
+    $('#lt-canal').addEventListener('change', () => { const o = $('#lt-canal').value === 'Outro'; $('#lt-canal-outro').hidden = !o; if (o) $('#lt-canal-outro').focus(); });
+    $$('input[name="lt-aut"]').forEach(x => x.addEventListener('change', () => {
+      $('#lt-auth').classList.remove('invalid'); $$('.err-msg', $('#lt-auth')).forEach(m => m.remove());
+      const nao = x.value === 'nao' && x.checked;
+      $('#lt-aut-msg').innerHTML = nao ? `<div class="alert-box" role="alert">${MSG_NAO}</div>` : '';
+      $('#lt-btn').disabled = nao;
+    }));
+  }
+  recalc();
+
+  form.onsubmit = async e => {
+    e.preventDefault(); clearErr(form); $$('.bad', box).forEach(x => x.classList.remove('bad'));
+    if (pend) return;
+    recalc();
+    const errs = []; const anchor = $('#lt-err-slot');
+    const data = $('#lt-data').value; if (!dataValida(data)) errs.push([$('#lt-data'), 'Informe uma data válida.']);
+    const pes = lerPessoa(s ? 'lt-ret' : 'lt-resp', s ? 'Informe quem retirou.' : 'Informe o responsável pelo lançamento.'); if (pes.err) errs.push(pes.err);
+    let ped = {}, canal = '', destino = '', origem = '';
+    if (s) {
+      ped = lerPessoa('lt-ped', 'Informe quem pediu.'); if (ped.err) errs.push(ped.err);
+      canal = $('#lt-canal').value === 'Outro' ? $('#lt-canal-outro').value.trim() : $('#lt-canal').value;
+      if (!canal) errs.push([$('#lt-canal'), $('#lt-canal').value === 'Outro' ? 'Escreva por onde foi o pedido.' : 'Informe por onde foi o pedido.']);
+      destino = $('#lt-dest').value.trim(); if (!destino) errs.push([$('#lt-dest'), 'Informe para onde vão os itens.']);
+      const aut = ($('input[name="lt-aut"]:checked') || {}).value;
+      if (aut === 'nao') { toast(MSG_NAO, 'err'); return; }
+      if (!aut) { $('#lt-auth').classList.add('invalid'); errs.push([$('input[name="lt-aut"]'), 'Responda se a retirada foi autorizada por Ricardo.']); }
+    } else origem = $('#lt-orig').value.trim();
+    const itens = []; let itemErr = null; const novos = new Map(); const uso = new Map();
+    $$('.lt-row', box).forEach(r => {
+      if (linhaVazia(r) && !(($('.lt-m', r) || {}).value || '').trim()) return;
+      const l = lerLinha(r); const nome = $('.lt-p', r).value.trim().replace(/\s+/g, ' ');
+      const ruim = [];
+      if (!nome || (s && !l.p)) ruim.push('.lt-p');
+      if (l.modo === 'pedaco') { if (!(isFinite(l.metros) && l.metros > 0)) ruim.push('.lt-m'); }
+      else if (!(isFinite(l.q) && l.q > 0)) ruim.push('.lt-q');
+      else if ((l.p && ehPanq(l.p) || (!l.p && ($('.ln-unid', r) || {}).value === 'panqueca')) && !Number.isInteger(l.q)) ruim.push('.lt-q');
+      if (!l.p && !s) {
+        const k = norm(nome);
+        if (!novos.has(k)) {
+          const n = {nome, unidade: $('.ln-unid', r).value, andar: $('.ln-andar', r).value.trim(), estante: $('.ln-estante', r).value.trim(), fileira: $('.ln-fileira', r).value.trim()};
+          ['unid', 'andar', 'estante', 'fileira'].forEach(c => { if (!n[c === 'unid' ? 'unidade' : c]) ruim.push('.ln-' + c); });
+          novos.set(k, n);
+        }
+      }
+      if (ruim.length) { ruim.forEach(c => { const el = $(c, r); if (el) el.classList.add('bad'); }); itemErr = itemErr || $(ruim[0], r); return; }
+      const it = {pid: l.p ? l.p.id : null, novoKey: l.p ? null : norm(nome), nome: l.p ? l.p.nome : nome, modo: l.modo, qtd: round3(l.q), metros: round3(l.metros)};
+      if (l.p) uso.set(l.p.id, round3((uso.get(l.p.id) || 0) + usoPanq(l)));
+      itens.push(it);
+    });
+    if (s) uso.forEach((q, pid) => { const p = prodById(pid); if (p && q > p.saldo) { errs.push([anchor, `Saldo insuficiente de ${p.nome}: o lote pede ${fmtSaldo(p, q)} e há ${fmtSaldo(p)}.`]); } });
+    if (itemErr) errs.unshift([anchor, s ? 'Complete os itens destacados: produto da lista e quantidade (panqueca: número inteiro; pedaço: quanto foi tirado).' : 'Complete os itens destacados: produto, quantidade e, nos itens novos, unidade, andar, estante e fileira.']);
+    else if (!itens.length) { itemErr = $('.lt-p', box); itemErr.classList.add('bad'); errs.push([anchor, 'Informe pelo menos um item.']); }
+    if (itens.length > LOTE_MAX) errs.push([anchor, `Um lote aceita até ${LOTE_MAX} itens. Divida em dois lotes.`]);
+    if (errs.length) { showErrs(errs); if (errs[0][0] === anchor && itemErr) itemErr.focus(); return; }
+    const obs = $('#lt-obs').value.trim();
+    pend = {itens, novos};
+    const linhaRev = it => {
+      const p = it.pid ? prodById(it.pid) : null;
+      if (it.modo === 'pedaco') { const c = calcPedaco(it.metros); return `<li><b>−${fmtQtd(c.metros)} m</b> ${esc(it.nome)} <span class="muted">(${esc(textoPedaco(p, c))})</span></li>`; }
+      const un = p ? p.unidade : novos.get(it.novoKey).unidade;
+      const extra = un === 'panqueca' ? ` (${fmtQtd(round3(it.qtd * PANQ_M))} m)` : '';
+      return `<li><b>${s ? '−' : '+'}${fmtQtd(it.qtd)} ${esc(un)}${extra}</b> ${esc(it.nome)}${!p ? ' <span class="badge b-baixo">novo cadastro</span>' : ''}</li>`;
+    };
+    $('#lt-review').innerHTML = `<div class="review"><h2>Revise antes de confirmar</h2><dl>
+      <dt>Data</dt><dd>${fmtData(data)}</dd>
+      <dt>${s ? 'Quem retirou' : 'Responsável'}</dt><dd>${esc(pes.nome)}</dd>
+      ${s ? `<dt>Quem pediu</dt><dd>${esc(ped.nome)} · via ${esc(canal)}</dd><dt>Para onde vai</dt><dd>${esc(destino)}</dd><dt>Autorizado por Ricardo</dt><dd class="okt">Sim</dd>` : origem ? `<dt>De onde veio</dt><dd>${esc(origem)}</dd>` : ''}
+      ${obs ? `<dt>Observação</dt><dd>${esc(obs)}</dd>` : ''}
+      <dt>Itens (${itens.length})</dt><dd><ul class="lote-itens">${itens.map(linhaRev).join('')}</ul></dd></dl>
+      <div class="actions"><button type="button" class="btn" id="lt-corrigir">Corrigir</button><button type="button" class="btn primary" id="lt-confirmar">Confirmar ${s ? 'saída' : 'entrada'} de ${itens.length} item(ns)</button></div></div>`;
+    $('#lt-confirmar').scrollIntoView({block: 'nearest'}); $('#lt-confirmar').focus();
+    $('#lt-corrigir').onclick = () => { pend = null; $('#lt-review').innerHTML = ''; };
+    $('#lt-confirmar').onclick = async () => {
+      const loteId = uid(); const agora = new Date().toISOString();
+      const lote = s ? {quemPediu: ped.nome, canal, destino, nItens: itens.length} : {origem, nItens: itens.length};
+      const ok = await commit(d => {
+        if (!s) novos.forEach(n => {
+          if (d.produtos.some(p => norm(p.nome) === norm(n.nome))) throw new Error(`Já existe um produto chamado ${n.nome}.`);
+          const pid = uid(); n.pid = pid;
+          d.produtos.push({id: pid, nome: n.nome, unidade: n.unidade, andar: n.andar, estante: n.estante, fileira: n.fileira, obs: '', minimo: null, saldo: 0, criadoEm: agora, alteracoes: [], origem: 'entrada em lote'});
+        });
+        itens.forEach(it => {
+          const pid = it.pid || novos.get(it.novoKey).pid;
+          if (s) aplicarSaida(d, {pid, modo: it.modo, qtd: it.qtd, metros: it.metros}, {data, agora, quemRetirou: pes.nome, obs, loteId, lote});
+          else aplicarEntrada(d, {pid, qtd: it.qtd}, {data, agora, responsavel: pes.nome, obs, loteId, lote});
+        });
+      });
+      if (ok) {
+        try { if (s) localStorage.setItem('crm_ultimo_retirou', pes.nome); } catch (er) {}
+        toast(`${s ? 'Saída' : 'Entrada'} em lote registrada: ${itens.length} item(ns). Estoque atualizado.`);
+        abrirLoteDet(loteId, tipo);
+      }
+    };
+  };
+}
+$('#btn-lote-sai').onclick = () => abrirLote('saida');
+$('#btn-lote-ent').onclick = () => abrirLote('entrada');
+
+function abrirLoteDet(id, tipo){
+  const ms = movsDoLote(id, tipo); if (!ms.length) return;
+  const s = tipo === 'saida', m0 = ms[0], L = m0.lote || {};
+  const linhas = [['Lote nº', loteCod(id)], [s ? 'Data da retirada' : 'Data da entrada', fmtData(m0.data)], ['Registrado em', fmtDataHora(m0.registradoEm)]];
+  if (s) linhas.push(['Quem retirou', esc(m0.quemRetirou)], ['Quem pediu', esc(L.quemPediu || '—')], ['Pedido por', esc(L.canal || '—')], ['Para onde vai', esc(L.destino || '—')], ['Autorizado por Ricardo?', '<span class="okt">Sim</span>']);
+  else { linhas.push(['Responsável pelo lançamento', esc(m0.responsavel)]); if (L.origem) linhas.push(['De onde veio', esc(L.origem)]); }
+  if (m0.obs) linhas.push(['Observação', esc(m0.obs)]);
+  openModal(`${s ? 'Saída' : 'Entrada'} em lote — ${ms.length} ${ms.length === 1 ? 'item' : 'itens'}`, `
+    <div class="review" style="margin-top:0"><dl>${linhas.map(([a, b]) => `<dt>${a}</dt><dd>${b}</dd>`).join('')}</dl></div>
+    <h2 style="margin-top:18px">Itens do lote</h2>
+    <div class="table-wrap"><table><thead><tr><th>Produto</th><th class="num">Quantidade</th><th class="num">Saldo</th><th class="num">💬</th></tr></thead><tbody>
+    ${ms.map(m => `<tr class="click" data-mov="${m.id}" tabindex="0"><td><b>${esc(nomeProd(m))}</b>${m.cobre && m.cobre.aberta ? `<br><span class="small muted">sobra de ${fmtQtd(m.cobre.sobra)} m foi para o item de sobras</span>` : ''}</td>
+      <td class="num">${s ? '−' : '+'}${esc(qtdMovTxt(m))}</td><td class="num">${fmtQtd(m.saldoAnt)} → ${fmtQtd(m.saldoPost)} ${esc(m.unidade)}</td><td class="num">${m.comentarios.length}</td></tr>`).join('')}
+    </tbody></table></div>
+    <p class="hint">Clique em um item para ver os detalhes ou adicionar comentários${s ? ' e ocorrências' : ''}. Movimentações confirmadas não podem ser excluídas; para corrigir, use “Ajustar saldo” na ficha do produto.</p>
+    <div class="actions"><button type="button" class="btn" id="lt-print">🖨 Imprimir lista</button><button type="button" class="btn primary" data-close>Fechar</button></div>`);
+  $('.modal-card').classList.add('wide');
+  $('#lt-print').onclick = () => imprimirLote(id, tipo);
+}
+/* Lista para imprimir e mandar junto com a bolsa (ou arquivar) */
+function imprimirLote(id, tipo){
+  const ms = movsDoLote(id, tipo), s = tipo === 'saida', m0 = ms[0], L = m0.lote || {};
+  const campos = s ? [['Data', fmtData(m0.data)], ['Quem retirou', m0.quemRetirou], ['Quem pediu', L.quemPediu], ['Pedido por', L.canal], ['Para onde vai', L.destino], ['Autorizado por Ricardo', 'Sim']]
+    : [['Data', fmtData(m0.data)], ['Responsável', m0.responsavel], ['De onde veio', L.origem]];
+  if (m0.obs) campos.push(['Observação', m0.obs]);
+  const html = `<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>${s ? 'Saída' : 'Entrada'} em lote ${loteCod(id)}</title>
+    <style>body{font:13px/1.4 Arial,sans-serif;color:#000;margin:24px}h1{font-size:18px;margin:0 0 4px}table{border-collapse:collapse;width:100%;margin-top:12px}
+    th,td{border:1px solid #888;padding:6px 8px;text-align:left}th{background:#eee}td.n{text-align:right;white-space:nowrap}.c{display:grid;grid-template-columns:auto 1fr;gap:2px 12px;margin-top:10px}
+    .c b{font-weight:600}.ass{display:flex;gap:40px;margin-top:48px}.ass div{flex:1;border-top:1px solid #000;padding-top:4px;text-align:center}</style></head><body>
+    <h1>${s ? 'Saída' : 'Entrada'} em lote — nº ${loteCod(id)}</h1><div>${ms.length} ${ms.length === 1 ? 'item' : 'itens'}</div>
+    <div class="c">${campos.filter(c => c[1]).map(([a, b]) => `<span>${esc(a)}:</span><b>${esc(b)}</b>`).join('')}</div>
+    <table><thead><tr><th style="width:36px">#</th><th>Produto</th><th>Quantidade</th><th>Localização</th><th style="width:60px">Conferido</th></tr></thead><tbody>
+    ${ms.map((m, i) => { const p = prodById(m.produtoId); return `<tr><td>${i + 1}</td><td>${esc(nomeProd(m))}</td><td class="n">${esc(qtdMovTxt(m))}</td><td>${p ? `Andar ${esc(p.andar)} → Estante ${esc(p.estante)} → Fileira ${esc(p.fileira)}` : ''}</td><td></td></tr>`; }).join('')}
+    </tbody></table>${s ? '<div class="ass"><div>Entregue por</div><div>Recebido por</div></div>' : ''}</body></html>`;
+  const fr = document.createElement('iframe'); fr.style.cssText = 'position:fixed;right:0;bottom:0;width:0;height:0;border:0';
+  document.body.appendChild(fr);
+  const doc = fr.contentDocument; doc.open(); doc.write(html); doc.close();
+  setTimeout(() => { try { fr.contentWindow.focus(); fr.contentWindow.print(); } catch (e) { toast('Não foi possível abrir a impressão.', 'err'); } setTimeout(() => fr.remove(), 60000); }, 250);
+}
 
 /* ================= GPS Itens ================= */
 /* Cada item tem um documento em gps_itens (situação atual) e cada movimentação um documento em
@@ -2342,16 +2848,22 @@ function gerarPlanilha(){
   const entradas = xTabela('Entradas', [
     {h: 'Data da entrada', t: 'd'}, {h: 'Registrado em', t: 'dt'}, {h: 'Produto', t: 'b', min: 18},
     {h: 'Quantidade recebida', t: 'n'}, {h: 'Unidade'}, {h: 'Saldo anterior', t: 'n'}, {h: 'Saldo posterior', t: 'n'},
-    {h: 'Responsável pelo lançamento', min: 20}, {h: 'Observação', t: 'wrap', w: 36}, {h: 'Nº de comentários', t: 'n'}, {h: 'Comentários', t: 'wrap', w: 60}
-  ], ents.map(m => [m.data, m.registradoEm, nomeMov(m), m.qtd, m.unidade, m.saldoAnt, m.saldoPost, m.responsavel, m.obs, m.comentarios.length, cmtTxt(m)]));
+    {h: 'Metros (cobre)', t: 'n'}, {h: 'Responsável pelo lançamento', min: 20}, {h: 'Lote nº'}, {h: 'De onde veio', min: 16},
+    {h: 'Observação', t: 'wrap', w: 36}, {h: 'Nº de comentários', t: 'n'}, {h: 'Comentários', t: 'wrap', w: 60}
+  ], ents.map(m => [m.data, m.registradoEm, nomeMov(m), m.qtd, m.unidade, m.saldoAnt, m.saldoPost, m.metros, m.responsavel,
+    m.loteId ? loteCod(m.loteId) : '', m.lote ? m.lote.origem : '', m.obs, m.comentarios.length, cmtTxt(m)]));
 
   const saidas = xTabela('Saídas', [
     {h: 'Data da retirada', t: 'd'}, {h: 'Registrado em', t: 'dt'}, {h: 'Produto', t: 'b', min: 18},
     {h: 'Quantidade retirada', t: 'n'}, {h: 'Unidade'}, {h: 'Saldo anterior', t: 'n'}, {h: 'Saldo posterior', t: 'n'},
+    {h: 'Metros (cobre)', t: 'n'}, {h: 'Cobre: como saiu', t: 'wrap', w: 34},
     {h: 'Quem retirou', min: 20}, {h: 'Autorizado por Ricardo?', st: stSim},
+    {h: 'Lote nº'}, {h: 'Quem pediu', min: 18}, {h: 'Pedido por', min: 12}, {h: 'Para onde vai', min: 20},
     {h: 'Observação', t: 'wrap', w: 36}, {h: 'Nº de comentários', t: 'n'}, {h: 'Nº de ocorrências', t: 'n'}, {h: 'Comentários e ocorrências', t: 'wrap', w: 60}
-  ], sais.map(m => [m.data, m.registradoEm, nomeMov(m), m.qtd, m.unidade, m.saldoAnt, m.saldoPost, m.quemRetirou,
-    m.autorizadoRicardo || 'Sim', m.obs, m.comentarios.length, m.comentarios.filter(c => c.tipo === 'ocorrencia').length, cmtTxt(m)]));
+  ], sais.map(m => [m.data, m.registradoEm, nomeMov(m), m.qtd, m.unidade, m.saldoAnt, m.saldoPost, m.metros,
+    m.cobre ? (m.cobre.aberta ? `Pedaço: ${m.cobre.inteiras ? inteirasTxt(m.cobre.inteiras) + ' + ' : ''}1 panqueca aberta, ${fmtQtd(m.cobre.cortado)} m cortados, sobra ${fmtQtd(m.cobre.sobra)} m` : 'Panqueca(s) inteira(s)') : '',
+    m.quemRetirou, m.autorizadoRicardo || 'Sim', m.loteId ? loteCod(m.loteId) : '', m.lote ? m.lote.quemPediu : '', m.lote ? m.lote.canal : '', m.lote ? m.lote.destino : '',
+    m.obs, m.comentarios.length, m.comentarios.filter(c => c.tipo === 'ocorrencia').length, cmtTxt(m)]));
 
   const ajustes = xTabela('Ajustes', [
     {h: 'Data do ajuste', t: 'd'}, {h: 'Registrado em', t: 'dt'}, {h: 'Produto', t: 'b', min: 18},
