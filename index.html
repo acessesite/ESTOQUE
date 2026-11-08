@@ -106,7 +106,8 @@ td.num,th.num{text-align:right;white-space:nowrap}
 .mcard{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--in);border-radius:10px;padding:12px;cursor:pointer;display:flex;flex-direction:column;gap:3px}
 .mcard.saida{border-left-color:var(--out)}
 .mcard:hover,.mcard:focus{border-color:var(--primary);outline:0}
-.mc-top{display:flex;justify-content:space-between;font-size:12px}
+.mc-top{display:flex;justify-content:space-between;gap:8px;font-size:12px}
+.mc-top > .muted{white-space:nowrap}
 .tag{font-weight:700;text-transform:uppercase;letter-spacing:.04em;font-size:11px}
 .mcard .mc-qtd{font-size:18px;font-weight:700}
 .mcard.entrada .mc-qtd,.mcard.entrada .tag{color:var(--in)}
@@ -269,6 +270,63 @@ li.tar.done b{text-decoration:line-through;color:var(--muted)}
 .note textarea{flex:1;min-height:150px;background:transparent;border:0;outline:0;resize:vertical;font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#262626;padding:2px}
 .note textarea::placeholder{color:rgba(0,0,0,.4)}
 .note-foot{font-size:11px;color:rgba(0,0,0,.5)}
+/* Senha para alterar */
+.lock{border:1px solid var(--border);background:var(--surface-2);color:var(--muted);border-radius:999px;padding:4px 12px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap}
+.lock.on{background:var(--ok-soft);color:var(--ok);border-color:var(--ok)}
+.senha-ov{position:fixed;inset:0;background:rgba(10,14,20,.6);display:flex;align-items:center;justify-content:center;padding:16px;z-index:80}
+.senha-card{background:var(--surface);border-radius:12px;width:100%;max-width:360px;padding:18px;box-shadow:0 20px 50px rgba(0,0,0,.35)}
+.senha-card h2{margin:0 0 6px;font-size:18px}
+.senha-card input{width:100%;font-size:22px;letter-spacing:.3em;text-align:center;border:2px solid var(--border);border-radius:8px;padding:10px;background:var(--surface)}
+.senha-card input:focus{outline:0;border-color:var(--primary)}
+.senha-card.erro input{border-color:var(--danger);animation:treme .3s}
+@keyframes treme{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+/* Subabas (Últimas compras) */
+.subtabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.stab{flex:1 1 200px;border:2px solid var(--border);background:var(--surface);border-radius:10px;padding:10px 12px;cursor:pointer;font-weight:700;text-align:left;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.stab:hover{border-color:var(--primary)}
+.stab.on{border-color:var(--primary);background:var(--primary-soft);color:var(--primary)}
+.stab .cnt{background:var(--surface-2);color:var(--text);border:1px solid var(--border);border-radius:999px;padding:1px 9px;font-size:13px}
+.stab.on .cnt{background:var(--primary);color:var(--primary-ink);border-color:var(--primary)}
+.ocards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.ocard{background:var(--surface);border:1px solid var(--border);border-left:5px solid var(--warn);border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;gap:6px;cursor:pointer;box-shadow:var(--shadow)}
+.ocard:hover,.ocard:focus{border-color:var(--primary);outline:0}
+.ocard.atras{border-left-color:var(--danger)}
+.ocard.feito{border-left-color:var(--muted);opacity:.85}
+.ocard .lote-itens .q{color:var(--primary)}
+.compra.rota{border-left:5px solid var(--warn)}
+.compra.fin{border-left:5px solid var(--ok)}
+.b-aut-sim{background:var(--ok-soft);color:var(--ok)}
+.b-aut-nao{background:var(--danger-soft);color:var(--danger)}
+.b-aut-agu{background:var(--warn-soft);color:var(--warn)}
+.auth .opts.tres .opt{font-size:14px}
+.or-row{display:grid;grid-template-columns:30px minmax(160px,3fr) minmax(70px,.8fr) minmax(100px,1fr) 30px;gap:6px;align-items:center;margin-bottom:6px}
+.or-row input,.or-row select{border:1px solid var(--border);background:var(--surface);border-radius:8px;padding:8px;width:100%;min-width:0}
+.or-row .bad{border-color:var(--danger) !important}
+details.hist-orc{margin-top:16px}
+details.hist-orc summary{cursor:pointer;font-weight:700;color:var(--muted);margin-bottom:10px}
+/* Vários itens nos formulários simples */
+.add-mais{width:100%;border:2px dashed var(--primary);background:var(--primary-soft);color:var(--primary);border-radius:8px;padding:9px;font-weight:700;cursor:pointer;margin:0 0 12px}
+.add-mais:hover{filter:brightness(1.04)}
+/* GPS: vários itens */
+.gl-row{display:grid;grid-template-columns:30px minmax(150px,2.4fr) auto minmax(110px,1.4fr) minmax(90px,1fr) 30px;gap:6px;align-items:center;margin-bottom:6px}
+.gl-row input:not([type=checkbox]){border:1px solid var(--border);background:var(--surface);border-radius:8px;padding:8px;width:100%;min-width:0}
+.gl-row .check{margin:0;white-space:nowrap}
+.gl-row .off{visibility:hidden}
+.gl-row .bad{border-color:var(--danger) !important}
+.gg-sel{display:flex;flex-direction:column;gap:6px;margin-bottom:8px}
+.gg-item{display:grid;grid-template-columns:1fr minmax(120px,170px) 30px;gap:8px;align-items:center;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:8px 10px}
+.gg-item small{display:block;color:var(--muted)}
+.gg-item input{border:1px solid var(--border);background:var(--surface);border-radius:8px;padding:7px;width:100%;min-width:0}
+.gg-item input.bad{border-color:var(--danger)}
+.gg-add{border:1px dashed var(--border);border-radius:8px;padding:10px;margin-bottom:12px;background:var(--surface-2)}
+.gg-lista{max-height:240px;overflow-y:auto;display:flex;flex-direction:column;gap:4px;margin-top:8px}
+.gg-opt{text-align:left;border:1px solid var(--border);background:var(--surface);border-radius:8px;padding:7px 10px;cursor:pointer}
+.gg-opt:hover{border-color:var(--primary)}
+.gg-opt small{display:block;color:var(--muted)}
+.mcard.ev-transf{border-left-color:var(--primary)}
+.mcard.ev-transf .tag,.mcard.ev-transf .lote-itens .q{color:var(--primary)}
+.ev-link{color:var(--primary);text-decoration:underline;cursor:pointer}
+@media (max-width:640px){.gl-row,.or-row{grid-template-columns:1fr 1fr;padding:8px;border:1px solid var(--border);border-radius:8px}.gl-row .gl-nome,.or-row .or-n{grid-column:span 2}.gl-row .off{display:none}.gg-item{grid-template-columns:1fr 30px}.gg-item input{grid-column:1/-1;grid-row:2}}
 @media (min-width:821px){nav.tabs{flex-wrap:wrap;overflow:visible}}
 @media (max-width:820px){.split{grid-template-columns:1fr}}
 @media (max-width:640px){.lt-row{grid-template-columns:1fr 1fr;padding:8px;border:1px solid var(--border);border-radius:8px}.lt-row .lt-p{grid-column:span 2}.lt-row .it-num{text-align:left}.lt-det{margin:0}.lt-head{display:none}.it-novo,.it-exist{margin:0}.np-grid{grid-template-columns:1fr 1fr 1fr}.np-grid .np-f-obs,.np-grid .np-f-min{grid-column:span 3}.it-row{grid-template-columns:1fr 1fr;padding:8px;border:1px solid var(--border);border-radius:8px}.it-row .it-n{grid-column:span 2}.it-num{text-align:left}.it-head{display:none}}
@@ -289,6 +347,7 @@ li.tar.done b{text-decoration:line-through;color:var(--muted)}
     <button class="tab" data-tab="notas">Notas</button>
     <button class="tab" data-tab="config">Configurações</button>
   </nav>
+  <button type="button" class="lock" id="lock" title="Qualquer pessoa pode ver tudo. Para alterar, é preciso confirmar a senha.">🔒 Somente leitura</button>
   <span class="conn c-wait" id="conn">Conectando…</span>
 </div></header>
 <div class="banner" id="banner" hidden></div>
@@ -351,6 +410,7 @@ li.tar.done b{text-decoration:line-through;color:var(--muted)}
         <div class="field"><label for="ent-qtd" id="ent-qtd-lbl">Quantidade recebida <b class="req">*</b></label><input id="ent-qtd" type="number" min="0" step="any" inputmode="decimal"><div class="hint" id="ent-cobre"></div></div>
         <div class="field"><label for="ent-data">Data da entrada <b class="req">*</b></label><input id="ent-data" type="date"></div>
       </div>
+      <button type="button" class="add-mais" id="ent-mais" title="Com mais de um item, a entrada vira um card de entrada em lote">+ Adicionar outro item</button>
       <div id="ent-resp-wrap"></div>
       <div class="field"><label for="ent-obs">Observação (opcional)</label><textarea id="ent-obs" rows="2"></textarea></div>
       <div class="actions"><button type="reset" class="btn">Limpar</button><button class="btn primary" type="submit">Revisar entrada</button></div>
@@ -376,6 +436,7 @@ li.tar.done b{text-decoration:line-through;color:var(--muted)}
         <div class="field" id="sai-qtd-f"><label for="sai-qtd" id="sai-qtd-lbl">Quantidade retirada <b class="req">*</b></label><input id="sai-qtd" type="number" min="0" step="any" inputmode="decimal"></div>
         <div class="field"><label for="sai-data">Data da retirada <b class="req">*</b></label><input id="sai-data" type="date"></div>
       </div>
+      <button type="button" class="add-mais" id="sai-mais" title="Com mais de um item, a saída vira um card de saída em lote">+ Adicionar outro item</button>
       <div id="sai-quem-wrap"></div>
       <div class="auth" id="sai-auth">
         <div class="auth-title">Autorizado por Ricardo? <b class="req">*</b></div>
@@ -397,8 +458,8 @@ li.tar.done b{text-decoration:line-through;color:var(--muted)}
 
 <!-- GPS ITENS -->
 <section class="view" id="v-gps" hidden>
-  <div class="section-head"><h1>GPS Itens</h1><button class="btn primary" id="btn-novo-gps">+ Cadastrar item</button></div>
-  <p class="hint" style="margin:-6px 0 12px">Itens que saem do estoque para a rua e podem voltar. Cada card mostra com quem o item está, em qual obra e a passagem de responsabilidade. O card mostra até 15 movimentações por ciclo; na 16ª o contador zera e começa um novo ciclo — o histórico completo continua guardado em “Histórico completo”.</p>
+  <div class="section-head"><h1>GPS Itens</h1><div class="row"><button class="btn" id="btn-gps-grupo">⇄ Movimentar vários itens</button><button class="btn primary" id="btn-novo-gps">+ Cadastrar item(s)</button></div></div>
+  <p class="hint" style="margin:-6px 0 12px">Itens que saem do estoque para a rua e podem voltar. Para levar, passar ou devolver vários itens de uma vez, use “⇄ Movimentar vários itens” ou “+ Adicionar outro item” dentro da movimentação — vira um card de evento. Cada card mostra com quem o item está, em qual obra e a passagem de responsabilidade. O card mostra até 15 movimentações por ciclo; na 16ª o contador zera e começa um novo ciclo — o histórico completo continua guardado em “Histórico completo”.</p>
   <label class="search" for="gps-busca">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.8-4.8"/></svg>
     <input id="gps-busca" type="search" placeholder="Pesquisar item, responsável, obra ou nº do bujão…" autocomplete="off" aria-label="Pesquisar item do GPS">
@@ -411,12 +472,19 @@ li.tar.done b{text-decoration:line-through;color:var(--muted)}
     <button class="chip" data-f="parados">⚠ Parados</button>
   </div>
   <div class="muted small" id="gps-resumo" style="margin-bottom:10px"></div>
+  <div id="gps-eventos"></div>
   <div class="gcards" id="gps-cards"></div>
 </section>
 
 <!-- ÚLTIMAS COMPRAS -->
 <section class="view" id="v-compras" hidden>
-  <div class="section-head"><h1>Últimas compras</h1><button class="btn primary" id="btn-nova-compra">+ Registrar compra</button></div>
+  <div class="section-head"><h1>Últimas compras</h1><div class="row"><button class="btn" id="btn-novo-orc">+ Novo orçamento</button><button class="btn primary" id="btn-nova-compra">+ Registrar compra</button></div></div>
+  <div class="subtabs" id="compras-sub">
+    <button class="stab" data-sub="finalizadas">✅ Compras finalizadas <span class="cnt" id="cnt-fin">0</span></button>
+    <button class="stab" data-sub="rota">🚚 Compras em rota <span class="cnt" id="cnt-rota">0</span></button>
+    <button class="stab" data-sub="orcamentos">📋 Orçamentos a fazer <span class="cnt" id="cnt-orc">0</span></button>
+  </div>
+  <p class="hint" id="compras-dica" style="margin:-4px 0 10px"></p>
   <label class="search" for="compras-busca">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.8-4.8"/></svg>
     <input id="compras-busca" type="search" placeholder="Pesquisar item, fornecedor ou nº da nota…" autocomplete="off" aria-label="Pesquisar compras">
@@ -483,7 +551,7 @@ li.tar.done b{text-decoration:line-through;color:var(--muted)}
     </div>
     <div class="panel cfg">
       <h2>Exportar para Excel</h2>
-      <p class="hint">Gera uma planilha com todos os produtos (quantidade, unidade, localização e status) e, em abas separadas, entradas, saídas, ajustes, histórico, comentários, GPS de itens (com o histórico completo), compras, tarefas, notas e um resumo.</p>
+      <p class="hint">Gera uma planilha com todos os produtos (quantidade, unidade, localização e status) e, em abas separadas, entradas, saídas, ajustes, histórico, comentários, GPS de itens (com o histórico completo), compras (finalizadas e em rota), orçamentos, tarefas, notas e um resumo.</p>
       <div class="cfg-actions">
         <button class="btn primary" id="btn-xlsx">Exportar Estoque Completo (.xlsx)</button>
       </div>
@@ -502,6 +570,15 @@ li.tar.done b{text-decoration:line-through;color:var(--muted)}
     <div class="modal-head"><h2 id="modal-title"></h2><button class="x" data-close aria-label="Fechar">×</button></div>
     <div class="modal-body" id="modal-body"></div>
   </div>
+</div>
+<div class="senha-ov" id="senha-ov" hidden role="dialog" aria-modal="true" aria-labelledby="senha-tit">
+  <form class="senha-card" id="f-senha" novalidate autocomplete="off">
+    <h2 id="senha-tit">🔒 Confirme a senha</h2>
+    <p class="hint" style="margin:0 0 12px">Qualquer pessoa pode ver todas as abas. Para <b>alterar</b> alguma coisa, digite a senha. Depois de confirmada, a edição fica liberada neste computador por 10 minutos sem uso.</p>
+    <input id="senha-inp" type="password" inputmode="numeric" maxlength="20" aria-label="Senha" autocomplete="off">
+    <div class="err-msg" id="senha-err" style="min-height:18px;margin-top:6px"></div>
+    <div class="actions" style="margin-top:6px"><button type="button" class="btn" id="senha-cancel">Cancelar</button><button class="btn primary" type="submit">Confirmar</button></div>
+  </form>
 </div>
 <div class="toasts" id="toasts"></div>
 
@@ -599,11 +676,68 @@ function msgErroBanco(e){
   return 'Não foi possível salvar no banco online. Nada foi alterado.';
 }
 
+/* ================= Senha para alterar =================
+   Todos podem ver todas as abas. Qualquer alteração pede a senha; depois de confirmada,
+   a edição fica liberada neste computador por 10 minutos sem uso (ou até clicar no cadeado).
+   A senha não fica escrita no código: guardamos só um resumo (hash) dela. */
+const SENHA_HASH = '2aaa4z02ilr';
+const LIBERA_MIN = 10;
+function hashSenha(str, seed = 0){
+  str = 'crm-estoque|' + str;
+  let h1 = 0xdeadbeef ^ seed, h2 = 0x41c6ce57 ^ seed;
+  for (let i = 0, ch; i < str.length; i++) { ch = str.charCodeAt(i); h1 = Math.imul(h1 ^ ch, 2654435761); h2 = Math.imul(h2 ^ ch, 1597334677); }
+  h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507); h1 ^= Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+  h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507); h2 ^= Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+  return (4294967296 * (2097151 & h2) + (h1 >>> 0)).toString(36);
+}
+let liberadoAte = 0, senhaPend = null;
+const edicaoLiberada = () => Date.now() < liberadoAte;
+function atualizaCadeado(){
+  const on = edicaoLiberada(), b = $('#lock');
+  b.classList.toggle('on', on);
+  b.textContent = on ? '🔓 Edição liberada — bloquear' : '🔒 Somente leitura';
+  $$('[data-nota-txt]').forEach(t => { t.readOnly = !on; });
+}
+function renovaLiberacao(){ liberadoAte = Date.now() + LIBERA_MIN * 60000; atualizaCadeado(); }
+function bloquearEdicao(){ liberadoAte = 0; atualizaCadeado(); }
+/* Abre a janela da senha. Resolve true se a senha foi confirmada. */
+function pedirSenha(){
+  if (edicaoLiberada()) return Promise.resolve(true);
+  if (senhaPend) return senhaPend;
+  senhaPend = new Promise(resolve => {
+    const ov = $('#senha-ov'), inp = $('#senha-inp'), card = $('#f-senha');
+    const voltaFoco = document.activeElement;
+    inp.value = ''; $('#senha-err').textContent = ''; card.classList.remove('erro');
+    ov.hidden = false; setTimeout(() => inp.focus(), 30);
+    const fim = ok => {
+      ov.hidden = true; card.onsubmit = null; $('#senha-cancel').onclick = null; ov.onkeydown = null; senhaPend = null;
+      if (ok) renovaLiberacao();
+      try { if (voltaFoco && voltaFoco.isConnected && voltaFoco.focus) voltaFoco.focus(); } catch (e) {}
+      resolve(ok);
+    };
+    card.onsubmit = e => {
+      e.preventDefault();
+      if (hashSenha(inp.value.trim()) === SENHA_HASH) { fim(true); toast(`Edição liberada por ${LIBERA_MIN} minutos.`); return; }
+      card.classList.remove('erro'); void card.offsetWidth; card.classList.add('erro');
+      $('#senha-err').textContent = 'Senha incorreta.'; inp.select();
+    };
+    $('#senha-cancel').onclick = () => fim(false);
+    ov.onkeydown = e => { if (e.key === 'Escape') { e.stopPropagation(); fim(false); } };
+  });
+  return senhaPend;
+}
+$('#lock').onclick = async () => { if (edicaoLiberada()) { bloquearEdicao(); toast('Edição bloqueada. Para alterar, será pedida a senha.'); } else await pedirSenha(); };
+setInterval(() => { if ($('#lock').classList.contains('on') !== edicaoLiberada()) atualizaCadeado(); }, 15000);
+
 /* Toda alteração passa por aqui: aplica numa cópia, grava no Firestore numa transação
    (tudo ou nada) e só então atualiza a tela. Se outro computador alterou os mesmos
-   registros nesse meio-tempo, a gravação é recusada — sem saldo incorreto. */
-async function commit(fn){
+   registros nesse meio-tempo, a gravação é recusada — sem saldo incorreto.
+   opt.sistema = true: tarefa automática do sistema (não pede senha). */
+async function commit(fn, opt = {}){
   if (!pronto) { toast('Aguarde a conexão com o banco de dados.', 'err'); return false; }
+  if (!opt.sistema && !edicaoLiberada()) {
+    if (!(await pedirSenha())) { toast('Nada foi alterado: é preciso confirmar a senha para alterar.', 'err'); return false; }
+  }
   if (salvando) { toast('Aguarde: salvando a operação anterior…', 'err'); return false; }
   const draft = JSON.parse(JSON.stringify(db));
   try { fn(draft); } catch (e) { toast(e.message || 'Operação não concluída.', 'err'); return false; }
@@ -622,7 +756,7 @@ async function commit(fn){
       });
       ops.forEach((o, i) => o.depois ? tx.set(refs[i], o.depois) : tx.delete(refs[i]));
     });
-    aplicaOps(ops); renderAll(); return true;
+    aplicaOps(ops); if (!opt.sistema) renovaLiberacao(); renderAll(); return true;
   } catch (e) {
     if (!(e && (e.message === 'CONFLITO' || e.code === 'unavailable'))) console.error(e);
     toast(msgErroBanco(e), 'err'); return false;
@@ -718,7 +852,7 @@ async function migrarLembretes(){
           hora: l.hora || '', concluida: !!l.concluido, concluidaEm: l.concluidoEm || null, criadoEm: l.criadoEm || new Date().toISOString(), origem: 'lembrete'});
         d.lembretes = d.lembretes.filter(x => x.id !== id);
       });
-    });
+    }, {sistema: true});
     if (ok) { migrados += lote.length; if (!db.lembretes.length) { toast(`${migrados} lembrete(s) transferido(s) para a aba Tarefas.`); migrados = 0; } }
   } finally { migrando = false; }
   if (db.lembretes.length) setTimeout(migrarLembretes, 300);
@@ -746,6 +880,7 @@ async function aoConectar(){
     if (!nLocal) return;
     if (nOnline) { localStorage.setItem(KEY + '_tratado', '1'); return; }
     if (confirm(`Encontramos dados salvos neste navegador (${local.produtos.length} produto(s), ${local.movs.length} movimentação(ões), ${local.lembretes.length} lembrete(s)). Enviar para o banco online para que apareçam em todos os computadores?`)) {
+      if (!(await pedirSenha())) { toast('Envio cancelado: é preciso confirmar a senha.', 'err'); return; }
       await substituirTudo(local, CORE); toast('Dados deste navegador enviados ao banco online.');
     }
     localStorage.setItem(KEY + '_tratado', '1');
@@ -866,7 +1001,11 @@ function showErrs(errs){ errs.forEach(([el, m]) => setErr(el, m)); if (errs[0] &
 document.addEventListener('click', e => {
   const t = e.target;
   if (t.closest('[data-close]') || t === $('#modal')) { closeModal(); return; }
-  const tab = t.closest('[data-tab]'); if (tab) { goTab(tab.dataset.tab); return; }
+  const tab = t.closest('[data-tab]'); if (tab) { if (tab.dataset.csub) setSubCompras(tab.dataset.csub); goTab(tab.dataset.tab); return; }
+  const gev = t.closest('[data-gev]'); if (gev) { abrirGpsEvento(gev.dataset.gev); return; }
+  const rec = t.closest('[data-receber]'); if (rec) { abrirCompra(rec.dataset.receber, {receber: true}); return; }
+  const oc = t.closest('[data-orc-compra]'); if (oc) { orcVirouCompra(oc.dataset.orcCompra); return; }
+  const orc = t.closest('[data-orc]'); if (orc) { abrirOrcamento(orc.dataset.orc); return; }
   const ga = t.closest('[data-gacao]'); if (ga) { gpsAcao(ga.dataset.id, ga.dataset.gacao); return; }
   const gme = t.closest('[data-gmov-edit]'); if (gme) { abrirGpsMovEdit(gme.dataset.gmovEdit); return; }
   const ge = t.closest('[data-gedit]'); if (ge) { abrirGpsEditar(ge.dataset.gedit); return; }
@@ -885,8 +1024,9 @@ document.addEventListener('input', e => {
   if (u && !u.value && norm(t.value).includes('cobre')) { u.value = 'panqueca'; u.dispatchEvent(new Event('change', {bubbles: true})); toast(`Cobre: unidade definida como panqueca (${PANQ_M} m cada). Troque se não for tubo em panqueca.`); }
 });
 document.addEventListener('keydown', e => {
+  if (!$('#senha-ov').hidden) return; // a janela da senha trata as próprias teclas
   if (e.key === 'Escape' && !$('#modal').hidden) closeModal();
-  if (e.key === 'Enter' && e.target.matches('[data-mov],[data-lote],[data-prod],[data-tar],[data-compra],[data-gps]') && e.target.tagName !== 'BUTTON') e.target.click();
+  if (e.key === 'Enter' && e.target.matches('[data-mov],[data-lote],[data-prod],[data-tar],[data-compra],[data-gps],[data-orc],[data-gev]') && e.target.tagName !== 'BUTTON') e.target.click();
 });
 /* ---------- Campos de pessoa: nome completo digitado (sugere nomes já usados) ---------- */
 function pessoaHTML(p, label){
@@ -964,9 +1104,9 @@ function fillSelects(){
   };
   $('#pessoas').innerHTML = lista([
     ...db.movs.flatMap(m => [m.responsavel, m.quemRetirou]),
-    ...db.gps.map(g => g.responsavel), ...db.gpsMovs.flatMap(m => [m.de, m.para])
-  ], ['Estoque', 'Cadastro do produto', 'Edição do cadastro', 'Últimas compras']);
-  $('#obras').innerHTML = lista([...db.gps.map(g => g.obra), ...db.gpsMovs.map(m => m.obra), ...db.movs.map(m => m.lote && m.lote.destino)]);
+    ...db.gps.map(g => g.responsavel), ...db.gpsMovs.flatMap(m => [m.de, m.para]), ...db.compras.map(c => c.solicitante)
+  ], ['Estoque', 'Cadastro do produto', 'Edição do cadastro', 'Últimas compras', 'Sobra de panqueca']);
+  $('#obras').innerHTML = lista([...db.gps.map(g => g.obra), ...db.gpsMovs.map(m => m.obra), ...db.movs.map(m => m.lote && m.lote.destino), ...db.compras.map(c => c.obra)]);
   $('#prod-nomes').innerHTML = [...db.produtos].sort(porNome).map(p => `<option value="${esc(p.nome)}">${esc(fmtSaldo(p))}</option>`).join('');
   $('#itens-nomes').innerHTML = lista([...db.produtos.map(p => p.nome), ...db.gps.map(g => g.nome), ...db.compras.flatMap(c => (c.itens || []).map(i => i.nome))]);
   atualizaSaldoSaida();
@@ -983,13 +1123,17 @@ function renderDashboard(){
   const tar7 = tarAbertas.filter(t => t.prazo && t.prazo > hoje && t.prazo <= lim7).sort(porKey);
   const naRua = db.gps.filter(g => g.local === 'rua').length;
   const parados = db.gps.filter(g => gpsParado(g) != null).sort((a, b) => gpsParado(b) - gpsParado(a));
+  const orcAb = orcamentos().filter(orcAberto), orcAtras = orcAb.filter(o => prazoOrc(o).atras);
+  const emRota = comprasReais().filter(c => statusCompra(c) === 'rota');
   $('#kpis').innerHTML = `
     <button class="kpi" data-tab="tarefas"><div class="n">${tarAbertas.length}</div><div class="l">Tarefas em aberto</div></button>
     <button class="kpi ${tarAtras.length ? 'alert' : ''}" data-tab="tarefas"><div class="n">${tarAtras.length}</div><div class="l">Tarefas atrasadas</div></button>
     <button class="kpi" data-tab="tarefas"><div class="n">${tarHoje.length - tarAtras.length}</div><div class="l">Tarefas para hoje</div></button>
     <button class="kpi" data-tab="estoque"><div class="n">${db.produtos.length}</div><div class="l">Produtos cadastrados</div></button>
     <button class="kpi ${baixos.length ? 'warn' : ''}" data-tab="estoque"><div class="n">${baixos.length}</div><div class="l">Estoque baixo / zerado</div></button>
-    <button class="kpi ${parados.length ? 'alert' : ''}" data-tab="gps"><div class="n">${naRua}</div><div class="l">Itens na rua (GPS)${parados.length ? ` · ${parados.length} parado(s)` : ''}</div></button>`;
+    <button class="kpi ${parados.length ? 'alert' : ''}" data-tab="gps"><div class="n">${naRua}</div><div class="l">Itens na rua (GPS)${parados.length ? ` · ${parados.length} parado(s)` : ''}</div></button>
+    <button class="kpi ${orcAtras.length ? 'alert' : orcAb.length ? 'warn' : ''}" data-tab="compras" data-csub="orcamentos"><div class="n">${orcAb.length}</div><div class="l">Orçamentos a fazer${orcAtras.length ? ` · ${orcAtras.length} atrasado(s)` : ''}</div></button>
+    <button class="kpi ${emRota.length ? 'warn' : ''}" data-tab="compras" data-csub="rota"><div class="n">${emRota.length}</div><div class="l">Compras em rota</div></button>`;
   const vazio = t => `<li class="empty">${t}</li>`;
   $('#dash-tar-hoje').innerHTML = tarHoje.length ? tarHoje.map(tarItem).join('') : vazio('Nada para hoje e nenhuma tarefa atrasada.');
   $('#dash-tarefas').innerHTML = tar7.length ? tar7.map(tarItem).join('') : vazio('Nenhuma tarefa com prazo nos próximos 7 dias.');
@@ -1428,9 +1572,11 @@ function loteRowHTML(){
     <div class="lt-det" hidden></div>
   </div>`;
 }
-function abrirLote(tipo){
+/* pre (opcional) = dados já preenchidos no formulário simples: {data, pessoa, obs, aut, itens: [{nome, qtd, modo, metros, mu, su, novo}], onOk} */
+function abrirLote(tipo, pre = null){
   const s = tipo === 'saida';
   openModal(s ? 'Saída em lote — vários itens de uma vez' : 'Entrada em lote — vários itens de uma vez', `<form id="f-lote" novalidate>
+    ${pre ? `<div class="info-box">O que você já tinha preenchido veio para cá. Adicione os outros itens: com mais de um item, a ${s ? 'saída' : 'entrada'} fica registrada como um card de ${s ? 'saída' : 'entrada'} em lote.</div>` : ''}
     <div class="grid3">
       <div class="field"><label for="lt-data">${s ? 'Data da retirada' : 'Data da entrada'} <b class="req">*</b></label><input id="lt-data" type="date" value="${hojeISO()}"></div>
       ${s ? pessoaHTML('lt-ret', 'Quem retirou') : pessoaHTML('lt-resp', 'Responsável pelo lançamento')}
@@ -1572,6 +1718,27 @@ function abrirLote(tipo){
     }));
   }
   recalc();
+  if (pre) {
+    if (dataValida(pre.data)) $('#lt-data').value = pre.data;
+    if (pre.pessoa) $(s ? '#lt-ret-nome' : '#lt-resp-nome').value = pre.pessoa;
+    if (pre.obs) $('#lt-obs').value = pre.obs;
+    if (s && pre.aut) { const ra = $(`input[name="lt-aut"][value="${pre.aut}"]`); if (ra) { ra.checked = true; ra.dispatchEvent(new Event('change')); } }
+    let r = $$('.lt-row', box)[0];
+    (pre.itens || []).forEach(it => {
+      if (!it.nome) return;
+      $('.lt-p', r).value = it.nome; recalc();
+      if (it.modo === 'pedaco' && $('.lt-modo', r)) { $('.lt-modo', r).value = 'pedaco'; $('.lt-m', r).value = it.metros || ''; $('.lt-mu', r).value = it.mu === 'cm' ? 'cm' : 'm'; }
+      else if (it.qtd) $('.lt-q', r).value = it.qtd;
+      if (it.su && $('.lt-su', r)) $('.lt-su', r).value = it.su;
+      if (it.novo && $('.ln-unid', r)) {
+        if (it.novo.unidade) $('.ln-unid', r).value = it.novo.unidade;
+        ['andar', 'estante', 'fileira'].forEach(k => { if (it.novo[k]) $('.ln-' + k, r).value = it.novo[k]; });
+      }
+      recalc();
+      r = $$('.lt-row', box).pop();
+    });
+    setTimeout(() => { const u = $$('.lt-p', box).pop(); if (u) u.focus(); }, 60);
+  }
 
   form.onsubmit = async e => {
     e.preventDefault(); clearErr(form); $$('.bad', box).forEach(x => x.classList.remove('bad'));
@@ -1653,6 +1820,7 @@ function abrirLote(tipo){
       if (ok) {
         try { if (s) localStorage.setItem('crm_ultimo_retirou', pes.nome); } catch (er) {}
         toast(`${s ? 'Saída' : 'Entrada'} em lote registrada: ${itens.length} item(ns). Estoque atualizado.`);
+        if (pre && pre.onOk) pre.onOk();
         abrirLoteDet(loteId, tipo);
       }
     };
@@ -1660,6 +1828,25 @@ function abrirLote(tipo){
 }
 $('#btn-lote-sai').onclick = () => abrirLote('saida');
 $('#btn-lote-ent').onclick = () => abrirLote('entrada');
+/* "+ Adicionar outro item" nos formulários simples: leva o que já foi preenchido para o lote */
+$('#ent-mais').onclick = () => {
+  const v = $('#ent-prod').value, it = {qtd: $('#ent-qtd').value.trim()};
+  if (v === '__novo') {
+    const g = k => (($('#np-' + k) || {}).value || '').trim();
+    it.nome = g('nome').replace(/\s+/g, ' '); it.novo = {unidade: g('unid'), andar: g('andar'), estante: g('estante'), fileira: g('fileira')};
+  } else if (v) { const p = prodById(v); if (p) it.nome = p.nome; }
+  abrirLote('entrada', {data: $('#ent-data').value, pessoa: $('#ent-nome').value.trim(), obs: $('#ent-obs').value.trim(), itens: it.nome ? [it] : [], onOk: () => $('#f-ent').reset()});
+};
+$('#sai-mais').onclick = () => {
+  const p = prodById($('#sai-prod').value), it = {};
+  if (p) {
+    it.nome = p.nome;
+    if (ehPanq(p) && saiModo() === 'pedaco') { it.modo = 'pedaco'; it.metros = ($('#sai-m') || {}).value || ''; it.mu = ($('#sai-mu') || {}).value || 'm'; }
+    else it.qtd = $('#sai-qtd').value.trim();
+    if (ehSobra(p) && $('#sai-su')) it.su = $('#sai-su').value;
+  }
+  abrirLote('saida', {data: $('#sai-data').value, pessoa: $('#sai-nome').value.trim(), obs: $('#sai-obs').value.trim(), aut: autSaida(), itens: it.nome ? [it] : [], onOk: () => $('#f-sai').reset()});
+};
 
 function abrirLoteDet(id, tipo){
   const ms = movsDoLote(id, tipo); if (!ms.length) return;
@@ -1746,6 +1933,7 @@ function gpsMovLi(m, editavel = false){
     <div class="tl-meta">${GPS_TIPO[m.tipo] || ''} · ${fmtData(m.data)} (reg. ${fmtDataHora(m.registradoEm)})</div>
     ${extras.length ? `<div class="small">${extras.join(' · ')}</div>` : ''}
     ${m.comentario ? `<div class="tl-cmt small">💬 ${esc(m.comentario)}</div>` : ''}
+    ${m.grupoId ? `<div class="tl-meta"><span class="ev-link" data-gev="${m.grupoId}" tabindex="0">📦 movimentado junto com mais ${Math.max(0, ((m.grupo && m.grupo.nItens) || 1) - 1)} item(ns) — ver o grupo</span></div>` : ''}
     ${m.editadoEm ? `<div class="tl-meta">✏️ corrigido em ${fmtDataHora(m.editadoEm)}</div>` : ''}
     ${editavel ? `<button type="button" class="btn sm" style="margin-top:4px" data-gmov-edit="${m.id}">✏️ Corrigir</button>` : ''}</li>`;
 }
@@ -1782,7 +1970,7 @@ function gpsCard(g){
     <div class="row" style="justify-content:space-between"><span class="muted small">${g.totalMovs || 0} movimentação(ões) no total</span><span class="row"><button class="btn sm" data-gedit="${g.id}">✏️ Editar</button><button class="btn sm" data-gps="${g.id}">Histórico completo</button></span></div>
   </article>`;
 }
-let filtroGps = 'todos';
+let filtroGps = 'todos', gpsEvTodos = false;
 $('#gps-filtros').addEventListener('click', e => { const c = e.target.closest('.chip'); if (!c) return; filtroGps = c.dataset.f; $$('#gps-filtros .chip').forEach(x => x.classList.toggle('on', x === c)); renderGps(); });
 $('#gps-busca').addEventListener('input', () => renderGps());
 function renderGps(){
@@ -1794,6 +1982,12 @@ function renderGps(){
   if (q) gs = gs.filter(g => [g.nome, g.identificacao, g.numeroBujao, g.responsavel, g.obra].some(x => norm(x).includes(q)));
   const rua = db.gps.filter(g => g.local === 'rua').length;
   $('#gps-resumo').textContent = `${db.gps.length} item(ns) cadastrado(s) · ${rua} na rua · ${db.gps.length - rua} no estoque`;
+  /* Cards de evento: movimentações feitas com vários itens de uma vez */
+  const evs = filtroGps === 'todos' ? gpsEventos().filter(ev => !q || ev.ms.some(m => [nomeGpsMov(m), m.de, m.para, m.obra].some(x => norm(x).includes(q)))) : [];
+  const EV_MAX = 6;
+  $('#gps-eventos').innerHTML = evs.length ? `<div class="section-head" style="margin:4px 0 8px"><h2>📦 Movimentações em grupo</h2>${evs.length > EV_MAX ? `<button class="btn sm" id="gps-ev-todos">${gpsEvTodos ? `Mostrar só os ${EV_MAX} mais recentes` : `Ver todos (${evs.length})`}</button>` : ''}</div>
+    <div class="cards" style="margin-bottom:18px">${(gpsEvTodos ? evs : evs.slice(0, EV_MAX)).map(gpsEventoCard).join('')}</div><h2>Itens</h2>` : '';
+  const bEv = $('#gps-ev-todos'); if (bEv) bEv.onclick = () => { gpsEvTodos = !gpsEvTodos; renderGps(); };
   $('#gps-cards').innerHTML = gs.length ? gs.map(gpsCard).join('')
     : `<div class="panel" style="grid-column:1/-1;text-align:center"><p class="empty" style="margin:0 0 10px">${db.gps.length ? 'Nenhum item encontrado neste filtro.' : 'Nenhum item cadastrado no GPS ainda.'}</p><button class="btn primary" id="btn-novo-gps-2">+ Cadastrar item</button></div>`;
   const b = $('#btn-novo-gps-2'); if (b) b.onclick = () => abrirGpsCadastro(null, $('#gps-busca').value.trim());
@@ -1804,94 +1998,137 @@ $('#btn-novo-gps').onclick = () => abrirGpsCadastro(null);
 const campoTxt = (id, label, req, attrs = '') => `<div class="field"><label for="${id}">${label}${req ? ' <b class="req">*</b>' : ''}</label><input id="${id}" autocomplete="off" ${attrs}></div>`;
 const NIVEL_PH = 'placeholder="ex.: 80% ou 25 kg"';
 
+/* Cadastro de um ou vários itens de uma vez. Com mais de um item, o cadastro vira um card de evento (grupo). */
+function gcRowHTML(nome = ''){
+  return `<div class="gl-row">
+    <span class="it-num"></span>
+    <input class="gl-nome" list="itens-nomes" autocomplete="off" placeholder="Nome do item *" value="${esc(nome)}" aria-label="Nome do item">
+    <label class="check"><input type="checkbox" class="gl-n2"> Nitrogênio</label>
+    <input class="gl-id" autocomplete="off" placeholder="Identificação (opcional)" aria-label="Identificação ou número do bujão">
+    <input class="gl-nivel off" autocomplete="off" placeholder="Nível *" aria-label="Nível do bujão">
+    <button type="button" class="it-del" title="Remover item" aria-label="Remover item">×</button>
+  </div>`;
+}
 function abrirGpsCadastro(id, prefill){
   if (id) return abrirGpsEditar(id);
   if (!abaDisponivel('gps', 'gpsMovs')) return;
-  const g = id ? gpsById(id) : {nome: prefill || ''};
-  const novo = !id;
-  openModal(novo ? 'Cadastrar item no GPS' : 'Editar cadastro do item', `<form id="f-gps" novalidate>
-    <div class="field"><label for="gc-nome">Nome do item <b class="req">*</b></label><input id="gc-nome" list="itens-nomes" autocomplete="off" value="${esc(g.nome)}" placeholder="ex.: Furadeira de impacto, Nitrogênio…"></div>
-    <label class="check" style="margin:-4px 0 12px;font-size:14px"><input type="checkbox" id="gc-n2" ${g.nitrogenio || (novo && ehNitroNome(g.nome)) ? 'checked' : ''}> Este item é um bujão de <b>nitrogênio</b></label>
-    <div id="gc-n2-box" class="box-n2"><b>Bujão de nitrogênio</b>
-      <div class="field"><label for="gc-num">Número do bujão <b class="req">*</b></label><input id="gc-num" autocomplete="off" value="${esc(g.numeroBujao)}" placeholder="ex.: 12"></div>
-    </div>
-    <div id="gc-ident-box">${campoTxt('gc-ident', 'Identificação / patrimônio (opcional)', false, `value="${esc(g.identificacao)}" placeholder="ex.: PAT-0045 ou nº de série"`)}</div>
-    ${novo ? `
-    <div class="field" id="gc-local-f">
-      <div class="auth-title" style="margin:4px 0 0">Onde está este item agora? <b class="req">*</b></div>
+  openModal('Cadastrar item(s) no GPS', `<form id="f-gps" novalidate>
+    <p class="hint" style="margin:0 0 8px">Dá para cadastrar vários itens de uma vez (ex.: uma bolsa de ferramentas). Nos bujões marque <b>Nitrogênio</b> e informe o número de cada um. Com mais de um item, o cadastro também aparece como um card de evento.</p>
+    <div class="gl-row it-head"><span>#</span><span>Item *</span><span></span><span>Identificação / nº do bujão</span><span>Nível (bujão)</span><span></span></div>
+    <div id="gl-itens">${gcRowHTML(prefill || '')}</div>
+    <div class="itens-bar"><button type="button" class="btn sm" id="gl-add">+ Adicionar outro item</button><span class="muted small" id="gl-cont"></span><i id="gl-err-slot" hidden></i></div>
+    <div class="field" id="gc-local-f" style="margin-top:12px">
+      <div class="auth-title" style="margin:4px 0 0">Onde está agora? <b class="req">*</b></div>
       <div class="opts-row" id="gc-local" style="margin:0">
         <label class="opt"><input type="radio" name="gc-local" value="estoque"> 📦 No estoque</label>
         <label class="opt"><input type="radio" name="gc-local" value="rua"> 📍 Na rua</label>
       </div>
     </div>
     <div id="gc-rua" hidden>
-      <div class="info-box">📍 Início do GPS: informe com quem o item está e em qual obra.</div>
+      <div class="info-box">📍 Início do GPS: informe com quem está e em qual obra.</div>
       <div class="grid2">
         ${campoTxt('gc-resp', 'Responsável pelo material', true, 'list="pessoas" placeholder="Nome de quem está com o item"')}
         ${campoTxt('gc-obra', 'Em qual obra está?', true, 'list="obras" placeholder="ex.: Obra Rua das Flores"')}
       </div>
     </div>
-    <div id="gc-nivel-box" hidden>${campoTxt('gc-nivel', '<span id="gc-nivel-lbl">Nível do bujão</span>', true, NIVEL_PH)}</div>
     <div class="grid2"><div class="field"><label for="gc-data" id="gc-data-lbl">Data</label><input id="gc-data" type="date" value="${hojeISO()}"></div></div>
-    <div class="field"><label for="gc-cmt">Comentário (opcional)</label><textarea id="gc-cmt" rows="2"></textarea></div>` : `<p class="hint">Para mudar onde o item está ou com quem, use os botões do card (saída, passagem de responsabilidade ou volta ao estoque).</p>`}
-    <div class="actions"><button type="button" class="btn" data-close>Cancelar</button><button class="btn primary" type="submit">${novo ? 'Cadastrar item' : 'Salvar alterações'}</button></div>
+    <div class="field"><label for="gc-cmt">Comentário (opcional)</label><textarea id="gc-cmt" rows="2"></textarea></div>
+    <div class="actions"><button type="button" class="btn" data-close>Cancelar</button><button class="btn primary" type="submit" id="gc-btn">Cadastrar item</button></div>
   </form>`);
+  $('.modal-card').classList.add('wide');
+  const box = $('#gl-itens');
+  const getLoc = () => ($('input[name="gc-local"]:checked') || {}).value;
+  const vazia = r => !$('.gl-nome', r).value.trim() && !$('.gl-id', r).value.trim();
   const atualiza = () => {
-    const n2 = $('#gc-n2').checked; const loc = novo ? ($('input[name="gc-local"]:checked') || {}).value : null;
-    $('#gc-n2-box').hidden = !n2; $('#gc-ident-box').hidden = n2;
-    if (novo) {
-      $('#gc-rua').hidden = loc !== 'rua';
-      $('#gc-nivel-box').hidden = !(n2 && loc);
-      $('#gc-nivel-lbl').textContent = loc === 'rua' ? 'Nível de saída do bujão' : 'Nível atual do bujão';
-      $('#gc-data-lbl').textContent = loc === 'rua' ? 'Data em que saiu do estoque' : 'Data';
-    }
+    const loc = getLoc(), rs = $$('.gl-row', box);
+    rs.forEach((r, i) => {
+      $('.it-num', r).textContent = i + 1;
+      const n2 = $('.gl-n2', r).checked;
+      $('.gl-id', r).placeholder = n2 ? 'Nº do bujão *' : 'Identificação (opcional)';
+      const nv = $('.gl-nivel', r); nv.classList.toggle('off', !(n2 && loc)); nv.placeholder = loc === 'rua' ? 'Nível de saída *' : 'Nível atual *';
+    });
+    $('#gc-rua').hidden = loc !== 'rua';
+    $('#gc-data-lbl').textContent = loc === 'rua' ? 'Data em que saiu do estoque' : 'Data';
+    const n = rs.filter(r => !vazia(r)).length;
+    $('#gl-cont').textContent = n > 1 ? `${n} itens — vai virar um card de evento` : '';
+    $('#gc-btn').textContent = n > 1 ? `Cadastrar ${n} itens` : 'Cadastrar item';
   };
-  let marcouManual = false;
-  $('#gc-n2').addEventListener('change', () => { marcouManual = true; atualiza(); });
-  $('#gc-nome').addEventListener('input', () => { if (novo && !marcouManual) { $('#gc-n2').checked = ehNitroNome($('#gc-nome').value); atualiza(); } });
-  if (novo) $$('input[name="gc-local"]').forEach(r => r.addEventListener('change', () => { clearErr($('#gc-local-f').parentElement); $('#gc-local-f').classList.remove('invalid'); atualiza(); }));
-  atualiza(); $('#gc-nome').focus();
+  const novaLinha = () => { box.insertAdjacentHTML('beforeend', gcRowHTML()); atualiza(); return $$('.gl-row', box).pop(); };
+  box.addEventListener('input', e => {
+    e.target.classList.remove('bad');
+    if (e.target.classList.contains('gl-nome')) { const cb = $('.gl-n2', e.target.closest('.gl-row')); if (!cb.dataset.manual) cb.checked = ehNitroNome(e.target.value); }
+    atualiza();
+  });
+  box.addEventListener('change', e => { if (e.target.classList.contains('gl-n2')) { e.target.dataset.manual = '1'; atualiza(); } });
+  box.addEventListener('click', e => {
+    const b = e.target.closest('.it-del'); if (!b) return;
+    const r = b.closest('.gl-row');
+    if ($$('.gl-row', box).length > 1) r.remove();
+    else $$('input', r).forEach(i => { if (i.type === 'checkbox') { i.checked = false; delete i.dataset.manual; } else i.value = ''; });
+    atualiza();
+  });
+  box.addEventListener('keydown', e => {
+    if (e.key !== 'Enter' || e.target.tagName === 'BUTTON') return;
+    e.preventDefault(); const r = e.target.closest('.gl-row'); const prox = r.nextElementSibling || novaLinha(); $('.gl-nome', prox).focus();
+  });
+  $('#gl-add').onclick = () => $('.gl-nome', novaLinha()).focus();
+  $$('input[name="gc-local"]').forEach(r => r.addEventListener('change', () => { $('#gc-local-f').classList.remove('invalid'); $$('.err-msg', $('#gc-local-f')).forEach(m => m.remove()); atualiza(); }));
+  const r0 = $('.gl-row', box); $('.gl-n2', r0).checked = ehNitroNome(prefill || '');
+  atualiza(); $('.gl-nome', r0).focus();
 
   $('#f-gps').onsubmit = async e => {
-    e.preventDefault(); clearErr(e.target); const errs = [];
-    const nome = $('#gc-nome').value.trim().replace(/\s+/g, ' ');
-    const n2 = $('#gc-n2').checked;
-    const num = n2 ? $('#gc-num').value.trim() : '';
-    const ident = n2 ? '' : $('#gc-ident').value.trim();
-    if (!nome) errs.push([$('#gc-nome'), 'Informe o nome do item.']);
-    if (n2 && !num) errs.push([$('#gc-num'), 'Informe o número do bujão.']);
-    if (n2 && num && db.gps.some(x => x.id !== id && x.nitrogenio && norm(x.numeroBujao) === norm(num))) errs.push([$('#gc-num'), 'Já existe um bujão cadastrado com este número.']);
-    if (!n2 && nome && db.gps.some(x => x.id !== id && !x.nitrogenio && norm(x.nome) === norm(nome) && norm(x.identificacao) === norm(ident)))
-      errs.push([ident ? $('#gc-ident') : $('#gc-nome'), ident ? 'Já existe um item com este nome e esta identificação.' : 'Já existe um item com este nome. Preencha a identificação para diferenciar.']);
-    let loc, resp = '', obra = '', nivel = '', data = '', cmt = '';
-    if (novo) {
-      loc = ($('input[name="gc-local"]:checked') || {}).value;
-      if (!loc) errs.push([$('input[name="gc-local"]'), 'Informe se o item está no estoque ou na rua.']);
-      if (loc === 'rua') {
-        resp = $('#gc-resp').value.trim().replace(/\s+/g, ' '); obra = $('#gc-obra').value.trim().replace(/\s+/g, ' ');
-        if (!resp) errs.push([$('#gc-resp'), 'Informe o responsável pelo material.']);
-        if (!obra) errs.push([$('#gc-obra'), 'Informe em qual obra o item está.']);
+    e.preventDefault(); clearErr(e.target); $$('.bad', box).forEach(x => x.classList.remove('bad'));
+    const errs = [], loc = getLoc(), itens = [], msgs = [];
+    let itemErr = null;
+    const nums = new Set(), chaves = new Set();
+    $$('.gl-row', box).forEach(r => {
+      if (vazia(r)) return;
+      const nome = $('.gl-nome', r).value.trim().replace(/\s+/g, ' '), n2 = $('.gl-n2', r).checked, idv = $('.gl-id', r).value.trim(), nivel = $('.gl-nivel', r).value.trim();
+      const ruim = (cls, m) => { $(cls, r).classList.add('bad'); itemErr = itemErr || $(cls, r); if (!msgs.includes(m)) msgs.push(m); };
+      if (!nome) ruim('.gl-nome', 'Informe o nome de cada item.');
+      if (n2) {
+        if (!idv) ruim('.gl-id', 'Informe o número de cada bujão de nitrogênio.');
+        else if (db.gps.some(x => x.nitrogenio && norm(x.numeroBujao) === norm(idv)) || nums.has(norm(idv))) ruim('.gl-id', `Já existe um bujão com o número ${idv}.`);
+        nums.add(norm(idv));
+        if (loc && !nivel) ruim('.gl-nivel', 'Informe o nível de cada bujão.');
+      } else if (nome) {
+        const k = norm(nome) + '|' + norm(idv);
+        if (db.gps.some(x => !x.nitrogenio && norm(x.nome) === norm(nome) && norm(x.identificacao) === norm(idv)) || chaves.has(k))
+          ruim(idv ? '.gl-id' : '.gl-nome', idv ? `Já existe “${nome}” com a identificação ${idv}.` : `Já existe “${nome}”: preencha a identificação para diferenciar.`);
+        chaves.add(k);
       }
-      if (n2 && loc) { nivel = $('#gc-nivel').value.trim(); if (!nivel) errs.push([$('#gc-nivel'), 'Informe o nível do bujão.']); }
-      data = $('#gc-data').value; if (!dataValida(data)) errs.push([$('#gc-data'), 'Informe uma data válida.']);
-      cmt = $('#gc-cmt').value.trim();
+      itens.push({nome, n2, num: n2 ? idv : '', ident: n2 ? '' : idv, nivel: n2 && loc ? nivel : ''});
+    });
+    const anchor = $('#gl-err-slot');
+    if (itemErr) errs.push([anchor, msgs.join(' ')]);
+    else if (!itens.length) { itemErr = $('.gl-nome', box); itemErr.classList.add('bad'); errs.push([anchor, 'Informe pelo menos um item.']); }
+    let resp = '', obra = '';
+    if (!loc) errs.push([$('input[name="gc-local"]'), 'Informe se está no estoque ou na rua.']);
+    if (loc === 'rua') {
+      resp = $('#gc-resp').value.trim().replace(/\s+/g, ' '); obra = $('#gc-obra').value.trim().replace(/\s+/g, ' ');
+      if (!resp) errs.push([$('#gc-resp'), 'Informe o responsável pelo material.']);
+      if (!obra) errs.push([$('#gc-obra'), 'Informe em qual obra está.']);
     }
-    if (errs.length) return showErrs(errs);
-    const novoId = id || uid();
+    const data = $('#gc-data').value; if (!dataValida(data)) errs.push([$('#gc-data'), 'Informe uma data válida.']);
+    const cmt = $('#gc-cmt').value.trim();
+    if (errs.length) { showErrs(errs); if (errs[0][0] === anchor && itemErr) itemErr.focus(); return; }
+    const grupoId = itens.length > 1 ? uid() : null;
+    const grupo = grupoId ? {tipo: 'cadastro', nItens: itens.length, local: loc, para: loc === 'rua' ? resp : 'Estoque', obra} : null;
     const ok = await commit(d => {
       const agora = new Date().toISOString();
-      if (!novo) {
-        const x = d.gps.find(y => y.id === id); if (!x) throw new Error('Item não encontrado.');
-        Object.assign(x, {nome, nitrogenio: n2, numeroBujao: num, identificacao: ident, editadoEm: agora});
-        return;
-      }
-      const g = {id: novoId, nome, nitrogenio: n2, numeroBujao: num, identificacao: ident, local: loc,
-        responsavel: resp, obra, desde: data, saiuEm: loc === 'rua' ? data : '', nivelSaida: loc === 'rua' ? nivel : '', nivelVolta: '', nivelAtual: nivel,
-        ciclo: 1, movsNoCiclo: 0, totalMovs: 0, criadoEm: agora};
-      d.gps.push(g);
-      gpsNovoMov(d, novoId, {tipo: 'cadastro', local: loc, de: '', para: loc === 'rua' ? resp : 'Estoque', obra, nivel, data, comentario: cmt});
+      itens.forEach(it => {
+        const gid = uid();
+        d.gps.push({id: gid, nome: it.nome, nitrogenio: it.n2, numeroBujao: it.num, identificacao: it.ident, local: loc,
+          responsavel: resp, obra, desde: data, saiuEm: loc === 'rua' ? data : '', nivelSaida: loc === 'rua' ? it.nivel : '', nivelVolta: '', nivelAtual: it.nivel,
+          ciclo: 1, movsNoCiclo: 0, totalMovs: 0, criadoEm: agora});
+        gpsNovoMov(d, gid, {tipo: 'cadastro', local: loc, de: '', para: loc === 'rua' ? resp : 'Estoque', obra, nivel: it.nivel, data, comentario: cmt, ...(grupoId ? {grupoId, grupo} : {})});
+      });
     });
-    if (ok) { toast(novo ? 'Item cadastrado no GPS.' : 'Cadastro atualizado.'); closeModal(); if (novo) { goTab('gps'); } }
+    if (ok) {
+      goTab('gps');
+      if (grupoId) { toast(`${itens.length} itens cadastrados no GPS (card de evento criado).`); abrirGpsEvento(grupoId); }
+      else { toast('Item cadastrado no GPS.'); closeModal(); }
+    }
   };
 }
 
@@ -2063,57 +2300,214 @@ function gpsNovoMov(d, itemId, dados){
   return g;
 }
 
+/* ---------- Movimentação de um ou vários itens (saída, passagem de responsabilidade, volta ao estoque) ----------
+   Com mais de um item, todas as movimentações recebem o mesmo grupoId e aparecem num card de evento. */
+const gpsElegivel = (g, tipo) => tipo === 'saida' ? g.local !== 'rua' : g.local === 'rua';
+const GPS_ACAO_TIT = {saida: 'Saída para a rua', transferencia: 'Passar responsabilidade', retorno: 'Volta ao estoque'};
 function gpsAcao(id, tipo){
   if (tipo === 'hist') return abrirGps(id);
-  if (!abaDisponivel('gps', 'gpsMovs')) return;
   const g = gpsById(id); if (!g) return;
-  if ((tipo === 'saida') !== (g.local !== 'rua')) { toast('A situação deste item mudou. A tela foi atualizada.', 'err'); return; }
-  const n2 = g.nitrogenio;
-  const titulo = {saida: 'Saída para a rua', transferencia: 'Passar responsabilidade', retorno: 'Volta ao estoque'}[tipo];
-  const atual = g.local === 'rua' ? `<div class="info-box">Hoje está com <b>${esc(g.responsavel)}</b> na obra <b>${esc(g.obra)}</b> desde ${fmtData(g.desde)}.${n2 && g.nivelSaida ? ` Saiu do estoque com nível <b>${esc(g.nivelSaida)}</b>.` : ''}</div>` : `<div class="info-box">O item está no <b>estoque</b>.${n2 && g.nivelAtual ? ` Nível atual: <b>${esc(g.nivelAtual)}</b>.` : ''}</div>`;
-  let campos = '';
-  if (tipo === 'saida') campos = `<div class="grid2">${campoTxt('gm-resp', 'Responsável pelo material', true, 'list="pessoas" placeholder="Quem levou o item"')}${campoTxt('gm-obra', 'Em qual obra vai ficar?', true, 'list="obras"')}</div>
-      ${n2 ? campoTxt('gm-nivel', 'Nível de saída do bujão', true, NIVEL_PH) : ''}`;
-  else if (tipo === 'transferencia') campos = `<div class="grid2">${campoTxt('gm-resp', 'Novo responsável', true, 'list="pessoas" placeholder="Com quem o item ficou"')}${campoTxt('gm-obra', 'Em qual obra está?', true, `list="obras" value="${esc(g.obra)}"`)}</div>
-      ${n2 ? campoTxt('gm-nivel', 'Nível do bujão na passagem (opcional)', false, NIVEL_PH) : ''}`;
-  else campos = n2 ? campoTxt('gm-nivel', 'Nível de volta do bujão', true, NIVEL_PH) : '';
-  openModal(`${titulo} — ${gpsTitulo(g)}`, `<form id="f-gm" novalidate>${atual}${campos}
+  if (!gpsElegivel(g, tipo)) { toast('A situação deste item mudou. A tela foi atualizada.', 'err'); return; }
+  abrirGpsGrupo(tipo, [id]);
+}
+function abrirGpsVarios(){
+  if (!abaDisponivel('gps', 'gpsMovs')) return;
+  openModal('Movimentar vários itens do GPS', `<p class="hint" style="margin-top:0">O que aconteceu com os itens? Depois você escolhe quais. Com mais de um item, a movimentação vira um card de evento.</p>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <button type="button" class="btn primary" data-gv="saida">➜ Saíram do estoque para a rua</button>
+      <button type="button" class="btn" data-gv="transferencia">⇄ Passaram para outro responsável</button>
+      <button type="button" class="btn" data-gv="retorno">↩ Voltaram ao estoque</button>
+    </div>`);
+  $$('[data-gv]').forEach(b => { b.onclick = () => abrirGpsGrupo(b.dataset.gv, []); });
+}
+$('#btn-gps-grupo').onclick = abrirGpsVarios;
+
+function abrirGpsGrupo(tipo, ids){
+  if (!abaDisponivel('gps', 'gpsMovs')) return;
+  const sel = ids.filter(i => { const g = gpsById(i); return g && gpsElegivel(g, tipo); });
+  const niveis = {};
+  const base = sel.length ? gpsById(sel[0]) : null;
+  const rua = tipo !== 'retorno';
+  const lblNivel = {saida: 'Nível de saída *', transferencia: 'Nível na passagem (opcional)', retorno: 'Nível de volta *'}[tipo];
+  openModal(GPS_ACAO_TIT[tipo] + (base ? ' — ' + gpsTitulo(base) : ''), `<form id="f-gm" novalidate>
+    ${rua ? `<div class="grid2">${campoTxt('gm-resp', tipo === 'saida' ? 'Responsável pelo material' : 'Novo responsável', true, `list="pessoas" placeholder="${tipo === 'saida' ? 'Quem levou' : 'Com quem ficou'}"`)}${campoTxt('gm-obra', tipo === 'saida' ? 'Em qual obra vai ficar?' : 'Em qual obra está?', true, `list="obras" value="${tipo === 'transferencia' && base ? esc(base.obra) : ''}"`)}</div>` : ''}
+    <h2 style="margin:6px 0 8px;font-size:15px">Itens desta movimentação <span class="muted small" id="gg-cont"></span></h2>
+    <div class="gg-sel" id="gg-sel"></div>
+    <button type="button" class="add-mais" id="gg-mais">+ Adicionar outro item</button>
+    <div class="gg-add" id="gg-add" hidden>
+      <input class="inp" id="gg-busca" type="search" placeholder="Pesquisar item, nº do bujão, responsável ou obra…" style="width:100%" autocomplete="off" aria-label="Pesquisar item para adicionar">
+      <div class="gg-lista" id="gg-lista"></div>
+    </div>
+    <div class="itens-bar" style="margin:0 0 8px"><i id="gg-err-slot" hidden></i></div>
     <div class="grid2"><div class="field"><label for="gm-data">Data <b class="req">*</b></label><input id="gm-data" type="date" value="${hojeISO()}"></div></div>
     <div class="field"><label for="gm-cmt">Comentário (opcional)</label><textarea id="gm-cmt" rows="2" placeholder="ex.: entregue na portaria, bujão com a válvula dura…"></textarea></div>
-    <div class="actions"><button type="button" class="btn" data-close>Cancelar</button><button class="btn primary" type="submit">Registrar</button></div></form>`);
-  const f1 = $('#f-gm input:not([type=date])'); if (f1) f1.focus();
-  $('#f-gm').onsubmit = async e => {
-    e.preventDefault(); clearErr(e.target); const errs = [];
+    <div class="actions"><button type="button" class="btn" data-close>Cancelar</button><button class="btn primary" type="submit" id="gm-btn">Registrar</button></div></form>`);
+  $('.modal-card').classList.add('wide');
+  const form = $('#f-gm');
+  const statusTxt = g => g.local === 'rua' ? `Com ${g.responsavel} · ${g.obra} · desde ${fmtData(g.desde)}` : `No estoque${g.nitrogenio && g.nivelAtual ? ' · nível ' + g.nivelAtual : ''}`;
+  const desenhaLista = () => {
+    if ($('#gg-add').hidden) return;
+    const q = norm($('#gg-busca').value);
+    const ref = sel.length ? gpsById(sel[0]) : null;
+    const mesmo = g => ref && tipo !== 'saida' && norm(g.responsavel) === norm(ref.responsavel) ? 0 : 1;
+    let gs = db.gps.filter(g => gpsElegivel(g, tipo) && !sel.includes(g.id));
+    const temOutros = gs.length > 0;
+    if (q) gs = gs.filter(g => [g.nome, g.identificacao, g.numeroBujao, g.responsavel, g.obra].some(x => norm(x).includes(q)));
+    gs.sort((a, b) => mesmo(a) - mesmo(b) || ordGps(a, b));
+    $('#gg-lista').innerHTML = gs.length ? gs.map(g => `<button type="button" class="gg-opt" data-gg-add="${g.id}"><b>${esc(gpsTitulo(g))}</b><small>${esc(statusTxt(g))}</small></button>`).join('')
+      : `<p class="empty" style="margin:0">${temOutros ? 'Nenhum item encontrado.' : tipo === 'saida' ? 'Não há (outros) itens no estoque.' : 'Não há (outros) itens na rua.'}</p>`;
+  };
+  const desenhaSel = () => {
+    $('#gg-sel').innerHTML = sel.length ? sel.map(id => {
+      const g = gpsById(id); if (!g) return '';
+      return `<div class="gg-item">
+        <div><b>${esc(gpsTitulo(g))}</b><small>${esc(statusTxt(g))}${tipo !== 'saida' && g.nitrogenio && g.nivelSaida ? ` · saiu com ${esc(g.nivelSaida)}` : ''}</small></div>
+        ${g.nitrogenio ? `<input class="gg-nivel" data-id="${id}" placeholder="${lblNivel}" aria-label="${lblNivel}" value="${esc(niveis[id] || '')}">` : '<span></span>'}
+        <button type="button" class="it-del" data-gg-del="${id}" title="Tirar da lista" aria-label="Tirar da lista">×</button></div>`;
+    }).join('') : '<p class="empty" style="margin:0">Nenhum item escolhido ainda. Pesquise abaixo e clique no item.</p>';
+    $('#gg-cont').textContent = sel.length > 1 ? `· ${sel.length} itens — vai virar um card de evento` : '';
+    $('#gm-btn').textContent = sel.length > 1 ? `Registrar ${sel.length} itens` : 'Registrar';
+    desenhaLista();
+  };
+  form.addEventListener('click', e => {
+    const a = e.target.closest('[data-gg-add]');
+    if (a) {
+      const g = gpsById(a.dataset.ggAdd); if (!g) return;
+      sel.push(g.id);
+      if (tipo === 'transferencia' && $('#gm-obra') && !$('#gm-obra').value.trim()) $('#gm-obra').value = g.obra || '';
+      desenhaSel(); $('#gg-busca').focus(); return;
+    }
+    const d = e.target.closest('[data-gg-del]');
+    if (d) { const i = sel.indexOf(d.dataset.ggDel); if (i >= 0) sel.splice(i, 1); delete niveis[d.dataset.ggDel]; desenhaSel(); }
+  });
+  form.addEventListener('input', e => {
+    if (e.target.classList.contains('gg-nivel')) { niveis[e.target.dataset.id] = e.target.value; e.target.classList.remove('bad'); }
+    if (e.target.id === 'gg-busca') desenhaLista();
+  });
+  const abreBusca = () => { $('#gg-add').hidden = false; $('#gg-mais').hidden = true; desenhaLista(); };
+  $('#gg-mais').onclick = () => { abreBusca(); $('#gg-busca').focus(); };
+  $('#gg-busca').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); const f = $('[data-gg-add]', $('#gg-lista')); if (f) f.click(); } });
+  if (!sel.length) abreBusca();
+  desenhaSel();
+  const f1 = rua ? $('#gm-resp') : ($('.gg-nivel') || (!sel.length ? $('#gg-busca') : null)); if (f1) f1.focus();
+
+  form.onsubmit = async e => {
+    e.preventDefault(); clearErr(form); $$('.bad', form).forEach(x => x.classList.remove('bad'));
+    const errs = [], msgs = [];
     const val = s => $(s) ? $(s).value.trim().replace(/\s+/g, ' ') : '';
-    const resp = val('#gm-resp'), obra = val('#gm-obra'), nivel = val('#gm-nivel'), data = $('#gm-data').value, cmt = $('#gm-cmt').value.trim();
-    if (tipo !== 'retorno') {
+    const resp = val('#gm-resp'), obra = val('#gm-obra'), data = $('#gm-data').value, cmt = $('#gm-cmt').value.trim();
+    if (rua) {
       if (!resp) errs.push([$('#gm-resp'), 'Informe o responsável.']);
       if (!obra) errs.push([$('#gm-obra'), 'Informe a obra.']);
     }
-    if (tipo === 'transferencia' && resp && obra && norm(resp) === norm(g.responsavel) && norm(obra) === norm(g.obra)) errs.push([$('#gm-resp'), 'O item já está com esta pessoa nesta obra.']);
-    if (n2 && tipo !== 'transferencia' && !nivel) errs.push([$('#gm-nivel'), tipo === 'saida' ? 'Informe o nível de saída.' : 'Informe o nível de volta.']);
-    if (!dataValida(data)) errs.push([$('#gm-data'), 'Informe uma data válida.']);
-    if (errs.length) return showErrs(errs);
-    const ok = await commit(d => {
-      const x = d.gps.find(y => y.id === id); if (!x) throw new Error('Item não encontrado.');
-      if ((tipo === 'saida') !== (x.local !== 'rua')) throw new Error('A situação deste item mudou em outro computador. Confira e repita.');
-      if (tipo === 'saida') {
-        gpsNovoMov(d, id, {tipo, de: 'Estoque', para: resp, obra, nivelSaida: nivel, data, comentario: cmt});
-        Object.assign(x, {local: 'rua', responsavel: resp, obra, desde: data, saiuEm: data, nivelSaida: nivel, nivelVolta: '', nivelAtual: nivel || x.nivelAtual || ''});
-      } else if (tipo === 'transferencia') {
-        gpsNovoMov(d, id, {tipo, de: x.responsavel, para: resp, obraAnterior: x.obra, obra, nivel, data, comentario: cmt});
-        Object.assign(x, {responsavel: resp, obra, desde: data}); if (nivel) x.nivelAtual = nivel;
-      } else {
-        gpsNovoMov(d, id, {tipo, de: x.responsavel, para: 'Estoque', obra: x.obra, nivelVolta: nivel, data, comentario: cmt});
-        Object.assign(x, {local: 'estoque', responsavel: '', obra: '', desde: data, nivelVolta: nivel}); if (nivel) x.nivelAtual = nivel;
+    const anchor = $('#gg-err-slot'); let itemErr = null;
+    if (!sel.length) msgs.push('Escolha pelo menos um item.');
+    sel.forEach(id => {
+      const g = gpsById(id); if (!g) return;
+      const inp = $(`.gg-nivel[data-id="${id}"]`);
+      if (g.nitrogenio && tipo !== 'transferencia' && !(niveis[id] || '').trim()) {
+        if (inp) { inp.classList.add('bad'); itemErr = itemErr || inp; }
+        const m = tipo === 'saida' ? 'Informe o nível de saída de cada bujão.' : 'Informe o nível de volta de cada bujão.'; if (!msgs.includes(m)) msgs.push(m);
       }
+      if (tipo === 'transferencia' && resp && obra && norm(resp) === norm(g.responsavel) && norm(obra) === norm(g.obra)) msgs.push(`${gpsTitulo(g)} já está com esta pessoa nesta obra.`);
     });
-    if (ok) {
-      const gg = gpsById(id);
-      toast(gg && gg.movsNoCiclo === 1 && gg.ciclo > 1 ? `Registrado. O ciclo de ${GPS_LIMITE} fechou e começou o ciclo ${gg.ciclo}.` : 'Movimentação registrada.');
-      closeModal();
-    }
+    if (msgs.length) errs.push([anchor, msgs.join(' ')]);
+    if (!dataValida(data)) errs.push([$('#gm-data'), 'Informe uma data válida.']);
+    if (errs.length) { showErrs(errs); if (errs[0][0] === anchor) (itemErr || $('#gg-mais')).focus(); return; }
+    const itens = [...sel];
+    const grupoId = itens.length > 1 ? uid() : null;
+    const grupo = grupoId ? {tipo, nItens: itens.length, para: rua ? resp : 'Estoque', obra: rua ? obra : ''} : null;
+    const ok = await commit(d => {
+      itens.forEach(id => {
+        const x = d.gps.find(y => y.id === id); if (!x) throw new Error('Um dos itens foi excluído em outro computador. Confira e repita.');
+        if (!gpsElegivel(x, tipo)) throw new Error(`A situação de ${gpsTitulo(x)} mudou em outro computador. Confira e repita.`);
+        const nivel = x.nitrogenio ? (niveis[id] || '').trim() : '';
+        const ex = grupoId ? {grupoId, grupo} : {};
+        if (tipo === 'saida') {
+          gpsNovoMov(d, id, {tipo, de: 'Estoque', para: resp, obra, nivelSaida: nivel, data, comentario: cmt, ...ex});
+          Object.assign(x, {local: 'rua', responsavel: resp, obra, desde: data, saiuEm: data, nivelSaida: nivel, nivelVolta: '', nivelAtual: nivel || x.nivelAtual || ''});
+        } else if (tipo === 'transferencia') {
+          gpsNovoMov(d, id, {tipo, de: x.responsavel, para: resp, obraAnterior: x.obra, obra, nivel, data, comentario: cmt, ...ex});
+          Object.assign(x, {responsavel: resp, obra, desde: data}); if (nivel) x.nivelAtual = nivel;
+        } else {
+          gpsNovoMov(d, id, {tipo, de: x.responsavel, para: 'Estoque', obra: x.obra, nivelVolta: nivel, data, comentario: cmt, ...ex});
+          Object.assign(x, {local: 'estoque', responsavel: '', obra: '', desde: data, nivelVolta: nivel}); if (nivel) x.nivelAtual = nivel;
+        }
+      });
+    });
+    if (!ok) return;
+    if (grupoId) { toast(`${itens.length} itens registrados juntos (card de evento criado).`); abrirGpsEvento(grupoId); return; }
+    const gg = gpsById(itens[0]);
+    toast(gg && gg.movsNoCiclo === 1 && gg.ciclo > 1 ? `Registrado. O ciclo de ${GPS_LIMITE} fechou e começou o ciclo ${gg.ciclo}.` : 'Movimentação registrada.');
+    closeModal();
   };
+}
+
+/* ---------- Cards de evento do GPS (movimentações em grupo) ---------- */
+const GPS_EV_TIT = {cadastro: 'Cadastro em grupo', saida: 'Saída em grupo', transferencia: 'Passagem em grupo', retorno: 'Volta em grupo'};
+const nomeGpsMov = m => { const g = gpsById(m.itemId); return g ? gpsTitulo(g) : m.itemNome; };
+const nivMov = m => m.nivelSaida || m.nivelVolta || m.nivel || '';
+function gpsMovsDoGrupo(id){ return db.gpsMovs.filter(m => m.grupoId === id).sort((a, b) => cmpTxt(nomeGpsMov(a), nomeGpsMov(b))); }
+function gpsEventos(){
+  const map = new Map();
+  db.gpsMovs.forEach(m => { if (!m.grupoId) return; const e = map.get(m.grupoId); if (e) e.push(m); else map.set(m.grupoId, [m]); });
+  return [...map.entries()].map(([id, ms]) => ({id, ms: ms.sort((a, b) => cmpTxt(nomeGpsMov(a), nomeGpsMov(b))), reg: ms.reduce((a, m) => m.registradoEm > a ? m.registradoEm : a, '')}))
+    .sort((a, b) => b.reg.localeCompare(a.reg));
+}
+const gpsEvTipo = m => (m.grupo && m.grupo.tipo) || m.tipo;
+const gpsEvNoEstoque = m => gpsEvTipo(m) === 'retorno' || (gpsEvTipo(m) === 'cadastro' && ((m.grupo && m.grupo.local) || m.local) !== 'rua');
+function gpsEventoCard(ev){
+  const ms = ev.ms, m0 = ms[0], G = m0.grupo || {}, tipo = gpsEvTipo(m0), max = 5;
+  const cls = tipo === 'transferencia' ? 'ev-transf' : gpsEvNoEstoque(m0) ? 'entrada' : 'saida';
+  const titulo = tipo === 'retorno' ? 'Voltaram ao estoque' : gpsEvNoEstoque(m0) ? 'Cadastrados no estoque' : `Para: ${G.para || m0.para}`;
+  const obra = tipo === 'retorno' ? '' : (G.obra || m0.obra);
+  return `<article class="mcard lote ${cls}" data-gev="${ev.id}" tabindex="0">
+    <div class="mc-top"><span class="tag">📦 ${GPS_EV_TIT[tipo] || 'Grupo'} · ${ms.length} itens</span><span class="muted">${fmtData(m0.data)} · ${fmtHora(m0.registradoEm)}</span></div>
+    <b>${esc(titulo)}</b>
+    ${obra ? `<div class="small">Obra: <b>${esc(obra)}</b></div>` : ''}
+    <ul class="lote-itens">${ms.slice(0, max).map(m => `<li><span>${esc(nomeGpsMov(m))}</span>${tipo === 'retorno' || tipo === 'transferencia' ? `<span class="muted">· de ${esc(m.de)}</span>` : ''}${nivMov(m) ? `<span class="muted">· ${esc(nivMov(m))}</span>` : ''}</li>`).join('')}</ul>
+    ${ms.length > max ? `<div class="muted small">+ ${ms.length - max} item(ns)…</div>` : ''}
+    ${m0.comentario ? `<div class="muted small">💬 ${esc(m0.comentario)}</div>` : ''}
+    <div class="muted small">Grupo nº ${loteCod(ev.id)}</div></article>`;
+}
+function abrirGpsEvento(id){
+  const ms = gpsMovsDoGrupo(id); if (!ms.length) return;
+  const m0 = ms[0], G = m0.grupo || {}, tipo = gpsEvTipo(m0);
+  const linhas = [['Grupo nº', loteCod(id)], ['Movimentação', esc(GPS_TIPO[tipo] || tipo)], ['Data', fmtData(m0.data)], ['Registrado em', fmtDataHora(m0.registradoEm)]];
+  if (!gpsEvNoEstoque(m0)) linhas.push(['Responsável', esc(G.para || m0.para)], ['Obra', esc(G.obra || m0.obra || '—')]);
+  if (m0.comentario) linhas.push(['Comentário', esc(m0.comentario)]);
+  openModal(`${GPS_EV_TIT[tipo] || 'Grupo'} — ${ms.length} itens`, `
+    <div class="review" style="margin-top:0"><dl>${linhas.map(([a, b]) => `<dt>${a}</dt><dd>${b}</dd>`).join('')}</dl></div>
+    <h2 style="margin-top:18px">Itens do grupo</h2>
+    <div class="table-wrap"><table><thead><tr><th>Item</th><th>De → Para</th><th>Obra</th><th>Nível</th><th>Onde está hoje</th></tr></thead><tbody>
+    ${ms.map(m => { const g = gpsById(m.itemId); return `<tr class="click" data-gps="${m.itemId}" tabindex="0"><td><b>${esc(nomeGpsMov(m))}</b></td>
+      <td>${esc(m.de || '—')} → ${esc(m.para)}</td><td>${esc(m.obra || '—')}</td><td>${esc(nivMov(m) || '—')}</td>
+      <td>${g ? (g.local === 'rua' ? `📍 com ${esc(g.responsavel)}` : '📦 no estoque') : '<span class="muted">excluído do GPS</span>'}</td></tr>`; }).join('')}
+    </tbody></table></div>
+    <p class="hint">Clique em um item para ver o histórico completo dele. Para corrigir algum dado, use “✏️ Corrigir” no histórico do item.</p>
+    <div class="actions"><button type="button" class="btn" id="gev-print">🖨 Imprimir lista</button><button type="button" class="btn primary" data-close>Fechar</button></div>`);
+  $('.modal-card').classList.add('wide');
+  $('#gev-print').onclick = () => imprimirGpsEvento(id);
+}
+function imprimirGpsEvento(id){
+  const ms = gpsMovsDoGrupo(id); if (!ms.length) return;
+  const m0 = ms[0], G = m0.grupo || {}, tipo = gpsEvTipo(m0);
+  const campos = [['Data', fmtData(m0.data)], ['Movimentação', GPS_TIPO[tipo] || tipo]];
+  if (!gpsEvNoEstoque(m0)) campos.push(['Responsável', G.para || m0.para], ['Obra', G.obra || m0.obra]);
+  if (m0.comentario) campos.push(['Comentário', m0.comentario]);
+  const html = `<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>${esc(GPS_EV_TIT[tipo] || 'Grupo')} ${loteCod(id)}</title>
+    <style>body{font:13px/1.4 Arial,sans-serif;color:#000;margin:24px}h1{font-size:18px;margin:0 0 4px}table{border-collapse:collapse;width:100%;margin-top:12px}
+    th,td{border:1px solid #888;padding:6px 8px;text-align:left}th{background:#eee}.c{display:grid;grid-template-columns:auto 1fr;gap:2px 12px;margin-top:10px}
+    .c b{font-weight:600}.ass{display:flex;gap:40px;margin-top:48px}.ass div{flex:1;border-top:1px solid #000;padding-top:4px;text-align:center}</style></head><body>
+    <h1>GPS Itens — ${esc(GPS_EV_TIT[tipo] || 'Grupo')} nº ${loteCod(id)}</h1><div>${ms.length} itens</div>
+    <div class="c">${campos.filter(c => c[1]).map(([a, b]) => `<span>${esc(a)}:</span><b>${esc(b)}</b>`).join('')}</div>
+    <table><thead><tr><th style="width:36px">#</th><th>Item</th><th>De</th><th>Para</th><th>Nível</th><th style="width:70px">Conferido</th></tr></thead><tbody>
+    ${ms.map((m, i) => `<tr><td>${i + 1}</td><td>${esc(nomeGpsMov(m))}</td><td>${esc(m.de || '—')}</td><td>${esc(m.para)}</td><td>${esc(nivMov(m))}</td><td></td></tr>`).join('')}
+    </tbody></table><div class="ass"><div>Entregue por</div><div>Recebido por</div></div></body></html>`;
+  const fr = document.createElement('iframe'); fr.style.cssText = 'position:fixed;right:0;bottom:0;width:0;height:0;border:0';
+  document.body.appendChild(fr);
+  const doc = fr.contentDocument; doc.open(); doc.write(html); doc.close();
+  setTimeout(() => { try { fr.contentWindow.focus(); fr.contentWindow.print(); } catch (e) { toast('Não foi possível abrir a impressão.', 'err'); } setTimeout(() => fr.remove(), 60000); }, 250);
 }
 
 function abrirGps(id){
@@ -2136,9 +2530,20 @@ function abrirGps(id){
   };
 }
 
-/* ================= Últimas compras ================= */
+/* ================= Últimas compras: finalizadas, em rota e orçamentos ================= */
+/* A coleção "compras" guarda as compras e também os orçamentos (tipo: 'orcamento'): assim não é
+   preciso liberar coleção nova no Firebase.
+   Compra "finalizada" = chegou e está tudo OK (os itens entram no estoque).
+   Compra "em rota"    = já foi comprada mas ainda não chegou (não mexe no estoque até clicar em “Chegou”).
+   Compras antigas, sem situação, contam como finalizadas. */
+const ehOrc = c => !!c && c.tipo === 'orcamento';
+const statusCompra = c => c.status === 'rota' ? 'rota' : 'finalizada';
+const comprasReais = () => db.compras.filter(c => !ehOrc(c));
+const orcamentos = () => db.compras.filter(ehOrc);
+const orcAberto = o => (o.situacao || 'aberto') === 'aberto';
 const compraTotalItens = c => round2((c.itens || []).reduce((a, i) => a + (Number(i.valorTotal) || 0), 0));
 function itemRowHTML(i = {}){
+  const nv = i.novo || {};
   return `<div class="it-row">
     <span class="it-num"></span>
     <input class="it-n" list="itens-nomes" placeholder="Nome do item" value="${esc(i.nome)}" aria-label="Nome do item">
@@ -2156,11 +2561,11 @@ function itemRowHTML(i = {}){
       <div class="it-novo-tit"></div>
       <div class="np-corpo">
         <div class="np-grid">
-          <div><label>Andar *</label><input class="np-andar" placeholder="ex.: 2"></div>
-          <div><label>Estante *</label><input class="np-estante" placeholder="ex.: 07"></div>
-          <div><label>Fileira *</label><input class="np-fileira" placeholder="ex.: C"></div>
-          <div class="np-f-min"><label>Estoque mínimo</label><input class="np-min" type="number" min="0" step="any" inputmode="decimal"></div>
-          <div class="np-f-obs"><label>Observações do cadastro</label><input class="np-obs"></div>
+          <div><label>Andar *</label><input class="np-andar" placeholder="ex.: 2" value="${esc(nv.andar)}"></div>
+          <div><label>Estante *</label><input class="np-estante" placeholder="ex.: 07" value="${esc(nv.estante)}"></div>
+          <div><label>Fileira *</label><input class="np-fileira" placeholder="ex.: C" value="${esc(nv.fileira)}"></div>
+          <div class="np-f-min"><label>Estoque mínimo</label><input class="np-min" type="number" min="0" step="any" inputmode="decimal" value="${nv.minimo ?? ''}"></div>
+          <div class="np-f-obs"><label>Observações do cadastro</label><input class="np-obs" value="${esc(nv.obs)}"></div>
         </div>
         <label class="check"><input type="checkbox" class="np-sem" ${i.semEstoque ? 'checked' : ''}> Não guardar no estoque (ex.: serviço, frete, mão de obra)</label>
       </div>
@@ -2168,7 +2573,8 @@ function itemRowHTML(i = {}){
   </div>`;
 }
 /* Lança no estoque a diferença entre o que a compra já tinha lançado (anterior) e o que deve lançar agora (desejado).
-   Aumento = movimentação de Entrada; redução (compra corrigida ou excluída) = Ajuste negativo, sem deixar o saldo negativo. */
+   Aumento = movimentação de Entrada; redução (compra corrigida, excluída ou que voltou para "em rota") = Ajuste negativo,
+   sem deixar o saldo negativo. */
 function lancarCompraNoEstoque(d, anterior, desejado, o){
   const ref = `compra de ${fmtData(o.data)}${o.fornecedor ? ' — ' + o.fornecedor : ''}${o.numeroNota ? ' (nota nº ' + o.numeroNota + ')' : ''}`;
   const res = {criados: [], entradas: [], retirados: []};
@@ -2180,32 +2586,54 @@ function lancarCompraNoEstoque(d, anterior, desejado, o){
     if (delta > 0) {
       p.saldo = round3(ant + delta);
       const novo = o.criadosIds.has(pid);
-      d.movs.push({id: uid(), tipo: 'entrada', produtoId: pid, produtoNome: p.nome, unidade: p.unidade, qtd: delta, saldoAnt: ant, saldoPost: p.saldo, data: o.data, registradoEm: o.agora,
-        responsavel: 'Últimas compras', obs: novo ? `Item criado automaticamente pela ${ref}.` : o.editando ? `Correção da ${ref}: quantidade aumentada.` : `Entrada pela ${ref}.`, comentarios: []});
+      d.movs.push({id: uid(), tipo: 'entrada', produtoId: pid, produtoNome: p.nome, unidade: p.unidade, qtd: delta, saldoAnt: ant, saldoPost: p.saldo, data: o.dataMov || o.data, registradoEm: o.agora,
+        responsavel: 'Últimas compras', obs: novo ? `Item criado automaticamente pela ${ref}.` : o.chegou ? `Chegada da ${ref}.` : o.editando ? `Correção da ${ref}: quantidade aumentada.` : `Entrada pela ${ref}.`, comentarios: []});
       (novo ? res.criados : res.entradas).push(`${p.nome} (+${fmtQtd(delta)} ${p.unidade})`);
     } else {
       const tira = Math.min(-delta, ant);
       if (tira <= 0) return;
       p.saldo = round3(ant - tira);
       d.movs.push({id: uid(), tipo: 'ajuste', produtoId: pid, produtoNome: p.nome, unidade: p.unidade, qtd: -tira, saldoAnt: ant, saldoPost: p.saldo, data: hojeISO(), registradoEm: o.agora,
-        responsavel: 'Últimas compras', obs: (o.excluindo ? `Exclusão da ${ref}` : `Correção da ${ref}: quantidade reduzida`) + (tira < -delta ? ` (o estoque só tinha ${fmtQtd(ant)} ${p.unidade})` : '') + '.', comentarios: []});
+        responsavel: 'Últimas compras', obs: (o.excluindo ? `Exclusão da ${ref}` : o.emRota ? `A ${ref} foi marcada como em rota (ainda não chegou)` : `Correção da ${ref}: quantidade reduzida`) + (tira < -delta ? ` (o estoque só tinha ${fmtQtd(ant)} ${p.unidade})` : '') + '.', comentarios: []});
       res.retirados.push(`${p.nome} (−${fmtQtd(tira)} ${p.unidade})`);
     }
   });
   return res;
 }
-function abrirCompra(id){
+/* opt.receber = confirmar a chegada de uma compra em rota; opt.orcId = compra a partir de um orçamento */
+function abrirCompra(id, opt = {}){
   if (!abaDisponivel('compras')) return;
-  const c = id ? db.compras.find(x => x.id === id) : {data: hojeISO(), itens: [{}]};
-  if (!c) return;
+  const orc = opt.orcId ? db.compras.find(x => x.id === opt.orcId && ehOrc(x)) : null;
+  const c = id ? db.compras.find(x => x.id === id)
+    : orc ? {data: hojeISO(), status: 'rota', obra: orc.obra, obs: `Orçamento pedido por ${orc.solicitante}${orc.paraQuando ? ' para ' + fmtData(orc.paraQuando) : ''}.`,
+        itens: (orc.itens || []).map(i => ({nome: i.nome, qtd: i.qtd, unidade: i.unidade}))}
+    : {data: hojeISO(), itens: [{}]};
+  if (!c || ehOrc(c)) return;
   const totalManual = id && round2(c.totalNota) !== compraTotalItens(c);
   /* Compras registradas antes da integração com o estoque não têm "lancado": editar não mexe no saldo dos itens existentes */
   const legado = !!id && !c.lancado;
-  openModal(id ? 'Editar compra' : 'Registrar compra', `<form id="f-cp" novalidate>
+  const eraRota = !!id && statusCompra(c) === 'rota';
+  const st0 = opt.receber ? 'finalizada' : id ? statusCompra(c) : (c.status || '');
+  const chegPadrao = c.dataChegada || (id && !eraRota ? c.data : hojeISO());
+  openModal(opt.receber ? 'Chegou — conferir compra' : id ? 'Editar compra' : orc ? 'Compra do orçamento' : 'Registrar compra', `<form id="f-cp" novalidate>
+    ${opt.receber ? '<div class="info-box">✅ Confira se chegou tudo certo (itens e quantidades) e a data da chegada. Ao confirmar, a compra vai para <b>Compras finalizadas</b> e os itens entram no estoque.</div>' : ''}
+    ${orc ? `<div class="info-box">📋 Compra feita a partir do orçamento pedido por <b>${esc(orc.solicitante)}</b> (obra ${esc(orc.obra)}). Complete fornecedor e valores. Ao salvar, o orçamento sai de “Orçamentos a fazer”.</div>` : ''}
+    <div class="field" id="cpr-st-f">
+      <div class="auth-title" style="margin:0 0 6px">Situação da compra <b class="req">*</b></div>
+      <div class="opts-row" style="margin:0">
+        <label class="opt"><input type="radio" name="cpr-st" value="rota" ${st0 === 'rota' ? 'checked' : ''}> 🚚 Em rota (ainda não chegou)</label>
+        <label class="opt"><input type="radio" name="cpr-st" value="finalizada" ${st0 === 'finalizada' ? 'checked' : ''}> ✅ Chegou — tudo OK</label>
+      </div>
+    </div>
     <div class="grid3">
       <div class="field"><label for="cpr-data">Data da compra <b class="req">*</b></label><input id="cpr-data" type="date" value="${esc(c.data)}"></div>
       ${campoTxt('cpr-forn', 'Fornecedor', false, `value="${esc(c.fornecedor)}"`)}
       ${campoTxt('cpr-num', 'Nº da nota', false, `value="${esc(c.numeroNota)}"`)}
+    </div>
+    <div class="grid3">
+      ${campoTxt('cpr-obra', 'Para qual obra (opcional)', false, `list="obras" value="${esc(c.obra)}"`)}
+      <div class="field" id="cpr-prev-f"><label for="cpr-prev">Previsão de chegada (opcional)</label><input id="cpr-prev" type="date" value="${esc(c.previsao)}"></div>
+      <div class="field" id="cpr-cheg-f"><label for="cpr-cheg">Data em que chegou <b class="req">*</b></label><input id="cpr-cheg" type="date" value="${esc(chegPadrao)}"></div>
     </div>
     <p class="hint" style="margin:0 0 8px">Pode lançar quantos itens a nota tiver: ao preencher a última linha, aparece outra em branco. <b>Enter</b> desce para a linha de baixo; <b>Tab</b> anda para o lado. Também dá para colar várias linhas copiadas de uma planilha (colunas: item, qtd, unidade, valor da unidade, total).</p>
     <div class="it-row it-head"><span>#</span><span>Item *</span><span>Qtd *</span><span>Unidade *</span><span>Valor da unidade *</span><span>Total do item</span><span></span></div>
@@ -2216,16 +2644,18 @@ function abrirCompra(id){
         <div class="hint" id="cpr-soma"></div></div>
     </div>
     <div class="field"><label for="cpr-obs">Observação (opcional)</label><textarea id="cpr-obs" rows="2">${esc(c.obs)}</textarea></div>
-    <div class="actions">${id ? '<button type="button" class="btn danger" id="cpr-del">Excluir compra</button>' : ''}<button type="button" class="btn" data-close>Cancelar</button><button class="btn primary" type="submit">${id ? 'Salvar alterações' : 'Registrar compra'}</button></div>
+    <div class="actions">${id && !opt.receber ? '<button type="button" class="btn danger" id="cpr-del">Excluir compra</button>' : ''}<button type="button" class="btn" data-close>Cancelar</button><button class="btn primary" type="submit" id="cpr-btn">Salvar</button></div>
   </form>`);
   $('.modal-card').classList.add('wide');
   const box = $('#cpr-itens');
+  const getSt = () => ($('input[name="cpr-st"]:checked') || {}).value || '';
   const linhaVazia = r => !$('.it-n', r).value.trim() && !$('.it-q', r).value.trim() && !$('.it-v', r).value.trim() && !$('.it-t', r).value.trim();
   const novaLinha = (dados = {}) => { box.insertAdjacentHTML('beforeend', itemRowHTML(dados)); return $$('.it-row', box).pop(); };
   /* Sempre deixa uma linha em branco no fim, pronta para o próximo item */
   const garanteVazia = () => { const rs = $$('.it-row', box); if (!rs.length || !linhaVazia(rs[rs.length - 1])) novaLinha(); };
   /* Item que não existe no estoque: mostra as perguntas do cadastro (andar, estante, fileira…) na própria linha */
   const marcaNovos = () => {
+    const st = getSt(), rota = st === 'rota';
     const grupos = new Map();
     $$('.it-row', box).forEach((r, i) => {
       const nome = $('.it-n', r).value.trim().replace(/\s+/g, ' ');
@@ -2240,11 +2670,13 @@ function abrirCompra(id){
         $('.ex-conv', r).hidden = !difUn || nao || legado;
         if (difUn) $('.ex-conv-lbl', r).textContent = `No estoque este item é contado em “${prod.unidade}”. Quantos ${prod.unidade} entram no estoque?`;
         const qEst = difUn ? parseQtd($('.ex-qtd', r).value) : q;
+        const qTxt = `<b>+${isFinite(qEst) && qEst > 0 ? fmtQtd(round3(qEst)) : '?'} ${esc(prod.unidade)}</b>`;
         $('.ex-tit', r).innerHTML = `✓ Já existe no estoque (saldo atual: <b>${fmtQtd(prod.saldo)} ${esc(prod.unidade)}</b>).` +
           (legado ? ' Compra antiga: editar não altera o estoque deste item.'
             : nao ? ' <b>Não</b> será somado no estoque.'
+            : rota ? (lanc ? ` Esta compra já tinha lançado ${fmtQtd(lanc)} ${esc(prod.unidade)}; marcada como em rota, essa quantidade sai do estoque até a compra chegar.` : ` Em rota: quando a compra chegar, entra ${qTxt} no estoque.`)
             : lanc != null ? ` Esta compra já lançou ${fmtQtd(lanc)} ${esc(prod.unidade)}; ao salvar, o estoque acompanha a diferença.`
-            : ` Ao registrar, entra <b>+${isFinite(qEst) && qEst > 0 ? fmtQtd(round3(qEst)) : '?'} ${esc(prod.unidade)}</b> como entrada.`);
+            : ` Ao salvar, entra ${qTxt} como entrada.`);
       }
       if (!novo) { pn.hidden = true; delete pn.dataset.dup; return; }
       pn.hidden = false;
@@ -2256,11 +2688,20 @@ function abrirCompra(id){
     });
     grupos.forEach(g => {
       const r = g.r, sem = $('.np-sem', r).checked, un = $('.it-u', r).value;
+      const qq = `<b>${g.qtd ? fmtQtd(round3(g.qtd)) : '(quantidade)'} ${esc(un)}</b>`;
       $('.np-corpo', r).hidden = false; $('.np-grid', r).hidden = sem;
       $('.it-novo-tit', r).innerHTML = sem ? `“${esc(g.nome)}” não existe no estoque e <b>não</b> será cadastrado nele.`
-        : `📦 Item novo: “${esc(g.nome)}” não existe no estoque. Ao registrar a compra ele será criado no estoque com <b>${g.qtd ? fmtQtd(round3(g.qtd)) : '(quantidade)'} ${esc(un)}</b>. Onde ele vai ficar guardado?`;
+        : rota ? `📦 Item novo: “${esc(g.nome)}” não existe no estoque. Será criado no estoque <b>quando a compra chegar</b>, com ${qq}. Onde vai ficar guardado? (pode preencher agora ou na chegada)`
+        : `📦 Item novo: “${esc(g.nome)}” não existe no estoque. Ao salvar ele será criado no estoque com ${qq}. Onde ele vai ficar guardado?`;
       g.dups.forEach(d => { $('.np-corpo', d).hidden = true; $('.it-novo-tit', d).textContent = sem ? `Mesmo item da linha ${g.linha} (não vai para o estoque).` : `Mesmo item novo da linha ${g.linha}: a quantidade será somada lá.`; });
     });
+  };
+  const atualizaSt = () => {
+    const st = getSt();
+    $('#cpr-prev-f').hidden = st !== 'rota';
+    $('#cpr-cheg-f').hidden = st !== 'finalizada';
+    $('#cpr-btn').textContent = opt.receber ? 'Confirmar chegada e dar entrada' : st === 'rota' ? (id ? 'Salvar (em rota)' : 'Registrar compra em rota')
+      : st === 'finalizada' ? (id ? (eraRota ? 'Salvar e dar entrada no estoque' : 'Salvar alterações') : 'Registrar compra (chegou)') : (id ? 'Salvar alterações' : 'Registrar compra');
   };
   const recalc = () => {
     garanteVazia();
@@ -2282,8 +2723,9 @@ function abrirCompra(id){
     const tn = parseMoeda(tot.value);
     $('#cpr-soma').innerHTML = `Soma dos itens: <b>${fmtMoeda(soma)}</b>` + (isFinite(tn) && round2(tn) !== soma ? ` · <span style="color:var(--warn)">diferença de ${fmtMoeda(round2(tn - soma))} (frete, desconto ou impostos?)</span>` : '');
   };
+  $$('input[name="cpr-st"]').forEach(r => r.addEventListener('change', () => { $('#cpr-st-f').classList.remove('invalid'); $$('.err-msg', $('#cpr-st-f')).forEach(m => m.remove()); atualizaSt(); recalc(); }));
   box.addEventListener('input', e => { if (e.target.classList.contains('it-t')) e.target.dataset.manual = e.target.value.trim() ? '1' : ''; e.target.classList.remove('bad'); recalc(); });
-  box.addEventListener('change', e => e.target.classList.remove('bad'));
+  box.addEventListener('change', e => { e.target.classList.remove('bad'); if (e.target.type === 'checkbox' || e.target.tagName === 'SELECT') recalc(); });
   box.addEventListener('click', e => { const b = e.target.closest('.it-del'); if (!b) return; b.closest('.it-row').remove(); recalc(); });
   $('#cpr-add').onclick = () => { garanteVazia(); $$('.it-n', box).pop().focus(); };
   /* Enter: desce para a mesma coluna na linha de baixo (em vez de enviar o formulário) */
@@ -2317,20 +2759,28 @@ function abrirCompra(id){
     toast(`${linhas.length} linha(s) colada(s). Confira os itens antes de salvar.`);
   });
   $('#cpr-total').addEventListener('input', e => { e.target.dataset.manual = e.target.value.trim() ? '1' : ''; recalc(); });
-  recalc();
-  if (id) $('#cpr-del').onclick = async () => {
+  atualizaSt(); recalc();
+  if ($('#cpr-del')) $('#cpr-del').onclick = async () => {
     const lanc = c.lancado || {}; const n = Object.values(lanc).filter(q => q > 0).length;
-    if (!confirm(n ? `Excluir esta compra? As quantidades que ela lançou no estoque (${n} item(ns)) serão retiradas do estoque.` : 'Excluir esta compra?')) return;
+    const orcLig = c.orcamentoId && db.compras.some(x => x.id === c.orcamentoId);
+    if (!confirm((n ? `Excluir esta compra? As quantidades que ela lançou no estoque (${n} item(ns)) serão retiradas do estoque.` : 'Excluir esta compra?') + (orcLig ? ' O orçamento de origem volta para “Orçamentos a fazer”.' : ''))) return;
     let res = null;
     if (await commit(d => {
       res = lancarCompraNoEstoque(d, lanc, {}, {data: c.data, fornecedor: c.fornecedor, numeroNota: c.numeroNota, agora: new Date().toISOString(), criadosIds: new Set(), excluindo: true});
       d.compras = d.compras.filter(x => x.id !== id);
+      const o = c.orcamentoId && d.compras.find(x => x.id === c.orcamentoId);
+      if (o) { o.situacao = 'aberto'; delete o.compraId; delete o.concluidoEm; }
     })) { toast('Compra excluída.' + (res.retirados.length ? ` Retirado do estoque: ${res.retirados.join(', ')}.` : '')); closeModal(); }
   };
   $('#f-cp').onsubmit = async e => {
     e.preventDefault(); clearErr(e.target); const errs = [];
     $$('.bad', box).forEach(x => x.classList.remove('bad'));
+    const st = getSt(), fin = st === 'finalizada';
+    if (!st) errs.push([$('input[name="cpr-st"]'), 'Informe se a compra já chegou ou se está em rota.']);
     const data = $('#cpr-data').value; if (!dataValida(data)) errs.push([$('#cpr-data'), 'Informe a data da compra.']);
+    const cheg = $('#cpr-cheg').value, prev = $('#cpr-prev').value;
+    if (fin && !dataValida(cheg)) errs.push([$('#cpr-cheg'), 'Informe a data em que a compra chegou.']);
+    if (st === 'rota' && prev && !dataValida(prev)) errs.push([$('#cpr-prev'), 'Data inválida.']);
     recalc();
     const itens = []; let itemErr = null, locErr = false; const novos = new Map();
     $$('.it-row', box).forEach(r => {
@@ -2351,8 +2801,8 @@ function abrirCompra(id){
         if ($('.ex-nao', r).checked) item.naoSomar = true;
         else if (!$('.ex-conv', r).hidden) {
           const qe = parseQtd($('.ex-qtd', r).value);
-          if (!isFinite(qe) || qe <= 0) { $('.ex-qtd', r).classList.add('bad'); locErr = locErr || $('.ex-qtd', r); }
-          else item.qtdEstoque = round3(qe);
+          if (isFinite(qe) && qe > 0) item.qtdEstoque = round3(qe);
+          else if (fin || $('.ex-qtd', r).value.trim()) { $('.ex-qtd', r).classList.add('bad'); locErr = locErr || $('.ex-qtd', r); }
         }
       }
       const pn = $('.it-novo', r);
@@ -2364,8 +2814,10 @@ function abrirCompra(id){
             obs: $('.np-obs', r).value.trim(), minimo: null, itens: []};
           const mr = $('.np-min', r).value.trim();
           if (mr !== '') { const mn = parseQtd(mr); if (!isFinite(mn) || mn < 0) { $('.np-min', r).classList.add('bad'); locErr = locErr || $('.np-min', r); } else n.minimo = mn; }
-          if (!sem) ['andar', 'estante', 'fileira'].forEach(c => { if (!n[c]) { $('.np-' + c, r).classList.add('bad'); locErr = locErr || $('.np-' + c, r); } });
+          if (!sem && fin) ['andar', 'estante', 'fileira'].forEach(c => { if (!n[c]) { $('.np-' + c, r).classList.add('bad'); locErr = locErr || $('.np-' + c, r); } });
           novos.set(k, n);
+          /* Guarda a localização digitada (útil na compra em rota: na chegada já vem preenchida) */
+          if (!sem) item.novo = {andar: n.andar, estante: n.estante, fileira: n.fileira, obs: n.obs, minimo: n.minimo};
         }
         const n = novos.get(k);
         if (n) {
@@ -2383,15 +2835,16 @@ function abrirCompra(id){
     const total = parseMoeda($('#cpr-total').value);
     if (!isFinite(total) || total < 0) errs.push([$('#cpr-total'), 'Informe o valor total da nota.']);
     if (errs.length) { showErrs(errs); if (errs[0][0] === anchor && itemErr) itemErr.focus(); return; }
-    const v = {data, fornecedor: $('#cpr-forn').value.trim(), numeroNota: $('#cpr-num').value.trim(), itens, totalNota: round2(total), obs: $('#cpr-obs').value.trim()};
-    let res = null;
+    const v = {data, fornecedor: $('#cpr-forn').value.trim(), numeroNota: $('#cpr-num').value.trim(), obra: $('#cpr-obra').value.trim().replace(/\s+/g, ' '),
+      itens, totalNota: round2(total), obs: $('#cpr-obs').value.trim(), status: st, previsao: st === 'rota' ? prev : (c.previsao || ''), dataChegada: fin ? cheg : ''};
+    let res = null; const novoId = id || uid();
     const ok = await commit(d => {
       const agora = new Date().toISOString();
       const x = id ? d.compras.find(y => y.id === id) : null;
       if (id && !x) throw new Error('Compra não encontrada.');
       const criadosIds = new Set();
-      /* 1) Itens novos: cria o produto no estoque (o saldo entra no passo 2, como entrada) */
-      novos.forEach(n => {
+      /* 1) Itens novos: só são criados no estoque quando a compra chegou (o saldo entra no passo 2, como entrada) */
+      if (fin) novos.forEach(n => {
         if (n.sem || d.produtos.some(p => norm(p.nome) === norm(n.nome))) return;
         const pid = uid();
         d.produtos.push({id: pid, nome: n.nome, unidade: n.unidade, andar: n.andar, estante: n.estante, fileira: n.fileira, obs: n.obs, minimo: n.minimo,
@@ -2399,62 +2852,243 @@ function abrirCompra(id){
         criadosIds.add(pid);
         n.itens.forEach(it => { it.criouNoEstoque = true; });
       });
-      /* 2) Quanto esta compra deve ter lançado em cada produto */
+      /* 2) Quanto esta compra deve ter lançado em cada produto (em rota: nada) */
       const desejado = {};
       v.itens.forEach(it => {
         if (it.semEstoque) return;
         const p = d.produtos.find(pp => norm(pp.nome) === norm(it.nome)); if (!p) return;
         it.produtoId = p.id;
-        if (it.naoSomar) return;
+        if (!fin || it.naoSomar) return;
         if (legado && !criadosIds.has(p.id)) return;
         desejado[p.id] = round3((desejado[p.id] || 0) + (it.qtdEstoque != null ? it.qtdEstoque : it.qtd));
       });
       const anterior = (x && x.lancado) || {};
-      res = lancarCompraNoEstoque(d, anterior, desejado, {data, fornecedor: v.fornecedor, numeroNota: v.numeroNota, agora, criadosIds, editando: !!x});
+      res = lancarCompraNoEstoque(d, anterior, desejado, {data, dataMov: fin ? cheg : data, fornecedor: v.fornecedor, numeroNota: v.numeroNota, agora, criadosIds,
+        editando: !!x, chegou: fin && (!x || statusCompra(x) === 'rota'), emRota: !fin});
       const reg = {...v, lancado: legado ? undefined : desejado};
       if (legado) delete reg.lancado;
+      if (fin && (!x || statusCompra(x) === 'rota')) reg.recebidoEm = agora;
       if (x) Object.assign(x, reg, {editadoEm: agora});
-      else d.compras.push({id: uid(), ...reg, criadoEm: agora});
+      else d.compras.push({id: novoId, ...reg, ...(orc ? {orcamentoId: orc.id} : {}), criadoEm: agora});
+      if (orc) {
+        const o = d.compras.find(y => y.id === orc.id);
+        if (!o || !orcAberto(o)) throw new Error('Este orçamento já foi resolvido em outro computador.');
+        Object.assign(o, {situacao: 'comprado', compraId: novoId, concluidoEm: agora});
+      }
     });
     if (ok) {
       const partes = [];
       if (res.criados.length) partes.push(`Criado(s) no estoque: ${res.criados.join(', ')}`);
       if (res.entradas.length) partes.push(`Entrada no estoque: ${res.entradas.join(', ')}`);
       if (res.retirados.length) partes.push(`Retirado do estoque: ${res.retirados.join(', ')}`);
-      toast((id ? 'Compra atualizada.' : 'Compra registrada.') + (partes.length ? ' ' + partes.join('. ') + '.' : ''));
-      closeModal();
+      const msg = opt.receber || (fin && eraRota) ? 'Chegada confirmada: compra finalizada.' : st === 'rota' ? (id ? 'Compra atualizada (em rota).' : 'Compra registrada em rota. Quando chegar, clique em “Chegou”.') : id ? 'Compra atualizada.' : 'Compra registrada.';
+      toast(msg + (partes.length ? ' ' + partes.join('. ') + '.' : ''));
+      closeModal(); setSubCompras(fin ? 'finalizadas' : 'rota');
     }
   };
 }
+
+/* ---------- Orçamentos a fazer ---------- */
+const AUT_ORC = {sim: ['b-aut-sim', '✓ Seu Ricardo autorizou'], nao: ['b-aut-nao', '✗ Seu Ricardo não autorizou'], aguardando: ['b-aut-agu', '⏳ Aguardando Seu Ricardo']};
+function prazoOrc(o){
+  if (!o.paraQuando) return {t: 'Sem prazo', cls: 'b-neutro', atras: false};
+  const n = diasEntre(hojeISO(), o.paraQuando);
+  if (n < 0) return {t: `Atrasado ${-n} dia${-n > 1 ? 's' : ''}`, cls: 'l-atrasado', atras: true};
+  if (n === 0) return {t: 'Para hoje', cls: 'l-pendente', atras: false};
+  if (n === 1) return {t: 'Para amanhã', cls: 'l-pendente', atras: false};
+  return {t: `Em ${n} dias`, cls: 'b-n2', atras: false};
+}
+function orcCard(o){
+  const aberto = orcAberto(o), pz = prazoOrc(o), [ac, at] = AUT_ORC[o.autorizado] || AUT_ORC.aguardando;
+  const its = o.itens || [], max = 6;
+  return `<article class="ocard ${!aberto ? 'feito' : pz.atras ? 'atras' : ''}" data-orc="${o.id}" tabindex="0">
+    <div class="mc-top"><span class="tag" style="color:var(--warn)">📋 Orçamento · ${its.length} ${its.length === 1 ? 'item' : 'itens'}</span>
+      ${aberto ? `<span class="badge ${pz.cls}">${esc(pz.t)}</span>` : `<span class="badge ${o.situacao === 'comprado' ? 'b-ok' : 'b-neutro'}">${o.situacao === 'comprado' ? 'Virou compra' : 'Cancelado'}</span>`}</div>
+    <dl class="g-info"><dt>Quem solicitou</dt><dd>${esc(o.solicitante)}</dd><dt>Obra</dt><dd>${esc(o.obra)}</dd><dt>Para quando</dt><dd>${o.paraQuando ? fmtData(o.paraQuando) : '—'}</dd></dl>
+    <ul class="lote-itens">${its.slice(0, max).map(i => `<li><span class="q">${fmtQtd(i.qtd)} ${esc(i.unidade)}</span><span>${esc(i.nome)}</span></li>`).join('')}</ul>
+    ${its.length > max ? `<div class="muted small">+ ${its.length - max} item(ns)…</div>` : ''}
+    <div><span class="badge ${ac}">${at}</span></div>
+    ${o.obs ? `<div class="muted small">${esc(o.obs)}</div>` : ''}
+    ${aberto ? `<div class="row" style="margin-top:4px"><button type="button" class="btn sm primary" data-orc-compra="${o.id}">🛒 Virou compra</button><button type="button" class="btn sm" data-orc="${o.id}">✏️ Editar</button></div>` : ''}
+  </article>`;
+}
+let histOrcAberto = false;
+function renderOrcamentos(q){
+  const bate = o => !q || [o.solicitante, o.obra, o.obs, ...(o.itens || []).map(i => i.nome)].some(x => norm(x).includes(q));
+  const ord = (a, b) => (a.paraQuando || '9999-12-31').localeCompare(b.paraQuando || '9999-12-31') || String(a.criadoEm).localeCompare(String(b.criadoEm));
+  const todos = orcamentos();
+  const abertos = todos.filter(o => orcAberto(o) && bate(o)).sort(ord);
+  const feitos = todos.filter(o => !orcAberto(o) && bate(o)).sort((a, b) => String(b.concluidoEm || b.editadoEm || '').localeCompare(String(a.concluidoEm || a.editadoEm || '')));
+  $('#compras-lista').innerHTML = (abertos.length ? `<div class="ocards">${abertos.map(orcCard).join('')}</div>`
+    : `<div class="panel" style="text-align:center"><p class="empty">${todos.some(orcAberto) ? 'Nenhum orçamento encontrado para esta pesquisa.' : 'Nenhum orçamento a fazer. Clique em “+ Novo orçamento”.'}</p></div>`)
+    + (feitos.length ? `<details class="hist-orc" id="hist-orc"${histOrcAberto ? ' open' : ''}><summary>Orçamentos já resolvidos — viraram compra ou foram cancelados (${feitos.length})</summary><div class="ocards">${feitos.map(orcCard).join('')}</div></details>` : '');
+  const det = $('#hist-orc'); if (det) det.addEventListener('toggle', () => { histOrcAberto = det.open; });
+}
+function orcRowHTML(i = {}){
+  return `<div class="or-row">
+    <span class="it-num"></span>
+    <input class="or-n" list="itens-nomes" placeholder="Item" value="${esc(i.nome)}" aria-label="Item" autocomplete="off">
+    <input class="or-q" type="number" min="0" step="any" inputmode="decimal" placeholder="Qtd" value="${i.qtd ?? ''}" aria-label="Quantidade">
+    <select class="or-u" aria-label="Unidade">${unidOptions(i.unidade)}</select>
+    <button type="button" class="it-del" title="Remover item" aria-label="Remover item">×</button>
+  </div>`;
+}
+function abrirOrcamento(id){
+  if (!abaDisponivel('compras')) return;
+  const o = id ? db.compras.find(x => x.id === id && ehOrc(x)) : {itens: []};
+  if (!o) return;
+  const aberto = !id || orcAberto(o);
+  const compraLig = o.compraId && db.compras.some(c => c.id === o.compraId);
+  const autR = (v, txt) => `<label class="opt"><input type="radio" name="or-aut" value="${v}" ${o.autorizado === v ? 'checked' : ''}> ${txt}</label>`;
+  openModal(id ? 'Orçamento' : 'Novo orçamento', `<form id="f-orc" novalidate>
+    ${!aberto ? `<div class="info-box">${o.situacao === 'comprado' ? `Este orçamento virou compra${o.concluidoEm ? ' em ' + fmtDataHora(o.concluidoEm) : ''}.${compraLig ? ` <span class="ev-link" data-compra="${o.compraId}">Ver a compra</span>` : ''}` : 'Este orçamento foi cancelado.'}</div>` : ''}
+    <div class="grid3">
+      ${campoTxt('or-sol', 'Quem solicitou', true, `list="pessoas" value="${esc(o.solicitante)}" placeholder="Nome de quem pediu"`)}
+      ${campoTxt('or-obra', 'Para qual obra', true, `list="obras" value="${esc(o.obra)}" placeholder="ex.: Obra Rua das Flores"`)}
+      <div class="field"><label for="or-quando">Para quando <b class="req">*</b></label><input id="or-quando" type="date" value="${esc(o.paraQuando)}"></div>
+    </div>
+    <p class="hint" style="margin:0 0 8px">Quais itens? Ao preencher a última linha aparece outra em branco. <b>Enter</b> desce para a linha de baixo.</p>
+    <div class="or-row it-head"><span>#</span><span>Item *</span><span>Qtd *</span><span>Unidade *</span><span></span></div>
+    <div id="or-itens">${[...(o.itens || []), {}].map(orcRowHTML).join('')}</div>
+    <div class="itens-bar"><button type="button" class="btn sm" id="or-add">+ Adicionar item</button><span class="muted small" id="or-cont"></span><i id="or-err-slot" hidden></i></div>
+    <div class="auth" id="or-auth" style="margin-top:14px">
+      <div class="auth-title">Seu Ricardo autorizou? <b class="req">*</b></div>
+      <div class="opts tres">${autR('sim', '✓ Sim')}${autR('nao', '✗ Não')}${autR('aguardando', '⏳ Ainda não respondeu')}</div>
+    </div>
+    <div class="field"><label for="or-obs">Observação (opcional)</label><textarea id="or-obs" rows="2">${esc(o.obs)}</textarea></div>
+    <div class="actions">
+      ${id ? (aberto ? '<button type="button" class="btn danger" id="or-cancelar">Cancelar orçamento</button>' : '<button type="button" class="btn" id="or-reabrir">Reabrir orçamento</button>') + '<button type="button" class="btn danger" id="or-del">Excluir</button>' : ''}
+      <button type="button" class="btn" data-close>Fechar</button>
+      ${id && aberto ? `<button type="button" class="btn" data-orc-compra="${id}">🛒 Virou compra</button>` : ''}
+      <button class="btn primary" type="submit">${id ? 'Salvar alterações' : 'Salvar orçamento'}</button>
+    </div>
+  </form>`);
+  $('.modal-card').classList.add('wide');
+  const box = $('#or-itens');
+  const linhaVazia = r => !$('.or-n', r).value.trim() && !$('.or-q', r).value.trim();
+  const novaLinha = () => { box.insertAdjacentHTML('beforeend', orcRowHTML()); return $$('.or-row', box).pop(); };
+  const recalc = () => {
+    const rs = $$('.or-row', box); if (!rs.length || !linhaVazia(rs[rs.length - 1])) novaLinha();
+    $$('.or-row', box).forEach((r, i) => { $('.it-num', r).textContent = i + 1; });
+    const n = $$('.or-row', box).filter(r => !linhaVazia(r)).length;
+    $('#or-cont').textContent = n ? `${n} item(ns)` : '';
+  };
+  box.addEventListener('input', e => { e.target.classList.remove('bad'); recalc(); });
+  box.addEventListener('change', e => e.target.classList.remove('bad'));
+  box.addEventListener('click', e => { const b = e.target.closest('.it-del'); if (!b) return; b.closest('.or-row').remove(); recalc(); });
+  box.addEventListener('keydown', e => {
+    if (e.key !== 'Enter' || e.target.tagName === 'BUTTON' || e.target.tagName === 'SELECT') return;
+    e.preventDefault(); recalc();
+    const r = e.target.closest('.or-row'); const cls = e.target.classList.contains('or-q') ? 'or-q' : 'or-n';
+    let prox = r.nextElementSibling; if (!prox) prox = novaLinha();
+    const alvo = $('.' + cls, prox); alvo.focus(); if (alvo.select) alvo.select();
+  });
+  $('#or-add').onclick = () => { recalc(); $$('.or-n', box).pop().focus(); };
+  $$('input[name="or-aut"]').forEach(r => r.addEventListener('change', () => { $('#or-auth').classList.remove('invalid'); $$('.err-msg', $('#or-auth')).forEach(m => m.remove()); }));
+  recalc();
+  if (!id) $('#or-sol').focus();
+  const muda = async (fn, msg) => { if (await commit(d => { const x = d.compras.find(y => y.id === id); if (!x) throw new Error('Orçamento não encontrado.'); fn(d, x); })) { toast(msg); closeModal(); } };
+  if ($('#or-cancelar')) $('#or-cancelar').onclick = () => { if (confirm('Cancelar este orçamento? Ele sai de “Orçamentos a fazer” (fica no histórico).')) muda((d, x) => Object.assign(x, {situacao: 'cancelado', concluidoEm: new Date().toISOString()}), 'Orçamento cancelado.'); };
+  if ($('#or-reabrir')) $('#or-reabrir').onclick = () => muda((d, x) => { x.situacao = 'aberto'; delete x.concluidoEm; delete x.compraId; }, 'Orçamento reaberto.');
+  if ($('#or-del')) $('#or-del').onclick = () => { if (confirm('Excluir este orçamento de vez?')) muda(d => { d.compras = d.compras.filter(y => y.id !== id); }, 'Orçamento excluído.'); };
+  $('#f-orc').onsubmit = async e => {
+    e.preventDefault(); clearErr(e.target); $$('.bad', box).forEach(x => x.classList.remove('bad'));
+    const errs = [], val = s => $(s).value.trim().replace(/\s+/g, ' ');
+    const solicitante = val('#or-sol'), obra = val('#or-obra'), paraQuando = $('#or-quando').value;
+    if (!solicitante) errs.push([$('#or-sol'), 'Informe quem solicitou.']);
+    if (!obra) errs.push([$('#or-obra'), 'Informe para qual obra.']);
+    if (!dataValida(paraQuando)) errs.push([$('#or-quando'), 'Informe para quando precisa.']);
+    const itens = []; let itemErr = null;
+    $$('.or-row', box).forEach(r => {
+      if (linhaVazia(r)) return;
+      const nome = $('.or-n', r).value.trim().replace(/\s+/g, ' '), q = parseQtd($('.or-q', r).value), un = $('.or-u', r).value;
+      const ruim = [];
+      if (!nome) ruim.push('.or-n');
+      if (!isFinite(q) || q <= 0) ruim.push('.or-q');
+      if (!un) ruim.push('.or-u');
+      if (ruim.length) { ruim.forEach(s => $(s, r).classList.add('bad')); itemErr = itemErr || $(ruim[0], r); return; }
+      itens.push({nome, qtd: round3(q), unidade: un});
+    });
+    const anchor = $('#or-err-slot');
+    if (itemErr) errs.push([anchor, 'Complete os itens destacados: nome, quantidade e unidade.']);
+    else if (!itens.length) { itemErr = $('.or-n', box); itemErr.classList.add('bad'); errs.push([anchor, 'Informe pelo menos um item.']); }
+    const autorizado = ($('input[name="or-aut"]:checked') || {}).value;
+    if (!autorizado) { $('#or-auth').classList.add('invalid'); errs.push([$('input[name="or-aut"]'), 'Responda se Seu Ricardo autorizou.']); }
+    if (errs.length) { showErrs(errs); if (errs[0][0] === anchor && itemErr) itemErr.focus(); return; }
+    const v = {solicitante, obra, paraQuando, itens, autorizado, obs: $('#or-obs').value.trim()};
+    const ok = await commit(d => {
+      const agora = new Date().toISOString();
+      if (id) { const x = d.compras.find(y => y.id === id); if (!x) throw new Error('Orçamento não encontrado.'); Object.assign(x, v, {editadoEm: agora}); }
+      else d.compras.push({id: uid(), tipo: 'orcamento', situacao: 'aberto', ...v, criadoEm: agora});
+    });
+    if (ok) { toast(id ? 'Orçamento atualizado.' : 'Orçamento registrado em “Orçamentos a fazer”.'); closeModal(); setSubCompras('orcamentos'); }
+  };
+}
+function orcVirouCompra(id){
+  const o = db.compras.find(x => x.id === id && ehOrc(x)); if (!o || !orcAberto(o)) return;
+  if (o.autorizado !== 'sim' && !confirm(o.autorizado === 'nao' ? 'Seu Ricardo NÃO autorizou este orçamento. Registrar a compra mesmo assim?' : 'Seu Ricardo ainda não autorizou este orçamento. Registrar a compra mesmo assim?')) return;
+  abrirCompra(null, {orcId: id});
+}
+
+/* ---------- Tela da aba ---------- */
+const SUBS_COMPRAS = ['finalizadas', 'rota', 'orcamentos'];
+let subCompras = 'finalizadas';
+try { const s = localStorage.getItem('crm_sub_compras'); if (SUBS_COMPRAS.includes(s)) subCompras = s; } catch (e) {}
+function setSubCompras(s){
+  subCompras = SUBS_COMPRAS.includes(s) ? s : 'finalizadas';
+  try { localStorage.setItem('crm_sub_compras', subCompras); } catch (e) {}
+  renderCompras();
+}
+$('#compras-sub').addEventListener('click', e => { const b = e.target.closest('.stab'); if (b) setSubCompras(b.dataset.sub); });
+const DICA_SUB = {
+  finalizadas: 'Compras que já chegaram e estão OK. Os itens já entraram no estoque.',
+  rota: 'Compras feitas que ainda não chegaram. Não mexem no estoque: quando chegar, clique em “✅ Chegou” para conferir e dar entrada.',
+  orcamentos: 'Orçamentos que precisam ser feitos: quem solicitou, para qual obra, para quando, quais itens e se Seu Ricardo autorizou. Quando comprar, clique em “🛒 Virou compra”.'
+};
+const PH_SUB = {finalizadas: 'Pesquisar item, fornecedor, obra ou nº da nota…', rota: 'Pesquisar item, fornecedor, obra ou nº da nota…', orcamentos: 'Pesquisar item, quem solicitou ou obra…'};
 $('#btn-nova-compra').onclick = () => abrirCompra(null);
+$('#btn-novo-orc').onclick = () => abrirOrcamento(null);
 $('#compras-busca').addEventListener('input', () => renderCompras());
 function renderCompras(){
+  const reais = comprasReais();
+  const fin = reais.filter(c => statusCompra(c) === 'finalizada'), rota = reais.filter(c => statusCompra(c) === 'rota');
+  $('#cnt-fin').textContent = fin.length; $('#cnt-rota').textContent = rota.length; $('#cnt-orc').textContent = orcamentos().filter(orcAberto).length;
+  $$('#compras-sub .stab').forEach(b => b.classList.toggle('on', b.dataset.sub === subCompras));
+  $('#compras-dica').textContent = DICA_SUB[subCompras];
+  $('#compras-busca').placeholder = PH_SUB[subCompras];
   const q = norm($('#compras-busca').value);
+  if (subCompras === 'orcamentos') { $('#compras-itens').innerHTML = ''; renderOrcamentos(q); return; }
   const ordC = (a, b) => b.data.localeCompare(a.data) || String(b.criadoEm).localeCompare(String(a.criadoEm));
-  let cs = [...db.compras].sort(ordC);
   const itemBate = i => norm(i.nome).includes(q);
-  if (q) cs = cs.filter(c => [c.fornecedor, c.numeroNota, c.obs].some(x => norm(x).includes(q)) || (c.itens || []).some(itemBate));
-  /* Busca por item: tabela com cada compra daquele item, a mais recente primeiro (= última compra) */
+  const bate = c => [c.fornecedor, c.numeroNota, c.obs, c.obra].some(x => norm(x).includes(q)) || (c.itens || []).some(itemBate);
+  /* Busca por item: tabela com cada compra daquele item (finalizadas e em rota), a mais recente primeiro (= última compra) */
   if (q) {
     const linhas = [];
-    cs.forEach(c => (c.itens || []).filter(itemBate).forEach(i => linhas.push({c, i})));
+    [...reais].sort(ordC).filter(bate).forEach(c => (c.itens || []).filter(itemBate).forEach(i => linhas.push({c, i})));
     $('#compras-itens').innerHTML = linhas.length ? `<div class="panel"><h2>Itens encontrados — o mais recente primeiro</h2><div class="table-wrap"><table>
-      <thead><tr><th>Data</th><th>Item</th><th class="num">Qtd</th><th>Un.</th><th class="num">Valor da unidade</th><th class="num">Total do item</th><th>Fornecedor</th><th>Nota</th></tr></thead><tbody>
-      ${linhas.map(({c, i}, k) => `<tr class="click${k === 0 ? ' ultima' : ''}" data-compra="${c.id}" tabindex="0"><td>${fmtData(c.data)}${k === 0 ? '<br><span class="badge b-ok">última compra</span>' : ''}</td><td><b>${esc(i.nome)}</b></td><td class="num">${fmtQtd(i.qtd)}</td><td>${esc(i.unidade)}</td><td class="num">${fmtMoeda(i.valorUnit)}</td><td class="num">${fmtMoeda(i.valorTotal)}</td><td>${esc(c.fornecedor) || '—'}</td><td>${esc(c.numeroNota) || '—'}</td></tr>`).join('')}
+      <thead><tr><th>Data</th><th>Item</th><th class="num">Qtd</th><th>Un.</th><th class="num">Valor da unidade</th><th class="num">Total do item</th><th>Fornecedor</th><th>Nota</th><th>Situação</th></tr></thead><tbody>
+      ${linhas.map(({c, i}, k) => `<tr class="click${k === 0 ? ' ultima' : ''}" data-compra="${c.id}" tabindex="0"><td>${fmtData(c.data)}${k === 0 ? '<br><span class="badge b-ok">última compra</span>' : ''}</td><td><b>${esc(i.nome)}</b></td><td class="num">${fmtQtd(i.qtd)}</td><td>${esc(i.unidade)}</td><td class="num">${fmtMoeda(i.valorUnit)}</td><td class="num">${fmtMoeda(i.valorTotal)}</td><td>${esc(c.fornecedor) || '—'}</td><td>${esc(c.numeroNota) || '—'}</td><td>${statusCompra(c) === 'rota' ? '<span class="badge b-baixo">🚚 Em rota</span>' : '<span class="badge b-ok">✅ Finalizada</span>'}</td></tr>`).join('')}
       </tbody></table></div></div>` : '';
   } else $('#compras-itens').innerHTML = '';
-  $('#compras-lista').innerHTML = cs.length ? (q ? '<h2>Notas encontradas</h2>' : '') + cs.map(c => {
+  const ehRota = subCompras === 'rota';
+  let cs = (ehRota ? rota : fin).sort(ehRota ? (a, b) => (a.previsao || '9999').localeCompare(b.previsao || '9999') || ordC(a, b) : ordC);
+  if (q) cs = cs.filter(bate);
+  const hoje = hojeISO();
+  $('#compras-lista').innerHTML = cs.length ? (q ? `<h2>${ehRota ? 'Compras em rota' : 'Notas'} encontradas</h2>` : '') + cs.map(c => {
     const soma = compraTotalItens(c);
-    return `<div class="panel compra" data-compra="${c.id}" tabindex="0">
+    const prevTxt = c.previsao ? (c.previsao < hoje ? `<span class="badge l-atrasado">Previsão ${fmtData(c.previsao)} — atrasada ${diasEntre(c.previsao, hoje)} dia(s)</span>` : `<span class="badge b-n2">Previsão de chegada: ${fmtData(c.previsao)}</span>`) : '<span class="badge b-neutro">Sem previsão de chegada</span>';
+    return `<div class="panel compra ${ehRota ? 'rota' : 'fin'}" data-compra="${c.id}" tabindex="0">
       <div class="compra-head"><div><b>${fmtData(c.data)}</b>${c.fornecedor ? ' · ' + esc(c.fornecedor) : ''}${c.numeroNota ? ` · <span class="muted">Nota nº ${esc(c.numeroNota)}</span>` : ''}
-        <div class="muted small">${(c.itens || []).length} item(ns)${soma !== round2(c.totalNota) ? ` · soma dos itens ${fmtMoeda(soma)}` : ''}</div></div>
+        <div class="muted small">${(c.itens || []).length} item(ns)${soma !== round2(c.totalNota) ? ` · soma dos itens ${fmtMoeda(soma)}` : ''}${c.obra ? ` · Obra: <b>${esc(c.obra)}</b>` : ''}</div>
+        <div class="row" style="margin-top:6px">${ehRota ? `<span class="badge b-baixo">🚚 Em rota</span> ${prevTxt}` : `<span class="badge b-ok">✅ Chegou${c.dataChegada ? ' em ' + fmtData(c.dataChegada) : ''}</span>`}${c.orcamentoId ? ' <span class="badge b-neutro">📋 veio de orçamento</span>' : ''}</div></div>
         <div class="compra-total"><span class="muted small" style="font-weight:600">Total da nota</span><br>${fmtMoeda(c.totalNota)}</div></div>
       <div class="table-wrap"><table><thead><tr><th>Item</th><th class="num">Qtd</th><th>Un.</th><th class="num">Valor da unidade</th><th class="num">Total do item</th></tr></thead><tbody>
         ${(c.itens || []).map(i => `<tr${q && itemBate(i) ? ' class="ultima"' : ''}><td>${esc(i.nome)}</td><td class="num">${fmtQtd(i.qtd)}</td><td>${esc(i.unidade)}</td><td class="num">${fmtMoeda(i.valorUnit)}</td><td class="num">${fmtMoeda(i.valorTotal)}</td></tr>`).join('')}
       </tbody></table></div>
       ${c.obs ? `<p class="hint">${esc(c.obs)}</p>` : ''}
+      ${ehRota ? `<div class="actions" style="margin-top:8px"><button type="button" class="btn primary" data-receber="${c.id}">✅ Chegou — conferir e dar entrada no estoque</button></div>` : ''}
     </div>`; }).join('')
-    : `<div class="panel" style="text-align:center"><p class="empty">${db.compras.length ? 'Nenhuma compra encontrada para esta pesquisa.' : 'Nenhuma compra registrada ainda. Clique em “+ Registrar compra”.'}</p></div>`;
+    : `<div class="panel" style="text-align:center"><p class="empty">${q ? 'Nenhuma compra encontrada para esta pesquisa.' : ehRota ? 'Nenhuma compra em rota. Ao registrar uma compra que ainda não chegou, marque “🚚 Em rota”.' : 'Nenhuma compra finalizada ainda. Clique em “+ Registrar compra”.'}</p></div>`;
 }
 
 /* ================= Tarefas ================= */
@@ -2562,7 +3196,7 @@ function renderNotas(){
   $('#notas-grid').innerHTML = ns.length ? ns.map(n => `<div class="note" style="background:${NOTA_CORES[n.cor] || NOTA_CORES.amarelo}">
       <div class="note-bar">${Object.entries(NOTA_CORES).map(([k, c]) => `<button type="button" class="note-dot${(n.cor || 'amarelo') === k ? ' on' : ''}" data-nota-cor="${k}" data-id="${n.id}" style="background:${c}" title="${k}" aria-label="Cor ${k}"></button>`).join('')}
         <button type="button" class="note-del" data-nota-del="${n.id}" title="Excluir nota" aria-label="Excluir nota">×</button></div>
-      <textarea data-nota-txt="${n.id}" placeholder="Escreva sua nota…" aria-label="Texto da nota">${esc(n.texto)}</textarea>
+      <textarea data-nota-txt="${n.id}" placeholder="Escreva sua nota…" aria-label="Texto da nota"${edicaoLiberada() ? '' : ' readonly'}>${esc(n.texto)}</textarea>
       <div class="note-foot">${n.editadoEm ? 'Editada em ' + fmtDataHora(n.editadoEm) : 'Criada em ' + fmtDataHora(n.criadoEm)}</div>
     </div>`).join('')
     : `<p class="empty">${db.notas.length ? 'Nenhuma nota encontrada.' : 'Nenhuma nota ainda. Clique em “+ Nova nota”.'}</p>`;
@@ -2576,6 +3210,11 @@ async function salvarNota(id){
   await commit(d => { const x = d.notas.find(y => y.id === id); if (!x) throw new Error('Esta nota foi excluída em outro computador.'); x.texto = texto; x.editadoEm = new Date().toISOString(); });
 }
 const gridNotas = $('#notas-grid');
+/* Bloqueado: a nota só pode ser lida. Ao clicar para escrever, pede a senha. */
+gridNotas.addEventListener('click', async e => {
+  const ta = e.target.closest('[data-nota-txt]'); if (!ta || !ta.readOnly || edicaoLiberada()) return;
+  if (await pedirSenha()) { atualizaCadeado(); ta.focus(); }
+});
 gridNotas.addEventListener('input', e => { const id = e.target.dataset.notaTxt; if (!id) return; clearTimeout(notaTimers[id]); notaTimers[id] = setTimeout(() => salvarNota(id), 1200); });
 gridNotas.addEventListener('focusout', e => {
   const id = e.target.dataset.notaTxt; if (!id) return;
@@ -2910,16 +3549,27 @@ function gerarPlanilha(){
   const GM = [...db.gpsMovs].sort((a, b) => a.registradoEm.localeCompare(b.registradoEm));
   const gpsHist = xTabela('GPS Histórico', [
     {h: 'Registrado em', t: 'dt'}, {h: 'Data', t: 'd'}, {h: 'Item', t: 'b', min: 18}, {h: 'Nº do bujão'}, {h: 'Ciclo', t: 'n'}, {h: 'Nº no ciclo', t: 'n'},
-    {h: 'Movimentação', min: 24}, {h: 'De', min: 16}, {h: 'Para', min: 16}, {h: 'Obra', min: 18}, {h: 'Nível de saída'}, {h: 'Nível de volta'}, {h: 'Nível na passagem / cadastro'}, {h: 'Comentário', t: 'wrap', w: 50}, {h: 'Corrigido em', t: 'dt'}
+    {h: 'Movimentação', min: 24}, {h: 'De', min: 16}, {h: 'Para', min: 16}, {h: 'Obra', min: 18}, {h: 'Nível de saída'}, {h: 'Nível de volta'}, {h: 'Nível na passagem / cadastro'}, {h: 'Comentário', t: 'wrap', w: 50}, {h: 'Corrigido em', t: 'dt'},
+    {h: 'Grupo nº'}, {h: 'Itens no grupo', t: 'n'}
   ], GM.map(m => { const g = gpsById(m.itemId); return [m.registradoEm, m.data, g ? gpsTitulo(g) : m.itemNome, m.numeroBujao, m.ciclo || 1, m.seq,
-    GPS_TIPO[m.tipo] || m.tipo, m.de, m.para, m.obra, m.nivelSaida, m.nivelVolta, m.nivel, m.comentario, m.editadoEm]; }));
+    GPS_TIPO[m.tipo] || m.tipo, m.de, m.para, m.obra, m.nivelSaida, m.nivelVolta, m.nivel, m.comentario, m.editadoEm, m.grupoId ? loteCod(m.grupoId) : '', m.grupo ? m.grupo.nItens : '']; }));
 
   /* Compras: uma linha por item */
-  const CP = [...db.compras].sort((a, b) => b.data.localeCompare(a.data));
+  const CP = comprasReais().sort((a, b) => b.data.localeCompare(a.data));
   const compras = xTabela('Compras', [
-    {h: 'Data da compra', t: 'd'}, {h: 'Fornecedor', min: 16}, {h: 'Nº da nota'}, {h: 'Item', t: 'b', min: 18}, {h: 'Quantidade', t: 'n'}, {h: 'Unidade'},
+    {h: 'Situação', st: v => v === 'Em rota' ? XS.warn : XS.ok, min: 12}, {h: 'Data da compra', t: 'd'}, {h: 'Previsão de chegada', t: 'd'}, {h: 'Data da chegada', t: 'd'},
+    {h: 'Fornecedor', min: 16}, {h: 'Nº da nota'}, {h: 'Obra', min: 16}, {h: 'Item', t: 'b', min: 18}, {h: 'Quantidade', t: 'n'}, {h: 'Unidade'},
     {h: 'Valor da unidade', t: 'money', min: 14}, {h: 'Valor total do item', t: 'money', min: 14}, {h: 'Valor total da nota', t: 'money', min: 14}, {h: 'Observação', t: 'wrap', w: 36}
-  ], CP.flatMap(c => (c.itens || []).map(i => [c.data, c.fornecedor, c.numeroNota, i.nome, i.qtd, i.unidade, i.valorUnit, i.valorTotal, c.totalNota, c.obs])));
+  ], CP.flatMap(c => (c.itens || []).map(i => [statusCompra(c) === 'rota' ? 'Em rota' : 'Finalizada', c.data, statusCompra(c) === 'rota' ? c.previsao || '' : '', c.dataChegada || '',
+    c.fornecedor, c.numeroNota, c.obra, i.nome, i.qtd, i.unidade, i.valorUnit, i.valorTotal, c.totalNota, c.obs])));
+
+  const ORC_SIT = {aberto: 'A fazer', comprado: 'Virou compra', cancelado: 'Cancelado'};
+  const ORC_AUT = {sim: 'Sim', nao: 'Não', aguardando: 'Aguardando'};
+  const orcs = xTabela('Orçamentos', [
+    {h: 'Situação', st: v => v === 'A fazer' ? XS.warn : v === 'Virou compra' ? XS.ok : XS.s, min: 13}, {h: 'Para quando', t: 'd'}, {h: 'Quem solicitou', min: 18}, {h: 'Obra', min: 18},
+    {h: 'Itens', t: 'wrap', w: 50}, {h: 'Seu Ricardo autorizou?', st: v => v === 'Sim' ? XS.ok : v === 'Não' ? XS.bad : XS.warn, min: 14}, {h: 'Observação', t: 'wrap', w: 36}, {h: 'Criado em', t: 'dt'}, {h: 'Resolvido em', t: 'dt'}
+  ], orcamentos().sort((a, b) => (a.paraQuando || '').localeCompare(b.paraQuando || '')).map(o => [ORC_SIT[o.situacao || 'aberto'] || o.situacao, o.paraQuando, o.solicitante, o.obra,
+    (o.itens || []).map(i => `${fmtQtd(i.qtd)} ${i.unidade} — ${i.nome}`).join('\n'), ORC_AUT[o.autorizado] || '', o.obs, o.criadoEm, o.concluidoEm]));
 
   const TAR_ST = {concluida: 'Concluída', atrasada: 'Atrasada', hoje: 'Vence hoje', futura: 'No prazo', semprazo: 'Sem prazo'};
   const tarefas = xTabela('Tarefas', [
@@ -2950,7 +3600,9 @@ function gerarPlanilha(){
     kv('Itens no GPS', db.gps.length),
     kv('Itens do GPS na rua', db.gps.filter(g => g.local === 'rua').length),
     kv('Movimentações do GPS (histórico completo)', db.gpsMovs.length),
-    kv('Compras registradas', db.compras.length),
+    kv('Compras finalizadas', comprasReais().filter(c => statusCompra(c) === 'finalizada').length),
+    kv('Compras em rota', comprasReais().filter(c => statusCompra(c) === 'rota').length),
+    kv('Orçamentos a fazer', orcamentos().filter(orcAberto).length),
     kv('Tarefas em aberto', db.tarefas.filter(t => !t.concluida).length),
     kv('Tarefas atrasadas', db.tarefas.filter(t => stTar(t) === 'atrasada').length),
     kv('Notas', db.notas.length),
@@ -2966,7 +3618,8 @@ function gerarPlanilha(){
       ['Comentários', 'Cada comentário ou ocorrência em uma linha, ligado à sua movimentação.'],
       ['GPS Itens', 'Itens que saem do estoque para a rua: situação atual, responsável, obra, níveis do nitrogênio e ciclo de movimentações.'],
       ['GPS Histórico', 'Todas as passagens de responsabilidade de todos os itens, sem limite, com ciclo e número no ciclo.'],
-      ['Compras', 'Cada item comprado em uma linha: data, fornecedor, nota, quantidade, unidade, valor da unidade, total do item e total da nota.'],
+      ['Compras', 'Cada item comprado em uma linha: situação (finalizada ou em rota), datas, fornecedor, nota, obra, quantidade, unidade, valor da unidade, total do item e total da nota.'],
+      ['Orçamentos', 'Orçamentos a fazer e já resolvidos: quem solicitou, obra, para quando, itens e se Seu Ricardo autorizou.'],
       ['Tarefas', 'Tarefas da aba Tarefas (inclui os antigos lembretes), com prazo, horário e status.'],
       ['Notas', 'Texto das notas autoadesivas.'],
       ['Alterações de cadastro', 'Registro de quando cada produto teve o cadastro alterado e quais campos mudaram.']
@@ -2976,19 +3629,20 @@ function gerarPlanilha(){
   ];
   const resumo = {name: 'Resumo', widths: [40, 90], rows: resumoRows, noGrid: true};
 
-  return xMontar([estoque, entradas, saidas, ajustes, historico, comentarios, gpsItens, gpsHist, compras, tarefas, notas, alteracoes, resumo]);
+  return xMontar([estoque, entradas, saidas, ajustes, historico, comentarios, gpsItens, gpsHist, compras, orcs, tarefas, notas, alteracoes, resumo]);
 }
 $('#imp-file').addEventListener('change', e => {
   const file = e.target.files[0]; if (!file) return;
   const r = new FileReader();
-  r.onload = () => {
+  r.onload = async () => {
     try {
       const d = JSON.parse(r.result);
       if (!Array.isArray(d.produtos) || !Array.isArray(d.movs)) throw new Error();
       if (!pronto) { toast('Aguarde a conexão com o banco de dados.', 'err'); return; }
       const chaves = Object.keys(COL).filter(k => Array.isArray(d[k]) && !indisp.has(k));
-      const extra = ['gps', 'compras', 'tarefas', 'notas'].filter(k => chaves.includes(k)).map(k => `${d[k].length} ${({gps: 'item(ns) do GPS', compras: 'compra(s)', tarefas: 'tarefa(s)', notas: 'nota(s)'})[k]}`);
+      const extra = ['gps', 'compras', 'tarefas', 'notas'].filter(k => chaves.includes(k)).map(k => `${d[k].length} ${({gps: 'item(ns) do GPS', compras: 'compra(s)/orçamento(s)', tarefas: 'tarefa(s)', notas: 'nota(s)'})[k]}`);
       if (!confirm(`Importar backup com ${d.produtos.length} produto(s), ${d.movs.length} movimentação(ões)${(d.lembretes || []).length ? `, ${d.lembretes.length} lembrete(s) (viram tarefas)` : ''}${extra.length ? ', ' + extra.join(', ') : ''}? TODOS os dados atuais destas partes do banco online serão substituídos, em todos os computadores.`)) return;
+      if (!(await pedirSenha())) { toast('Importação cancelada: é preciso confirmar a senha.', 'err'); return; }
       const novo = limpaDb(d);
       document.body.classList.add('busy');
       substituirTudo(novo, chaves).then(() => toast('Backup importado.')).catch(er => { console.error(er); toast(msgErroBanco(er), 'err'); })
