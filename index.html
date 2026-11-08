@@ -294,6 +294,27 @@ li.tar.done b{text-decoration:line-through;color:var(--muted)}
 .ocard.feito{border-left-color:var(--muted);opacity:.85}
 .ocard .lote-itens .q{color:var(--primary)}
 .compra.rota{border-left:5px solid var(--warn)}
+.obcard{border-left-color:var(--primary)}
+.obcard.ob-finalizada{border-left-color:var(--ok)}
+.obcard.ob-excluida{border-left-color:var(--muted);opacity:.8}
+.ob-tab tr.dia td{background:var(--primary-soft);color:var(--primary);font-weight:800;font-size:14px}
+.ob-tab tr.tot-dia td{background:var(--surface-2);font-weight:800}
+.ob-tab tr.tot-geral td{background:var(--ok-soft);color:var(--ok);font-weight:800;font-size:16px}
+.sem-preco{color:var(--warn);font-weight:700;font-size:12px}
+.ob-tab tr.dev td{color:var(--ok);font-style:italic}
+.aviso-ped{background:var(--warn-soft);color:var(--text);border:1px solid var(--warn);border-radius:8px;padding:8px 10px;font-size:14px;margin:0 0 12px}
+.aviso-ped .btn{margin:2px 4px}
+.nowrap{white-space:nowrap}
+.subnav{border-top:1px solid var(--border);background:var(--surface-2)}
+.subnav-in{max-width:1200px;margin:0 auto;padding:6px 16px;display:flex;gap:6px;overflow-x:auto}
+.stab2{border:1px solid var(--border);background:var(--surface-2);border-radius:999px;padding:6px 14px;font-weight:700;cursor:pointer;color:var(--muted);white-space:nowrap}
+.stab2.on{background:var(--primary);color:var(--primary-ink);border-color:var(--primary)}
+.b-res{background:#efe4ff;color:#6b3fc4}
+@media (prefers-color-scheme:dark){.b-res{background:#2c2147;color:#c5a8ff}}
+.res-txt{color:#6b3fc4 !important}
+.res-box{border:2px dashed #8b5cf6;border-radius:10px;padding:10px 12px;margin:0 0 12px;background:var(--surface-2)}
+.res-q{border-color:#8b5cf6;background:var(--surface-2)}
+.res-q .opt:has(input:checked){border-color:#8b5cf6;background:#efe4ff;color:#4c2a99}
 .estagios{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:10px;padding-top:10px;border-top:1px dashed var(--border)}
 .est{border:2px solid var(--border);background:var(--surface);border-radius:999px;padding:6px 12px;font-weight:700;font-size:13px;cursor:pointer}
 .est:hover{border-color:var(--primary)}
@@ -305,6 +326,10 @@ li.tar.done b{text-decoration:line-through;color:var(--muted)}
 .stab.alerta{border-color:var(--danger);color:var(--danger)}
 .stab.alerta .cnt{background:var(--danger);color:#fff;border-color:var(--danger)}
 .div-banner{display:block;width:100%;text-align:left;background:var(--danger-soft);color:var(--danger);border:2px solid var(--danger);border-radius:10px;padding:10px 14px;font-weight:700;cursor:pointer;margin-bottom:12px}
+.it-obra{grid-column:1/-1;background:#f3edff;border:1px dashed #8b5cf6;border-radius:8px;padding:6px 10px;margin:0 36px 6px 36px;font-size:13px;color:#2b1a55}
+.it-obra .div-linha{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.it-row .it-obra .ob-q{width:100px;padding:6px 8px}
+.it-obra .ob-calc{font-weight:600;margin-top:4px}
 .it-div{grid-column:1/-1;background:var(--danger-soft);border:1px dashed var(--danger);border-radius:8px;padding:6px 10px;margin:0 36px 6px 36px;font-size:13px}
 .it-div .div-linha{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .it-row .it-div input,.it-row .it-div select{width:auto;padding:6px 8px}
@@ -368,8 +393,8 @@ details.hist-orc summary{cursor:pointer;font-weight:700;color:var(--muted);margi
 @media (max-width:640px){.gl-row,.or-row{grid-template-columns:1fr 1fr;padding:8px;border:1px solid var(--border);border-radius:8px}.gl-row .gl-nome,.or-row .or-n,.cq-row .cq-loja,.cq-row .cq-obs{grid-column:span 2}.cq-row{grid-template-columns:1fr 1fr;padding:8px;border:1px solid var(--border);border-radius:8px}.gl-row .off{display:none}.gg-item{grid-template-columns:1fr 30px}.gg-item input{grid-column:1/-1;grid-row:2}}
 @media (min-width:821px){nav.tabs{flex-wrap:wrap;overflow:visible}}
 @media (max-width:820px){.split{grid-template-columns:1fr}}
-@media (max-width:640px){.lt-row{grid-template-columns:1fr 1fr;padding:8px;border:1px solid var(--border);border-radius:8px}.lt-row .lt-p{grid-column:span 2}.lt-row .it-num{text-align:left}.lt-det{margin:0}.lt-head{display:none}.it-novo,.it-exist,.it-div{margin:0}.np-grid{grid-template-columns:1fr 1fr 1fr}.np-grid .np-f-obs,.np-grid .np-f-min{grid-column:span 3}.it-row{grid-template-columns:1fr 1fr;padding:8px;border:1px solid var(--border);border-radius:8px}.it-row .it-n{grid-column:span 2}.it-num{text-align:left}.it-head{display:none}}
-@media (max-width:560px){.grid2,.grid3{grid-template-columns:1fr}.span2{grid-column:auto}.top-in{gap:8px}.brand{width:100%}}
+@media (max-width:640px){.lt-row{grid-template-columns:1fr 1fr;padding:8px;border:1px solid var(--border);border-radius:8px}.lt-row .lt-p{grid-column:span 2}.lt-row .it-num{text-align:left}.lt-det{margin:0}.lt-head{display:none}.it-novo,.it-exist,.it-div,.it-obra{margin:0}.np-grid{grid-template-columns:1fr 1fr 1fr}.np-grid .np-f-obs,.np-grid .np-f-min{grid-column:span 3}.it-row{grid-template-columns:1fr 1fr;padding:8px;border:1px solid var(--border);border-radius:8px}.it-row .it-n{grid-column:span 2}.it-num{text-align:left}.it-head{display:none}}
+@media (max-width:560px){.grid2,.grid3{grid-template-columns:1fr}.span2{grid-column:auto}.top-in{gap:8px}.brand{flex:1;width:auto}nav.tabs{order:3;flex-basis:100%}}
 </style>
 </head>
 <body>
@@ -378,17 +403,20 @@ details.hist-orc summary{cursor:pointer;font-weight:700;color:var(--muted);margi
   <nav class="tabs" id="tabs">
     <button class="tab active" data-tab="dashboard">Dashboard</button>
     <button class="tab" data-tab="estoque">Estoque</button>
-    <button class="tab" data-tab="entradas">Entradas</button>
-    <button class="tab" data-tab="saidas">Saídas</button>
+    <button class="tab" data-grupo="mov">Movimentação ▾</button>
+    <button class="tab" data-tab="obras">Obras</button>
     <button class="tab" data-tab="gps">GPS Itens</button>
     <button class="tab" data-tab="compras">Últimas compras</button>
-    <button class="tab" data-tab="tarefas">Tarefas</button>
-    <button class="tab" data-tab="notas">Notas</button>
-    <button class="tab" data-tab="config">Configurações</button>
+    <button class="tab" data-grupo="mais">Mais ▾</button>
   </nav>
   <button type="button" class="lock" id="lock" title="Qualquer pessoa pode ver tudo. Para alterar, é preciso confirmar a senha.">🔒 Somente leitura</button>
   <span class="conn c-wait" id="conn">Conectando…</span>
-</div></header>
+</div>
+<div class="subnav" id="subnav" hidden>
+  <div class="subnav-in" data-sub-grupo="mov"><button class="stab2" data-tab="entradas">⬇ Entradas</button><button class="stab2" data-tab="saidas">⬆ Saídas</button></div>
+  <div class="subnav-in" data-sub-grupo="mais"><button class="stab2" data-tab="tarefas">✅ Tarefas</button><button class="stab2" data-tab="notas">🗒 Notas</button><button class="stab2" data-tab="config">⚙ Configurações</button></div>
+</div>
+</header>
 <div class="banner" id="banner" hidden></div>
 
 <main>
@@ -401,6 +429,7 @@ details.hist-orc summary{cursor:pointer;font-weight:700;color:var(--muted);margi
     <div class="panel"><h2>Tarefas — próximos 7 dias</h2><ul class="list" id="dash-tarefas"></ul></div>
     <div class="panel"><h2>⚠ Itens parados na rua (GPS)</h2><ul class="list" id="dash-parados"></ul></div>
     <div class="panel"><h2>Estoque baixo / zerado</h2><ul class="list" id="dash-baixo"></ul></div>
+    <div class="panel"><h2>🚚 Compras pedidas atrasadas ou sem previsão</h2><ul class="list" id="dash-atras"></ul></div>
     <div class="panel"><h2>Últimas movimentações</h2><ul class="list" id="dash-movs"></ul></div>
   </div>
 </section>
@@ -408,6 +437,11 @@ details.hist-orc summary{cursor:pointer;font-weight:700;color:var(--muted);margi
 <!-- ESTOQUE -->
 <section class="view" id="v-estoque" hidden>
   <div class="section-head"><h1>Estoque</h1><button class="btn primary" id="btn-novo-prod">+ Novo produto</button></div>
+  <div class="subtabs" id="est-sub">
+    <button class="stab on" data-esub="livre">📦 Estoque <span class="cnt" id="cnt-est">0</span></button>
+    <button class="stab" data-esub="obras">🏗️ Itens para obras <span class="cnt" id="cnt-est-ob">0</span></button>
+  </div>
+  <p class="hint" id="est-dica" style="margin:-4px 0 10px"></p>
   <label class="search" for="busca">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.8-4.8"/></svg>
     <input id="busca" type="search" placeholder="Pesquisar pelo nome do produto…" autocomplete="off" aria-label="Pesquisar produto">
@@ -435,6 +469,14 @@ details.hist-orc summary{cursor:pointer;font-weight:700;color:var(--muted);margi
       <tbody id="est-tbody"></tbody>
     </table></div>
   </div>
+  <div id="lista-obras" class="panel" hidden>
+    <div class="row" style="justify-content:space-between;margin-bottom:10px"><div class="filters" id="est-ob-filtros" style="margin:0"></div>
+      <div class="row"><button type="button" class="btn" id="btn-sep-obra">🔒 Separar do estoque livre</button><button type="button" class="btn primary" id="btn-add-obra">+ Adicionar itens para obra</button></div></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Obra</th><th>Item</th><th class="num">Quantidade</th><th>Localização</th><th></th></tr></thead>
+      <tbody id="est-ob-tbody"></tbody>
+    </table></div>
+  </div>
 </section>
 
 <!-- ENTRADAS -->
@@ -444,11 +486,13 @@ details.hist-orc summary{cursor:pointer;font-weight:700;color:var(--muted);margi
     <form class="panel" id="f-ent" novalidate>
       <h2>Registrar entrada</h2>
       <div class="field"><label for="ent-prod">Produto <b class="req">*</b></label><select id="ent-prod"></select></div>
+      <div id="ent-aviso"></div>
       <div id="ent-novo" class="box-new" hidden><b class="small">Cadastro do novo produto</b><div style="margin-top:8px" id="ent-novo-campos"></div></div>
       <div class="grid2">
         <div class="field"><label for="ent-qtd" id="ent-qtd-lbl">Quantidade recebida <b class="req">*</b></label><input id="ent-qtd" type="number" min="0" step="any" inputmode="decimal"><div class="hint" id="ent-cobre"></div></div>
         <div class="field"><label for="ent-data">Data da entrada <b class="req">*</b></label><input id="ent-data" type="date"></div>
       </div>
+      <div id="ent-res-wrap"></div>
       <button type="button" class="add-mais" id="ent-mais" title="Com mais de um item, a entrada vira um card de entrada em lote">+ Adicionar outro item</button>
       <div id="ent-resp-wrap"></div>
       <div class="field"><label for="ent-obs">Observação (opcional)</label><textarea id="ent-obs" rows="2"></textarea></div>
@@ -477,6 +521,7 @@ details.hist-orc summary{cursor:pointer;font-weight:700;color:var(--muted);margi
       </div>
       <button type="button" class="add-mais" id="sai-mais" title="Com mais de um item, a saída vira um card de saída em lote">+ Adicionar outro item</button>
       <div id="sai-quem-wrap"></div>
+      <div class="field"><label for="sai-obra">Para qual obra? <b class="req">*</b></label><select id="sai-obra"></select></div>
       <div class="auth" id="sai-auth">
         <div class="auth-title">Autorizado por Ricardo? <b class="req">*</b></div>
         <div class="opts">
@@ -493,6 +538,22 @@ details.hist-orc summary{cursor:pointer;font-weight:700;color:var(--muted);margi
       <div class="cards" id="sai-cards"></div>
     </div>
   </div>
+</section>
+
+<!-- OBRAS -->
+<section class="view" id="v-obras" hidden>
+  <div class="section-head"><h1>Obras</h1><button class="btn primary" id="btn-nova-obra">+ Nova obra</button></div>
+  <div class="subtabs" id="obras-sub">
+    <button class="stab" data-osub="andamento">🏗️ Em andamento <span class="cnt" id="cnt-ob-and">0</span></button>
+    <button class="stab" data-osub="finalizada">✅ Finalizadas <span class="cnt" id="cnt-ob-fin">0</span></button>
+    <button class="stab" data-osub="excluida">🗑️ Excluídas <span class="cnt" id="cnt-ob-exc">0</span></button>
+  </div>
+  <p class="hint" id="obras-dica" style="margin:-4px 0 10px"></p>
+  <label class="search" for="obras-busca">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.8-4.8"/></svg>
+    <input id="obras-busca" type="search" placeholder="Pesquisar obra, endereço ou empresa…" autocomplete="off" aria-label="Pesquisar obras">
+  </label>
+  <div class="ocards" id="obras-lista"></div>
 </section>
 
 <!-- GPS ITENS -->
@@ -971,18 +1032,53 @@ function sobraDe(d, p, agora){
   } else if (!s.cobreBaseId) s.cobreBaseId = p.id;
   return s;
 }
+/* ---------- Reservas de estoque para obras ----------
+   p.reservas = [{obraId, obraNome, qtd}]: parte do saldo que é de uma obra e só pode sair para ela. */
+const reservasDe = p => (p && p.reservas) || [];
+const totalReservado = p => round3(reservasDe(p).reduce((a, r) => a + (r.qtd || 0), 0));
+const livreDe = p => round3(Math.max(0, (p.saldo || 0) - totalReservado(p)));
+const reservaTxt = p => reservasDe(p).map(r => `${fmtQtd(r.qtd)} ${p.unidade} p/ ${r.obraNome}`).join(' · ');
+function ajustaReserva(p, obraId, obraNome, delta){
+  if (!obraId || !delta) return;
+  p.reservas = reservasDe(p).map(r => ({...r}));
+  let r = p.reservas.find(x => x.obraId === obraId);
+  if (delta > 0) { if (!r) { r = {obraId, obraNome: obraNome || (obraById(obraId) || {}).nome || '', qtd: 0}; p.reservas.push(r); } r.qtd = round3(r.qtd + delta); }
+  else if (r) r.qtd = round3(Math.max(0, r.qtd + delta));
+  p.reservas = p.reservas.filter(x => x.qtd > 0);
+  if (!p.reservas.length) delete p.reservas;
+}
+/* Reserva nunca passa do saldo (ex.: depois de um ajuste de contagem). Retorna true se precisou reduzir. */
+function limitaReservas(p){
+  let exc = round3(totalReservado(p) - (p.saldo || 0)); if (exc <= 0) return false;
+  p.reservas = reservasDe(p).map(r => ({...r}));
+  for (let i = p.reservas.length - 1; i >= 0 && exc > 0; i--) { const t = Math.min(exc, p.reservas[i].qtd); p.reservas[i].qtd = round3(p.reservas[i].qtd - t); exc = round3(exc - t); }
+  p.reservas = p.reservas.filter(x => x.qtd > 0); if (!p.reservas.length) delete p.reservas;
+  return true;
+}
+/* Saída: o que está reservado para outras obras não pode sair. Retorna quanto da reserva desta obra pode ser usado. */
+function checaReserva(p, u, obra){
+  const minha = obra ? ((reservasDe(p).find(r => r.obraId === obra.id) || {}).qtd || 0) : 0;
+  const pode = round3(p.saldo - (totalReservado(p) - minha));
+  if (u > pode + 1e-9) {
+    const outras = reservasDe(p).filter(r => !obra || r.obraId !== obra.id).map(r => `${fmtQtd(r.qtd)} ${p.unidade} da obra ${r.obraNome}`).join(', ');
+    throw new Error(`🔒 ${p.nome}: ${outras} — reservado, não pode sair para outro destino. Disponível para esta saída: ${fmtQtd(Math.max(0, pode))} ${p.unidade}. Para liberar a reserva, abra a ficha do produto no Estoque.`);
+  }
+  return minha;
+}
 /* Lança uma saída no rascunho "d". it = {pid, modo: 'normal' | 'inteira' | 'pedaco', qtd, metros}.
    base = {data, agora, quemRetirou, obs, loteId, lote} */
 function aplicarSaida(d, it, base){
   const p = d.produtos.find(x => x.id === it.pid); if (!p) throw new Error('Produto não encontrado.');
-  const extra = base.loteId ? {loteId: base.loteId, lote: base.lote} : {};
+  const extra = {...(base.loteId ? {loteId: base.loteId, lote: base.lote} : {}), ...(base.obra ? {obraId: base.obra.id, obraNome: base.obra.nome} : {})};
   const novaMov = (q, ant, mais = {}) => d.movs.push({id: uid(), tipo: 'saida', produtoId: p.id, produtoNome: p.nome, unidade: p.unidade, qtd: q, saldoAnt: ant, saldoPost: p.saldo,
     data: base.data, registradoEm: base.agora, quemRetirou: base.quemRetirou, autorizadoRicardo: 'Sim', obs: base.obs || '', comentarios: [], ...extra, ...mais});
   if (it.modo === 'pedaco') {
     const c = calcPedaco(it.metros);
     if (!(c.metros > 0)) throw new Error('Informe quanto foi tirado do cobre.');
     if (c.usa > p.saldo) throw new Error(`Saldo insuficiente de ${p.nome}: ${fmtQtd(c.metros)} m precisam de ${pqTxt(c.usa)} e há ${pqTxt(p.saldo)}.`);
+    const minhaR = checaReserva(p, c.usa, base.obra);
     const ant = p.saldo; p.saldo = round3(ant - c.usa);
+    if (minhaR) ajustaReserva(p, base.obra.id, null, -Math.min(minhaR, c.usa));
     novaMov(c.usa, ant, {metros: c.metros, cobre: {inteiras: c.inteiras, aberta: !!c.abre, cortado: c.cortado, sobra: c.sobra}});
     if (c.sobra > 0) {
       const s = sobraDe(d, p, base.agora); const a2 = s.saldo || 0; s.saldo = round3(a2 + c.sobra);
@@ -995,17 +1091,61 @@ function aplicarSaida(d, it, base){
   const q = round3(it.qtd);
   if (!(q > 0)) throw new Error(`Informe a quantidade de ${p.nome}.`);
   if (q > p.saldo) throw new Error(`Saldo insuficiente de ${p.nome}. Disponível: ${fmtSaldo(p)}.`);
+  const minhaR = checaReserva(p, q, base.obra);
   const ant = p.saldo; p.saldo = round3(ant - q);
-  novaMov(q, ant, ehPanq(p) ? {metros: round3(q * PANQ_M)} : {});
+  if (minhaR) ajustaReserva(p, base.obra.id, null, -Math.min(minhaR, q));
+  novaMov(q, ant, {...(ehPanq(p) ? {metros: round3(q * PANQ_M)} : {}), ...(minhaR ? {usouReserva: round3(Math.min(minhaR, q))} : {})});
 }
-/* Lança uma entrada no rascunho "d". it = {pid, qtd}; base = {data, agora, responsavel, obs, loteId, lote} */
+/* Lança uma entrada no rascunho "d". it = {pid, qtd}; base = {data, agora, responsavel, obs, loteId, lote, reserva: {id, nome} da obra} */
 function aplicarEntrada(d, it, base){
   const p = d.produtos.find(x => x.id === it.pid); if (!p) throw new Error('Produto não encontrado.');
   const q = round3(it.qtd); if (!(q > 0)) throw new Error(`Informe a quantidade de ${p.nome}.`);
   const ant = p.saldo || 0; p.saldo = round3(ant + q);
   d.movs.push({id: uid(), tipo: 'entrada', produtoId: p.id, produtoNome: p.nome, unidade: p.unidade, qtd: q, saldoAnt: ant, saldoPost: p.saldo, data: base.data, registradoEm: base.agora,
-    responsavel: base.responsavel, obs: base.obs || '', comentarios: [], ...(ehPanq(p) ? {metros: round3(q * PANQ_M)} : {}), ...(base.loteId ? {loteId: base.loteId, lote: base.lote} : {})});
+    responsavel: base.responsavel, obs: base.obs || '', comentarios: [], ...(ehPanq(p) ? {metros: round3(q * PANQ_M)} : {}), ...(base.loteId ? {loteId: base.loteId, lote: base.lote} : {}), ...(base.extra || {}),
+    ...(base.reserva ? {reservaObraId: base.reserva.id, reservaObraNome: base.reserva.nome} : {})});
+  if (base.reserva) ajustaReserva(p, base.reserva.id, base.reserva.nome, q);
 }
+/* Compra pedida (ainda não chegou) que tem este produto: evita dar entrada duas vezes */
+function comprasPedidasDe(p){ return comprasReais().filter(c => statusCompra(c) === 'rota' && (c.itens || []).some(i => i.produtoId === p.id || norm(i.nome) === norm(p.nome))); }
+function avisoPedida(p){
+  const cs = p ? comprasPedidasDe(p) : []; if (!cs.length) return '';
+  return `<div class="aviso-ped">⚠️ <b>${esc(p.nome)}</b> tem compra pedida que ainda não chegou: ${cs.map(c => { const i = c.itens.find(x => x.produtoId === p.id || norm(x.nome) === norm(p.nome));
+    return `<span class="nowrap"><b>${esc(c.fornecedor || 'sem fornecedor')}</b>${c.numeroNota ? ' nota ' + esc(c.numeroNota) : ''} de ${fmtData(c.data)} (${fmtQtd(i.qtd)} ${esc(i.unidade)}) <button type="button" class="btn sm" data-receber="${c.id}">✅ Dar entrada pela compra</button></span>`; }).join(' ')}
+    <div class="small">Se foi essa compra que chegou, dê entrada pela compra — senão o estoque soma duas vezes.</div></div>`;
+}
+/* Pergunta obrigatória ao entrar item: "Fica no estoque" ou "É para obra" (e qual). O sistema separa sozinho:
+   estoque livre -> lista Estoque; obra -> lista "Itens para obras" (reservado). */
+function resOptions(sel = '', vazio = false){
+  const at = vazio ? [] : obrasAtivas();
+  return `<option value="">${vazio || at.length ? 'Selecione a obra…' : 'Nenhuma obra em andamento — cadastre na aba Obras'}</option>` + at.map(o => `<option value="${o.id}"${o.id === sel ? ' selected' : ''}>🏗️ ${esc(o.nome)}</option>`).join('');
+}
+const resCampo = (id, pre = '', vazio = false, extra = '') => `<div class="auth res-q" id="${id}-f">
+  <div class="auth-title">Este item fica no estoque ou é para obra? <b class="req">*</b></div>
+  <div class="opts"><label class="opt"><input type="radio" name="${id}-q" value="estoque"${pre === 'estoque' ? ' checked' : ''}> 📦 Fica no estoque</label><label class="opt"><input type="radio" name="${id}-q" value="obra"${pre && pre !== 'estoque' ? ' checked' : ''}> 🏗️ É para obra</label></div>
+  <div class="field" id="${id}-of" style="margin:8px 0 0"${pre && pre !== 'estoque' ? '' : ' hidden'}><label for="${id}">Qual obra? <b class="req">*</b></label><select id="${id}">${resOptions(pre !== 'estoque' ? pre : '', vazio)}</select>
+    <div class="hint">Vai para a lista “🏗️ Itens para obras” e só pode sair para essa obra.</div></div>${extra}</div>`;
+/* Lê a resposta: {res: null} = estoque livre; {res: {id, nome}} = obra; {err} = não respondeu */
+function lerRes(id){
+  const q = ($(`input[name="${id}-q"]:checked`) || {}).value;
+  if (!q) return {err: [$(`input[name="${id}-q"]`), 'Responda: o item fica no estoque ou é para obra?']};
+  if (q === 'estoque') return {res: null};
+  const o = obraById($('#' + id).value);
+  return o ? {res: {id: o.id, nome: o.nome}} : {err: [$('#' + id), obrasAtivas().length ? 'Escolha a obra.' : 'Não há obra em andamento: cadastre a obra na aba Obras.']};
+}
+function marcaRes(id, q, obraId){
+  const r = $(`input[name="${id}-q"][value="${q}"]`); if (!r) return;
+  r.checked = true; r.dispatchEvent(new Event('change', {bubbles: true}));
+  if (q === 'obra' && obraId && $(`#${id} option[value="${obraId}"]`)) $('#' + id).value = obraId;
+}
+/* Mostrar/esconder "Qual obra?" conforme a resposta (vale para todos os formulários) */
+document.addEventListener('change', e => {
+  const r = e.target; if (!r.matches || !r.matches('.res-q input[type=radio]')) return;
+  const box = r.closest('.res-q'); const of = $('.field', box);
+  if (of) of.hidden = r.value !== 'obra';
+  box.classList.remove('invalid'); $$(':scope > .err-msg', box).forEach(m => m.remove());
+  if (r.value === 'obra' && of) { const sl = $('select', of); if (sl && !sl.value) sl.focus(); }
+});
 /* Texto da quantidade de uma movimentação (mostra os metros do cobre) */
 function qtdMovTxt(m){
   const base = `${fmtQtd(Math.abs(m.qtd))} ${m.unidade || ''}`.trim();
@@ -1017,10 +1157,12 @@ const loteCod = id => String(id || '').slice(-6).toUpperCase();
 const CANAIS = ['WhatsApp', 'Ligação', 'Pessoalmente', 'E-mail', 'Outro'];
 const nomeProd = m => (prodById(m.produtoId) || {}).nome || m.produtoNome;
 
+/* Status pela quantidade LIVRE: o que está separado para obras fica na lista “Itens para obras” */
 function statusEstoque(p){
-  if (!(p.saldo > 0)) return {k: 'zero', t: 'Sem estoque'};
-  const t = `${fmtSaldo(p)} no estoque`.replace(/\s+/g, ' ');
-  if (p.minimo != null && p.saldo <= p.minimo) return {k: 'baixo', t};
+  const l = livreDe(p);
+  if (!(l > 0)) return {k: 'zero', t: totalReservado(p) > 0 ? 'Sem estoque livre' : 'Sem estoque'};
+  const t = `${fmtSaldo(p, l)} no estoque`.replace(/\s+/g, ' ');
+  if (p.minimo != null && l <= p.minimo) return {k: 'baixo', t};
   return {k: 'ok', t};
 }
 const badgeEst = p => { const s = statusEstoque(p); return `<span class="badge b-${s.k}">${s.t}</span>`; };
@@ -1031,8 +1173,17 @@ const locHTML = p => `<span class="loc-line">Andar ${esc(p.andar)} <span class="
 function toast(msg, type = 'ok'){ const t = document.createElement('div'); t.className = 'toast t-' + type; t.textContent = msg; $('#toasts').appendChild(t); setTimeout(() => t.remove(), 4500); }
 function openModal(title, html){ $('.modal-card').classList.remove('wide'); $('#modal-title').textContent = title; $('#modal-body').innerHTML = html; $('#modal').hidden = false; document.body.classList.add('noscroll'); $('#modal').scrollTop = 0; }
 function closeModal(){ $('#modal').hidden = true; $('#modal-body').innerHTML = ''; document.body.classList.remove('noscroll'); }
+/* Menu agrupado: Movimentação (Entradas, Saídas) e Mais (Tarefas, Notas, Configurações) */
+const GRUPO_TAB = {entradas: 'mov', saidas: 'mov', tarefas: 'mais', notas: 'mais', config: 'mais'};
+const ultimoDoGrupo = {mov: 'entradas', mais: 'tarefas'};
 function goTab(t){
-  $$('.tab').forEach(b => b.classList.toggle('active', b.dataset.tab === t));
+  const g = GRUPO_TAB[t];
+  if (g) ultimoDoGrupo[g] = t;
+  $$('#tabs .tab').forEach(b => b.classList.toggle('active', g ? b.dataset.grupo === g : b.dataset.tab === t));
+  $('#subnav').hidden = !g;
+  $$('#subnav .subnav-in').forEach(x => { x.hidden = x.dataset.subGrupo !== g; });
+  $$('#subnav .stab2').forEach(b => b.classList.toggle('on', b.dataset.tab === t));
+  const at = $('#tabs .tab.active'); if (at && at.scrollIntoView) at.scrollIntoView({block: 'nearest', inline: 'nearest'});
   $$('.view').forEach(v => v.hidden = v.id !== 'v-' + t);
   window.scrollTo(0, 0);
 }
@@ -1043,7 +1194,10 @@ function showErrs(errs){ errs.forEach(([el, m]) => setErr(el, m)); if (errs[0] &
 document.addEventListener('click', e => {
   const t = e.target;
   if (t.closest('[data-close]') || t === $('#modal')) { closeModal(); return; }
+  const grp = t.closest('[data-grupo]'); if (grp) { goTab(ultimoDoGrupo[grp.dataset.grupo]); return; }
   const tab = t.closest('[data-tab]'); if (tab) { if (tab.dataset.csub) setSubCompras(tab.dataset.csub); goTab(tab.dataset.tab); return; }
+  const oac = t.closest('[data-obra-acao]'); if (oac) { mudarSitObra(oac.dataset.id, oac.dataset.obraAcao); return; }
+  const oab = t.closest('[data-obra-abrir]'); if (oab) { abrirObra(oab.dataset.obraAbrir); return; }
   const gev = t.closest('[data-gev]'); if (gev) { abrirGpsEvento(gev.dataset.gev); return; }
   const est = t.closest('[data-estagio]'); if (est) { mudarEstagio(est.dataset.id, est.dataset.estagio); return; }
   const rec = t.closest('[data-receber]'); if (rec) { abrirCompra(rec.dataset.receber, {receber: true}); return; }
@@ -1062,6 +1216,8 @@ document.addEventListener('click', e => {
   const cp = t.closest('[data-compra]'); if (cp) { abrirCompra(cp.dataset.compra); return; }
   const lt = t.closest('[data-lote]'); if (lt) { abrirLoteDet(lt.dataset.lote, lt.dataset.loteTipo); return; }
   const mov = t.closest('[data-mov]'); if (mov) { abrirMov(mov.dataset.mov); return; }
+  const rmv = t.closest('[data-res-mv]'); if (rmv) { passarReserva(rmv.dataset.resMv, rmv.dataset.obra); return; }
+  const oadd = t.closest('[data-orc-add]'); if (oadd) { moverParaOrcamento(oadd.dataset.orcAdd); return; }
   const del = t.closest('[data-del]'); if (del) { excluirProduto(del.dataset.del); return; }
   const prod = t.closest('[data-prod]'); if (prod) { abrirFicha(prod.dataset.prod); return; }
 });
@@ -1073,7 +1229,7 @@ document.addEventListener('input', e => {
 document.addEventListener('keydown', e => {
   if (!$('#senha-ov').hidden) return; // a janela da senha trata as próprias teclas
   if (e.key === 'Escape' && !$('#modal').hidden) closeModal();
-  if (e.key === 'Enter' && e.target.matches('[data-mov],[data-lote],[data-prod],[data-tar],[data-compra],[data-gps],[data-orc],[data-gev],[data-cot-abrir]') && e.target.tagName !== 'BUTTON') e.target.click();
+  if (e.key === 'Enter' && e.target.matches('[data-mov],[data-lote],[data-prod],[data-tar],[data-compra],[data-gps],[data-orc],[data-gev],[data-cot-abrir],[data-obra-abrir]') && e.target.tagName !== 'BUTTON') e.target.click();
 });
 /* ---------- Campos de pessoa: nome completo digitado (sugere nomes já usados) ---------- */
 function pessoaHTML(p, label){
@@ -1137,12 +1293,12 @@ function lerProd(p, idAtual){
 /* ================= Render ================= */
 function renderAll(){
   renderDashboard(); renderEstoque(); renderBusca(); renderEntradas(); renderSaidas();
-  renderGps(); renderCompras(); renderTarefas(); renderNotas(); preencheCfgGps(); fillSelects();
+  renderGps(); renderCompras(); renderObras(); renderTarefas(); renderNotas(); preencheCfgGps(); fillSelects();
 }
 function fillSelects(){
   [['#ent-prod', true], ['#sai-prod', false]].forEach(([s, novo]) => {
     const sel = $(s); const v = sel.value; const ps = [...db.produtos].sort(porNome);
-    sel.innerHTML = `<option value="">Selecione o produto…</option>` + ps.map(p => `<option value="${p.id}">${esc(p.nome)} — ${esc(fmtSaldo(p))}</option>`).join('') + (novo ? `<option value="__novo">+ Cadastrar novo produto</option>` : '');
+    sel.innerHTML = `<option value="">Selecione o produto…</option>` + ps.map(p => `<option value="${p.id}">${esc(p.nome)} — ${esc(fmtSaldo(p))}${totalReservado(p) ? ` (livre ${fmtQtd(livreDe(p))}, ${fmtQtd(totalReservado(p))} p/ obras)` : ''}</option>`).join('') + (novo ? `<option value="__novo">+ Cadastrar novo produto</option>` : '');
     if ([...sel.options].some(o => o.value === v)) sel.value = v;
   });
   const lista = (vals, ignora = []) => {
@@ -1153,8 +1309,10 @@ function fillSelects(){
     ...db.movs.flatMap(m => [m.responsavel, m.quemRetirou]),
     ...db.gps.map(g => g.responsavel), ...db.gpsMovs.flatMap(m => [m.de, m.para]), ...db.compras.map(c => c.solicitante)
   ], ['Estoque', 'Cadastro do produto', 'Edição do cadastro', 'Últimas compras', 'Sobra de panqueca']);
-  $('#obras').innerHTML = lista([...db.gps.map(g => g.obra), ...db.gpsMovs.map(m => m.obra), ...db.movs.map(m => m.lote && m.lote.destino), ...db.compras.map(c => c.obra)]);
-  $('#prod-nomes').innerHTML = [...db.produtos].sort(porNome).map(p => `<option value="${esc(p.nome)}">${esc(fmtSaldo(p))}</option>`).join('');
+  { const so = $('#sai-obra'), v = so.value; so.innerHTML = obraOptions('', true); so.value = [...so.options].some(o => o.value === v) ? v : ''; }
+  { const eo = $('#ent-obra'), v = eo.value; eo.innerHTML = resOptions(); eo.value = [...eo.options].some(o => o.value === v) ? v : ''; }
+  $('#obras').innerHTML = lista([...obrasTodas().filter(o => obraSit(o) !== 'excluida').map(o => o.nome), ...db.gps.map(g => g.obra), ...db.gpsMovs.map(m => m.obra), ...db.movs.map(m => m.lote && m.lote.destino), ...db.compras.map(c => c.obra)]);
+  $('#prod-nomes').innerHTML = [...db.produtos].sort(porNome).map(p => `<option value="${esc(p.nome)}">${esc(fmtSaldo(p))}${totalReservado(p) ? ` · livre ${fmtQtd(livreDe(p))}` : ''}</option>`).join('');
   $('#itens-nomes').innerHTML = lista([...db.produtos.map(p => p.nome), ...db.gps.map(g => g.nome), ...db.compras.flatMap(c => (c.itens || []).map(i => i.nome)), ...db.compras.map(c => c.item)]);
   $('#fornecedores').innerHTML = lista([...db.compras.map(c => c.fornecedor), ...db.compras.flatMap(c => (c.lojas || []).map(l => l.loja))]);
   atualizaSaldoSaida();
@@ -1172,6 +1330,8 @@ function renderDashboard(){
   const naRua = db.gps.filter(g => g.local === 'rua').length;
   const parados = db.gps.filter(g => gpsParado(g) != null).sort((a, b) => gpsParado(b) - gpsParado(a));
   const orcAb = orcamentos().filter(orcAberto), orcAtras = orcAb.filter(o => prazoOrc(o).atras);
+  const atrasadas = comprasReais().filter(c => statusCompra(c) === 'rota' && c.previsao && c.previsao < hoje).sort((a, b) => a.previsao.localeCompare(b.previsao));
+  const semPrev = comprasReais().filter(c => statusCompra(c) === 'rota' && !c.previsao).sort((a, b) => a.data.localeCompare(b.data));
   const emRota = comprasReais().filter(c => statusCompra(c) === 'rota'), comDiv = comprasReais().filter(c => statusCompra(c) === 'divergencia');
   $('#kpis').innerHTML = `
     <button class="kpi" data-tab="tarefas"><div class="n">${tarAbertas.length}</div><div class="l">Tarefas em aberto</div></button>
@@ -1181,7 +1341,7 @@ function renderDashboard(){
     <button class="kpi ${baixos.length ? 'warn' : ''}" data-tab="estoque"><div class="n">${baixos.length}</div><div class="l">Estoque baixo / zerado</div></button>
     <button class="kpi ${parados.length ? 'alert' : ''}" data-tab="gps"><div class="n">${naRua}</div><div class="l">Itens na rua (GPS)${parados.length ? ` · ${parados.length} parado(s)` : ''}</div></button>
     <button class="kpi ${orcAtras.length ? 'alert' : orcAb.length ? 'warn' : ''}" data-tab="compras" data-csub="orcamentos"><div class="n">${orcAb.length}</div><div class="l">Orçamentos a fazer${orcAtras.length ? ` · ${orcAtras.length} atrasado(s)` : ''}</div></button>
-    <button class="kpi ${emRota.length ? 'warn' : ''}" data-tab="compras" data-csub="rota"><div class="n">${emRota.length}</div><div class="l">Compras pedidas (aguardando chegar)</div></button>
+    <button class="kpi ${atrasadas.length ? 'alert' : emRota.length || semPrev.length ? 'warn' : ''}" data-tab="compras" data-csub="rota"><div class="n">${emRota.length}</div><div class="l">Compras pedidas${atrasadas.length ? ` · <b>${atrasadas.length} atrasada(s)</b>` : semPrev.length ? ` · ${semPrev.length} sem previsão` : ' (aguardando chegar)'}</div></button>
     <button class="kpi ${comDiv.length ? 'alert' : ''}" data-tab="compras" data-csub="divergencia"><div class="n">${comDiv.length}</div><div class="l">Compras com divergência</div></button>`;
   const vazio = t => `<li class="empty">${t}</li>`;
   $('#dash-tar-hoje').innerHTML = tarHoje.length ? tarHoje.map(tarItem).join('') : vazio('Nada para hoje e nenhuma tarefa atrasada.');
@@ -1192,6 +1352,10 @@ function renderDashboard(){
   $('#dash-baixo').innerHTML = baixos.length ? baixos.sort((a, b) => a.saldo - b.saldo).slice(0, 8).map(p =>
     `<li class="li-click" data-prod="${p.id}" tabindex="0"><div><b>${esc(p.nome)}</b><small>${fmtQtd(p.saldo)} ${esc(p.unidade)}${p.minimo != null ? ' · mínimo ' + fmtQtd(p.minimo) : ''}</small></div>${badgeEst(p)}</li>`).join('') : vazio('Todos os produtos com saldo adequado.');
   const ult = [...db.movs].sort((a, b) => b.registradoEm.localeCompare(a.registradoEm)).slice(0, 6);
+  $('#dash-atras').innerHTML = atrasadas.length ? atrasadas.map(c => `<li class="li-click" data-compra="${c.id}" tabindex="0"><div><b>${esc(c.fornecedor || 'Sem fornecedor')}</b>${c.numeroNota ? ` · nota ${esc(c.numeroNota)}` : ''}<small>Pedida em ${fmtData(c.data)} · previsão ${fmtData(c.previsao)}${c.obra ? ' · ' + esc(c.obra) : ''} · ${(c.itens || []).length} item(ns) — cobrar o fornecedor</small></div><span class="badge l-atrasado">${diasEntre(c.previsao, hoje)} dia(s)</span></li>`).join('')
+    + semPrev.map(c => `<li class="li-click" data-compra="${c.id}" tabindex="0"><div><b>${esc(c.fornecedor || 'Sem fornecedor')}</b>${c.numeroNota ? ` · nota ${esc(c.numeroNota)}` : ''}<small>Pedida em ${fmtData(c.data)} · ${(c.itens || []).length} item(ns) — clique e informe a previsão de chegada</small></div><span class="badge b-baixo">sem previsão</span></li>`).join('')
+    : semPrev.length ? semPrev.map(c => `<li class="li-click" data-compra="${c.id}" tabindex="0"><div><b>${esc(c.fornecedor || 'Sem fornecedor')}</b>${c.numeroNota ? ` · nota ${esc(c.numeroNota)}` : ''}<small>Pedida em ${fmtData(c.data)} · ${(c.itens || []).length} item(ns) — clique e informe a previsão de chegada</small></div><span class="badge b-baixo">sem previsão</span></li>`).join('')
+    : vazio('Nenhuma compra pedida passou da previsão de chegada.');
   $('#dash-movs').innerHTML = ult.length ? ult.map(m => `<li class="li-click" data-mov="${m.id}" tabindex="0"><div><b>${esc(nomeProd(m))}</b><small>${tipoLabel(m)} · ${fmtData(m.data)} ${fmtHora(m.registradoEm)} · ${esc(m.tipo === 'saida' ? m.quemRetirou : m.responsavel)}</small></div><b style="color:var(${m.qtd < 0 || m.tipo === 'saida' ? '--out' : '--in'})">${sinal(m)}${fmtQtd(Math.abs(m.qtd))}</b></li>`).join('') : vazio('Nenhuma movimentação ainda.');
 }
 const tipoLabel = m => ({entrada: 'Entrada', saida: 'Saída', ajuste: 'Ajuste'}[m.tipo]);
@@ -1204,8 +1368,8 @@ try { ordemEst = localStorage.getItem('crm_ordem_estoque') || 'nome'; } catch (e
 const ORDENS_EST = {
   'nome': porNome,
   'nome-desc': (a, b) => porNome(b, a),
-  'qtd': (a, b) => (a.saldo - b.saldo) || porNome(a, b),
-  'qtd-desc': (a, b) => (b.saldo - a.saldo) || porNome(a, b),
+  'qtd': (a, b) => (livreDe(a) - livreDe(b)) || porNome(a, b),
+  'qtd-desc': (a, b) => (livreDe(b) - livreDe(a)) || porNome(a, b),
   'loc': (a, b) => cmpTxt(a.andar, b.andar) || cmpTxt(a.estante, b.estante) || cmpTxt(a.fileira, b.fileira) || porNome(a, b)
 };
 if (!ORDENS_EST[ordemEst]) ordemEst = 'nome';
@@ -1215,26 +1379,136 @@ $('#est-ordem').addEventListener('change', e => {
   try { localStorage.setItem('crm_ordem_estoque', ordemEst); } catch (er) {}
   renderEstoque();
 });
+/* Itens com 2 ou menos livres: botão “Mover para orçamento a fazer” */
+const ORC_LIMITE = 2;
+const emOrcAberto = p => orcamentos().some(o => orcAberto(o) && (o.itens || []).some(i => norm(i.nome) === norm(p.nome)));
+const botaoOrc = p => livreDe(p) > ORC_LIMITE ? '' : emOrcAberto(p) ? '<span class="badge b-baixo" title="Já está num orçamento a fazer">📋 em orçamento</span> '
+  : `<button type="button" class="btn sm" data-orc-add="${p.id}" title="Restam ${fmtQtd(livreDe(p))} ${esc(p.unidade)}: colocar em Orçamentos a fazer">📋 Mover p/ orçamento</button> `;
+function moverParaOrcamento(pid){
+  const p = prodById(pid); if (!p) return;
+  const abertos = orcamentos().filter(orcAberto).sort((a, b) => (a.paraQuando || '9999').localeCompare(b.paraQuando || '9999'));
+  const sug = p.minimo != null && p.minimo > livreDe(p) ? round3(p.minimo - livreDe(p)) : '';
+  openModal('Mover para orçamento a fazer — ' + p.nome, `<form id="f-mvo" novalidate>
+    <div class="info-box">Restam <b>${fmtQtd(livreDe(p))} ${esc(p.unidade)}</b> livres${p.minimo != null ? ` (mínimo: ${fmtQtd(p.minimo)})` : ''}. O item vai para “📋 Orçamentos a fazer”, onde dá para cotar as lojas.</div>
+    <div class="grid2">
+      <div class="field"><label for="mv-qtd">Quantidade a comprar <b class="req">*</b></label><input id="mv-qtd" type="number" min="0" step="any" inputmode="decimal" value="${sug}"></div>
+      <div class="field"><label for="mv-orc">Colocar em</label><select id="mv-orc"><option value="">➕ Novo orçamento (reposição do estoque)</option>${abertos.map(o => `<option value="${o.id}">📋 ${esc(o.obra)} — ${esc(o.solicitante)}${o.paraQuando ? ' · para ' + fmtData(o.paraQuando) : ''}</option>`).join('')}</select></div>
+    </div>
+    <div class="actions"><button type="button" class="btn" data-close>Cancelar</button><button class="btn primary" type="submit">📋 Mover para orçamento</button></div></form>`);
+  $('#mv-qtd').focus();
+  $('#f-mvo').onsubmit = async e => {
+    e.preventDefault(); clearErr(e.target);
+    const q = parseQtd($('#mv-qtd').value); if (!isFinite(q) || q <= 0) return showErrs([[$('#mv-qtd'), 'Informe quanto comprar.']]);
+    const oid = $('#mv-orc').value, item = {nome: p.nome, qtd: round3(q), unidade: p.unidade};
+    if (!oid) { abrirOrcamento(null, {itens: [item], reposicao: true}); toast('Complete quem solicitou, para quando e a autorização do Seu Ricardo.'); return; }
+    if (await commit(d => {
+      const o = d.compras.find(x => x.id === oid); if (!o || !orcAberto(o)) throw new Error('Este orçamento não está mais aberto.');
+      o.itens = (o.itens || []).map(i => ({...i}));
+      const ex = o.itens.find(i => norm(i.nome) === norm(p.nome));
+      if (ex) ex.qtd = round3(ex.qtd + item.qtd); else o.itens.push(item);
+      o.editadoEm = new Date().toISOString();
+    })) { toast(`${p.nome} foi para o orçamento.`); closeModal(); }
+  };
+}
 function renderEstoque(){
   let ps = [...db.produtos].sort(ORDENS_EST[ordemEst]);
   if (filtroEst !== 'todos') ps = ps.filter(p => statusEstoque(p).k === filtroEst);
   $('#est-tbody').innerHTML = ps.length ? ps.map(p => `<tr class="click" data-prod="${p.id}" tabindex="0">
     <td><b>${esc(p.nome)}</b></td>
-    <td class="num"><b>${fmtQtd(p.saldo)}</b> ${esc(p.unidade)}${ehPanq(p) ? `<span class="qtd-m">${fmtQtd(round3(p.saldo * PANQ_M))} m</span>` : ''}</td><td>${locHTML(p)}</td><td>${badgeEst(p)}</td><td class="num"><button class="btn danger sm" data-del="${p.id}" title="Excluir produto">Excluir</button></td></tr>`).join('')
+    <td class="num"><b>${fmtQtd(livreDe(p))}</b> ${esc(p.unidade)}${ehPanq(p) ? `<span class="qtd-m">${fmtQtd(round3(livreDe(p) * PANQ_M))} m</span>` : ''}${totalReservado(p) ? `<span class="qtd-m res-txt">+ ${fmtQtd(totalReservado(p))} em Itens para obras · físico ${fmtQtd(p.saldo)}</span>` : ''}</td><td>${locHTML(p)}</td><td>${badgeEst(p)}</td><td class="num nowrap">${botaoOrc(p)}<button class="btn danger sm" data-del="${p.id}" title="Excluir produto">Excluir</button></td></tr>`).join('')
     : `<tr><td colspan="5" class="empty">${db.produtos.length ? 'Nenhum produto neste filtro.' : 'Nenhum produto cadastrado. Clique em "+ Novo produto".'}</td></tr>`;
 }
 $('#est-filtros').addEventListener('click', e => { const c = e.target.closest('.chip'); if (!c) return; filtroEst = c.dataset.f; $$('#est-filtros .chip').forEach(x => x.classList.toggle('on', x === c)); renderEstoque(); });
 
+let subEst = 'livre', filtroEstOb = '';
+$('#est-sub').addEventListener('click', e => { const b = e.target.closest('[data-esub]'); if (!b) return; subEst = b.dataset.esub; renderEstoque(); renderBusca(); });
+$('#est-ob-filtros').addEventListener('click', e => { const c = e.target.closest('[data-fob]'); if (!c) return; filtroEstOb = c.dataset.fob; renderEstObras(); });
+/* Passa a quantidade separada de uma obra para outra (o item continua na prateleira) */
+function passarReserva(pid, deId){
+  const p = prodById(pid), r = p && reservasDe(p).find(x => x.obraId === deId); if (!r) return;
+  const outras = obrasAtivas().filter(o => o.id !== deId);
+  if (!outras.length) { toast('Não há outra obra em andamento para receber.', 'err'); return; }
+  openModal('⇄ Passar para outra obra — ' + p.nome, `<form id="f-pr" novalidate>
+    <div class="info-box">Separado para <b>${esc(r.obraNome)}</b>: ${fmtQtd(r.qtd)} ${esc(p.unidade)}. O item continua na prateleira: só muda de obra (não cria entrada nem saída).</div>
+    <div class="grid2">
+      <div class="field"><label for="pr-obra">Passar para <b class="req">*</b></label><select id="pr-obra"><option value="">Selecione a obra…</option>${outras.map(o => `<option value="${o.id}">🏗️ ${esc(o.nome)}</option>`).join('')}</select></div>
+      <div class="field"><label for="pr-qtd">Quantidade <b class="req">*</b></label><input id="pr-qtd" type="number" min="0" step="any" inputmode="decimal" value="${r.qtd}"><div class="hint">Até ${fmtQtd(r.qtd)} ${esc(p.unidade)}.</div></div>
+    </div>
+    <div class="actions"><button type="button" class="btn" data-close>Cancelar</button><button class="btn primary" type="submit">⇄ Passar</button></div></form>`);
+  $('#f-pr').onsubmit = async e => {
+    e.preventDefault(); clearErr(e.target); const errs = [];
+    const para = obraById($('#pr-obra').value), q = parseQtd($('#pr-qtd').value);
+    if (!para) errs.push([$('#pr-obra'), 'Escolha a obra que vai receber.']);
+    if (!isFinite(q) || q <= 0) errs.push([$('#pr-qtd'), 'Informe a quantidade.']);
+    else if (q > r.qtd + 1e-9) errs.push([$('#pr-qtd'), `Só há ${fmtQtd(r.qtd)} ${p.unidade} separados para ${r.obraNome}.`]);
+    if (errs.length) return showErrs(errs);
+    if (await commit(d => {
+      const pp = d.produtos.find(x => x.id === pid), rr = reservasDe(pp).find(x => x.obraId === deId);
+      if (!rr || q > rr.qtd + 1e-9) throw new Error('A quantidade separada mudou em outro computador. Confira e repita.');
+      ajustaReserva(pp, deId, null, -round3(q)); ajustaReserva(pp, para.id, para.nome, round3(q));
+    })) { toast(`${fmtQtd(q)} ${p.unidade} de ${p.nome} passaram de ${r.obraNome} para ${para.nome}.`); closeModal(); }
+  };
+}
+/* Entrada de itens que chegam já para uma obra (abre a entrada em lote com a resposta "É para obra") */
+$('#btn-add-obra').onclick = () => abrirLote('entrada', {reservaQ: 'obra', reserva: filtroEstOb, paraObra: true});
+/* Separar para uma obra o que já está no estoque livre */
+$('#btn-sep-obra').onclick = () => {
+  const at = obrasAtivas(), ps = db.produtos.filter(p => livreDe(p) > 0).sort(porNome);
+  if (!at.length) { toast('Não há obra em andamento: cadastre a obra na aba Obras.', 'err'); return; }
+  openModal('Separar do estoque livre para uma obra', `<form id="f-sep" novalidate>
+    <p class="hint" style="margin-top:0">O item já está na prateleira: a quantidade sai da lista “📦 Estoque” e vai para “🏗️ Itens para obras”. Não cria entrada nem saída.</p>
+    <div class="field"><label for="sp-obra">Para qual obra? <b class="req">*</b></label><select id="sp-obra">${resOptions(filtroEstOb)}</select></div>
+    <div class="grid2"><div class="field"><label for="sp-prod">Item <b class="req">*</b></label><select id="sp-prod"><option value="">Selecione o item…</option>${ps.map(p => `<option value="${p.id}">${esc(p.nome)} — livre ${fmtQtd(livreDe(p))} ${esc(p.unidade)}</option>`).join('')}</select></div>
+      <div class="field"><label for="sp-qtd">Quantidade <b class="req">*</b></label><input id="sp-qtd" type="number" min="0" step="any" inputmode="decimal"></div></div>
+    <div class="actions"><button type="button" class="btn" data-close>Cancelar</button><button class="btn primary" type="submit">🔒 Separar para a obra</button></div></form>`);
+  $('#f-sep').onsubmit = async e => {
+    e.preventDefault(); clearErr(e.target); const errs = [];
+    const ob = obraById($('#sp-obra').value), p = prodById($('#sp-prod').value), q = parseQtd($('#sp-qtd').value);
+    if (!ob) errs.push([$('#sp-obra'), 'Escolha a obra.']);
+    if (!p) errs.push([$('#sp-prod'), 'Escolha o item.']);
+    if (!isFinite(q) || q <= 0) errs.push([$('#sp-qtd'), 'Informe a quantidade.']);
+    else if (p && q > livreDe(p) + 1e-9) errs.push([$('#sp-qtd'), `Só há ${fmtQtd(livreDe(p))} ${p.unidade} livre(s).`]);
+    if (errs.length) return showErrs(errs);
+    if (await commit(d => { const pp = d.produtos.find(x => x.id === p.id); if (round3(q) > livreDe(pp) + 1e-9) throw new Error('Não há quantidade livre suficiente.'); ajustaReserva(pp, ob.id, ob.nome, round3(q)); })) {
+      toast(`${fmtQtd(q)} ${p.unidade} de ${p.nome} separado(s) para a obra ${ob.nome}.`); closeModal();
+    }
+  };
+};
+/* Lista “Itens para obras”: cada reserva vira uma linha (obra, item, quantidade) */
+function renderEstObras(){
+  const q = norm($('#busca').value);
+  let ls = db.produtos.flatMap(p => reservasDe(p).map(r => ({p, r})));
+  const obrasL = [...new Map(ls.map(x => [x.r.obraId, x.r.obraNome])).entries()].sort((a, b) => cmpTxt(a[1], b[1]));
+  if (filtroEstOb && !obrasL.some(([id]) => id === filtroEstOb)) filtroEstOb = '';
+  $('#est-ob-filtros').innerHTML = obrasL.length > 1 ? [['', 'Todas as obras'], ...obrasL].map(([id, n]) => `<button class="chip${id === filtroEstOb ? ' on' : ''}" data-fob="${id}">${esc(n)}</button>`).join('') : '';
+  if (filtroEstOb) ls = ls.filter(x => x.r.obraId === filtroEstOb);
+  if (q) ls = ls.filter(x => norm(x.p.nome).includes(q) || norm(x.r.obraNome).includes(q));
+  ls.sort((a, b) => cmpTxt(a.r.obraNome, b.r.obraNome) || porNome(a.p, b.p));
+  $('#est-ob-tbody').innerHTML = ls.length ? ls.map(({p, r}) => `<tr class="click" data-prod="${p.id}" tabindex="0">
+      <td><span class="li-click" data-obra-abrir="${r.obraId}" style="text-decoration:underline">🏗️ ${esc(r.obraNome)}</span>${(() => { const ob = obraById(r.obraId); return !ob || obraSit(ob) !== 'andamento' ? ` <span class="badge l-atrasado">obra ${!ob ? 'apagada' : obraSit(ob) === 'finalizada' ? 'finalizada' : 'excluída'} — libere</span>` : ''; })()}</td><td><b>${esc(p.nome)}</b></td>
+      <td class="num"><b>${fmtQtd(r.qtd)}</b> ${esc(p.unidade)}${ehPanq(p) ? `<span class="qtd-m">${fmtQtd(round3(r.qtd * PANQ_M))} m</span>` : ''}</td><td>${locHTML(p)}</td>
+      <td class="num nowrap"><button type="button" class="btn sm" data-res-mv="${p.id}" data-obra="${r.obraId}">⇄ Outra obra</button> <button type="button" class="btn sm" data-prod="${p.id}">Ver / liberar</button></td></tr>`).join('')
+    : `<tr><td colspan="5" class="empty">${q || filtroEstOb ? 'Nada encontrado.' : 'Nenhum item para obras. Ao dar entrada num item, responda “🏗️ É para obra”, ou use os botões acima.'}</td></tr>`;
+}
 function renderBusca(){
   const q = norm($('#busca').value);
+  const ob = subEst === 'obras';
+  $$('#est-sub .stab').forEach(b => b.classList.toggle('on', b.dataset.esub === subEst));
+  $('#cnt-est').textContent = db.produtos.length;
+  $('#cnt-est-ob').textContent = db.produtos.reduce((a, p) => a + reservasDe(p).length, 0);
+  $('#est-dica').innerHTML = ob ? 'Itens que já estão no estoque físico, mas separados para uma obra: só podem sair para ela. Para devolver ao estoque livre, clique em “Ver / liberar”.'
+    : 'Quantidade <b>livre</b> para uso. O que está separado para obras fica na lista “🏗️ Itens para obras” — livre + para obras = o que tem na prateleira.';
+  $('#busca').placeholder = ob ? 'Pesquisar item ou obra…' : 'Pesquisar pelo nome do produto…';
+  $('#lista-obras').hidden = !ob;
+  if (ob) { $('#busca-area').hidden = true; $('#lista-area').hidden = true; renderEstObras(); return; }
   $('#busca-area').hidden = !q; $('#lista-area').hidden = !!q;
   if (!q) return;
   const res = db.produtos.filter(p => norm(p.nome).includes(q))
     .sort((a, b) => (norm(a.nome).startsWith(q) ? 0 : 1) - (norm(b.nome).startsWith(q) ? 0 : 1) || porNome(a, b));
   $('#busca-res').innerHTML = res.length ? res.map(p => `<button class="res" data-prod="${p.id}">
       <span class="nm">${esc(p.nome)}</span>
-      <span class="qt">${fmtQtd(p.saldo)} <span class="small muted">${esc(p.unidade)}${ehPanq(p) ? ' · ' + fmtQtd(round3(p.saldo * PANQ_M)) + ' m' : ''}</span></span>
-      <span class="small">Localização: ${locHTML(p)}</span><span>${badgeEst(p)}</span></button>`).join('')
+      <span class="qt">${fmtQtd(livreDe(p))} <span class="small muted">${esc(p.unidade)} livre(s)${ehPanq(p) ? ' · ' + fmtQtd(round3(livreDe(p) * PANQ_M)) + ' m' : ''}</span></span>
+      <span class="small">Localização: ${locHTML(p)}${totalReservado(p) ? `<br><span class="res-txt">🏗️ + ${esc(reservaTxt(p))} (físico: ${fmtQtd(p.saldo)} ${esc(p.unidade)})</span>` : ''}</span><span>${badgeEst(p)}</span></button>`).join('')
     : `<div class="panel" style="text-align:center"><p style="font-weight:700;margin:0 0 10px">Nenhum produto encontrado</p><button class="btn primary" id="btn-cad-busca">+ Cadastrar novo item</button></div>`;
   const b = $('#btn-cad-busca'); if (b) b.onclick = () => abrirCadastro(null, $('#busca').value.trim());
 }
@@ -1244,13 +1518,14 @@ $('#btn-novo-prod').onclick = () => abrirCadastro(null);
 function abrirCadastro(id, prefill){
   const pr = id ? prodById(id) : {nome: prefill || ''};
   openModal(id ? 'Editar cadastro' : 'Novo produto', `<form id="f-prod" novalidate>${prodFieldsHTML('cp', pr)}
-    ${id ? '<p class="hint">Se mudar a quantidade, a diferença fica registrada como ajuste no histórico do produto.</p>' : '<p class="hint">A quantidade informada vira o saldo inicial e fica registrada como entrada no histórico.</p>'}
+    ${id ? '<p class="hint">Se mudar a quantidade, a diferença fica registrada como ajuste no histórico do produto.</p>' : resCampo('cp-res', '', false, '<div class="hint" style="margin-top:6px">Só precisa responder se a quantidade for maior que zero.</div>') + '<p class="hint">A quantidade informada vira o saldo inicial e fica registrada como entrada no histórico.</p>'}
     <div class="actions"><button type="button" class="btn" data-close>Cancelar</button><button class="btn primary" type="submit">${id ? 'Salvar alterações' : 'Cadastrar produto'}</button></div></form>`);
   $('#cp-nome').focus();
   $('#f-prod').onsubmit = async e => {
     e.preventDefault(); clearErr(e.target);
     const {v, errs, qtd} = lerProd('cp', id); if (errs.length) return showErrs(errs);
-    const novoId = id || uid();
+    const novoId = id || uid(); let reservaN = null;
+    if (!id && (qtd || 0) > 0) { const rr = lerRes('cp-res'); if (rr.err) return showErrs([rr.err]); reservaN = rr.res; }
     const ok = await commit(d => {
       const agora = new Date().toISOString(); const hoje = hojeISO();
       if (id) {
@@ -1260,11 +1535,14 @@ function abrirCadastro(id, prefill){
         if (qtd != null && qtd !== p.saldo) {
           const ant = p.saldo; p.saldo = qtd;
           d.movs.push({id: uid(), tipo: 'ajuste', produtoId: id, produtoNome: p.nome, unidade: p.unidade, qtd: round3(qtd - ant), saldoAnt: ant, saldoPost: qtd, data: hoje, registradoEm: agora, responsavel: 'Edição do cadastro', obs: 'Quantidade alterada na edição do cadastro.', comentarios: []});
+          limitaReservas(p);
         }
       } else {
         const q = qtd || 0;
         d.produtos.push({id: novoId, ...v, saldo: q, criadoEm: agora, alteracoes: []});
-        if (q > 0) d.movs.push({id: uid(), tipo: 'entrada', produtoId: novoId, produtoNome: v.nome, unidade: v.unidade, qtd: q, saldoAnt: 0, saldoPost: q, data: hoje, registradoEm: agora, responsavel: 'Cadastro do produto', obs: 'Quantidade inicial informada no cadastro.', comentarios: []});
+        if (q > 0) d.movs.push({id: uid(), tipo: 'entrada', produtoId: novoId, produtoNome: v.nome, unidade: v.unidade, qtd: q, saldoAnt: 0, saldoPost: q, data: hoje, registradoEm: agora, responsavel: 'Cadastro do produto', obs: 'Quantidade inicial informada no cadastro.', comentarios: [],
+          ...(reservaN ? {reservaObraId: reservaN.id, reservaObraNome: reservaN.nome} : {})});
+        if (q > 0 && reservaN) ajustaReserva(d.produtos.find(x => x.id === novoId), reservaN.id, reservaN.nome, q);
       }
     });
     if (ok) { toast(id ? 'Cadastro atualizado.' : 'Produto cadastrado.'); abrirFicha(novoId); }
@@ -1277,7 +1555,7 @@ function abrirFicha(id){
   const movs = db.movs.filter(m => m.produtoId === id).sort((a, b) => b.registradoEm.localeCompare(a.registradoEm));
   openModal(p.nome, `
     <div class="row" style="justify-content:space-between;align-items:flex-end">
-      <div><div class="muted small">Quantidade atual</div><div class="big-qty">${fmtQtd(p.saldo)} <span style="font-size:18px">${esc(p.unidade)}</span></div>${ehPanq(p) ? `<div class="muted small">= ${fmtQtd(round3(p.saldo * PANQ_M))} m (${PANQ_M} m por panqueca)</div>` : ''}</div>${badgeEst(p)}
+      <div><div class="muted small">${totalReservado(p) ? 'Quantidade livre' : 'Quantidade atual'}</div><div class="big-qty">${fmtQtd(livreDe(p))} <span style="font-size:18px">${esc(p.unidade)}</span></div>${totalReservado(p) ? `<div class="small res-txt">+ ${fmtQtd(totalReservado(p))} ${esc(p.unidade)} em Itens para obras · físico: <b>${fmtQtd(p.saldo)}</b></div>` : ''}${ehPanq(p) ? `<div class="muted small">= ${fmtQtd(round3(p.saldo * PANQ_M))} m (${PANQ_M} m por panqueca)</div>` : ''}</div>${badgeEst(p)}
     </div>
     <p style="margin:14px 0 0;font-size:16px">Localização: ${locHTML(p)}</p>
     <div class="detail">
@@ -1291,6 +1569,11 @@ function abrirFicha(id){
     <div class="field"><label>Observações do cadastro</label><div>${p.obs ? esc(p.obs) : '<span class="muted">Sem observações.</span>'}</div></div>
     ${ehPanq(p) ? (s => `<div class="info-box">Tubo de cobre em panqueca de ${PANQ_M} m. ${s ? `Sobras (pedaços já abertos): <span class="li-click" data-prod="${s.id}" style="text-decoration:underline"><b>${fmtQtd(s.saldo)} m</b> em “${esc(s.nome)}”</span>.` : 'Ainda não há sobras: quando um pedaço for retirado, a sobra da panqueca aberta vai para um item separado, em metros.'}</div>`)(sobraDoCobre(p)) : ''}
     ${ehSobra(p) ? (b => `<div class="info-box">Sobras em metros de panquecas de cobre já abertas${b ? ` de <span class="li-click" data-prod="${b.id}" style="text-decoration:underline"><b>${esc(b.nome)}</b></span> (${esc(fmtSaldo(b))} fechadas)` : ''}.</div>`)(prodById(p.cobreBaseId)) : ''}
+    ${(() => { const rs = reservasDe(p), at = obrasAtivas(); return `<div class="res-box"><b>🔒 Reservado para obras</b>${rs.length ? ` — ${fmtQtd(totalReservado(p))} de ${fmtQtd(p.saldo)} ${esc(p.unidade)} · livre: <b>${fmtQtd(livreDe(p))}</b>` : ' — nada reservado'}
+      ${totalReservado(p) > p.saldo ? '<div class="sem-preco">⚠️ O reservado é maior que o saldo.</div>' : ''}
+      ${rs.length ? `<ul class="list">${rs.map(r => `<li><span>🏗️ <b>${esc(r.obraNome)}</b>: ${fmtQtd(r.qtd)} ${esc(p.unidade)}</span><span class="row"><button type="button" class="btn sm" data-res-mv="${p.id}" data-obra="${r.obraId}">⇄ Outra obra</button><button type="button" class="btn sm" data-res-lib="${r.obraId}">Liberar</button></span></li>`).join('')}</ul>` : ''}
+      ${at.length && livreDe(p) > 0 ? `<form id="f-res" class="row" style="margin-top:8px" novalidate><select id="fr-obra" class="inp">${at.map(o => `<option value="${o.id}">${esc(o.nome)}</option>`).join('')}</select><input id="fr-qtd" class="inp" type="number" min="0" step="any" inputmode="decimal" placeholder="Qtd (até ${fmtQtd(livreDe(p))})" style="width:150px"><button class="btn sm primary" type="submit">🔒 Reservar</button></form>` : ''}</div>`; })()}
+    ${livreDe(p) <= ORC_LIMITE ? `<div class="aviso-ped" style="margin-bottom:12px">Restam só <b>${fmtQtd(livreDe(p))} ${esc(p.unidade)}</b> livres. ${botaoOrc(p)}</div>` : ''}
     <div class="row">
       <button class="btn primary sm" id="fx-ent">+ Registrar entrada</button>
       <button class="btn primary sm" id="fx-sai">− Registrar saída</button>
@@ -1311,6 +1594,17 @@ function abrirFicha(id){
   $('#fx-sai').onclick = () => { closeModal(); goTab('saidas'); $('#sai-prod').value = id; atualizaSaldoSaida(); $('#sai-qtd').focus(); };
   $('#fx-edit').onclick = () => abrirCadastro(id);
   $('#fx-aj').onclick = () => abrirAjuste(id);
+  $$('[data-res-lib]').forEach(b => { b.onclick = async () => {
+    const r = reservasDe(p).find(x => x.obraId === b.dataset.resLib); if (!r) return;
+    const t = prompt(`Liberar quanto da reserva da obra ${r.obraNome}? (reservado: ${fmtQtd(r.qtd)} ${p.unidade})`, fmtQtd(r.qtd)); if (t == null) return;
+    const q = parseQtd(t); if (!isFinite(q) || q <= 0) { toast('Quantidade inválida.', 'err'); return; }
+    if (await commit(d => { const pp = d.produtos.find(x => x.id === id); ajustaReserva(pp, r.obraId, null, -Math.min(q, r.qtd)); })) { toast('Reserva liberada: a quantidade voltou para o estoque livre.'); abrirFicha(id); }
+  }; });
+  if ($('#f-res')) $('#f-res').onsubmit = async e => {
+    e.preventDefault(); const ob = obraById($('#fr-obra').value), q = parseQtd($('#fr-qtd').value);
+    if (!ob || !isFinite(q) || q <= 0 || q > livreDe(p) + 1e-9) { toast(`Informe uma quantidade entre 0 e ${fmtQtd(livreDe(p))}.`, 'err'); return; }
+    if (await commit(d => { const pp = d.produtos.find(x => x.id === id); if (round3(q) > livreDe(pp) + 1e-9) throw new Error('Não há quantidade livre suficiente.'); ajustaReserva(pp, ob.id, ob.nome, round3(q)); })) { toast(`Reservado para a obra ${ob.nome}.`); abrirFicha(id); }
+  };
 }
 
 /* Exclusão livre: qualquer produto, com qualquer saldo. O histórico de movimentações
@@ -1343,6 +1637,7 @@ function abrirAjuste(id){
     if (round3(n) === p.saldo) { toast('O saldo contado é igual ao saldo atual. Nenhum ajuste necessário.', 'err'); return; }
     const ok = await commit(d => {
       const pp = d.produtos.find(x => x.id === id); const ant = pp.saldo; pp.saldo = round3(n);
+      if (limitaReservas(pp)) setTimeout(() => toast('O saldo ficou menor que o reservado para obras: as reservas foram reduzidas.', 'err'), 300);
       d.movs.push({id: uid(), tipo: 'ajuste', produtoId: id, produtoNome: pp.nome, unidade: pp.unidade, qtd: round3(pp.saldo - ant), saldoAnt: ant, saldoPost: pp.saldo, data, registradoEm: new Date().toISOString(), responsavel: pes.nome, obs: mot, comentarios: []});
     });
     if (ok) { toast('Ajuste registrado.'); abrirFicha(id); }
@@ -1357,8 +1652,8 @@ function movCard(m){
     <b>${esc(nomeProd(m))}</b>
     <div class="mc-qtd">${s ? '−' : '+'}${esc(qtdMovTxt(m))}</div>
     <div class="muted small">Saldo ${fmtQtd(m.saldoAnt)} → ${fmtQtd(m.saldoPost)}</div>
-    ${s ? `<div class="small">Retirado por: <b>${esc(m.quemRetirou)}</b></div><div class="small">Autorizado por Ricardo: <b class="okt">Sim ✓</b></div>`
-        : `<div class="small">Responsável: <b>${esc(m.responsavel)}</b></div>`}
+    ${s ? `${m.obraNome ? `<div class="small">🏗️ Obra: <b>${esc(m.obraNome)}</b></div>` : ''}<div class="small">Retirado por: <b>${esc(m.quemRetirou)}</b></div><div class="small">Autorizado por Ricardo: <b class="okt">Sim ✓</b></div>`
+        : `${m.devolucaoObraNome ? `<div class="small">↩ Voltou da obra: <b>${esc(m.devolucaoObraNome)}</b></div>` : ''}<div class="small">Responsável: <b>${esc(m.responsavel)}</b></div>`}
     <div class="muted small">💬 ${m.comentarios.length} comentário(s)</div></article>`;
 }
 function filtraMovs(tipo, q){
@@ -1374,7 +1669,7 @@ function loteCard(id, tipo){
   const max = 5;
   return `<article class="mcard lote ${s ? 'saida' : 'entrada'}" data-lote="${id}" data-lote-tipo="${tipo}" tabindex="0">
     <div class="mc-top"><span class="tag">📦 ${s ? 'Saída' : 'Entrada'} em lote · ${ms.length} ${ms.length === 1 ? 'item' : 'itens'}</span><span class="muted">${fmtData(m0.data)} · ${fmtHora(m0.registradoEm)}</span></div>
-    <b>${s ? `Para: ${esc(L.destino || '—')}` : `${L.origem ? 'De: ' + esc(L.origem) : 'Lote nº ' + loteCod(id)}`}</b>
+    <b>${s ? `${L.obraId ? '🏗️ ' : 'Para: '}${esc(L.destino || '—')}` : `${L.origem ? 'De: ' + esc(L.origem) : 'Lote nº ' + loteCod(id)}`}</b>
     <ul class="lote-itens">${ms.slice(0, max).map(m => `<li><span class="q">${s ? '−' : '+'}${esc(qtdMovTxt(m))}</span><span>${esc(nomeProd(m))}</span></li>`).join('')}</ul>
     ${ms.length > max ? `<div class="muted small">+ ${ms.length - max} item(ns)…</div>` : ''}
     ${s ? `<div class="small">Retirado por: <b>${esc(m0.quemRetirou)}</b></div>
@@ -1399,6 +1694,7 @@ $('#sai-filtro').addEventListener('input', renderSaidas);
 function abrirMov(id){
   const m = db.movs.find(x => x.id === id); if (!m) return;
   const s = m.tipo === 'saida';
+  const ob = !s ? null : m.obraId ? obraById(m.obraId) : (!m.semObra && m.lote && m.lote.destino ? obrasTodas().find(o => norm(o.nome) === norm(m.lote.destino)) : null);
   const linhas = [
     ['Produto', `<span class="li-click" data-prod="${m.produtoId}" style="text-decoration:underline">${esc(nomeProd(m))}</span>`],
     [s ? 'Quantidade retirada' : m.tipo === 'entrada' ? 'Quantidade recebida' : 'Diferença ajustada', `${sinal(m)}${esc(qtdMovTxt(m))}`],
@@ -1416,12 +1712,23 @@ function abrirMov(id){
     else if (L.origem) linhas.push(['De onde veio', esc(L.origem)]);
   }
   if (s) {
+    if (m.obraId || m.obraNome) linhas.push(['Obra', ob ? `<span class="li-click" data-obra-abrir="${ob.id}" style="text-decoration:underline">🏗️ ${esc(ob.nome)} — abrir planilha da obra</span>` : esc(m.obraNome)]);
     linhas.push(['Quem retirou', esc(m.quemRetirou)]);
     linhas.push(['Autorizado por Ricardo?', `<span class="okt">${esc(m.autorizadoRicardo || 'Sim')}</span>`]);
   } else linhas.push([m.tipo === 'ajuste' ? 'Responsável pelo ajuste' : 'Responsável pelo lançamento', esc(m.responsavel)]);
   linhas.push([m.tipo === 'ajuste' ? 'Motivo' : 'Observação', m.obs ? esc(m.obs) : '<span class="muted">—</span>']);
   openModal(`${tipoLabel(m)} — ${nomeProd(m)}`, `
     <div class="review" style="margin-top:0"><dl>${linhas.map(([a, b]) => `<dt>${a}</dt><dd>${b}</dd>`).join('')}</dl></div>
+    ${s ? (() => { const ca = custoAuto(m), cm = custoMov(m); return `<form id="f-mov-obra" class="review" novalidate>
+      <h2 style="font-size:15px;margin:0 0 8px">🏗️ Obra e custo desta saída</h2>
+      <div class="grid3">
+        <div class="field"><label for="mo-obra">Para qual obra?</label><select id="mo-obra">${obraOptions(m.obraId || ((() => { const l = !m.semObra && m.lote && m.lote.destino ? obrasTodas().find(o => norm(o.nome) === norm(m.lote.destino)) : null; return l ? l.id : '__nao'; })()))}</select></div>
+        <div class="field"><label for="mo-vu">Valor da unidade (R$)</label><input id="mo-vu" inputmode="decimal" value="${m.custo && m.custo.valorUnit != null ? fmtDec2(m.custo.valorUnit) : ''}" placeholder="${ca ? fmtDec2(ca.valorUnit) + ' (última compra)' : 'sem compra registrada'}"></div>
+        <div class="field"><label for="mo-forn">Fornecedor</label><input id="mo-forn" list="fornecedores" value="${esc(m.custo ? m.custo.fornecedor : '')}" placeholder="${esc(ca ? ca.fornecedor || '—' : '—')}"></div>
+      </div>
+      <p class="hint" style="margin:0 0 8px">${cm.total != null ? `Valor desta saída: <b>${fmtQtd(cm.qtd)} ${esc(cm.un)} × ${fmtMoeda(cm.valorUnit)} = ${fmtMoeda(cm.total)}</b>. ` : ''}Valor e fornecedor vêm sozinhos da última compra do item até a data da saída; preencha só para corrigir (em branco = automático).</p>
+      <div class="actions" style="margin-top:0">${ob ? `<button type="button" class="btn" data-obra-abrir="${ob.id}">← Voltar para a obra</button>` : ''}<button class="btn primary" type="submit">Salvar obra e custo</button></div>
+    </form>`; })() : ''}
     <h2 style="margin-top:18px">Comentários${s ? ' e ocorrências' : ''}</h2>
     <div class="comments">${m.comentarios.length ? m.comentarios.map(c => `<div class="cmt ${c.tipo === 'ocorrencia' ? 'oc' : ''}"><div class="meta">${c.tipo === 'ocorrencia' ? '<b style="color:var(--danger)">OCORRÊNCIA</b> · ' : ''}${esc(c.autor)} · ${fmtDataHora(c.em)}</div>${esc(c.texto).replace(/\n/g, '<br>')}</div>`).join('') : '<p class="empty">Nenhum comentário.</p>'}</div>
     <form id="f-cmt" novalidate>
@@ -1434,6 +1741,22 @@ function abrirMov(id){
     </form>
     <p class="hint">Movimentações confirmadas não podem ser excluídas. Para corrigir um saldo, use "Ajustar saldo" na ficha do produto.</p>`);
   try { $('#cmt-autor').value = localStorage.getItem('crm_ultimo_autor') || ''; } catch (e) {}
+  if ($('#f-mov-obra')) $('#f-mov-obra').onsubmit = async e => {
+    e.preventDefault(); clearErr(e.target);
+    const ov = $('#mo-obra').value, ob = ov && ov !== '__nao' ? obraById(ov) : null;
+    if (!ov) return showErrs([[$('#mo-obra'), 'Escolha a obra ou “Não é para obra”.']]);
+    const vs = $('#mo-vu').value.trim(), forn = $('#mo-forn').value.trim();
+    const vu = vs ? parseMoeda(vs) : null;
+    if (vs && (!isFinite(vu) || vu < 0)) return showErrs([[$('#mo-vu'), 'Valor inválido.']]);
+    const ca = custoAuto(m);
+    if (forn && !vs && !ca) return showErrs([[$('#mo-vu'), 'Informe o valor da unidade (o item não tem compra registrada).']]);
+    const ok = await commit(d => {
+      const x = d.movs.find(y => y.id === id); if (!x) throw new Error('Movimentação não encontrada.');
+      if (ob) { x.obraId = ob.id; x.obraNome = ob.nome; delete x.semObra; } else { delete x.obraId; delete x.obraNome; x.semObra = true; }
+      if (vs || forn) x.custo = {valorUnit: vs ? round2(vu) : ca.valorUnit, fornecedor: forn || (ca ? ca.fornecedor : ''), manual: true}; else delete x.custo;
+    });
+    if (ok) { toast('Obra e custo da saída salvos.'); if (ob) abrirObra(ob.id); else abrirMov(id); }
+  };
   $('#f-cmt').onsubmit = async e => {
     e.preventDefault(); clearErr(e.target); const errs = [];
     const autor = $('#cmt-autor').value.trim(), texto = $('#cmt-txt').value.trim();
@@ -1448,12 +1771,14 @@ function abrirMov(id){
 
 /* ================= Entradas ================= */
 $('#ent-resp-wrap').innerHTML = pessoaHTML('ent', 'Responsável pelo lançamento');
+$('#ent-res-wrap').innerHTML = resCampo('ent-obra', '', true); // as obras entram pelo fillSelects
 $('#ent-data').value = hojeISO();
 let entPend = null;
 $('#ent-prod').addEventListener('change', () => {
   const novo = $('#ent-prod').value === '__novo';
   $('#ent-novo').hidden = !novo;
   if (novo && !$('#np-nome')) $('#ent-novo-campos').innerHTML = prodFieldsHTML('np', {}, false);
+  $('#ent-aviso').innerHTML = avisoPedida(prodById($('#ent-prod').value));
   atualizaEntCobre();
 });
 /* Cobre: a quantidade da entrada é em panquecas (15 m cada) */
@@ -1470,8 +1795,8 @@ $('#f-ent').addEventListener('change', e => { if (e.target.id === 'np-unid') atu
 $('#f-ent').addEventListener('input', () => { if (entPend) { entPend = null; $('#ent-review').innerHTML = ''; } });
 $('#f-ent').addEventListener('change', () => { if (entPend) { entPend = null; $('#ent-review').innerHTML = ''; } });
 $('#f-ent').addEventListener('reset', () => setTimeout(() => {
-  entPend = null; $('#ent-review').innerHTML = ''; clearErr($('#f-ent')); $('#ent-novo').hidden = true; $('#ent-novo-campos').innerHTML = '';
-  $('#ent-data').value = hojeISO(); resetPessoa('ent'); atualizaEntCobre();
+  entPend = null; $('#ent-review').innerHTML = ''; $('#ent-aviso').innerHTML = ''; clearErr($('#f-ent')); $('#ent-novo').hidden = true; $('#ent-novo-campos').innerHTML = '';
+  $('#ent-data').value = hojeISO(); resetPessoa('ent'); atualizaEntCobre(); $('#ent-obra-of').hidden = true;
 }));
 $('#f-ent').addEventListener('submit', e => {
   e.preventDefault(); const f = e.currentTarget; clearErr(f); entPend = null; $('#ent-review').innerHTML = '';
@@ -1485,16 +1810,19 @@ $('#f-ent').addEventListener('submit', e => {
   const data = $('#ent-data').value; if (!dataValida(data)) errs.push([$('#ent-data'), 'Informe uma data válida.']);
   const pes = lerPessoa('ent', 'Informe o responsável pelo lançamento.'); if (pes.err) errs.push(pes.err);
   const obs = $('#ent-obs').value.trim();
+  const rr = lerRes('ent-obra'); if (rr.err) errs.push(rr.err);
   if (errs.length) return showErrs(errs);
   const unidade = novoProduto ? novoProduto.unidade : prod.unidade; const ant = novoProduto ? 0 : prod.saldo;
-  entPend = {produtoId: prod && prod.id, novoProduto, qtd: round3(qtd), data, responsavel: pes.nome, obs};
+  const reserva = rr.res;
+  entPend = {produtoId: prod && prod.id, novoProduto, qtd: round3(qtd), data, responsavel: pes.nome, obs, reserva};
   const loc = novoProduto || prod;
-  $('#ent-review').innerHTML = `<div class="review"><h2>Revise antes de confirmar</h2><dl>
+  $('#ent-review').innerHTML = `<div class="review"><h2>Revise antes de confirmar</h2>${avisoPedida(prod)}<dl>
     <dt>Produto</dt><dd>${esc(loc.nome)}${novoProduto ? ' <span class="badge b-baixo">novo cadastro</span>' : ''}</dd>
     <dt>Localização</dt><dd>${locHTML(loc)}</dd>
     <dt>Quantidade</dt><dd>+${fmtQtd(qtd)} ${esc(unidade)}${unidade === 'panqueca' ? ` (${fmtQtd(round3(qtd * PANQ_M))} m)` : ''}</dd>
     <dt>Saldo</dt><dd>${fmtQtd(ant)} → ${fmtQtd(round3(ant + qtd))} ${esc(unidade)}${unidade === 'panqueca' ? ` (${fmtQtd(round3((ant + qtd) * PANQ_M))} m)` : ''}</dd>
     <dt>Data</dt><dd>${fmtData(data)}</dd><dt>Responsável</dt><dd>${esc(pes.nome)}</dd>
+    <dt>Vai para</dt><dd>${reserva ? `🏗️ Itens para obras — <b>${esc(reserva.nome)}</b>` : '📦 Estoque'}</dd>
     ${obs ? `<dt>Observação</dt><dd>${esc(obs)}</dd>` : ''}</dl>
     <div class="actions"><button type="button" class="btn" id="ent-corrigir">Corrigir</button><button type="button" class="btn primary" id="ent-confirmar">Confirmar entrada</button></div></div>`;
   $('#ent-confirmar').focus();
@@ -1511,7 +1839,7 @@ async function confirmarEntrada(){
       pidFinal = uid(); d.produtos.push({id: pidFinal, ...e.novoProduto, saldo: 0, criadoEm: agora, alteracoes: []});
     }
     const p = d.produtos.find(x => x.id === pidFinal); if (!p) throw new Error('Produto não encontrado.');
-    aplicarEntrada(d, {pid: p.id, qtd: e.qtd}, {data: e.data, agora, responsavel: e.responsavel, obs: e.obs});
+    aplicarEntrada(d, {pid: p.id, qtd: e.qtd}, {data: e.data, agora, responsavel: e.responsavel, obs: e.obs, reserva: e.reserva});
   });
   if (ok) { toast('Entrada registrada. Saldo atualizado.'); $('#f-ent').reset(); }
 }
@@ -1522,7 +1850,7 @@ $('#sai-data').value = hojeISO();
 const MSG_NAO = 'Retirada não autorizada. Solicite autorização antes de concluir esta operação.';
 function atualizaSaldoSaida(){
   const p = prodById($('#sai-prod').value);
-  $('#sai-saldo').innerHTML = p ? `<div class="info-box">Disponível: <b>${esc(fmtSaldo(p))}</b><br>Localização: ${locHTML(p)}</div>` : '';
+  $('#sai-saldo').innerHTML = p ? `<div class="info-box">Disponível: <b>${esc(fmtSaldo(p))}</b>${totalReservado(p) ? `<br>🔒 Reservado: ${esc(reservaTxt(p))} · <b>livre para outros destinos: ${fmtQtd(livreDe(p))} ${esc(p.unidade)}</b>` : ''}<br>Localização: ${locHTML(p)}</div>` : '';
   /* Só redesenha as perguntas do cobre quando o produto muda (não apaga o que já foi respondido) */
   const box = $('#sai-cobre'), pid = p && (ehPanq(p) || ehSobra(p)) ? p.id : '';
   if (box.dataset.pid !== pid) {
@@ -1600,11 +1928,13 @@ $('#f-sai').addEventListener('submit', async e => {
   }
   const data = $('#sai-data').value; if (!dataValida(data)) errs.push([$('#sai-data'), 'Informe a data da retirada.']);
   const pes = lerPessoa('sai', 'Informe quem retirou a mercadoria.'); if (pes.err) errs.push(pes.err);
+  const ov = $('#sai-obra').value; if (!ov) errs.push([$('#sai-obra'), 'Informe para qual obra vai (ou “Não é para obra”).']);
+  const obraSel = ov && ov !== '__nao' ? obraById(ov) : null;
   if (!aut) { $('#sai-auth').classList.add('invalid'); errs.push([$('input[name="sai-aut"]'), 'Responda se a retirada foi autorizada por Ricardo.']); }
   if (errs.length) return showErrs(errs);
   const obs = $('#sai-obs').value.trim(); const pid = p.id;
   const ok = await commit(d => {
-    aplicarSaida(d, {pid, modo, qtd, metros}, {data, agora: new Date().toISOString(), quemRetirou: pes.nome, obs});
+    aplicarSaida(d, {pid, modo, qtd, metros}, {data, agora: new Date().toISOString(), quemRetirou: pes.nome, obs, obra: obraSel ? {id: obraSel.id, nome: obraSel.nome} : null});
   });
   if (ok) { toast('Saída registrada. Saldo atualizado.'); f.reset(); }
 });
@@ -1625,16 +1955,19 @@ function loteRowHTML(){
 function abrirLote(tipo, pre = null){
   const s = tipo === 'saida';
   openModal(s ? 'Saída em lote — vários itens de uma vez' : 'Entrada em lote — vários itens de uma vez', `<form id="f-lote" novalidate>
-    ${pre ? `<div class="info-box">O que você já tinha preenchido veio para cá. Adicione os outros itens: com mais de um item, a ${s ? 'saída' : 'entrada'} fica registrada como um card de ${s ? 'saída' : 'entrada'} em lote.</div>` : ''}
+    ${pre && pre.paraObra ? `<div class="info-box">🏗️ Itens que chegaram já para uma obra: escolha a obra e lance os itens. Eles vão direto para a lista “Itens para obras”.</div>` : ''}
+    ${pre && !pre.paraObra ? `<div class="info-box">O que você já tinha preenchido veio para cá. Adicione os outros itens: com mais de um item, a ${s ? 'saída' : 'entrada'} fica registrada como um card de ${s ? 'saída' : 'entrada'} em lote.</div>` : ''}
     <div class="grid3">
       <div class="field"><label for="lt-data">${s ? 'Data da retirada' : 'Data da entrada'} <b class="req">*</b></label><input id="lt-data" type="date" value="${hojeISO()}"></div>
       ${s ? pessoaHTML('lt-ret', 'Quem retirou') : pessoaHTML('lt-resp', 'Responsável pelo lançamento')}
       ${s ? pessoaHTML('lt-ped', 'Quem pediu') : campoTxt('lt-orig', 'De onde veio (opcional)', false, 'list="obras" placeholder="ex.: fornecedor, devolução de obra…"')}
     </div>
+    ${!s ? resCampo('lt-res') : ''}
     ${s ? `<div class="grid2">
       <div class="field"><label for="lt-canal">Por onde pediu? <b class="req">*</b></label><select id="lt-canal"><option value="">Selecione…</option>${CANAIS.map(c => `<option>${c}</option>`).join('')}</select>
         <input id="lt-canal-outro" placeholder="Qual?" style="margin-top:6px" hidden></div>
-      ${campoTxt('lt-dest', 'Para onde vão os itens? <b class="req">*</b>', false, 'list="obras" placeholder="ex.: Obra Rua das Flores, bolsa do técnico…"')}
+      <div class="field"><label for="lt-obra">Para qual obra? <b class="req">*</b></label><select id="lt-obra">${obraOptions('')}</select>
+        <input id="lt-dest" placeholder="Para onde vão? (ex.: bolsa do técnico, uso interno)" style="margin-top:6px" hidden autocomplete="off"></div>
     </div>` : ''}
     <p class="hint" style="margin:0 0 8px">Digite o nome do produto e escolha na lista. Ao preencher a última linha aparece outra em branco. <b>Enter</b> desce para a linha de baixo. Também dá para colar várias linhas de uma planilha (colunas: produto, quantidade).</p>
     <div class="lt-row lt-head"><span>#</span><span>Produto *</span><span>Quantidade *</span><span>Unidade</span><span></span></div>
@@ -1678,7 +2011,7 @@ function abrirLote(tipo, pre = null){
         </div><div class="lt-calc"></div>`;
       return;
     }
-    const info = `${s ? 'Disponível' : 'Saldo atual'}: <b>${esc(fmtSaldo(p))}</b> · ${locHTML(p)}`;
+    const info = `${!s && comprasPedidasDe(p).length ? '<span class="sem-preco">⚠️ tem compra pedida — veja ao revisar</span><br>' : ''}${s ? 'Disponível' : 'Saldo atual'}: <b>${esc(fmtSaldo(p))}</b>${totalReservado(p) ? ` · 🔒 ${esc(reservaTxt(p))}` : ''} · ${locHTML(p)}`;
     if (ehPanq(p)) {
       det.classList.add('cobre');
       $('.lt-q', r).step = '1'; $('.lt-q', r).placeholder = 'Panquecas';
@@ -1758,6 +2091,7 @@ function abrirLote(tipo, pre = null){
     recalc(); toast(`${linhas.length} linha(s) colada(s). Confira os itens.`);
   });
   if (s) {
+    $('#lt-obra').addEventListener('change', () => { const n = $('#lt-obra').value === '__nao'; $('#lt-dest').hidden = !n; if (n) $('#lt-dest').focus(); });
     $('#lt-canal').addEventListener('change', () => { const o = $('#lt-canal').value === 'Outro'; $('#lt-canal-outro').hidden = !o; if (o) $('#lt-canal-outro').focus(); });
     $$('input[name="lt-aut"]').forEach(x => x.addEventListener('change', () => {
       $('#lt-auth').classList.remove('invalid'); $$('.err-msg', $('#lt-auth')).forEach(m => m.remove());
@@ -1771,6 +2105,8 @@ function abrirLote(tipo, pre = null){
     if (dataValida(pre.data)) $('#lt-data').value = pre.data;
     if (pre.pessoa) $(s ? '#lt-ret-nome' : '#lt-resp-nome').value = pre.pessoa;
     if (pre.obs) $('#lt-obs').value = pre.obs;
+    if (s && pre.obra && $(`#lt-obra option[value="${pre.obra}"]`)) { $('#lt-obra').value = pre.obra; $('#lt-obra').dispatchEvent(new Event('change')); }
+    if (!s && pre.reservaQ) marcaRes('lt-res', pre.reservaQ, pre.reserva);
     if (s && pre.aut) { const ra = $(`input[name="lt-aut"][value="${pre.aut}"]`); if (ra) { ra.checked = true; ra.dispatchEvent(new Event('change')); } }
     let r = $$('.lt-row', box)[0];
     (pre.itens || []).forEach(it => {
@@ -1796,16 +2132,21 @@ function abrirLote(tipo, pre = null){
     const errs = []; const anchor = $('#lt-err-slot');
     const data = $('#lt-data').value; if (!dataValida(data)) errs.push([$('#lt-data'), 'Informe uma data válida.']);
     const pes = lerPessoa(s ? 'lt-ret' : 'lt-resp', s ? 'Informe quem retirou.' : 'Informe o responsável pelo lançamento.'); if (pes.err) errs.push(pes.err);
-    let ped = {}, canal = '', destino = '', origem = '';
+    let ped = {}, canal = '', destino = '', origem = '', obraSel = null;
     if (s) {
       ped = lerPessoa('lt-ped', 'Informe quem pediu.'); if (ped.err) errs.push(ped.err);
       canal = $('#lt-canal').value === 'Outro' ? $('#lt-canal-outro').value.trim() : $('#lt-canal').value;
       if (!canal) errs.push([$('#lt-canal'), $('#lt-canal').value === 'Outro' ? 'Escreva por onde foi o pedido.' : 'Informe por onde foi o pedido.']);
-      destino = $('#lt-dest').value.trim(); if (!destino) errs.push([$('#lt-dest'), 'Informe para onde vão os itens.']);
+      const ov = $('#lt-obra').value;
+      if (!ov) errs.push([$('#lt-obra'), 'Informe para qual obra vão os itens (ou “Não é para obra”).']);
+      else if (ov === '__nao') { destino = $('#lt-dest').value.trim(); if (!destino) errs.push([$('#lt-dest'), 'Informe para onde vão os itens.']); }
+      else { obraSel = obraById(ov); destino = obraSel ? obraSel.nome : ''; }
       const aut = ($('input[name="lt-aut"]:checked') || {}).value;
       if (aut === 'nao') { toast(MSG_NAO, 'err'); return; }
       if (!aut) { $('#lt-auth').classList.add('invalid'); errs.push([$('input[name="lt-aut"]'), 'Responda se a retirada foi autorizada por Ricardo.']); }
     } else origem = $('#lt-orig').value.trim();
+    let reservaL = null;
+    if (!s) { const rr = lerRes('lt-res'); if (rr.err) errs.push(rr.err); else reservaL = rr.res; }
     const itens = []; let itemErr = null; const novos = new Map(); const uso = new Map();
     $$('.lt-row', box).forEach(r => {
       if (linhaVazia(r) && !(($('.lt-m', r) || {}).value || '').trim()) return;
@@ -1842,9 +2183,10 @@ function abrirLote(tipo, pre = null){
       const extra = un === 'panqueca' ? ` (${fmtQtd(round3(it.qtd * PANQ_M))} m)` : '';
       return `<li><b>${s ? '−' : '+'}${fmtQtd(it.qtd)} ${esc(un)}${extra}</b> ${esc(it.nome)}${!p ? ' <span class="badge b-baixo">novo cadastro</span>' : ''}</li>`;
     };
-    $('#lt-review').innerHTML = `<div class="review"><h2>Revise antes de confirmar</h2><dl>
+    $('#lt-review').innerHTML = `<div class="review"><h2>Revise antes de confirmar</h2>${s ? '' : [...new Set(itens.map(it => it.pid).filter(Boolean))].map(pid => avisoPedida(prodById(pid))).join('')}<dl>
       <dt>Data</dt><dd>${fmtData(data)}</dd>
       <dt>${s ? 'Quem retirou' : 'Responsável'}</dt><dd>${esc(pes.nome)}</dd>
+      ${!s ? `<dt>Vai para</dt><dd>${reservaL ? `🏗️ Itens para obras — tudo para <b>${esc(reservaL.nome)}</b>` : '📦 Estoque'}</dd>` : ''}
       ${s ? `<dt>Quem pediu</dt><dd>${esc(ped.nome)} · via ${esc(canal)}</dd><dt>Para onde vai</dt><dd>${esc(destino)}</dd><dt>Autorizado por Ricardo</dt><dd class="okt">Sim</dd>` : origem ? `<dt>De onde veio</dt><dd>${esc(origem)}</dd>` : ''}
       ${obs ? `<dt>Observação</dt><dd>${esc(obs)}</dd>` : ''}
       <dt>Itens (${itens.length})</dt><dd><ul class="lote-itens">${itens.map(linhaRev).join('')}</ul></dd></dl>
@@ -1853,7 +2195,7 @@ function abrirLote(tipo, pre = null){
     $('#lt-corrigir').onclick = () => { pend = null; $('#lt-review').innerHTML = ''; };
     $('#lt-confirmar').onclick = async () => {
       const loteId = uid(); const agora = new Date().toISOString();
-      const lote = s ? {quemPediu: ped.nome, canal, destino, nItens: itens.length} : {origem, nItens: itens.length};
+      const lote = s ? {quemPediu: ped.nome, canal, destino, nItens: itens.length, ...(obraSel ? {obraId: obraSel.id} : {})} : {origem, nItens: itens.length};
       const ok = await commit(d => {
         if (!s) novos.forEach(n => {
           if (d.produtos.some(p => norm(p.nome) === norm(n.nome))) throw new Error(`Já existe um produto chamado ${n.nome}.`);
@@ -1862,8 +2204,8 @@ function abrirLote(tipo, pre = null){
         });
         itens.forEach(it => {
           const pid = it.pid || novos.get(it.novoKey).pid;
-          if (s) aplicarSaida(d, {pid, modo: it.modo, qtd: it.qtd, metros: it.metros}, {data, agora, quemRetirou: pes.nome, obs, loteId, lote});
-          else aplicarEntrada(d, {pid, qtd: it.qtd}, {data, agora, responsavel: pes.nome, obs, loteId, lote});
+          if (s) aplicarSaida(d, {pid, modo: it.modo, qtd: it.qtd, metros: it.metros}, {data, agora, quemRetirou: pes.nome, obs, loteId, lote, obra: obraSel ? {id: obraSel.id, nome: obraSel.nome} : null});
+          else aplicarEntrada(d, {pid, qtd: it.qtd}, {data, agora, responsavel: pes.nome, obs, loteId, lote, reserva: reservaL});
         });
       });
       if (ok) {
@@ -1884,7 +2226,7 @@ $('#ent-mais').onclick = () => {
     const g = k => (($('#np-' + k) || {}).value || '').trim();
     it.nome = g('nome').replace(/\s+/g, ' '); it.novo = {unidade: g('unid'), andar: g('andar'), estante: g('estante'), fileira: g('fileira')};
   } else if (v) { const p = prodById(v); if (p) it.nome = p.nome; }
-  abrirLote('entrada', {data: $('#ent-data').value, pessoa: $('#ent-nome').value.trim(), obs: $('#ent-obs').value.trim(), itens: it.nome ? [it] : [], onOk: () => $('#f-ent').reset()});
+  abrirLote('entrada', {data: $('#ent-data').value, pessoa: $('#ent-nome').value.trim(), obs: $('#ent-obs').value.trim(), reservaQ: ($('input[name="ent-obra-q"]:checked') || {}).value, reserva: $('#ent-obra').value, itens: it.nome ? [it] : [], onOk: () => $('#f-ent').reset()});
 };
 $('#sai-mais').onclick = () => {
   const p = prodById($('#sai-prod').value), it = {};
@@ -1894,7 +2236,7 @@ $('#sai-mais').onclick = () => {
     else it.qtd = $('#sai-qtd').value.trim();
     if (ehSobra(p) && $('#sai-su')) it.su = $('#sai-su').value;
   }
-  abrirLote('saida', {data: $('#sai-data').value, pessoa: $('#sai-nome').value.trim(), obs: $('#sai-obs').value.trim(), aut: autSaida(), itens: it.nome ? [it] : [], onOk: () => $('#f-sai').reset()});
+  abrirLote('saida', {data: $('#sai-data').value, pessoa: $('#sai-nome').value.trim(), obs: $('#sai-obs').value.trim(), aut: autSaida(), obra: $('#sai-obra').value, itens: it.nome ? [it] : [], onOk: () => $('#f-sai').reset()});
 };
 
 function abrirLoteDet(id, tipo){
@@ -2077,7 +2419,7 @@ function abrirGpsCadastro(id, prefill){
       <div class="info-box">📍 Início do GPS: informe com quem está e em qual obra.</div>
       <div class="grid2">
         ${campoTxt('gc-resp', 'Responsável pelo material', true, 'list="pessoas" placeholder="Nome de quem está com o item"')}
-        ${campoTxt('gc-obra', 'Em qual obra está?', true, 'list="obras" placeholder="ex.: Obra Rua das Flores"')}
+        ${obraSelHTML('gc-obra', 'Em qual obra está?', true)}
       </div>
     </div>
     <div class="grid2"><div class="field"><label for="gc-data" id="gc-data-lbl">Data</label><input id="gc-data" type="date" value="${hojeISO()}"></div></div>
@@ -2151,10 +2493,10 @@ function abrirGpsCadastro(id, prefill){
     const anchor = $('#gl-err-slot');
     if (itemErr) errs.push([anchor, msgs.join(' ')]);
     else if (!itens.length) { itemErr = $('.gl-nome', box); itemErr.classList.add('bad'); errs.push([anchor, 'Informe pelo menos um item.']); }
-    let resp = '', obra = '';
+    let resp = '', obra = '', obraIdC = '';
     if (!loc) errs.push([$('input[name="gc-local"]'), 'Informe se está no estoque ou na rua.']);
     if (loc === 'rua') {
-      resp = $('#gc-resp').value.trim().replace(/\s+/g, ' '); obra = $('#gc-obra').value.trim().replace(/\s+/g, ' ');
+      resp = $('#gc-resp').value.trim().replace(/\s+/g, ' '); const ob = lerObraSel('gc-obra'); obra = ob.nome; obraIdC = ob.id;
       if (!resp) errs.push([$('#gc-resp'), 'Informe o responsável pelo material.']);
       if (!obra) errs.push([$('#gc-obra'), 'Informe em qual obra está.']);
     }
@@ -2168,9 +2510,9 @@ function abrirGpsCadastro(id, prefill){
       itens.forEach(it => {
         const gid = uid();
         d.gps.push({id: gid, nome: it.nome, nitrogenio: it.n2, numeroBujao: it.num, identificacao: it.ident, local: loc,
-          responsavel: resp, obra, desde: data, saiuEm: loc === 'rua' ? data : '', nivelSaida: loc === 'rua' ? it.nivel : '', nivelVolta: '', nivelAtual: it.nivel,
+          responsavel: resp, obra, obraId: obraIdC, desde: data, saiuEm: loc === 'rua' ? data : '', nivelSaida: loc === 'rua' ? it.nivel : '', nivelVolta: '', nivelAtual: it.nivel,
           ciclo: 1, movsNoCiclo: 0, totalMovs: 0, criadoEm: agora});
-        gpsNovoMov(d, gid, {tipo: 'cadastro', local: loc, de: '', para: loc === 'rua' ? resp : 'Estoque', obra, nivel: it.nivel, data, comentario: cmt, ...(grupoId ? {grupoId, grupo} : {})});
+        gpsNovoMov(d, gid, {tipo: 'cadastro', local: loc, de: '', para: loc === 'rua' ? resp : 'Estoque', obra, obraId: obraIdC, nivel: it.nivel, data, comentario: cmt, ...(grupoId ? {grupoId, grupo} : {})});
       });
     });
     if (ok) {
@@ -2203,7 +2545,7 @@ function abrirGpsEditar(id){
     <div id="ge-rua">
       <div class="grid2">
         ${campoTxt('ge-resp', 'Responsável', true, `list="pessoas" value="${esc(g.responsavel)}"`)}
-        ${campoTxt('ge-obra', 'Obra', true, `list="obras" value="${esc(g.obra)}"`)}
+        ${obraSelHTML('ge-obra', 'Obra', true, g.obra, g.obraId)}
         <div class="field"><label for="ge-saiu">Saiu do estoque em</label><input id="ge-saiu" type="date" value="${esc(g.saiuEm)}"></div>
       </div>
     </div>
@@ -2233,7 +2575,7 @@ function abrirGpsEditar(id){
     const val = s => $(s).value.trim().replace(/\s+/g, ' ');
     const n2 = $('#ge-n2').checked, loc = $('input[name="ge-local"]:checked').value, rua = loc === 'rua';
     const v = {nome: val('#ge-nome'), nitrogenio: n2, numeroBujao: n2 ? val('#ge-num') : '', identificacao: n2 ? '' : val('#ge-ident'), local: loc,
-      responsavel: rua ? val('#ge-resp') : '', obra: rua ? val('#ge-obra') : '', saiuEm: rua ? $('#ge-saiu').value : (g.saiuEm || ''), desde: $('#ge-desde').value,
+      responsavel: rua ? val('#ge-resp') : '', obra: rua ? lerObraSel('ge-obra').nome : '', obraId: rua ? lerObraSel('ge-obra').id : '', saiuEm: rua ? $('#ge-saiu').value : (g.saiuEm || ''), desde: $('#ge-desde').value,
       nivelSaida: n2 ? val('#ge-ns') : (g.nivelSaida || ''), nivelVolta: n2 ? val('#ge-nv') : (g.nivelVolta || ''), nivelAtual: n2 ? val('#ge-na') : (g.nivelAtual || '')};
     if (!v.nome) errs.push([$('#ge-nome'), 'Informe o nome do item.']);
     if (n2 && !v.numeroBujao) errs.push([$('#ge-num'), 'Informe o número do bujão.']);
@@ -2286,7 +2628,7 @@ function abrirGpsMovEdit(movId){
     <div class="grid2">
       ${temDe ? campoTxt('gme-de', 'De (quem estava com o item)', true, `list="pessoas" value="${esc(m.de)}"`) : ''}
       ${temPara ? campoTxt('gme-para', m.tipo === 'cadastro' ? 'Responsável' : 'Para (quem ficou com o item)', true, `list="pessoas" value="${esc(m.para)}"`) : ''}
-      ${temObra ? campoTxt('gme-obra', 'Obra', m.tipo !== 'retorno', `list="obras" value="${esc(m.obra)}"`) : ''}
+      ${temObra ? obraSelHTML('gme-obra', m.tipo === 'retorno' ? 'Voltou de qual obra' : 'Obra', m.tipo !== 'retorno', m.obra, m.obraId) : ''}
       <div class="field"><label for="gme-data">Data <b class="req">*</b></label><input id="gme-data" type="date" value="${esc(m.data)}"></div>
       ${n2 ? campoTxt('gme-nivel', nivelCampo[1], false, `value="${esc(m[nivelCampo[0]])}" ${NIVEL_PH}`) : ''}
     </div>
@@ -2301,7 +2643,7 @@ function abrirGpsMovEdit(movId){
     const v = {data: $('#gme-data').value, comentario: $('#gme-cmt').value.trim()};
     if (temDe) v.de = val('#gme-de');
     if (temPara) v.para = val('#gme-para');
-    if (temObra) v.obra = val('#gme-obra');
+    if (temObra) { const ob = lerObraSel('gme-obra'); v.obra = ob.nome; v.obraId = ob.id; }
     if (n2) v[nivelCampo[0]] = val('#gme-nivel');
     if (temDe && !v.de) errs.push([$('#gme-de'), 'Informe quem estava com o item.']);
     if (temPara && !v.para) errs.push([$('#gme-para'), 'Informe o responsável.']);
@@ -2326,7 +2668,7 @@ function abrirGpsMovEdit(movId){
       const it = d.gps.find(y => y.id === x.itemId);
       if (it && i === lista.length - 1) {
         const troca = (campo, velho, novo) => { if (velho != null && novo != null && velho !== novo && it[campo] === velho) it[campo] = novo; };
-        if (x.tipo !== 'retorno') { troca('responsavel', antes.para, v.para); troca('obra', antes.obra, v.obra); }
+        if (x.tipo !== 'retorno') { troca('responsavel', antes.para, v.para); troca('obra', antes.obra, v.obra); if (v.obra != null && it.obra === v.obra) it.obraId = v.obraId || ''; }
         troca('desde', antes.data, v.data);
         if (x.tipo === 'saida' || x.tipo === 'cadastro') troca('saiuEm', antes.data, v.data);
         troca('nivelSaida', antes.nivelSaida, v.nivelSaida);
@@ -2379,7 +2721,7 @@ function abrirGpsGrupo(tipo, ids){
   const rua = tipo !== 'retorno';
   const lblNivel = {saida: 'Nível de saída *', transferencia: 'Nível na passagem (opcional)', retorno: 'Nível de volta *'}[tipo];
   openModal(GPS_ACAO_TIT[tipo] + (base ? ' — ' + gpsTitulo(base) : ''), `<form id="f-gm" novalidate>
-    ${rua ? `<div class="grid2">${campoTxt('gm-resp', tipo === 'saida' ? 'Responsável pelo material' : 'Novo responsável', true, `list="pessoas" placeholder="${tipo === 'saida' ? 'Quem levou' : 'Com quem ficou'}"`)}${campoTxt('gm-obra', tipo === 'saida' ? 'Em qual obra vai ficar?' : 'Em qual obra está?', true, `list="obras" value="${tipo === 'transferencia' && base ? esc(base.obra) : ''}"`)}</div>` : ''}
+    ${rua ? `<div class="grid2">${campoTxt('gm-resp', tipo === 'saida' ? 'Responsável pelo material' : 'Novo responsável', true, `list="pessoas" placeholder="${tipo === 'saida' ? 'Quem levou' : 'Com quem ficou'}"`)}${obraSelHTML('gm-obra', tipo === 'saida' ? 'Em qual obra vai ficar?' : 'Em qual obra está?', true, tipo === 'transferencia' && base ? base.obra : '', tipo === 'transferencia' && base ? base.obraId : '')}</div>` : ''}
     <h2 style="margin:6px 0 8px;font-size:15px">Itens desta movimentação <span class="muted small" id="gg-cont"></span></h2>
     <div class="gg-sel" id="gg-sel"></div>
     <button type="button" class="add-mais" id="gg-mais">+ Adicionar outro item</button>
@@ -2423,7 +2765,7 @@ function abrirGpsGrupo(tipo, ids){
     if (a) {
       const g = gpsById(a.dataset.ggAdd); if (!g) return;
       sel.push(g.id);
-      if (tipo === 'transferencia' && $('#gm-obra') && !$('#gm-obra').value.trim()) $('#gm-obra').value = g.obra || '';
+      if (tipo === 'transferencia' && $('#gm-obra') && !$('#gm-obra').value) { const oid = g.obraId || (obrasAtivas().find(o => norm(o.nome) === norm(g.obra)) || {}).id; if (oid && $(`#gm-obra option[value="${oid}"]`)) $('#gm-obra').value = oid; }
       desenhaSel(); $('#gg-busca').focus(); return;
     }
     const d = e.target.closest('[data-gg-del]');
@@ -2444,7 +2786,7 @@ function abrirGpsGrupo(tipo, ids){
     e.preventDefault(); clearErr(form); $$('.bad', form).forEach(x => x.classList.remove('bad'));
     const errs = [], msgs = [];
     const val = s => $(s) ? $(s).value.trim().replace(/\s+/g, ' ') : '';
-    const resp = val('#gm-resp'), obra = val('#gm-obra'), data = $('#gm-data').value, cmt = $('#gm-cmt').value.trim();
+    const obSel = lerObraSel('gm-obra'), resp = val('#gm-resp'), obra = obSel.nome, obraId = obSel.id, data = $('#gm-data').value, cmt = $('#gm-cmt').value.trim();
     if (rua) {
       if (!resp) errs.push([$('#gm-resp'), 'Informe o responsável.']);
       if (!obra) errs.push([$('#gm-obra'), 'Informe a obra.']);
@@ -2473,14 +2815,14 @@ function abrirGpsGrupo(tipo, ids){
         const nivel = x.nitrogenio ? (niveis[id] || '').trim() : '';
         const ex = grupoId ? {grupoId, grupo} : {};
         if (tipo === 'saida') {
-          gpsNovoMov(d, id, {tipo, de: 'Estoque', para: resp, obra, nivelSaida: nivel, data, comentario: cmt, ...ex});
-          Object.assign(x, {local: 'rua', responsavel: resp, obra, desde: data, saiuEm: data, nivelSaida: nivel, nivelVolta: '', nivelAtual: nivel || x.nivelAtual || ''});
+          gpsNovoMov(d, id, {tipo, de: 'Estoque', para: resp, obra, obraId, nivelSaida: nivel, data, comentario: cmt, ...ex});
+          Object.assign(x, {local: 'rua', responsavel: resp, obra, obraId, desde: data, saiuEm: data, nivelSaida: nivel, nivelVolta: '', nivelAtual: nivel || x.nivelAtual || ''});
         } else if (tipo === 'transferencia') {
-          gpsNovoMov(d, id, {tipo, de: x.responsavel, para: resp, obraAnterior: x.obra, obra, nivel, data, comentario: cmt, ...ex});
-          Object.assign(x, {responsavel: resp, obra, desde: data}); if (nivel) x.nivelAtual = nivel;
+          gpsNovoMov(d, id, {tipo, de: x.responsavel, para: resp, obraAnterior: x.obra, obraAnteriorId: x.obraId || '', obra, obraId, nivel, data, comentario: cmt, ...ex});
+          Object.assign(x, {responsavel: resp, obra, obraId, desde: data}); if (nivel) x.nivelAtual = nivel;
         } else {
-          gpsNovoMov(d, id, {tipo, de: x.responsavel, para: 'Estoque', obra: x.obra, nivelVolta: nivel, data, comentario: cmt, ...ex});
-          Object.assign(x, {local: 'estoque', responsavel: '', obra: '', desde: data, nivelVolta: nivel}); if (nivel) x.nivelAtual = nivel;
+          gpsNovoMov(d, id, {tipo, de: x.responsavel, para: 'Estoque', obra: x.obra, obraId: x.obraId || '', nivelVolta: nivel, data, comentario: cmt, ...ex});
+          Object.assign(x, {local: 'estoque', responsavel: '', obra: '', obraId: '', desde: data, nivelVolta: nivel}); if (nivel) x.nivelAtual = nivel;
         }
       });
     });
@@ -2634,6 +2976,11 @@ function itemRowHTML(i = {}){
         <label class="check"><input type="checkbox" class="np-sem" ${i.semEstoque ? 'checked' : ''}> Não guardar no estoque (ex.: serviço, frete, mão de obra)</label>
       </div>
     </div>
+    <div class="it-obra" hidden>
+      <div class="div-linha"><b>🏗️ Para a obra:</b>
+        <input class="ob-q" type="number" min="0" step="any" inputmode="decimal" value="${i.qtdObra ?? ''}" placeholder="0" aria-label="Quantidade que vai para a obra"><span class="ob-de"></span></div>
+      <div class="ob-calc"></div>
+    </div>
     <div class="it-div" hidden>
       <div class="div-linha"><b>⚠️ Conferência:</b> chegou OK
         <input class="dv-rec" type="number" min="0" step="any" inputmode="decimal" value="${i.qtdRecebida ?? ''}" aria-label="Quantidade que chegou OK"><span class="dv-de"></span>
@@ -2648,7 +2995,7 @@ function itemRowHTML(i = {}){
    sem deixar o saldo negativo. */
 function lancarCompraNoEstoque(d, anterior, desejado, o){
   const ref = `compra de ${fmtData(o.data)}${o.fornecedor ? ' — ' + o.fornecedor : ''}${o.numeroNota ? ' (nota nº ' + o.numeroNota + ')' : ''}`;
-  const res = {criados: [], entradas: [], retirados: []};
+  const res = {criados: [], entradas: [], retirados: [], obra: []};
   new Set([...Object.keys(anterior), ...Object.keys(desejado)]).forEach(pid => {
     const delta = round3((desejado[pid] || 0) - (anterior[pid] || 0));
     const p = d.produtos.find(x => x.id === pid);
@@ -2666,19 +3013,28 @@ function lancarCompraNoEstoque(d, anterior, desejado, o){
       const tira = Math.min(-delta, ant);
       if (tira <= 0) return;
       p.saldo = round3(ant - tira);
+      limitaReservas(p);
       d.movs.push({id: uid(), tipo: 'ajuste', produtoId: pid, produtoNome: p.nome, unidade: p.unidade, qtd: -tira, saldoAnt: ant, saldoPost: p.saldo, data: hojeISO(), registradoEm: o.agora,
-        responsavel: 'Últimas compras', obs: (o.excluindo ? `Exclusão da ${ref}` : o.emRota ? `A ${ref} voltou para “pedida” (ainda não chegou)` : o.divergencia || o.resolvendo ? `Conferência da ${ref}: quantidade que chegou OK reduzida` : `Correção da ${ref}: quantidade reduzida`) + (tira < -delta ? ` (o estoque só tinha ${fmtQtd(ant)} ${p.unidade})` : '') + '.', comentarios: []});
+        responsavel: 'Últimas compras', obs: (o.excluindo ? `Exclusão da ${ref}` : o.direto ? `A ${ref} foi marcada como entregue direto na obra (não passa pelo estoque)` : o.emRota ? `A ${ref} voltou para “pedida” (ainda não chegou)` : o.divergencia || o.resolvendo ? `Conferência da ${ref}: quantidade que chegou OK reduzida` : `Correção da ${ref}: quantidade reduzida`) + (tira < -delta ? ` (o estoque só tinha ${fmtQtd(ant)} ${p.unidade})` : '') + '.', comentarios: []});
       res.retirados.push(`${p.nome} (−${fmtQtd(tira)} ${p.unidade})`);
     }
   });
   return res;
+}
+/* Lista de obras da compra: casa pelo id ou, nas compras antigas/orçamentos, pelo nome digitado */
+function compraObraOptions(c){
+  const sel = c.obraId || ((obrasTodas().find(o => obraSit(o) !== 'excluida' && norm(o.nome) === norm(c.obra)) || {}).id) || '';
+  const at = obrasAtivas(), atual = sel && !at.some(o => o.id === sel) ? obraById(sel) : null;
+  return `<option value="">Selecione a obra…</option>` + at.map(o => `<option value="${o.id}"${o.id === sel ? ' selected' : ''}>🏗️ ${esc(o.nome)}</option>`).join('')
+    + (atual ? `<option value="${atual.id}" selected>${esc(atual.nome)} (${obraSit(atual) === 'finalizada' ? 'finalizada' : 'excluída'})</option>` : '')
+    + (!sel && c.obra ? `<option value="__txt" selected>${esc(c.obra)} (não cadastrada em Obras)</option>` : '');
 }
 /* opt.receber = confirmar a chegada de uma compra em rota; opt.orcId = compra a partir de um orçamento */
 function abrirCompra(id, opt = {}){
   if (!abaDisponivel('compras')) return;
   const orc = opt.orcId ? db.compras.find(x => x.id === opt.orcId && ehOrc(x)) : null;
   const c = id ? db.compras.find(x => x.id === id)
-    : orc ? {data: hojeISO(), status: 'rota', estagio: 'pedido', obra: orc.obra, fornecedor: opt.loja ? opt.loja.nome : '', obs: `Orçamento pedido por ${orc.solicitante}${orc.paraQuando ? ' para ' + fmtData(orc.paraQuando) : ''}.`,
+    : orc ? {data: hojeISO(), status: 'rota', estagio: 'pedido', obra: orc.reposicao ? '' : orc.obra, obraId: orc.obraId || '', estoqueLivre: !!orc.reposicao, fornecedor: opt.loja ? opt.loja.nome : '', obs: `Orçamento pedido por ${orc.solicitante}${orc.paraQuando ? ' para ' + fmtData(orc.paraQuando) : ''}.`,
         itens: (orc.itens || []).map(i => { const pv = opt.loja ? opt.loja.precos[norm(i.nome)] : undefined; return {nome: i.nome, qtd: i.qtd, unidade: i.unidade, ...(pv != null ? {valorUnit: pv} : {})}; })}
     : {data: hojeISO(), itens: [{}]};
   if (!c || c.tipo) return;
@@ -2690,6 +3046,9 @@ function abrirCompra(id, opt = {}){
   const teveDiv = eraDiv || !!c.teveDivergencia;
   const st0 = opt.divergencia ? 'divergencia' : opt.receber || opt.resolver ? 'finalizada' : id ? statusCompra(c) : (c.status || '');
   const chegPadrao = c.dataChegada || (id && !eraRota ? c.data : hojeISO());
+  /* Resposta já conhecida: compra com obra -> "é para obra"; compra que já chegou sem obra -> "fica no estoque"; senão, em branco */
+  const temObra = !!(c.obraId || c.obra);
+  const q0 = temObra ? 'obra' : c.estoqueLivre || (id && !eraRota && !opt.receber) ? 'estoque' : '';
   openModal(opt.divergencia ? 'Informar divergência — ' + fmtData(c.data) + (c.fornecedor ? ' · ' + c.fornecedor : '') : opt.receber ? 'Chegou — conferir compra' : opt.resolver ? 'Resolver divergência da compra' : id ? 'Editar compra' : orc ? 'Compra do orçamento' : 'Registrar compra', `<form id="f-cp" novalidate>
     ${opt.receber ? '<div class="info-box">✅ Confira se chegou tudo certo (itens e quantidades) e a data da chegada. Se estiver tudo OK, a compra vai para <b>Compras finalizadas</b> e os itens entram no estoque. <b>Faltou algo ou veio avariado?</b> Marque “⚠️ Chegou com divergência” e informe, em cada item, quanto chegou OK.</div>' : ''}
     ${opt.divergencia ? `<div class="info-box">⚠️ Em cada item que veio com problema, informe <b>quanto chegou OK</b> e o <b>problema</b> (faltou, avariado…). Itens que chegaram certos: deixe em branco. ${statusCompra(c) === 'rota' ? 'Só o que chegou OK entra no estoque.' : 'O estoque é corrigido: fica só o que chegou OK.'} A compra fica em “⚠️ Com divergência” até ser resolvida.</div>` : ''}
@@ -2709,10 +3068,28 @@ function abrirCompra(id, opt = {}){
       ${campoTxt('cpr-num', 'Nº da nota', false, `value="${esc(c.numeroNota)}"`)}
     </div>
     <div class="grid3">
-      ${campoTxt('cpr-obra', 'Para qual obra (opcional)', false, `list="obras" value="${esc(c.obra)}"`)}
+
       <div class="field" id="cpr-est-f"><label for="cpr-estagio">Estágio do pedido</label><select id="cpr-estagio"><option value="pedido"${c.estagio === 'pedido' || (!id && !c.estagio) ? ' selected' : ''}>📝 Pedido feito (aguardando envio)</option><option value="rota"${id && statusCompra(c) === 'rota' && estagioPedida(c) === 'rota' ? ' selected' : ''}>🚚 Em rota (já saiu da loja)</option></select></div>
-      <div class="field" id="cpr-prev-f"><label for="cpr-prev">Previsão de chegada (opcional)</label><input id="cpr-prev" type="date" value="${esc(c.previsao)}"></div>
+      <div class="field" id="cpr-prev-f"><label for="cpr-prev">Previsão de chegada <b class="req">*</b></label><input id="cpr-prev" type="date" value="${esc(c.previsao)}"></div>
       <div class="field" id="cpr-cheg-f"><label for="cpr-cheg">Data em que chegou <b class="req">*</b></label><input id="cpr-cheg" type="date" value="${esc(chegPadrao)}"></div>
+    </div>
+    <div class="auth res-q" id="cpr-obra-f">
+      <div class="auth-title">Esta compra fica no estoque ou é para obra? <b class="req">*</b> <span class="muted small" style="font-weight:600">(obrigatório quando chegar)</span></div>
+      <div class="opts"><label class="opt"><input type="radio" name="cpr-obra-q" value="estoque"${q0 === 'estoque' ? ' checked' : ''}> 📦 Fica no estoque</label><label class="opt"><input type="radio" name="cpr-obra-q" value="obra"${q0 === 'obra' ? ' checked' : ''}> 🏗️ É para obra</label></div>
+      <div class="field" id="cpr-obra-of" style="margin:8px 0 0"${q0 === 'obra' ? '' : ' hidden'}><label for="cpr-obra">Qual obra? <b class="req">*</b></label><select id="cpr-obra">${compraObraOptions(c)}</select></div>
+      <div id="cpr-parc-f" hidden style="margin-top:10px">
+        <div class="auth-title" style="font-size:14px;margin-bottom:6px">Quais itens desta nota vão para a obra?</div>
+        <div class="opts"><label class="opt"><input type="radio" name="cpr-parc" value="todos"${c.obraParcial ? '' : ' checked'}> Todos os itens da nota</label><label class="opt"><input type="radio" name="cpr-parc" value="parte"${c.obraParcial ? ' checked' : ''}> Só alguns (escolho item e quantidade)</label></div>
+        <div class="hint" id="cpr-parc-hint"></div>
+      </div>
+    </div>
+    <div class="field res-box" id="cpr-dest-f" hidden>
+      <div class="auth-title" style="margin:0 0 6px">Quando chegar, vai para onde?</div>
+      <div class="opts-row" style="margin:0">
+        <label class="opt"><input type="radio" name="cpr-dest" value="estoque" ${!c.diretoObra ? 'checked' : ''}> 📦 Entra no estoque 🔒 reservado para a obra</label>
+        <label class="opt"><input type="radio" name="cpr-dest" value="direto" ${c.diretoObra ? 'checked' : ''}> 🏗️ Vai direto para a obra (não passa pelo estoque)</label>
+      </div>
+      <div class="hint" id="cpr-dest-hint"></div>
     </div>
     <p class="hint" style="margin:0 0 8px">Pode lançar quantos itens a nota tiver: ao preencher a última linha, aparece outra em branco. <b>Enter</b> desce para a linha de baixo; <b>Tab</b> anda para o lado. Também dá para colar várias linhas copiadas de uma planilha (colunas: item, qtd, unidade, valor da unidade, total).</p>
     <div class="it-row it-head"><span>#</span><span>Item *</span><span>Qtd *</span><span>Unidade *</span><span>Valor da unidade *</span><span>Total do item</span><span></span></div>
@@ -2729,6 +3106,22 @@ function abrirCompra(id, opt = {}){
   $('.modal-card').classList.add('wide');
   const box = $('#cpr-itens');
   const getSt = () => ($('input[name="cpr-st"]:checked') || {}).value || '';
+  const getQ = () => ($('input[name="cpr-obra-q"]:checked') || {}).value || '';
+  const getObraC = () => { if (getQ() !== 'obra') return null; const v = $('#cpr-obra').value; return v && v !== '__txt' ? obraById(v) : null; };
+  const ehDireto = () => !!getObraC() && (($('input[name="cpr-dest"]:checked') || {}).value === 'direto');
+  const ehParcial = () => !!getObraC() && (($('input[name="cpr-parc"]:checked') || {}).value === 'parte');
+  /* Quanto chegou OK de um item (na divergência pode ser menos que o comprado) */
+  const recDe = r => { const q = parseQtd($('.it-q', r).value); if (!mostraDiv()) return q; const v = $('.dv-rec', r).value.trim(); const rec = parseQtd(v); return v && isFinite(rec) ? rec : q; };
+  const desenhaObra = r => {
+    const bx = $('.it-obra', r), nome = $('.it-n', r).value.trim(), sem = !$('.it-novo', r).hidden && $('.np-sem', r).checked;
+    bx.hidden = !(ehParcial() && nome && !sem);
+    if (bx.hidden) return;
+    const rec = recDe(r), un = $('.it-u', r).value, ok = isFinite(rec) && rec > 0, v = $('.ob-q', r).value.trim(), q = parseQtd(v);
+    $('.ob-de', r).textContent = `de ${ok ? fmtQtd(rec) : '?'} ${un}`;
+    $('.ob-calc', r).textContent = !v || q === 0 ? 'Nada deste item vai para a obra: tudo vai para o estoque livre.'
+      : !isFinite(q) || q < 0 || (ok && q > rec + 1e-9) ? `Informe de 0 até ${ok ? fmtQtd(rec) : 'a quantidade'}.`
+      : `${fmtQtd(q)} ${un} ${ehDireto() ? 'vão direto para a obra' : 'ficam em “Itens para obras”'} · ${fmtQtd(round3(Math.max(0, rec - q)))} ${un} vão para o estoque livre.`;
+  };
   /* Quadros de conferência (quanto chegou OK / problema): na divergência e na hora de resolver */
   const mostraDiv = () => { const st = getSt(); return st === 'divergencia' || (st === 'finalizada' && teveDiv); };
   const fracRec = r => {
@@ -2756,8 +3149,10 @@ function abrirCompra(id, opt = {}){
   const marcaNovos = () => {
     const st = getSt(), rota = st === 'rota';
     const grupos = new Map();
+    const direto = ehDireto();
     $$('.it-row', box).forEach((r, i) => {
       desenhaDiv(r);
+      if (direto && !ehParcial()) { desenhaObra(r); $('.it-exist', r).hidden = true; $('.it-novo', r).hidden = true; delete $('.it-novo', r).dataset.dup; return; }
       const nome = $('.it-n', r).value.trim().replace(/\s+/g, ' ');
       const novo = nome && !db.produtos.some(p => norm(p.nome) === norm(nome));
       const pn = $('.it-novo', r), pe = $('.it-exist', r);
@@ -2797,7 +3192,12 @@ function abrirCompra(id, opt = {}){
     });
   };
   const atualizaSt = () => {
-    const st = getSt();
+    const st = getSt(), ob = getObraC();
+    $('#cpr-dest-f').hidden = !ob;
+    $('#cpr-parc-f').hidden = !ob;
+    if (ob) $('#cpr-parc-hint').textContent = ehParcial() ? `Em cada item, informe quanto vai para a obra ${ob.nome}. O restante vai para o estoque livre.` : `Todos os itens desta nota vão para a obra ${ob.nome}.`;
+    if (ob) $('#cpr-dest-hint').textContent = (ehParcial() ? 'A parte da obra: ' : '') + (ehDireto() ? `não entra no estoque — aparece direto na planilha da obra ${ob.nome}, com o valor e o fornecedor desta nota.`
+      : `entra no estoque separada em “Itens para obras” (${ob.nome}) e só sai quando você registrar a saída para essa obra.`) + (ehParcial() ? ' O restante vai para o estoque livre.' : '');
     $('#cpr-prev-f').hidden = st !== 'rota'; $('#cpr-est-f').hidden = st !== 'rota';
     $('#cpr-cheg-f').hidden = st !== 'finalizada' && st !== 'divergencia';
     $('#cpr-res-f').hidden = !(st === 'finalizada' && teveDiv);
@@ -2812,6 +3212,7 @@ function abrirCompra(id, opt = {}){
     rs.forEach((r, i) => { $('.it-num', r).textContent = i + 1; });
     const preenchidos = rs.filter(r => !linhaVazia(r)).length;
     marcaNovos();
+    $$('.it-row', box).forEach(desenhaObra);
     const nNovos = rs.filter(r => !$('.it-novo', r).hidden && !$('.it-novo', r).dataset.dup && !$('.np-sem', r).checked).length;
     $('#cpr-cont').textContent = (preenchidos ? `${preenchidos} item(ns) na nota` : '') + (nNovos ? ` · ${nNovos} novo(s) no estoque` : '');
     let soma = 0;
@@ -2826,6 +3227,10 @@ function abrirCompra(id, opt = {}){
     const tn = parseMoeda(tot.value);
     $('#cpr-soma').innerHTML = `Soma dos itens: <b>${fmtMoeda(soma)}</b>` + (isFinite(tn) && round2(tn) !== soma ? ` · <span style="color:var(--warn)">diferença de ${fmtMoeda(round2(tn - soma))} (frete, desconto ou impostos?)</span>` : '');
   };
+  $('#cpr-obra').addEventListener('change', () => { atualizaSt(); recalc(); });
+  $$('input[name="cpr-obra-q"]').forEach(r => r.addEventListener('change', () => { atualizaSt(); recalc(); }));
+  $$('input[name="cpr-parc"]').forEach(r => r.addEventListener('change', () => { atualizaSt(); recalc(); }));
+  $$('input[name="cpr-dest"]').forEach(r => r.addEventListener('change', () => { atualizaSt(); recalc(); }));
   $$('input[name="cpr-st"]').forEach(r => r.addEventListener('change', () => { $('#cpr-st-f').classList.remove('invalid'); $$('.err-msg', $('#cpr-st-f')).forEach(m => m.remove()); atualizaSt(); recalc(); }));
   box.addEventListener('input', e => { if (e.target.classList.contains('it-t')) e.target.dataset.manual = e.target.value.trim() ? '1' : ''; e.target.classList.remove('bad'); recalc(); });
   box.addEventListener('change', e => { e.target.classList.remove('bad'); if (e.target.type === 'checkbox' || e.target.tagName === 'SELECT') recalc(); });
@@ -2869,6 +3274,8 @@ function abrirCompra(id, opt = {}){
     if (!confirm((n ? `Excluir esta compra? As quantidades que ela lançou no estoque (${n} item(ns)) serão retiradas do estoque.` : 'Excluir esta compra?') + (orcLig ? ' O orçamento de origem volta para “Orçamentos a fazer”.' : ''))) return;
     let res = null;
     if (await commit(d => {
+      const resAnt = c.lancadoObra || (c.reservaObraId && !c.diretoObra ? lanc : {});
+      if (c.reservaObraId) Object.entries(resAnt).forEach(([pid, q]) => { const pp = d.produtos.find(y => y.id === pid); if (pp) ajustaReserva(pp, c.reservaObraId, null, -q); });
       res = lancarCompraNoEstoque(d, lanc, {}, {data: c.data, fornecedor: c.fornecedor, numeroNota: c.numeroNota, agora: new Date().toISOString(), criadosIds: new Set(), excluindo: true});
       d.compras = d.compras.filter(x => x.id !== id);
       const o = c.orcamentoId && d.compras.find(x => x.id === c.orcamentoId);
@@ -2883,9 +3290,12 @@ function abrirCompra(id, opt = {}){
     const data = $('#cpr-data').value; if (!dataValida(data)) errs.push([$('#cpr-data'), 'Informe a data da compra.']);
     const cheg = $('#cpr-cheg').value, prev = $('#cpr-prev').value;
     if (chegou && !dataValida(cheg)) errs.push([$('#cpr-cheg'), 'Informe a data em que a compra chegou.']);
-    if (st === 'rota' && prev && !dataValida(prev)) errs.push([$('#cpr-prev'), 'Data inválida.']);
+    if (st === 'rota') {
+      if (!dataValida(prev)) errs.push([$('#cpr-prev'), 'Informe a previsão de chegada (é ela que avisa no Dashboard quando a compra atrasar).']);
+      else if (dataValida(data) && prev < data) errs.push([$('#cpr-prev'), 'A previsão de chegada não pode ser antes da data da compra.']);
+    }
     recalc();
-    const itens = []; let itemErr = null, locErr = false, divErr = null; const novos = new Map();
+    const itens = []; let itemErr = null, locErr = false, divErr = null, obErr = null; const novos = new Map();
     $$('.it-row', box).forEach(r => {
       const nome = $('.it-n', r).value.trim().replace(/\s+/g, ' '), qs = $('.it-q', r).value, un = $('.it-u', r).value, vs = $('.it-v', r).value, ts = $('.it-t', r).value;
       if (!nome && !qs.trim() && !vs.trim() && !ts.trim()) return; // linha em branco: ignora
@@ -2907,6 +3317,11 @@ function abrirCompra(id, opt = {}){
           if (isFinite(qe) && qe > 0) item.qtdEstoque = round3(qe);
           else if (chegou || $('.ex-qtd', r).value.trim()) { $('.ex-qtd', r).classList.add('bad'); locErr = locErr || $('.ex-qtd', r); }
         }
+      }
+      /* Parte para a obra (pergunta “Só alguns itens”) */
+      if (!$('.it-obra', r).hidden) {
+        const ov = $('.ob-q', r).value.trim();
+        if (ov) { const oq = parseQtd(ov); if (!isFinite(oq) || oq < 0) { $('.ob-q', r).classList.add('bad'); obErr = obErr || $('.ob-q', r); } else if (oq > 0) item.qtdObra = round3(oq); }
       }
       /* Conferência: quanto chegou OK e qual o problema */
       if (!$('.it-div', r).hidden) {
@@ -2949,12 +3364,21 @@ function abrirCompra(id, opt = {}){
     else if (!itens.length) { $('.it-n', box).classList.add('bad'); itemErr = $('.it-n', box); errs.push([anchor, 'Informe pelo menos um item.']); }
     else if (divErr) { itemErr = divErr; errs.push([anchor, 'Confira os quadros vermelhos: “chegou OK” vai de 0 até a quantidade comprada e, quando chegou menos, escolha o problema (faltou, avariado…).']); }
     else if (st === 'divergencia' && !itens.some(temProblema)) { itemErr = $('.dv-rec', box) || $('.it-n', box); errs.push([anchor, 'Divergência: informe em pelo menos um item quanto chegou OK e qual foi o problema. Se chegou tudo certo, marque “✅ Chegou — tudo OK”.']); }
+    if (!itemErr && !divErr && ehParcial()) {
+      $$('.it-row', box).forEach(r => { if ($('.it-obra', r).hidden) return; const oq = parseQtd($('.ob-q', r).value); const rec = recDe(r); if (isFinite(oq) && oq > rec + 1e-9) { $('.ob-q', r).classList.add('bad'); obErr = obErr || $('.ob-q', r); } });
+      if (obErr) { itemErr = obErr; errs.push([anchor, 'Confira os quadros “Para a obra”: a quantidade vai de 0 até o que chegou do item.']); }
+      else if (chegou && !itens.some(it => it.qtdObra > 0)) { itemErr = $('.ob-q', box); errs.push([anchor, 'Informe em pelo menos um item quanto vai para a obra — ou marque “Todos os itens da nota”.']); }
+    }
     const resolTxt = $('#cpr-res').value.trim();
     if (fin && teveDiv && !resolTxt) errs.push([$('#cpr-res'), 'Conte como a divergência foi resolvida.']);
     const total = parseMoeda($('#cpr-total').value);
     if (!isFinite(total) || total < 0) errs.push([$('#cpr-total'), 'Informe o valor total da nota.']);
     if (errs.length) { showErrs(errs); if (errs[0][0] === anchor && itemErr) itemErr.focus(); return; }
-    const v = {data, fornecedor: $('#cpr-forn').value.trim(), numeroNota: $('#cpr-num').value.trim(), obra: $('#cpr-obra').value.trim().replace(/\s+/g, ' '),
+    const obC = getObraC(), direto = ehDireto(), ovC = $('#cpr-obra').value, qO = getQ();
+    if (chegou && !qO) errs.push([$('input[name="cpr-obra-q"]'), 'Responda: a compra fica no estoque ou é para obra?']);
+    if (qO === 'obra' && !obC && ovC !== '__txt') errs.push([$('#cpr-obra'), obrasAtivas().length ? 'Escolha a obra.' : 'Não há obra em andamento: cadastre a obra na aba Obras.']);
+    if (errs.length) { showErrs(errs); return; }
+    const v = {data, fornecedor: $('#cpr-forn').value.trim(), numeroNota: $('#cpr-num').value.trim(), obra: obC ? obC.nome : qO === 'obra' && ovC === '__txt' ? (c.obra || '') : '', obraId: obC ? obC.id : '', diretoObra: direto, obraParcial: ehParcial(),
       itens, totalNota: round2(total), obs: $('#cpr-obs').value.trim(), status: st, previsao: st === 'rota' ? prev : (c.previsao || ''), estagio: st === 'rota' ? $('#cpr-estagio').value : (c.estagio || ''), dataChegada: chegou ? cheg : '',
       teveDivergencia: st === 'divergencia' || teveDiv, resolucao: fin && teveDiv ? resolTxt : (c.resolucao || '')};
     let res = null; const novoId = id || uid();
@@ -2964,7 +3388,7 @@ function abrirCompra(id, opt = {}){
       if (id && !x) throw new Error('Compra não encontrada.');
       const criadosIds = new Set();
       /* 1) Itens novos: só são criados no estoque quando a compra chegou (o saldo entra no passo 2, como entrada) */
-      if (chegou) novos.forEach(n => {
+      if (chegou && !direto) novos.forEach(n => {
         if (n.sem || d.produtos.some(p => norm(p.nome) === norm(n.nome))) return;
         const pid = uid();
         d.produtos.push({id: pid, nome: n.nome, unidade: n.unidade, andar: n.andar, estante: n.estante, fileira: n.fileira, obs: n.obs, minimo: n.minimo,
@@ -2973,7 +3397,8 @@ function abrirCompra(id, opt = {}){
         n.itens.forEach(it => { it.criouNoEstoque = true; });
       });
       /* 2) Quanto esta compra deve ter lançado em cada produto (em rota: nada) */
-      const desejado = {};
+      const desejado = {}, desejadoObra = {}, parcial = !!obC && v.obraParcial;
+      if (!parcial) v.itens.forEach(it => { delete it.qtdObra; });
       v.itens.forEach(it => {
         if (it.semEstoque) return;
         const p = d.produtos.find(pp => norm(pp.nome) === norm(it.nome)); if (!p) return;
@@ -2981,13 +3406,28 @@ function abrirCompra(id, opt = {}){
         if (!chegou || it.naoSomar) return;
         if (legado && !criadosIds.has(p.id)) return;
         const base = it.qtdEstoque != null ? it.qtdEstoque : it.qtd;
-        const qq = it.qtdRecebida != null ? round3(base * it.qtdRecebida / it.qtd) : base; // só o que chegou OK
-        desejado[p.id] = round3((desejado[p.id] || 0) + qq);
+        const rec = it.qtdRecebida != null ? it.qtdRecebida : it.qtd;               // só o que chegou OK
+        const paraObra = !obC ? 0 : parcial ? Math.min(it.qtdObra || 0, rec) : rec; // quanto vai para a obra
+        const qEst = round3(base * rec / it.qtd), qObra = round3(base * paraObra / it.qtd);
+        const entra = direto ? round3(qEst - qObra) : qEst;                         // direto: a parte da obra não passa pelo estoque
+        if (entra > 0) desejado[p.id] = round3((desejado[p.id] || 0) + entra);
+        if (!direto && qObra > 0) desejadoObra[p.id] = round3((desejadoObra[p.id] || 0) + qObra);
       });
       const anterior = (x && x.lancado) || {};
       res = lancarCompraNoEstoque(d, anterior, desejado, {data, dataMov: chegou ? cheg : data, fornecedor: v.fornecedor, numeroNota: v.numeroNota, agora, criadosIds,
-        editando: !!x, chegou: chegou && (!x || statusCompra(x) === 'rota'), emRota: !chegou, divergencia: st === 'divergencia', resolvendo: !!x && statusCompra(x) === 'divergencia'});
-      const reg = {...v, lancado: legado ? undefined : desejado};
+        editando: !!x, chegou: chegou && (!x || statusCompra(x) === 'rota'), emRota: !chegou, divergencia: st === 'divergencia', resolvendo: !!x && statusCompra(x) === 'divergencia', direto: direto && !parcial});
+      /* 3) Parte separada para a obra (“Itens para obras”): acerta a diferença em relação ao que esta compra já tinha separado */
+      const obraAnt = (x && x.reservaObraId) || '', resAnt = (x && (x.lancadoObra || (x.reservaObraId && !x.diretoObra ? x.lancado : null))) || {};
+      const obraNova = obC && !direto ? obC.id : '';
+      new Set([...Object.keys(resAnt), ...Object.keys(desejadoObra)]).forEach(pid => {
+        const pp = d.produtos.find(y => y.id === pid); if (!pp) return;
+        if (obraAnt && obraAnt !== obraNova) ajustaReserva(pp, obraAnt, null, -(resAnt[pid] || 0));
+        const antes = obraAnt === obraNova ? (resAnt[pid] || 0) : 0, dif = round3((desejadoObra[pid] || 0) - antes);
+        if (obraNova && dif) ajustaReserva(pp, obraNova, obC.nome, dif);
+        limitaReservas(pp);
+        if (desejadoObra[pid]) res.obra.push(`${pp.nome} ${fmtQtd(desejadoObra[pid])} ${pp.unidade}`);
+      });
+      const reg = {...v, lancado: legado ? undefined : desejado, lancadoObra: desejadoObra, reservaObraId: obraNova};
       if (legado) delete reg.lancado;
       if (chegou && (!x || statusCompra(x) === 'rota')) reg.recebidoEm = agora;
       if (st === 'rota' && (!x || x.estagio !== reg.estagio)) reg.estagioEm = agora;
@@ -3004,11 +3444,12 @@ function abrirCompra(id, opt = {}){
       const partes = [];
       if (res.criados.length) partes.push(`Criado(s) no estoque: ${res.criados.join(', ')}`);
       if (res.entradas.length) partes.push(`Entrada no estoque: ${res.entradas.join(', ')}`);
+      if (res.obra.length) partes.push(`🏗️ Separado em “Itens para obras” (${obC.nome}): ${res.obra.join(', ')}`);
       if (res.retirados.length) partes.push(`Retirado do estoque: ${res.retirados.join(', ')}`);
       const msg = st === 'divergencia' ? (eraDiv ? 'Compra atualizada: continua com divergência.' : 'Divergência registrada: no estoque fica só o que chegou OK. A compra fica em “⚠️ Com divergência” até ser resolvida.')
         : fin && eraDiv ? 'Divergência resolvida: compra finalizada.'
         : opt.receber || (fin && eraRota) ? 'Chegada confirmada: compra finalizada.' : st === 'rota' ? (id ? 'Compra atualizada (pedida).' : 'Compra registrada em “Compras pedidas”. Quando chegar, mude o estágio no card.') : id ? 'Compra atualizada.' : 'Compra registrada.';
-      toast(msg + (partes.length ? ' ' + partes.join('. ') + '.' : ''));
+      toast(msg + (direto && chegou ? (v.obraParcial ? ` A parte da obra ${obC.nome} foi direto para ela (está na planilha da obra); o restante entrou no estoque.` : ` Foi direto para a obra ${obC.nome}: não entrou no estoque e já está na planilha da obra.`) : '') + (partes.length ? ' ' + partes.join('. ') + '.' : ''));
       closeModal(); setSubCompras(st === 'divergencia' ? 'divergencia' : fin ? 'finalizadas' : 'rota');
     }
   };
@@ -3092,9 +3533,10 @@ function orcRowHTML(i = {}){
     <button type="button" class="it-del" title="Remover item" aria-label="Remover item">×</button>
   </div>`;
 }
-function abrirOrcamento(id){
+/* pre (opcional) = {itens, reposicao}: orçamento novo já preenchido (ex.: “Mover para orçamento” do Estoque) */
+function abrirOrcamento(id, pre = null){
   if (!abaDisponivel('compras')) return;
-  const o = id ? db.compras.find(x => x.id === id && ehOrc(x)) : {itens: []};
+  const o = id ? db.compras.find(x => x.id === id && ehOrc(x)) : {itens: pre ? pre.itens : [], reposicao: !!(pre && pre.reposicao)};
   if (!o) return;
   const aberto = !id || orcAberto(o);
   const compraLig = o.compraId && db.compras.some(c => c.id === o.compraId);
@@ -3103,7 +3545,7 @@ function abrirOrcamento(id){
     ${!aberto ? `<div class="info-box">${o.situacao === 'comprado' ? `Este orçamento virou compra${o.concluidoEm ? ' em ' + fmtDataHora(o.concluidoEm) : ''}.${compraLig ? ` <span class="ev-link" data-compra="${o.compraId}">Ver a compra</span>` : ''}` : 'Este orçamento foi cancelado.'}</div>` : ''}
     <div class="grid3">
       ${campoTxt('or-sol', 'Quem solicitou', true, `list="pessoas" value="${esc(o.solicitante)}" placeholder="Nome de quem pediu"`)}
-      ${campoTxt('or-obra', 'Para qual obra', true, `list="obras" value="${esc(o.obra)}" placeholder="ex.: Obra Rua das Flores"`)}
+      ${obraSelHTML('or-obra', 'Para qual obra', true, o.reposicao ? '' : o.obra, o.obraId, `<option value="__estoque"${o.reposicao ? ' selected' : ''}>📦 Reposição do estoque (não é para obra)</option>`)}
       <div class="field"><label for="or-quando">Para quando <b class="req">*</b></label><input id="or-quando" type="date" value="${esc(o.paraQuando)}"></div>
     </div>
     <p class="hint" style="margin:0 0 8px">Quais itens? Ao preencher a última linha aparece outra em branco. <b>Enter</b> desce para a linha de baixo.</p>
@@ -3153,9 +3595,10 @@ function abrirOrcamento(id){
   $('#f-orc').onsubmit = async e => {
     e.preventDefault(); clearErr(e.target); $$('.bad', box).forEach(x => x.classList.remove('bad'));
     const errs = [], val = s => $(s).value.trim().replace(/\s+/g, ' ');
-    const solicitante = val('#or-sol'), obra = val('#or-obra'), paraQuando = $('#or-quando').value;
+    const obS = lerObraSel('or-obra'), reposicao = obS.id === '__estoque', obra = reposicao ? 'Reposição do estoque' : obS.nome, obraIdO = reposicao ? '' : obS.id;
+    const solicitante = val('#or-sol'), paraQuando = $('#or-quando').value;
     if (!solicitante) errs.push([$('#or-sol'), 'Informe quem solicitou.']);
-    if (!obra) errs.push([$('#or-obra'), 'Informe para qual obra.']);
+    if (!obra) errs.push([$('#or-obra'), 'Escolha a obra (ou “Reposição do estoque”).']);
     if (!dataValida(paraQuando)) errs.push([$('#or-quando'), 'Informe para quando precisa.']);
     const itens = []; let itemErr = null;
     $$('.or-row', box).forEach(r => {
@@ -3174,7 +3617,7 @@ function abrirOrcamento(id){
     const autorizado = ($('input[name="or-aut"]:checked') || {}).value;
     if (!autorizado) { $('#or-auth').classList.add('invalid'); errs.push([$('input[name="or-aut"]'), 'Responda se Seu Ricardo autorizou.']); }
     if (errs.length) { showErrs(errs); if (errs[0][0] === anchor && itemErr) itemErr.focus(); return; }
-    const v = {solicitante, obra, paraQuando, itens, autorizado, obs: $('#or-obs').value.trim()};
+    const v = {solicitante, obra, obraId: obraIdO, reposicao, paraQuando, itens, autorizado, obs: $('#or-obs').value.trim()};
     const ok = await commit(d => {
       const agora = new Date().toISOString();
       if (id) { const x = d.compras.find(y => y.id === id); if (!x) throw new Error('Orçamento não encontrado.'); Object.assign(x, v, {editadoEm: agora}); }
@@ -3374,8 +3817,9 @@ function renderCompras(){
   /* Card de compra: o botão de ação depende da situação da compra (e, na subaba de divergência, todas podem receber uma) */
   const cardCompra = c => {
     const sc = statusCompra(c), soma = compraTotalItens(c);
-    const prevTxt = c.previsao ? (c.previsao < hoje ? `<span class="badge l-atrasado">Previsão ${fmtData(c.previsao)} — atrasada ${diasEntre(c.previsao, hoje)} dia(s)</span>` : `<span class="badge b-n2">Previsão de chegada: ${fmtData(c.previsao)}</span>`) : '<span class="badge b-neutro">Sem previsão de chegada</span>';
+    const prevTxt = c.previsao ? (c.previsao < hoje ? `<span class="badge l-atrasado">Previsão ${fmtData(c.previsao)} — atrasada ${diasEntre(c.previsao, hoje)} dia(s)</span>` : `<span class="badge b-n2">Previsão de chegada: ${fmtData(c.previsao)}</span>`) : '<span class="badge b-baixo">⚠️ Sem previsão de chegada — clique na compra e informe</span>';
     const comConf = sc === 'divergencia' || c.teveDivergencia || (c.itens || []).some(temProblema);
+    const comObra = !!(c.obraId && c.obraParcial);
     const ep = estagioPedida(c);
     const badge = sc === 'rota' ? `<span class="badge b-neutro">📦 Pedida</span> ${ep === 'pedido' ? '<span class="badge b-n2">📝 Pedido feito</span>' : `<span class="badge b-baixo">🚚 Em rota${c.estagioEm ? ' desde ' + fmtDiaLocal(c.estagioEm) : ''}</span>`} ${prevTxt}`
       : sc === 'divergencia' ? `<span class="badge l-atrasado">⚠️ Chegou com divergência${c.dataChegada ? ' em ' + fmtData(c.dataChegada) : ''}${c.dataChegada ? (diasEntre(c.dataChegada, hoje) > 0 ? ` · há ${diasEntre(c.dataChegada, hoje)} dia(s)` : ' · hoje') : ''}</span>`
@@ -3387,11 +3831,11 @@ function renderCompras(){
     return `<div class="panel compra ${sc === 'rota' ? 'rota' : sc === 'divergencia' ? 'div' : 'fin'}" data-compra="${c.id}" tabindex="0">
       <div class="compra-head"><div><b>${fmtData(c.data)}</b>${c.fornecedor ? ' · ' + esc(c.fornecedor) : ''}${c.numeroNota ? ` · <span class="muted">Nota nº ${esc(c.numeroNota)}</span>` : ''}
         <div class="muted small">${(c.itens || []).length} item(ns)${soma !== round2(c.totalNota) ? ` · soma dos itens ${fmtMoeda(soma)}` : ''}${c.obra ? ` · Obra: <b>${esc(c.obra)}</b>` : ''}</div>
-        <div class="row" style="margin-top:6px">${badge}${c.orcamentoId ? ' <span class="badge b-neutro">📋 veio de orçamento</span>' : ''}</div></div>
+        <div class="row" style="margin-top:6px">${badge}${c.orcamentoId ? ' <span class="badge b-neutro">📋 veio de orçamento</span>' : ''}${c.obraId && c.diretoObra ? ` <span class="badge b-n2">🏗️ ${c.obraParcial ? 'parte ' : ''}direto para a obra ${esc(c.obra)}</span>` : c.obraId ? ` <span class="badge b-res">🏗️ ${c.obraParcial ? 'parte ' : ''}para a obra ${esc(c.obra)}</span>` : ''}</div></div>
         <div class="compra-total"><span class="muted small" style="font-weight:600">Total da nota</span><br>${fmtMoeda(c.totalNota)}</div></div>
-      <div class="table-wrap"><table><thead><tr><th>Item</th><th class="num">Qtd</th><th>Un.</th><th class="num">Valor da unidade</th><th class="num">Total do item</th>${comConf ? '<th class="num">Chegou OK</th><th>Problema</th>' : ''}</tr></thead><tbody>
+      <div class="table-wrap"><table><thead><tr><th>Item</th><th class="num">Qtd</th><th>Un.</th><th class="num">Valor da unidade</th><th class="num">Total do item</th>${comConf ? '<th class="num">Chegou OK</th><th>Problema</th>' : ''}${comObra ? '<th class="num">🏗️ Para a obra</th>' : ''}</tr></thead><tbody>
         ${(c.itens || []).map(i => `<tr${q && itemBate(i) ? ' class="ultima"' : ''}><td>${esc(i.nome)}</td><td class="num">${fmtQtd(i.qtd)}</td><td>${esc(i.unidade)}</td><td class="num">${fmtMoeda(i.valorUnit)}</td><td class="num">${fmtMoeda(i.valorTotal)}</td>${comConf
-          ? `<td class="num${i.qtdRecebida != null ? ' prob' : ''}">${fmtQtd(i.qtdRecebida != null ? i.qtdRecebida : i.qtd)}</td><td${i.problema ? ' class="prob"' : ''}>${i.problema ? esc(i.problema) + (i.problemaObs ? ' — ' + esc(i.problemaObs) : '') : '<span class="okt">OK</span>'}</td>` : ''}</tr>`).join('')}
+          ? `<td class="num${i.qtdRecebida != null ? ' prob' : ''}">${fmtQtd(i.qtdRecebida != null ? i.qtdRecebida : i.qtd)}</td><td${i.problema ? ' class="prob"' : ''}>${i.problema ? esc(i.problema) + (i.problemaObs ? ' — ' + esc(i.problemaObs) : '') : '<span class="okt">OK</span>'}</td>` : ''}${comObra ? `<td class="num res-txt">${i.qtdObra ? fmtQtd(i.qtdObra) + ' ' + esc(i.unidade) : '—'}</td>` : ''}</tr>`).join('')}
       </tbody></table></div>
       ${c.resolucao && sc !== 'divergencia' ? `<p class="hint"><b>Como foi resolvida:</b> ${esc(c.resolucao)}${c.resolvidaEm ? ` (${fmtDataHora(c.resolvidaEm)})` : ''}</p>` : ''}
       ${c.obs ? `<p class="hint">${esc(c.obs)}</p>` : ''}
@@ -3414,6 +3858,382 @@ function renderCompras(){
   const cs = filtra((ehRota ? rota : fin).sort(ehRota ? (a, b) => (a.previsao || '9999').localeCompare(b.previsao || '9999') || ordC(a, b) : ordC));
   $('#compras-lista').innerHTML = cs.length ? (q ? `<h2>${ehRota ? 'Compras pedidas' : 'Notas'} encontradas</h2>` : '') + cs.map(cardCompra).join('')
     : vazio(q ? 'Nenhuma compra encontrada para esta pesquisa.' : ehRota ? 'Nenhuma compra pedida aguardando chegar. Ao registrar uma compra que ainda não chegou, marque “📦 Pedida”.' : 'Nenhuma compra finalizada ainda. Clique em “+ Registrar compra”.');
+}
+
+/* ================= Obras ================= */
+/* As obras ficam na coleção "compras" com tipo: 'obra' (sem precisar liberar coleção nova no Firebase).
+   {nome, endereco, inicio, obs, empresa: {nome, documento, contato, telefone, email}, situacao: 'andamento' | 'finalizada' | 'excluida'}
+   Cada saída do estoque guarda obraId/obraNome. Saídas antigas em lote cujo "Para onde vai" tem o mesmo nome da obra também contam.
+   Valor da unidade e fornecedor de cada item vêm da última compra do item feita até a data da saída (pode ser corrigido na saída). */
+const ehObra = c => !!c && c.tipo === 'obra';
+const obrasTodas = () => db.compras.filter(ehObra);
+const obraSit = o => o.situacao || 'andamento';
+const obraById = id => obrasTodas().find(o => o.id === id);
+const obrasAtivas = () => obrasTodas().filter(o => obraSit(o) === 'andamento').sort((a, b) => cmpTxt(a.nome, b.nome));
+const DIAS_SEM = ['domingo', 'segunda-feira', 'terça-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira', 'sábado'];
+const diaSemana = iso => { const [y, m, d] = iso.split('-').map(Number); return DIAS_SEM[new Date(y, m - 1, d).getDay()]; };
+/* Campo de obra em lista (GPS, orçamento). Valor = id da obra. Obra antiga digitada à mão aparece como opção “(digitada antes)”. */
+function obraSelHTML(id, label, req, atualNome = '', atualId = '', extra = ''){
+  const at = obrasAtivas();
+  const sel = atualId || (obrasTodas().find(o => obraSit(o) !== 'excluida' && norm(o.nome) === norm(atualNome)) || {}).id || '';
+  const fora = sel && !at.some(o => o.id === sel) ? obraById(sel) : null;
+  const txt = !sel && atualNome && !/selected/.test(extra) ? atualNome : '';
+  return `<div class="field"><label for="${id}">${label}${req ? ' <b class="req">*</b>' : ''}</label><select id="${id}">
+    <option value="">${at.length ? 'Selecione a obra…' : 'Nenhuma obra em andamento — cadastre na aba Obras'}</option>${extra}
+    ${at.map(o => `<option value="${o.id}"${o.id === sel ? ' selected' : ''}>🏗️ ${esc(o.nome)}</option>`).join('')}
+    ${fora ? `<option value="${fora.id}" selected>${esc(fora.nome)} (${obraSit(fora) === 'finalizada' ? 'finalizada' : 'excluída'})</option>` : ''}
+    ${txt ? `<option value="__txt" selected data-nome="${esc(txt)}">${esc(txt)} (digitada antes — não está cadastrada)</option>` : ''}
+  </select></div>`;
+}
+function lerObraSel(id){
+  const el = $('#' + id); if (!el || !el.value) return {id: '', nome: ''};
+  if (el.value === '__txt') return {id: '', nome: el.selectedOptions[0].dataset.nome || ''};
+  if (el.value === '__estoque') return {id: '__estoque', nome: ''};
+  const o = obraById(el.value); return o ? {id: o.id, nome: o.nome} : {id: '', nome: ''};
+}
+const gpsNaObra = (g, o) => g.local === 'rua' && (g.obraId ? g.obraId === o.id : norm(g.obra) === norm(o.nome));
+const gpsMovNaObra = (m, o) => (m.obraId ? m.obraId === o.id : norm(m.obra) === norm(o.nome)) || (m.obraAnteriorId ? m.obraAnteriorId === o.id : !!m.obraAnterior && norm(m.obraAnterior) === norm(o.nome));
+/* Opções do campo "Para qual obra?" das saídas */
+function obraOptions(sel = '', soAtivas = false){
+  const ativas = obrasAtivas();
+  const atual = !soAtivas && sel && sel !== '__nao' && !ativas.some(o => o.id === sel) ? obraById(sel) : null;
+  return `<option value="">Selecione a obra…</option>` + ativas.map(o => `<option value="${o.id}"${o.id === sel ? ' selected' : ''}>🏗️ ${esc(o.nome)}</option>`).join('')
+    + (atual ? `<option value="${atual.id}" selected>${esc(atual.nome)} (${obraSit(atual) === 'finalizada' ? 'finalizada' : 'excluída'})</option>` : '')
+    + `<option value="__nao"${sel === '__nao' ? ' selected' : ''}>Não é para obra (uso interno / outro destino)</option>`;
+}
+function movsDaObra(o){
+  return db.movs.filter(m => m.tipo === 'saida' && !m.semObra && (m.obraId ? m.obraId === o.id : !!(m.lote && m.lote.destino) && norm(m.lote.destino) === norm(o.nome)));
+}
+/* Última compra do item até a data (valor convertido para a unidade do estoque) */
+function precoCompraDe(p, nome, ate){
+  let r = null;
+  comprasReais().forEach(c => {
+    if (statusCompra(c) === 'rota') return;
+    const dc = c.dataChegada || c.data;
+    (c.itens || []).forEach(i => {
+      if (i.semEstoque) return;
+      if (!((p && i.produtoId === p.id) || norm(i.nome) === norm(nome))) return;
+      const qEst = i.qtdEstoque != null ? i.qtdEstoque : i.qtd;
+      const cand = {valorUnit: qEst > 0 ? round2(i.valorTotal / qEst) : i.valorUnit, fornecedor: c.fornecedor || '', data: dc, antes: !ate || dc <= ate};
+      if (!r || (cand.antes && !r.antes) || (cand.antes === r.antes && cand.data > r.data)) r = cand;
+    });
+  });
+  return r;
+}
+/* Custo de uma saída: quantidade mostrada, valor da unidade, total e fornecedor */
+function custoAuto(m){
+  const p = prodById(m.produtoId);
+  let base = p, nome = nomeProd(m), fator = 1;
+  if (m.cobre && m.cobre.aberta) fator = 1 / PANQ_M;                       // pedaço de cobre: preço da panqueca ÷ 15 = preço do metro
+  if (p && ehSobra(p)) { base = prodById(p.cobreBaseId); nome = base ? base.nome : nome; fator = 1 / PANQ_M; }
+  const pc = precoCompraDe(base, nome, m.data);
+  return pc ? {valorUnit: round2(pc.valorUnit * fator), fornecedor: pc.fornecedor} : null;
+}
+function custoMov(m){
+  const pedaco = !!(m.cobre && m.cobre.aberta);
+  const qtd = pedaco ? m.metros : m.qtd, un = pedaco ? 'm' : m.unidade;
+  const c = m.custo || custoAuto(m);
+  const vu = c && c.valorUnit != null && isFinite(c.valorUnit) ? c.valorUnit : null;
+  return {qtd, un, valorUnit: vu, total: vu != null ? round2(vu * qtd) : null, fornecedor: (c && c.fornecedor) || '', manual: !!m.custo};
+}
+const comprasDiretas = o => comprasReais().filter(c => c.diretoObra && c.obraId === o.id && statusCompra(c) !== 'rota');
+function resumoObra(o){
+  const ds = linhasObra(o), ls = ds.flatMap(d => d.ls);
+  return {ms: ls, total: round2(ds.reduce((a, d) => a + d.total, 0)), sem: ls.filter(l => l.total == null).length, dias: ds.length, ult: ds.length ? ds[ds.length - 1].data : ''};
+}
+const OBRA_SIT = {andamento: ['b-n2', '🏗️ Em andamento'], finalizada: ['b-ok', '✅ Finalizada'], excluida: ['b-neutro', '🗑️ Excluída']};
+function obraCard(o){
+  const r = resumoObra(o), [cls, txt] = OBRA_SIT[obraSit(o)], E = o.empresa || {};
+  return `<article class="ocard obcard ob-${obraSit(o)}" data-obra-abrir="${o.id}" tabindex="0">
+    <div class="mc-top"><span class="tag" style="color:var(--primary)">🏗️ Obra</span><span class="badge ${cls}">${txt}</span></div>
+    <b class="cc-nome">${esc(o.nome)}</b>
+    ${o.endereco ? `<div class="small">📍 ${esc(o.endereco)}</div>` : ''}
+    ${E.nome ? `<div class="small">🏢 ${esc(E.nome)}${E.documento ? ' · ' + esc(E.documento) : ''}</div>` : ''}
+    <dl class="g-info"><dt>Início</dt><dd>${o.inicio ? fmtData(o.inicio) : '—'}</dd>
+      <dt>Saídas</dt><dd>${r.ms.length} item(ns) em ${r.dias} dia(s)</dd>
+      ${(() => { const rs = db.produtos.filter(p => reservasDe(p).some(x => x.obraId === o.id)); return rs.length ? `<dt>🔒 No estoque</dt><dd>${rs.length} item(ns) reservado(s)</dd>` : ''; })()}
+      ${(() => { const n = db.gps.filter(g => gpsNaObra(g, o)).length; return n ? `<dt>📍 GPS</dt><dd>${n} item(ns) na obra agora</dd>` : ''; })()}
+      <dt>Última saída</dt><dd>${r.ult ? fmtData(r.ult) : '—'}</dd>
+      ${obraSit(o) === 'finalizada' && o.finalizadaEm ? `<dt>Finalizada em</dt><dd>${fmtDiaLocal(o.finalizadaEm)}</dd>` : ''}</dl>
+    <div class="cc-best">💰 Total que saiu para a obra: <b>${fmtMoeda(r.total)}</b>${r.sem ? ` <span class="small" style="color:var(--warn)">(${r.sem} item(ns) sem preço)</span>` : ''}</div>
+    <div><button type="button" class="btn sm primary" data-obra-abrir="${o.id}">📋 Abrir planilha</button></div>
+  </article>`;
+}
+let subObras = 'andamento';
+const OBRA_DICA = {andamento: 'Obras em andamento: aparecem no campo “Para qual obra?” das saídas. Clique na obra para abrir a planilha de tudo que saiu para ela.',
+  finalizada: 'Obras finalizadas: não aparecem mais nas saídas, mas a planilha continua disponível. Dá para reabrir.',
+  excluida: 'Obras excluídas: ficam aqui caso precise restaurar. “Apagar de vez” remove o cadastro (as saídas continuam no histórico do estoque).'};
+$('#obras-sub').addEventListener('click', e => { const b = e.target.closest('[data-osub]'); if (!b) return; subObras = b.dataset.osub; renderObras(); });
+$('#obras-busca').addEventListener('input', () => renderObras());
+$('#btn-nova-obra').onclick = () => abrirObraForm(null);
+function renderObras(){
+  const todas = obrasTodas(), cnt = s => todas.filter(o => obraSit(o) === s).length;
+  $('#cnt-ob-and').textContent = cnt('andamento'); $('#cnt-ob-fin').textContent = cnt('finalizada'); $('#cnt-ob-exc').textContent = cnt('excluida');
+  $$('#obras-sub .stab').forEach(b => b.classList.toggle('on', b.dataset.osub === subObras));
+  $('#obras-dica').textContent = OBRA_DICA[subObras];
+  const q = norm($('#obras-busca').value);
+  const os = todas.filter(o => obraSit(o) === subObras)
+    .filter(o => !q || [o.nome, o.endereco, o.obs, ...Object.values(o.empresa || {})].some(x => norm(x).includes(q)))
+    .sort((a, b) => cmpTxt(a.nome, b.nome));
+  $('#obras-lista').innerHTML = os.length ? os.map(obraCard).join('')
+    : `<div class="panel" style="grid-column:1/-1;text-align:center"><p class="empty">${q ? 'Nenhuma obra encontrada.' : subObras === 'andamento' ? 'Nenhuma obra em andamento. Clique em “+ Nova obra”.' : subObras === 'finalizada' ? 'Nenhuma obra finalizada.' : 'Nenhuma obra excluída.'}</p></div>`;
+}
+function abrirObraForm(id){
+  if (!abaDisponivel('compras')) return;
+  const o = id ? obraById(id) : {inicio: hojeISO(), empresa: {}};
+  if (!o) return; const E = o.empresa || {};
+  openModal(id ? 'Editar obra' : 'Nova obra', `<form id="f-obra" novalidate>
+    <div class="grid2">
+      ${campoTxt('ob-nome', 'Nome da obra', true, `value="${esc(o.nome)}" placeholder="ex.: Obra Rua das Flores"`)}
+      <div class="field"><label for="ob-inicio">Data de início</label><input id="ob-inicio" type="date" value="${esc(o.inicio)}"></div>
+      <div class="field span2"><label for="ob-end">Endereço <b class="req">*</b></label><input id="ob-end" value="${esc(o.endereco)}" placeholder="Rua, número, bairro, cidade"></div>
+    </div>
+    <fieldset class="loc"><legend>Dados da empresa (para quem estamos fazendo a obra)</legend><div class="grid2">
+      ${campoTxt('ob-emp', 'Nome / razão social', true, `value="${esc(E.nome)}"`)}
+      ${campoTxt('ob-doc', 'CNPJ ou CPF', false, `value="${esc(E.documento)}" inputmode="numeric"`)}
+      ${campoTxt('ob-cont', 'Responsável / contato', false, `value="${esc(E.contato)}"`)}
+      ${campoTxt('ob-tel', 'Telefone', false, `value="${esc(E.telefone)}" inputmode="tel"`)}
+      ${campoTxt('ob-mail', 'E-mail', false, `value="${esc(E.email)}" inputmode="email"`)}
+    </div></fieldset>
+    <div class="field"><label for="ob-obs">Observações</label><textarea id="ob-obs" rows="2">${esc(o.obs)}</textarea></div>
+    <div class="actions"><button type="button" class="btn" ${id ? `data-obra-abrir="${id}"` : 'data-close'}>${id ? 'Voltar' : 'Cancelar'}</button><button class="btn primary" type="submit">${id ? 'Salvar' : 'Cadastrar obra'}</button></div>
+  </form>`);
+  $('#ob-nome').focus();
+  $('#f-obra').onsubmit = async e => {
+    e.preventDefault(); clearErr(e.target); const errs = [], val = s => $(s).value.trim().replace(/\s+/g, ' ');
+    const v = {nome: val('#ob-nome'), inicio: $('#ob-inicio').value, endereco: val('#ob-end'), obs: $('#ob-obs').value.trim(),
+      empresa: {nome: val('#ob-emp'), documento: val('#ob-doc'), contato: val('#ob-cont'), telefone: val('#ob-tel'), email: val('#ob-mail')}};
+    if (!v.nome) errs.push([$('#ob-nome'), 'Informe o nome da obra.']);
+    else if (obrasTodas().some(x => x.id !== id && obraSit(x) !== 'excluida' && norm(x.nome) === norm(v.nome))) errs.push([$('#ob-nome'), 'Já existe uma obra com este nome.']);
+    if (!v.endereco) errs.push([$('#ob-end'), 'Informe o endereço.']);
+    if (!v.empresa.nome) errs.push([$('#ob-emp'), 'Informe a empresa.']);
+    if (v.inicio && !dataValida(v.inicio)) errs.push([$('#ob-inicio'), 'Data inválida.']);
+    if (v.empresa.email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v.empresa.email)) errs.push([$('#ob-mail'), 'E-mail inválido.']);
+    if (errs.length) return showErrs(errs);
+    const novoId = id || uid();
+    const ok = await commit(d => {
+      const agora = new Date().toISOString();
+      if (id) {
+        const x = d.compras.find(y => y.id === id); if (!x) throw new Error('Obra não encontrada.');
+        /* Se o nome mudou, as saídas já ligadas a ela acompanham */
+        if (norm(x.nome) !== norm(v.nome)) {
+          d.movs.forEach(m => { if (m.obraId === id) m.obraNome = v.nome; });
+          d.gps.forEach(g => { if (g.obraId === id) g.obra = v.nome; });
+          d.gpsMovs.forEach(m => { if (m.obraId === id) m.obra = v.nome; if (m.obraAnteriorId === id) m.obraAnterior = v.nome; });
+          d.produtos.forEach(pp => (pp.reservas || []).forEach(r => { if (r.obraId === id) r.obraNome = v.nome; }));
+          d.compras.forEach(c => { if (c.tipo !== 'obra' && c.obraId === id) c.obra = v.nome; });
+        }
+        Object.assign(x, v, {editadoEm: agora});
+      } else d.compras.push({id: novoId, tipo: 'obra', situacao: 'andamento', ...v, criadoEm: agora});
+    });
+    if (ok) { toast(id ? 'Obra atualizada.' : 'Obra cadastrada. Ela já aparece no campo “Para qual obra?” das saídas.'); if (!id) { subObras = 'andamento'; renderObras(); } abrirObra(novoId); }
+  };
+}
+async function mudarSitObra(id, acao){
+  const o = obraById(id); if (!o) return;
+  const msgs = {finalizar: [`Finalizar a obra “${o.nome}”? Ela sai do campo “Para qual obra?” das saídas (a planilha continua disponível).`, 'Obra finalizada.'],
+    reabrir: [null, 'Obra reaberta.'], excluir: [`Excluir a obra “${o.nome}”? Ela vai para “Excluídas” e pode ser restaurada.`, 'Obra excluída (pode ser restaurada em “Excluídas”).'],
+    restaurar: [null, 'Obra restaurada.'], apagar: [`Apagar de vez o cadastro da obra “${o.nome}”? Não dá para desfazer. As saídas continuam no histórico do estoque.`, 'Cadastro da obra apagado.']};
+  const [pergunta, ok] = msgs[acao];
+  if (pergunta && !confirm(pergunta)) return;
+  /* Itens ainda separados para a obra: pergunta se voltam para o estoque livre (ao apagar de vez, voltam sempre) */
+  const presos = db.produtos.filter(p => reservasDe(p).some(r => r.obraId === id));
+  let devolver = false;
+  if (presos.length && ['finalizar', 'excluir', 'apagar'].includes(acao)) {
+    const lista = presos.map(p => `• ${p.nome}: ${fmtQtd(reservasDe(p).find(r => r.obraId === id).qtd)} ${p.unidade}`).join('\n');
+    devolver = acao === 'apagar' ? (alert(`Os ${presos.length} item(ns) separado(s) para esta obra voltam para o estoque livre:\n${lista}`), true)
+      : confirm(`Esta obra ainda tem ${presos.length} item(ns) separado(s) em “Itens para obras”:\n${lista}\n\nDevolver para o estoque livre?\n\nOK = devolver para o estoque · Cancelar = manter separado para a obra`);
+  }
+  if (await commit(d => {
+    const x = d.compras.find(y => y.id === id); if (!x) throw new Error('Obra não encontrada.');
+    const agora = new Date().toISOString();
+    if (devolver) d.produtos.forEach(pp => { const r = reservasDe(pp).find(x => x.obraId === id); if (r) ajustaReserva(pp, id, null, -r.qtd); });
+    if (acao === 'apagar') { d.compras = d.compras.filter(y => y.id !== id); return; }
+    if (acao === 'finalizar') Object.assign(x, {situacao: 'finalizada', finalizadaEm: agora});
+    if (acao === 'reabrir') { x.situacao = 'andamento'; delete x.finalizadaEm; }
+    if (acao === 'excluir') Object.assign(x, {situacaoAnterior: obraSit(x), situacao: 'excluida', excluidaEm: agora});
+    if (acao === 'restaurar') { x.situacao = x.situacaoAnterior || 'andamento'; delete x.situacaoAnterior; delete x.excluidaEm; }
+  })) {
+    toast(ok + (devolver ? ` ${presos.length} item(ns) voltaram para o estoque livre.` : ''));
+    subObras = acao === 'apagar' ? subObras : obraSit(obraById(id));
+    if (acao === 'apagar') closeModal(); else abrirObra(id);
+  }
+}
+/* Planilha da obra: separada por data, total de cada dia e total geral */
+/* Linhas da planilha: saídas do estoque para a obra + itens de compras entregues direto na obra */
+function linhasObra(o){
+  const rows = [];
+  movsDaObra(o).forEach(m => { const c = custoMov(m); rows.push({data: m.data, ord: m.data + m.registradoEm, item: nomeProd(m), qtd: c.qtd, un: c.un, valorUnit: c.valorUnit, total: c.total,
+    fornecedor: c.fornecedor, quem: m.quemRetirou, manual: c.manual, attr: `data-mov="${m.id}"`, extra: m.loteId ? `lote ${loteCod(m.loteId)}` : '', tipo: 'saida'}); });
+  comprasDiretas(o).forEach(c => { const dc = c.dataChegada || c.data; (c.itens || []).forEach(i => { const rec = i.qtdRecebida != null ? i.qtdRecebida : i.qtd, q = c.obraParcial ? Math.min(i.qtdObra || 0, rec) : rec; if (!(q > 0)) return;
+    rows.push({data: dc, ord: dc + (c.recebidoEm || c.criadoEm || ''), item: i.nome, qtd: q, un: i.unidade, valorUnit: i.valorUnit, total: round2(i.valorUnit * q),
+      fornecedor: c.fornecedor || '', quem: 'Entrega direta do fornecedor', manual: false, attr: `data-compra="${c.id}"`, extra: `🚚 direto da compra${c.numeroNota ? ' nº ' + c.numeroNota : ''}`, tipo: 'direto'}); }); });
+  db.movs.filter(m => m.tipo === 'entrada' && m.devolucaoObraId === o.id).forEach(m => { const vu = m.custoDev != null ? m.custoDev : null;
+    rows.push({data: m.data, ord: m.data + m.registradoEm, item: '↩ ' + nomeProd(m) + ' (voltou da obra)', qtd: -m.qtd, un: m.unidade, valorUnit: vu, total: vu != null ? round2(-vu * m.qtd) : null,
+      fornecedor: m.fornecedorDev || '', quem: 'Devolvido por ' + m.responsavel, manual: false, attr: `data-mov="${m.id}"`, extra: '', tipo: 'dev'}); });
+  rows.sort((a, b) => a.ord.localeCompare(b.ord));
+  const dias = new Map();
+  rows.forEach(r => { if (!dias.has(r.data)) dias.set(r.data, []); dias.get(r.data).push(r); });
+  return [...dias.entries()].map(([data, ls]) => ({data, ls, total: round2(ls.reduce((a, x) => a + (x.total || 0), 0)), sem: ls.filter(x => x.total == null).length}));
+}
+function abrirObra(id){
+  const o = obraById(id); if (!o) return;
+  const sit = obraSit(o), [cls, txt] = OBRA_SIT[sit], E = o.empresa || {}, dias = linhasObra(o);
+  const totalGeral = round2(dias.reduce((a, d) => a + d.total, 0)), semGeral = dias.reduce((a, d) => a + d.sem, 0);
+  const gps = db.gps.filter(g => gpsNaObra(g, o)).sort(ordGps);
+  const gHist = db.gpsMovs.filter(m => gpsMovNaObra(m, o)).sort((a, b) => b.registradoEm.localeCompare(a.registradoEm));
+  const reserv = db.produtos.filter(p => reservasDe(p).some(r => r.obraId === o.id)).sort(porNome);
+  const info = [['Endereço', o.endereco], ['Empresa', E.nome], ['CNPJ / CPF', E.documento], ['Responsável', E.contato], ['Telefone', E.telefone], ['E-mail', E.email],
+    ['Início', o.inicio ? fmtData(o.inicio) : ''], ['Observações', o.obs]].filter(x => x[1]);
+  const botoes = sit === 'andamento' ? `<button class="btn sm" data-obra-acao="finalizar" data-id="${id}">✅ Finalizar obra</button><button class="btn sm danger" data-obra-acao="excluir" data-id="${id}">🗑️ Excluir</button>`
+    : sit === 'finalizada' ? `<button class="btn sm" data-obra-acao="reabrir" data-id="${id}">↩ Reabrir obra</button><button class="btn sm danger" data-obra-acao="excluir" data-id="${id}">🗑️ Excluir</button>`
+    : `<button class="btn sm" data-obra-acao="restaurar" data-id="${id}">↩ Restaurar</button><button class="btn sm danger" data-obra-acao="apagar" data-id="${id}">Apagar de vez</button>`;
+  openModal('🏗️ ' + o.nome, `
+    <div class="row" style="justify-content:space-between;align-items:flex-start">
+      <div><span class="badge ${cls}">${txt}</span>
+        <dl class="g-info" style="margin-top:8px">${info.map(([a, b]) => `<dt>${a}</dt><dd>${esc(b)}</dd>`).join('')}</dl></div>
+      <div class="compra-total"><span class="muted small" style="font-weight:600">Total que saiu para a obra</span><br>${fmtMoeda(totalGeral)}</div>
+    </div>
+    <div class="row" style="margin:12px 0"><button class="btn sm primary" id="ob-xlsx">⬇ Baixar planilha (.xlsx)</button><button class="btn sm" id="ob-print">🖨 Imprimir</button><button class="btn sm" id="ob-dev">↩ Voltou da obra</button><button class="btn sm" id="ob-edit">✏️ Editar dados</button>${botoes}</div>
+    <div class="subtabs" id="ob-abas">
+      <button type="button" class="stab on" data-obaba="plan">📋 Saídas para a obra <span class="cnt">${dias.reduce((a, d) => a + d.ls.length, 0)}</span></button>
+      <button type="button" class="stab" data-obaba="gps">📍 GPS dos itens <span class="cnt">${gps.length}</span></button>
+    </div>
+    <div id="ob-plan">
+    ${reserv.length ? `<div class="res-box">🔒 <b>No estoque, reservado para esta obra</b> (ainda não saiu): ${reserv.map(p => { const r = reservasDe(p).find(x => x.obraId === o.id); return `<span class="li-click" data-prod="${p.id}" style="text-decoration:underline">${esc(p.nome)}: ${fmtQtd(r.qtd)} ${esc(p.unidade)}</span>`; }).join(' · ')}</div>` : ''}
+    ${semGeral ? `<div class="info-box" style="background:var(--warn-soft)">⚠️ ${semGeral} item(ns) sem preço: o item ainda não tem compra registrada. Clique na linha para informar o valor e o fornecedor.</div>` : ''}
+    <div class="table-wrap"><table class="ob-tab"><thead><tr><th>Item</th><th class="num">Quantidade</th><th class="num">Valor da unidade</th><th class="num">Valor total</th><th>Fornecedor</th><th>Quem retirou</th></tr></thead><tbody>
+    ${dias.length ? dias.map(d => `<tr class="dia"><td colspan="6">📅 ${fmtData(d.data)} · ${diaSemana(d.data)}</td></tr>`
+      + d.ls.map(l => `<tr class="click${l.tipo === 'dev' ? ' dev' : ''}" ${l.attr} tabindex="0" title="${l.tipo === 'direto' ? 'Clique para ver a compra' : 'Clique para ver a saída ou corrigir valor e fornecedor'}"><td>${esc(l.item)}${l.extra ? ` <span class="muted small">· ${esc(l.extra)}</span>` : ''}</td>
+        <td class="num">${fmtQtd(l.qtd)} ${esc(l.un)}</td><td class="num">${l.valorUnit != null ? fmtMoeda(l.valorUnit) : '<span class="sem-preco">sem preço</span>'}${l.manual ? ' <span class="muted small">✏️</span>' : ''}</td>
+        <td class="num"><b>${l.total != null ? fmtMoeda(l.total) : '—'}</b></td><td>${esc(l.fornecedor) || '—'}</td><td>${esc(l.quem)}</td></tr>`).join('')
+      + `<tr class="tot-dia"><td colspan="3">Total do dia ${fmtData(d.data)}${d.sem ? ` <span class="sem-preco">(${d.sem} sem preço)</span>` : ''}</td><td class="num">${fmtMoeda(d.total)}</td><td colspan="2"></td></tr>`).join('')
+      + `<tr class="tot-geral"><td colspan="3">TOTAL GERAL DA OBRA</td><td class="num">${fmtMoeda(totalGeral)}</td><td colspan="2"></td></tr>`
+      : '<tr><td colspan="6" class="empty">Nenhuma saída para esta obra ainda. Nas abas Saídas, escolha a obra no campo “Para qual obra?”.</td></tr>'}
+    </tbody></table></div>
+    <p class="hint">Valor da unidade e fornecedor vêm da última compra do item feita até a data da saída (nas entregas diretas, da própria nota). Para corrigir, clique na linha. Cadastrada em ${fmtDataHora(o.criadoEm)}.</p>
+    </div>
+    <div id="ob-gps" hidden>
+      <p class="hint" style="margin-top:0">📍 Somente consulta: mostra os itens rastreáveis (GPS) que estão nesta obra e por onde passaram. Para movimentar, use a aba <b>GPS Itens</b> — nada aqui altera o GPS original.</p>
+      <h2>Na obra agora (${gps.length})</h2>
+      ${gps.length ? `<div class="gcards">${gps.map(g => { const n = g.desde ? diasEntre(g.desde, hojeISO()) : null, pd = gpsParado(g); return `<div class="gcard rua">
+        <div>${g.nitrogenio ? `<span class="badge b-n2">Nitrogênio · nº ${esc(g.numeroBujao)}</span> ` : ''}${pd != null ? `<span class="badge l-atrasado">⚠ Parado há ${pd} dias</span>` : ''}</div>
+        <b style="font-size:16px">${esc(gpsTitulo(g))}</b>
+        <dl class="g-info"><dt>Com</dt><dd>${esc(g.responsavel)}</dd><dt>Desde</dt><dd>${fmtData(g.desde)}${n != null ? ` <span class="muted small">(${n === 0 ? 'hoje' : n + ' dia(s)'})</span>` : ''}</dd>
+        ${g.nitrogenio ? `<dt>Nível de saída</dt><dd>${esc(g.nivelSaida || '—')}</dd>${g.nivelAtual && g.nivelAtual !== g.nivelSaida ? `<dt>Último nível</dt><dd>${esc(g.nivelAtual)}</dd>` : ''}` : ''}</dl></div>`; }).join('')}</div>`
+        : '<p class="empty">Nenhum item do GPS nesta obra agora.</p>'}
+      <h2 style="margin-top:18px">Histórico dos itens nesta obra (${gHist.length})</h2>
+      ${gHist.length ? `<div class="table-wrap"><table><thead><tr><th>Data</th><th>Item</th><th>Movimentação</th><th>De → Para</th><th>Comentário</th></tr></thead><tbody>
+        ${gHist.map(m => `<tr><td>${fmtData(m.data)}</td><td><b>${esc(nomeGpsMov(m))}</b></td><td>${esc(GPS_TIPO[m.tipo] || m.tipo)}${m.obraAnterior && !(m.obraId ? m.obraId === o.id : norm(m.obra) === norm(o.nome)) ? ` <span class="muted small">(foi para ${esc(m.obra)})</span>` : ''}</td>
+          <td>${esc(m.de || (m.tipo === 'cadastro' ? '—' : 'Estoque'))} → ${esc(m.para)}</td><td>${esc(m.comentario || '')}</td></tr>`).join('')}</tbody></table></div>`
+        : '<p class="empty">Nenhuma movimentação do GPS registrada para esta obra.</p>'}
+    </div>`);
+  $('#ob-abas').addEventListener('click', e => { const b = e.target.closest('[data-obaba]'); if (!b) return;
+    $$('#ob-abas .stab').forEach(x => x.classList.toggle('on', x === b)); $('#ob-plan').hidden = b.dataset.obaba !== 'plan'; $('#ob-gps').hidden = b.dataset.obaba !== 'gps'; });
+  $('.modal-card').classList.add('wide');
+  $('#ob-edit').onclick = () => abrirObraForm(id);
+  $('#ob-xlsx').onclick = () => baixarPlanilhaObra(id);
+  $('#ob-print').onclick = () => imprimirObra(id);
+  $('#ob-dev').onclick = () => abrirDevolucao(id);
+}
+/* O que saiu para a obra e ainda pode voltar (por item). Pedaço de cobre volta como sobra, em metros. */
+function enviadosObra(o){
+  const m = new Map();
+  movsDaObra(o).forEach(mv => {
+    const c = custoMov(mv), ped = !!(mv.cobre && mv.cobre.aberta), key = (ped ? 'cobre:' : '') + mv.produtoId;
+    let e = m.get(key);
+    if (!e) { e = {key, pid: mv.produtoId, cobre: ped, nome: ped ? `${nomeProd(mv)} — pedaço (volta como sobra, em m)` : nomeProd(mv), un: c.un, enviado: 0, devolvido: 0, tot: 0, qp: 0, forn: ''}; m.set(key, e); }
+    e.enviado = round3(e.enviado + c.qtd); if (c.total != null) { e.tot += c.total; e.qp += c.qtd; } if (c.fornecedor) e.forn = c.fornecedor;
+  });
+  db.movs.filter(x => x.tipo === 'entrada' && x.devolucaoObraId === o.id).forEach(x => { const e = m.get(x.devKey); if (e) e.devolvido = round3(e.devolvido + x.qtd); });
+  return [...m.values()].map(e => ({...e, resta: round3(e.enviado - e.devolvido), vu: e.qp > 0 ? round2(e.tot / e.qp) : null})).filter(e => e.resta > 0).sort((a, b) => cmpTxt(a.nome, b.nome));
+}
+function abrirDevolucao(obraId){
+  const o = obraById(obraId); if (!o) return;
+  const ens = enviadosObra(o);
+  if (!ens.length) { toast('Nada saiu do estoque para esta obra (ou tudo já voltou).', 'err'); return; }
+  const ativa = obraSit(o) === 'andamento';
+  openModal('↩ Voltou da obra — ' + o.nome, `<form id="f-dev" novalidate>
+    <div class="info-box">Material que sobrou e voltou da obra: entra de novo no estoque e <b>abate do custo da obra</b> (aparece na planilha com valor negativo).</div>
+    <div class="grid2">
+      <div class="field span2"><label for="dv-item">Qual item voltou? <b class="req">*</b></label><select id="dv-item"><option value="">Selecione…</option>${ens.map((e, k) => `<option value="${k}">${esc(e.nome)} — saiu ${fmtQtd(e.enviado)} ${esc(e.un)}${e.devolvido ? `, já voltou ${fmtQtd(e.devolvido)}` : ''} · pode voltar até ${fmtQtd(e.resta)}</option>`).join('')}</select></div>
+      <div class="field"><label for="dv-qtd" id="dv-qtd-lbl">Quantidade que voltou <b class="req">*</b></label><input id="dv-qtd" type="number" min="0" step="any" inputmode="decimal"><div class="hint" id="dv-calc"></div></div>
+      <div class="field"><label for="dv-data">Data <b class="req">*</b></label><input id="dv-data" type="date" value="${hojeISO()}"></div>
+    </div>
+    ${pessoaHTML('dvp', 'Quem trouxe de volta')}
+    ${ativa ? `<div class="auth res-q" id="dv-dest-f"><div class="auth-title">Volta para onde? <b class="req">*</b></div>
+      <div class="opts"><label class="opt"><input type="radio" name="dv-dest" value="livre" checked> 📦 Estoque livre</label><label class="opt"><input type="radio" name="dv-dest" value="obra"> 🏗️ Guardar separado para esta obra</label></div></div>` : ''}
+    <div class="field"><label for="dv-obs">Observação (opcional)</label><textarea id="dv-obs" rows="2"></textarea></div>
+    <div class="actions"><button type="button" class="btn" data-obra-abrir="${obraId}">Voltar</button><button class="btn primary" type="submit">↩ Registrar devolução</button></div></form>`);
+  const calc = () => {
+    const e = ens[$('#dv-item').value]; const q = parseQtd($('#dv-qtd').value);
+    $('#dv-qtd-lbl').innerHTML = `Quantidade que voltou${e ? ' (' + esc(e.un) + ')' : ''} <b class="req">*</b>`;
+    $('#dv-calc').textContent = e && isFinite(q) && q > 0 ? (e.vu != null ? `Abate ${fmtMoeda(round2(e.vu * q))} da obra (${fmtMoeda(e.vu)} por ${e.un}).` : 'Item sem preço: a devolução entra na planilha sem valor.') : '';
+  };
+  $('#f-dev').addEventListener('input', calc); $('#f-dev').addEventListener('change', calc);
+  $('#f-dev').onsubmit = async ev => {
+    ev.preventDefault(); clearErr(ev.target); const errs = [];
+    const e = ens[$('#dv-item').value], q = parseQtd($('#dv-qtd').value), data = $('#dv-data').value, obs = $('#dv-obs').value.trim();
+    if (!e) errs.push([$('#dv-item'), 'Escolha o item.']);
+    if (!isFinite(q) || q <= 0) errs.push([$('#dv-qtd'), 'Informe a quantidade.']);
+    else if (e && q > e.resta + 1e-9) errs.push([$('#dv-qtd'), `Só podem voltar até ${fmtQtd(e.resta)} ${e.un}.`]);
+    if (!dataValida(data)) errs.push([$('#dv-data'), 'Data inválida.']);
+    const pes = lerPessoa('dvp', 'Informe quem trouxe de volta.'); if (pes.err) errs.push(pes.err);
+    if (errs.length) return showErrs(errs);
+    const guardar = ativa && ($('input[name="dv-dest"]:checked') || {}).value === 'obra';
+    const ok = await commit(d => {
+      const agora = new Date().toISOString();
+      const base = d.produtos.find(x => x.id === e.pid); if (!base) throw new Error('Este produto foi excluído do estoque.');
+      const alvo = e.cobre ? sobraDe(d, base, agora) : base;
+      aplicarEntrada(d, {pid: alvo.id, qtd: round3(q)}, {data, agora, responsavel: pes.nome, obs: obs || `Material que voltou da obra ${o.nome}.`,
+        reserva: guardar ? {id: o.id, nome: o.nome} : null, extra: {devolucaoObraId: o.id, devolucaoObraNome: o.nome, devKey: e.key, custoDev: e.vu, fornecedorDev: e.forn}});
+    });
+    if (ok) { toast(`Devolução registrada: ${fmtQtd(q)} ${e.un} voltaram ${guardar ? 'separados para a obra' : 'para o estoque livre'}${e.vu != null ? ` e ${fmtMoeda(round2(e.vu * q))} foram abatidos da obra` : ''}.`); abrirObra(obraId); }
+  };
+}
+function baixarPlanilhaObra(id){
+  const o = obraById(id); if (!o) return;
+  try {
+    const E = o.empresa || {}, dias = linhasObra(o), R = (cells, ht) => ({ht, cells});
+    const lbl = (k, v) => R([{v: k, t: 's', s: XS.label}, {v, t: 's', s: XS.s}]);
+    const rows = [R([{v: 'Obra: ' + o.nome, t: 's', s: XS.title}], 28)];
+    [['Endereço', o.endereco], ['Empresa', E.nome], ['CNPJ / CPF', E.documento], ['Responsável', E.contato], ['Telefone', E.telefone], ['E-mail', E.email], ['Situação', OBRA_SIT[obraSit(o)][1].replace(/^\S+\s/, '')]]
+      .filter(x => x[1]).forEach(([k, v]) => rows.push(lbl(k, v)));
+    rows.push(R([]));
+    rows.push(R(['Data', 'Item', 'Quantidade', 'Unidade', 'Valor da unidade', 'Valor total', 'Fornecedor', 'Quem retirou'].map(h => ({v: h, t: 's', s: XS.head})), 22));
+    let geral = 0;
+    dias.forEach(d => {
+      d.ls.forEach(l => rows.push(R([{v: d.data, t: 'd', s: XS.d}, {v: l.item, t: 's', s: XS.b}, {v: l.qtd, t: 'n', s: XS.n}, {v: l.un, t: 's', s: XS.s},
+        l.valorUnit != null ? {v: l.valorUnit, t: 'money', s: XS.money} : {v: 'sem preço', t: 's', s: XS.warn}, {v: l.total, t: 'money', s: XS.money}, {v: l.fornecedor, t: 's', s: XS.s}, {v: l.quem, t: 's', s: XS.s}])));
+      rows.push(R([{v: '', t: 's', s: XS.label}, {v: `Total do dia ${fmtData(d.data)}`, t: 's', s: XS.label}, {v: '', t: 's', s: XS.label}, {v: '', t: 's', s: XS.label}, {v: '', t: 's', s: XS.label},
+        {v: d.total, t: 'money', s: XS.moneyB}, {v: d.sem ? `${d.sem} sem preço` : '', t: 's', s: XS.label}, {v: '', t: 's', s: XS.label}]));
+      geral += d.total;
+    });
+    rows.push(R([]));
+    rows.push(R([{v: '', t: 's', s: XS.label}, {v: 'TOTAL GERAL DA OBRA', t: 's', s: XS.label}, {v: '', t: 's', s: XS.label}, {v: '', t: 's', s: XS.label}, {v: '', t: 's', s: XS.label}, {v: round2(geral), t: 'money', s: XS.moneyB}], 22));
+    const nomeArq = o.nome.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^\w-]+/g, '-').replace(/^-|-$/g, '').toLowerCase() || 'obra';
+    baixar(xMontar([{name: 'Obra', widths: [13, 40, 12, 10, 16, 16, 22, 22], rows}]), `obra-${nomeArq}-${hojeISO()}.xlsx`);
+    toast('Planilha da obra gerada.');
+  } catch (e) { console.error(e); toast('Não foi possível gerar a planilha.', 'err'); }
+}
+function imprimirObra(id){
+  const o = obraById(id); if (!o) return;
+  const E = o.empresa || {}, dias = linhasObra(o), geral = round2(dias.reduce((a, d) => a + d.total, 0));
+  const html = `<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>Obra ${esc(o.nome)}</title>
+    <style>body{font:12px/1.4 Arial,sans-serif;color:#000;margin:20px}h1{font-size:18px;margin:0 0 6px}table{border-collapse:collapse;width:100%;margin-top:12px}
+    th,td{border:1px solid #999;padding:5px 7px;text-align:left}th{background:#eee}td.n{text-align:right;white-space:nowrap}tr.dia td{background:#e7edfb;font-weight:bold}
+    tr.tot td{background:#f3f3f3;font-weight:bold}tr.ger td{background:#dff0e5;font-weight:bold;font-size:14px}.c{display:grid;grid-template-columns:auto 1fr;gap:2px 12px}</style></head><body>
+    <h1>Obra: ${esc(o.nome)}</h1>
+    <div class="c">${[['Endereço', o.endereco], ['Empresa', E.nome], ['CNPJ / CPF', E.documento], ['Responsável', E.contato], ['Telefone', E.telefone]].filter(x => x[1]).map(([a, b]) => `<span>${a}:</span><b>${esc(b)}</b>`).join('')}</div>
+    <table><thead><tr><th>Item</th><th>Quantidade</th><th>Valor da unidade</th><th>Valor total</th><th>Fornecedor</th><th>Quem retirou</th></tr></thead><tbody>
+    ${dias.map(d => `<tr class="dia"><td colspan="6">${fmtData(d.data)} · ${diaSemana(d.data)}</td></tr>`
+      + d.ls.map(l => `<tr><td>${esc(l.item)}</td><td class="n">${fmtQtd(l.qtd)} ${esc(l.un)}</td><td class="n">${l.valorUnit != null ? fmtMoeda(l.valorUnit) : 'sem preço'}</td><td class="n">${l.total != null ? fmtMoeda(l.total) : '—'}</td><td>${esc(l.fornecedor)}</td><td>${esc(l.quem)}</td></tr>`).join('')
+      + `<tr class="tot"><td colspan="3">Total do dia ${fmtData(d.data)}</td><td class="n">${fmtMoeda(d.total)}</td><td colspan="2"></td></tr>`).join('')}
+    <tr class="ger"><td colspan="3">TOTAL GERAL DA OBRA</td><td class="n">${fmtMoeda(geral)}</td><td colspan="2"></td></tr></tbody></table></body></html>`;
+  const fr = document.createElement('iframe'); fr.style.cssText = 'position:fixed;right:0;bottom:0;width:0;height:0;border:0';
+  document.body.appendChild(fr);
+  const doc = fr.contentDocument; doc.open(); doc.write(html); doc.close();
+  setTimeout(() => { try { fr.contentWindow.focus(); fr.contentWindow.print(); } catch (e) { toast('Não foi possível abrir a impressão.', 'err'); } setTimeout(() => fr.remove(), 60000); }, 250);
 }
 
 /* ================= Tarefas ================= */
@@ -3616,7 +4436,7 @@ function exportarPlanilha(){
 $('#btn-xlsx').onclick = exportarPlanilha;
 
 /* ================= Planilha Excel (.xlsx) — gerada no navegador, sem dependências ================= */
-const XS = {head: 1, s: 2, wrap: 3, n: 4, d: 5, dt: 6, ok: 7, warn: 8, bad: 9, title: 10, label: 11, muted: 12, numB: 13, b: 14, info: 15, dtB: 16, money: 17};
+const XS = {head: 1, s: 2, wrap: 3, n: 4, d: 5, dt: 6, ok: 7, warn: 8, bad: 9, title: 10, label: 11, muted: 12, numB: 13, b: 14, info: 15, dtB: 16, money: 17, moneyB: 18};
 function xmlEsc(s){
   return String(s).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F￾￿]/g, '')
     .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -3720,7 +4540,8 @@ const X_STYLES = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n<styl
       xf(0, 2, 0, 1, T + ' wrapText="1"'),     // 14 texto em negrito
       xf(0, 8, 7, 1, C),                       // 15 azul
       xf(165, 2, 0, 1, 'horizontal="left" vertical="top"'), // 16 data e hora em destaque
-      xf(166, 0, 0, 1, T)                      // 17 moeda (R$)
+      xf(166, 0, 0, 1, T),                     // 17 moeda (R$)
+      xf(166, 2, 6, 1, T)                      // 18 moeda em destaque (totais)
     ];
     return `<cellXfs count="${list.length}">${list.join('')}</cellXfs>`;
   })() +
@@ -3796,15 +4617,15 @@ function gerarPlanilha(){
   const nOc = db.movs.reduce((a, m) => a + m.comentarios.filter(c => c.tipo === 'ocorrencia').length, 0);
 
   const estoque = xTabela('Estoque', [
-    {h: 'Produto', t: 'b', min: 18}, {h: 'Quantidade atual', t: 'n'}, {h: 'Unidade'},
-    {h: 'Andar'}, {h: 'Estante'}, {h: 'Fileira'}, {h: 'Localização', min: 32}, {h: 'Estoque mínimo', t: 'n'}, {h: 'Status', st: stProd, min: 22},
+    {h: 'Produto', t: 'b', min: 18}, {h: 'Quantidade física (total)', t: 'n'}, {h: 'Unidade'},
+    {h: 'Andar'}, {h: 'Estante'}, {h: 'Fileira'}, {h: 'Localização', min: 32}, {h: 'Estoque mínimo', t: 'n'}, {h: 'Status', st: stProd, min: 22}, {h: 'Itens para obras', t: 'wrap', w: 30}, {h: 'Livre para uso', t: 'n'},
     {h: 'Total de entradas', t: 'n'}, {h: 'Total de saídas', t: 'n'}, {h: 'Total ajustado', t: 'n'}, {h: 'Última movimentação', t: 'dt'},
     {h: 'Observações do cadastro', t: 'wrap', w: 40}, {h: 'Cadastrado em', t: 'dt'}, {h: 'Última alteração do cadastro', t: 'dt'}
   ], P.map(p => {
     const ms = db.movs.filter(m => m.produtoId === p.id);
     const ult = ms.reduce((a, m) => !a || m.registradoEm > a ? m.registradoEm : a, null);
     const alt = (p.alteracoes || []).slice(-1)[0];
-    return [p.nome, p.saldo, p.unidade, p.andar, p.estante, p.fileira, loc(p), p.minimo, statusEstoque(p).t,
+    return [p.nome, p.saldo, p.unidade, p.andar, p.estante, p.fileira, loc(p), p.minimo, statusEstoque(p).t, reservaTxt(p), livreDe(p),
       soma(ms.filter(m => m.tipo === 'entrada')), soma(ms.filter(m => m.tipo === 'saida')), soma(ms.filter(m => m.tipo === 'ajuste')),
       ult, p.obs, p.criadoEm, alt && alt.em];
   }));
@@ -3821,12 +4642,12 @@ function gerarPlanilha(){
     {h: 'Data da retirada', t: 'd'}, {h: 'Registrado em', t: 'dt'}, {h: 'Produto', t: 'b', min: 18},
     {h: 'Quantidade retirada', t: 'n'}, {h: 'Unidade'}, {h: 'Saldo anterior', t: 'n'}, {h: 'Saldo posterior', t: 'n'},
     {h: 'Metros (cobre)', t: 'n'}, {h: 'Cobre: como saiu', t: 'wrap', w: 34},
-    {h: 'Quem retirou', min: 20}, {h: 'Autorizado por Ricardo?', st: stSim},
+    {h: 'Quem retirou', min: 20}, {h: 'Autorizado por Ricardo?', st: stSim}, {h: 'Obra', min: 18},
     {h: 'Lote nº'}, {h: 'Quem pediu', min: 18}, {h: 'Pedido por', min: 12}, {h: 'Para onde vai', min: 20},
     {h: 'Observação', t: 'wrap', w: 36}, {h: 'Nº de comentários', t: 'n'}, {h: 'Nº de ocorrências', t: 'n'}, {h: 'Comentários e ocorrências', t: 'wrap', w: 60}
   ], sais.map(m => [m.data, m.registradoEm, nomeMov(m), m.qtd, m.unidade, m.saldoAnt, m.saldoPost, m.metros,
     m.cobre ? (m.cobre.aberta ? `Pedaço: ${m.cobre.inteiras ? inteirasTxt(m.cobre.inteiras) + ' + ' : ''}1 panqueca aberta, ${fmtQtd(m.cobre.cortado)} m cortados, sobra ${fmtQtd(m.cobre.sobra)} m` : 'Panqueca(s) inteira(s)') : '',
-    m.quemRetirou, m.autorizadoRicardo || 'Sim', m.loteId ? loteCod(m.loteId) : '', m.lote ? m.lote.quemPediu : '', m.lote ? m.lote.canal : '', m.lote ? m.lote.destino : '',
+    m.quemRetirou, m.autorizadoRicardo || 'Sim', m.obraNome || '', m.loteId ? loteCod(m.loteId) : '', m.lote ? m.lote.quemPediu : '', m.lote ? m.lote.canal : '', m.lote ? m.lote.destino : '',
     m.obs, m.comentarios.length, m.comentarios.filter(c => c.tipo === 'ocorrencia').length, cmtTxt(m)]));
 
   const ajustes = xTabela('Ajustes', [
@@ -3903,6 +4724,16 @@ function gerarPlanilha(){
     {h: 'Mais barato?', st: v => v === 'Sim' ? XS.ok : XS.s}, {h: 'Observação da loja', t: 'wrap', w: 30}, {h: 'Observação', t: 'wrap', w: 30}
   ], [...cotacoes()].sort((a, b) => cmpTxt(a.item, b.item)).flatMap(c => lojasOrd(c).map((l, k) => [c.item, c.unidade, l.loja, l.valor, l.data, k === 0 ? 'Sim' : '', l.obs, c.obs])));
 
+  const OB = [...obrasTodas()].sort((a, b) => cmpTxt(a.nome, b.nome));
+  const obrasSh = xTabela('Obras', [
+    {h: 'Obra', t: 'b', min: 20}, {h: 'Situação', min: 14}, {h: 'Endereço', t: 'wrap', w: 36}, {h: 'Empresa', min: 20}, {h: 'CNPJ / CPF', min: 16}, {h: 'Responsável', min: 16},
+    {h: 'Telefone', min: 14}, {h: 'E-mail', min: 18}, {h: 'Início', t: 'd'}, {h: 'Itens que saíram', t: 'n'}, {h: 'Total que saiu', t: 'money', min: 14}, {h: 'Itens sem preço', t: 'n'}, {h: 'Observações', t: 'wrap', w: 30}
+  ], OB.map(o => { const r = resumoObra(o), E = o.empresa || {}; return [o.nome, OBRA_SIT[obraSit(o)][1].replace(/^\S+\s/, ''), o.endereco, E.nome, E.documento, E.contato, E.telefone, E.email, o.inicio, r.ms.length, r.total, r.sem, o.obs]; }));
+  const custoObras = xTabela('Saídas por obra', [
+    {h: 'Obra', t: 'b', min: 20}, {h: 'Data', t: 'd'}, {h: 'Item', min: 20}, {h: 'Quantidade', t: 'n'}, {h: 'Unidade'}, {h: 'Valor da unidade', t: 'money', min: 14}, {h: 'Valor total', t: 'money', min: 14},
+    {h: 'Fornecedor', min: 16}, {h: 'Quem retirou', min: 18}, {h: 'Valor corrigido à mão?'}
+  ], OB.flatMap(o => linhasObra(o).flatMap(d => d.ls.map(l => [o.nome, d.data, l.item, l.qtd, l.un, l.valorUnit, l.total, l.fornecedor, l.quem, l.manual ? 'Sim' : '']))));
+
   const TAR_ST = {concluida: 'Concluída', atrasada: 'Atrasada', hoje: 'Vence hoje', futura: 'No prazo', semprazo: 'Sem prazo'};
   const tarefas = xTabela('Tarefas', [
     {h: 'Tarefa', t: 'b', min: 24, w: 36}, {h: 'Detalhes', t: 'wrap', w: 50}, {h: 'Prazo', t: 'd'}, {h: 'Horário'},
@@ -3937,6 +4768,7 @@ function gerarPlanilha(){
     kv('Compras com divergência (não resolvidas)', comprasReais().filter(c => statusCompra(c) === 'divergencia').length),
     kv('Orçamentos a fazer', orcamentos().filter(orcAberto).length),
     kv('Itens com cotação', cotacoes().length),
+    kv('Obras em andamento', obrasAtivas().length),
     kv('Tarefas em aberto', db.tarefas.filter(t => !t.concluida).length),
     kv('Tarefas atrasadas', db.tarefas.filter(t => stTar(t) === 'atrasada').length),
     kv('Notas', db.notas.length),
@@ -3953,6 +4785,8 @@ function gerarPlanilha(){
       ['GPS Itens', 'Itens que saem do estoque para a rua: situação atual, responsável, obra, níveis do nitrogênio e ciclo de movimentações.'],
       ['GPS Histórico', 'Todas as passagens de responsabilidade de todos os itens, sem limite, com ciclo e número no ciclo.'],
       ['Compras', 'Cada item comprado em uma linha: situação (finalizada, pedida — pedido feito ou em rota — ou com divergência — com quanto chegou OK e o problema), datas, fornecedor, nota, obra, quantidade, unidade, valor da unidade, total do item e total da nota.'],
+      ['Obras', 'Cadastro das obras (endereço, empresa) com o total que saiu do estoque para cada uma.'],
+      ['Saídas por obra', 'Cada item que saiu para cada obra: data, quantidade, valor da unidade, valor total, fornecedor e quem retirou.'],
       ['Cotações', 'Uma linha por loja de cada item: valor, data da cotação e qual é a mais barata.'],
       ['Orçamentos', 'Orçamentos a fazer e já resolvidos: quem solicitou, obra, para quando, itens e se Seu Ricardo autorizou.'],
       ['Tarefas', 'Tarefas da aba Tarefas (inclui os antigos lembretes), com prazo, horário e status.'],
@@ -3964,7 +4798,7 @@ function gerarPlanilha(){
   ];
   const resumo = {name: 'Resumo', widths: [40, 90], rows: resumoRows, noGrid: true};
 
-  return xMontar([estoque, entradas, saidas, ajustes, historico, comentarios, gpsItens, gpsHist, compras, orcs, cots, tarefas, notas, alteracoes, resumo]);
+  return xMontar([estoque, entradas, saidas, ajustes, historico, comentarios, gpsItens, gpsHist, compras, orcs, cots, obrasSh, custoObras, tarefas, notas, alteracoes, resumo]);
 }
 $('#imp-file').addEventListener('change', e => {
   const file = e.target.files[0]; if (!file) return;
