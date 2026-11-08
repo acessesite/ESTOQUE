@@ -270,6 +270,22 @@ li.tar.done b{text-decoration:line-through;color:var(--muted)}
 .note textarea{flex:1;min-height:150px;background:transparent;border:0;outline:0;resize:vertical;font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#262626;padding:2px}
 .note textarea::placeholder{color:rgba(0,0,0,.4)}
 .note-foot{font-size:11px;color:rgba(0,0,0,.5)}
+/* Modo cadeado */
+.btn-tela{border:2px solid var(--primary);background:var(--primary-soft);color:var(--primary);border-radius:999px;width:34px;height:30px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+.btn-tela svg{width:17px;height:17px}
+.btn-tela:hover{background:var(--primary);color:var(--primary-ink)}
+body.tela-bloqueada{overflow:hidden}
+body.tela-bloqueada > header,body.tela-bloqueada > main,body.tela-bloqueada > .banner,body.tela-bloqueada > .modal,body.tela-bloqueada > .toasts{filter:blur(16px);pointer-events:none;user-select:none}
+.tela-lock{position:fixed;inset:0;z-index:500;display:flex;align-items:center;justify-content:center;background:rgba(15,23,42,.45);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}
+.tela-lock[hidden]{display:none}
+.tela-lock-in{display:flex;flex-direction:column;align-items:center;gap:16px;width:min(86vw,300px)}
+.tela-cadeado{width:130px;height:130px;color:#2453c9;filter:drop-shadow(0 8px 24px rgba(36,83,201,.45))}
+.tela-lock input{width:100%;font-size:22px;letter-spacing:.35em;text-align:center;border:2px solid #fff;border-radius:12px;padding:12px;background:rgba(255,255,255,.95);color:#1b2230;outline:0}
+.tela-lock input:focus{border-color:#2453c9;box-shadow:0 0 0 4px rgba(36,83,201,.35)}
+.tela-btn{width:100%;border:0;border-radius:12px;padding:12px;font-weight:800;font-size:16px;background:#2453c9;color:#fff;cursor:pointer}
+.tela-btn:hover{filter:brightness(1.08)}
+.tela-err{min-height:20px;color:#fff;font-weight:700;text-shadow:0 1px 4px rgba(0,0,0,.6)}
+.tela-lock-in.erro input{border-color:#ff6b62;animation:treme .3s}
 /* Senha para alterar */
 .lock{border:1px solid var(--border);background:var(--surface-2);color:var(--muted);border-radius:999px;padding:4px 12px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap}
 .lock.on{background:var(--ok-soft);color:var(--ok);border-color:var(--ok)}
@@ -409,6 +425,7 @@ details.hist-orc summary{cursor:pointer;font-weight:700;color:var(--muted);margi
     <button class="tab" data-tab="compras">Últimas compras</button>
     <button class="tab" data-grupo="mais">Mais ▾</button>
   </nav>
+  <button type="button" class="btn-tela" id="btn-tela" title="Modo cadeado: bloquear a tela" aria-label="Modo cadeado: bloquear a tela"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10.5" rx="2.5" fill="currentColor"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></button>
   <button type="button" class="lock" id="lock" title="Qualquer pessoa pode ver tudo. Para alterar, é preciso confirmar a senha.">🔒 Somente leitura</button>
   <span class="conn c-wait" id="conn">Conectando…</span>
 </div>
@@ -677,13 +694,21 @@ details.hist-orc summary{cursor:pointer;font-weight:700;color:var(--muted);margi
 <div class="senha-ov" id="senha-ov" hidden role="dialog" aria-modal="true" aria-labelledby="senha-tit">
   <form class="senha-card" id="f-senha" novalidate autocomplete="off">
     <h2 id="senha-tit">🔒 Confirme a senha</h2>
-    <p class="hint" style="margin:0 0 12px">Qualquer pessoa pode ver todas as abas. Para <b>alterar</b> alguma coisa, digite a senha. Depois de confirmada, a edição fica liberada neste computador por 10 minutos sem uso.</p>
+    <p class="hint" style="margin:0 0 12px">Qualquer pessoa pode ver todas as abas. Para <b>alterar</b> alguma coisa, digite a senha. Depois de confirmada, a edição fica liberada neste computador e só bloqueia sozinha depois de 10 minutos sem uso — nunca no meio de uma edição.</p>
     <input id="senha-inp" type="password" inputmode="numeric" maxlength="20" aria-label="Senha" autocomplete="off">
     <div class="err-msg" id="senha-err" style="min-height:18px;margin-top:6px"></div>
     <div class="actions" style="margin-top:6px"><button type="button" class="btn" id="senha-cancel">Cancelar</button><button class="btn primary" type="submit">Confirmar</button></div>
   </form>
 </div>
 <div class="toasts" id="toasts"></div>
+<div class="tela-lock" id="tela-lock" hidden role="dialog" aria-modal="true" aria-label="Tela bloqueada">
+  <form class="tela-lock-in" id="f-tela" novalidate autocomplete="off">
+    <svg class="tela-cadeado" viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10.5" rx="2.5" fill="currentColor"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><circle cx="12" cy="15.3" r="1.6" fill="#fff"/><rect x="11.3" y="15.6" width="1.4" height="2.8" rx=".7" fill="#fff"/></svg>
+    <input id="tela-senha" type="password" inputmode="numeric" maxlength="20" placeholder="Senha" aria-label="Senha para desbloquear" autocomplete="off">
+    <button class="tela-btn" type="submit">Desbloquear</button>
+    <div class="tela-err" id="tela-err"></div>
+  </form>
+</div>
 
 <script type="module">
 /* ================= Utilidades ================= */
@@ -793,16 +818,20 @@ function hashSenha(str, seed = 0){
   h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507); h2 ^= Math.imul(h1 ^ (h1 >>> 13), 3266489909);
   return (4294967296 * (2097151 & h2) + (h1 >>> 0)).toString(36);
 }
-let liberadoAte = 0, senhaPend = null;
-const edicaoLiberada = () => Date.now() < liberadoAte;
+/* A liberação vale por 10 minutos SEM USO: cada clique/tecla renova. Enquanto houver uma janela de edição aberta
+   ou o cursor estiver dentro de um formulário, não expira — nada trava no meio de uma edição. */
+let liberado = false, ultimaAtividade = 0, senhaPend = null;
+const editandoAgora = () => !$('#modal').hidden || !!(document.activeElement && document.activeElement.closest && document.activeElement.closest('form, .note'));
+const edicaoLiberada = () => liberado && (Date.now() - ultimaAtividade < LIBERA_MIN * 60000 || editandoAgora());
+['pointerdown', 'keydown', 'input'].forEach(ev => document.addEventListener(ev, () => { if (edicaoLiberada()) ultimaAtividade = Date.now(); }, true));
 function atualizaCadeado(){
   const on = edicaoLiberada(), b = $('#lock');
   b.classList.toggle('on', on);
   b.textContent = on ? '🔓 Edição liberada — bloquear' : '🔒 Somente leitura';
   $$('[data-nota-txt]').forEach(t => { t.readOnly = !on; });
 }
-function renovaLiberacao(){ liberadoAte = Date.now() + LIBERA_MIN * 60000; atualizaCadeado(); }
-function bloquearEdicao(){ liberadoAte = 0; atualizaCadeado(); }
+function renovaLiberacao(){ liberado = true; ultimaAtividade = Date.now(); atualizaCadeado(); }
+function bloquearEdicao(){ liberado = false; atualizaCadeado(); }
 /* Abre a janela da senha. Resolve true se a senha foi confirmada. */
 function pedirSenha(){
   if (edicaoLiberada()) return Promise.resolve(true);
@@ -820,7 +849,7 @@ function pedirSenha(){
     };
     card.onsubmit = e => {
       e.preventDefault();
-      if (hashSenha(inp.value.trim()) === SENHA_HASH) { fim(true); toast(`Edição liberada por ${LIBERA_MIN} minutos.`); return; }
+      if (hashSenha(inp.value.trim()) === SENHA_HASH) { fim(true); toast(`Edição liberada (bloqueia sozinha após ${LIBERA_MIN} minutos sem uso).`); return; }
       card.classList.remove('erro'); void card.offsetWidth; card.classList.add('erro');
       $('#senha-err').textContent = 'Senha incorreta.'; inp.select();
     };
@@ -829,8 +858,33 @@ function pedirSenha(){
   });
   return senhaPend;
 }
+/* Modo cadeado: tela desfocada, só o cadeado e a senha. Continua bloqueada mesmo se a página for recarregada. */
+function bloquearTela(){
+  try { localStorage.setItem('crm_tela_bloqueada', '1'); } catch (e) {}
+  bloquearEdicao();
+  document.body.classList.add('tela-bloqueada');
+  $$('body > header, body > main, body > .banner, body > .modal, body > .senha-ov, body > .toasts').forEach(el => { el.inert = true; });
+  $('#tela-lock').hidden = false; $('#tela-senha').value = ''; $('#tela-err').textContent = '';
+  setTimeout(() => $('#tela-senha').focus(), 50);
+}
+function desbloquearTela(){
+  try { localStorage.removeItem('crm_tela_bloqueada'); } catch (e) {}
+  document.body.classList.remove('tela-bloqueada');
+  $$('body > header, body > main, body > .banner, body > .modal, body > .senha-ov, body > .toasts').forEach(el => { el.inert = false; });
+  $('#tela-lock').hidden = true;
+  renovaLiberacao();
+  toast('Tela desbloqueada.');
+}
+$('#btn-tela').onclick = bloquearTela;
+$('#f-tela').onsubmit = e => {
+  e.preventDefault();
+  if (hashSenha($('#tela-senha').value.trim()) === SENHA_HASH) { desbloquearTela(); return; }
+  const f = $('#f-tela'); f.classList.remove('erro'); void f.offsetWidth; f.classList.add('erro');
+  $('#tela-err').textContent = 'Senha incorreta.'; $('#tela-senha').select();
+};
+try { if (localStorage.getItem('crm_tela_bloqueada') === '1') bloquearTela(); } catch (e) {}
 $('#lock').onclick = async () => { if (edicaoLiberada()) { bloquearEdicao(); toast('Edição bloqueada. Para alterar, será pedida a senha.'); } else await pedirSenha(); };
-setInterval(() => { if ($('#lock').classList.contains('on') !== edicaoLiberada()) atualizaCadeado(); }, 15000);
+setInterval(() => { if (liberado && !edicaoLiberada()) { liberado = false; toast(`Edição bloqueada após ${LIBERA_MIN} minutos sem uso.`); } if ($('#lock').classList.contains('on') !== edicaoLiberada()) atualizaCadeado(); }, 15000);
 
 /* Toda alteração passa por aqui: aplica numa cópia, grava no Firestore numa transação
    (tudo ou nada) e só então atualiza a tela. Se outro computador alterou os mesmos
@@ -1227,6 +1281,7 @@ document.addEventListener('input', e => {
   if (u && !u.value && norm(t.value).includes('cobre')) { u.value = 'panqueca'; u.dispatchEvent(new Event('change', {bubbles: true})); toast(`Cobre: unidade definida como panqueca (${PANQ_M} m cada). Troque se não for tubo em panqueca.`); }
 });
 document.addEventListener('keydown', e => {
+  if (document.body.classList.contains('tela-bloqueada')) return; // modo cadeado: nada por trás responde
   if (!$('#senha-ov').hidden) return; // a janela da senha trata as próprias teclas
   if (e.key === 'Escape' && !$('#modal').hidden) closeModal();
   if (e.key === 'Enter' && e.target.matches('[data-mov],[data-lote],[data-prod],[data-tar],[data-compra],[data-gps],[data-orc],[data-gev],[data-cot-abrir],[data-obra-abrir]') && e.target.tagName !== 'BUTTON') e.target.click();
