@@ -282,7 +282,7 @@ li.tar.done b{text-decoration:line-through;color:var(--muted)}
 @keyframes treme{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
 /* Subabas (Últimas compras) */
 .subtabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
-.stab{flex:1 1 200px;border:2px solid var(--border);background:var(--surface);border-radius:10px;padding:10px 12px;cursor:pointer;font-weight:700;text-align:left;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.stab{flex:1 1 170px;border:2px solid var(--border);background:var(--surface);border-radius:10px;padding:9px 10px;font-size:14px;white-space:nowrap;cursor:pointer;font-weight:700;text-align:left;display:flex;justify-content:space-between;align-items:center;gap:8px}
 .stab:hover{border-color:var(--primary)}
 .stab.on{border-color:var(--primary);background:var(--primary-soft);color:var(--primary)}
 .stab .cnt{background:var(--surface-2);color:var(--text);border:1px solid var(--border);border-radius:999px;padding:1px 9px;font-size:13px}
@@ -294,11 +294,50 @@ li.tar.done b{text-decoration:line-through;color:var(--muted)}
 .ocard.feito{border-left-color:var(--muted);opacity:.85}
 .ocard .lote-itens .q{color:var(--primary)}
 .compra.rota{border-left:5px solid var(--warn)}
+.estagios{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:10px;padding-top:10px;border-top:1px dashed var(--border)}
+.est{border:2px solid var(--border);background:var(--surface);border-radius:999px;padding:6px 12px;font-weight:700;font-size:13px;cursor:pointer}
+.est:hover{border-color:var(--primary)}
+.est.on{border-color:var(--primary);background:var(--primary);color:var(--primary-ink)}
+.est-ok{color:var(--ok);border-color:var(--ok)}
+.est-div{color:var(--danger);border-color:var(--danger)}
+.est-sep{color:var(--muted);font-size:12px;font-weight:600;margin-left:6px}
+.compra.div{border-left:5px solid var(--danger);border-color:var(--danger)}
+.stab.alerta{border-color:var(--danger);color:var(--danger)}
+.stab.alerta .cnt{background:var(--danger);color:#fff;border-color:var(--danger)}
+.div-banner{display:block;width:100%;text-align:left;background:var(--danger-soft);color:var(--danger);border:2px solid var(--danger);border-radius:10px;padding:10px 14px;font-weight:700;cursor:pointer;margin-bottom:12px}
+.it-div{grid-column:1/-1;background:var(--danger-soft);border:1px dashed var(--danger);border-radius:8px;padding:6px 10px;margin:0 36px 6px 36px;font-size:13px}
+.it-div .div-linha{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.it-row .it-div input,.it-row .it-div select{width:auto;padding:6px 8px}
+.it-row .it-div .dv-rec{width:100px}
+.it-row .it-div .dv-obs{flex:1;min-width:170px}
+.it-div .dv-calc{font-weight:600;margin-top:4px}
+td.prob{color:var(--danger);font-weight:600}
 .compra.fin{border-left:5px solid var(--ok)}
 .b-aut-sim{background:var(--ok-soft);color:var(--ok)}
 .b-aut-nao{background:var(--danger-soft);color:var(--danger)}
 .b-aut-agu{background:var(--warn-soft);color:var(--warn)}
 .auth .opts.tres .opt{font-size:14px}
+.ccard{border-left-color:var(--primary)}
+.ocard.largo{cursor:default;margin-bottom:14px}
+.ocard.largo.atras{border-left-color:var(--danger)}
+.oc-cab{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.oc-itens{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;margin-top:4px}
+.oc-item{border:1px solid var(--border);border-left:4px solid var(--primary);border-radius:8px;padding:8px 10px;background:var(--surface-2);display:flex;flex-direction:column;gap:6px;cursor:pointer}
+.oc-item:hover,.oc-item:focus{border-color:var(--primary);outline:0}
+.oc-item.sem{border-left-color:var(--warn);border-style:dashed}
+.oc-item-top{display:flex;justify-content:space-between;gap:8px}
+.oc-item-top .q{font-weight:700;color:var(--primary);white-space:nowrap}
+.oc-pe{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;border-top:1px solid var(--border);padding-top:8px;margin-top:4px}
+.ccard.sem{border-left-color:var(--warn);border-style:dashed}
+.cc-nome{font-size:16px}
+.cc-best{background:var(--ok-soft);color:var(--ok);border-radius:8px;padding:6px 10px;font-size:14px}
+.cc-tab{font-size:13px}
+.cc-tab th,.cc-tab td{padding:5px 6px}
+.cc-tab tr.best td{background:var(--ok-soft);font-weight:700}
+.cc-obs{display:block;font-weight:400;color:var(--muted);font-size:12px}
+.cq-row{display:grid;grid-template-columns:30px minmax(140px,2fr) minmax(100px,1fr) minmax(130px,1fr) minmax(140px,2fr) 30px;gap:6px;align-items:center;margin-bottom:6px}
+.cq-row input{border:1px solid var(--border);background:var(--surface);border-radius:8px;padding:8px;width:100%;min-width:0}
+.cq-row .bad{border-color:var(--danger) !important}
 .or-row{display:grid;grid-template-columns:30px minmax(160px,3fr) minmax(70px,.8fr) minmax(100px,1fr) 30px;gap:6px;align-items:center;margin-bottom:6px}
 .or-row input,.or-row select{border:1px solid var(--border);background:var(--surface);border-radius:8px;padding:8px;width:100%;min-width:0}
 .or-row .bad{border-color:var(--danger) !important}
@@ -326,10 +365,10 @@ details.hist-orc summary{cursor:pointer;font-weight:700;color:var(--muted);margi
 .mcard.ev-transf{border-left-color:var(--primary)}
 .mcard.ev-transf .tag,.mcard.ev-transf .lote-itens .q{color:var(--primary)}
 .ev-link{color:var(--primary);text-decoration:underline;cursor:pointer}
-@media (max-width:640px){.gl-row,.or-row{grid-template-columns:1fr 1fr;padding:8px;border:1px solid var(--border);border-radius:8px}.gl-row .gl-nome,.or-row .or-n{grid-column:span 2}.gl-row .off{display:none}.gg-item{grid-template-columns:1fr 30px}.gg-item input{grid-column:1/-1;grid-row:2}}
+@media (max-width:640px){.gl-row,.or-row{grid-template-columns:1fr 1fr;padding:8px;border:1px solid var(--border);border-radius:8px}.gl-row .gl-nome,.or-row .or-n,.cq-row .cq-loja,.cq-row .cq-obs{grid-column:span 2}.cq-row{grid-template-columns:1fr 1fr;padding:8px;border:1px solid var(--border);border-radius:8px}.gl-row .off{display:none}.gg-item{grid-template-columns:1fr 30px}.gg-item input{grid-column:1/-1;grid-row:2}}
 @media (min-width:821px){nav.tabs{flex-wrap:wrap;overflow:visible}}
 @media (max-width:820px){.split{grid-template-columns:1fr}}
-@media (max-width:640px){.lt-row{grid-template-columns:1fr 1fr;padding:8px;border:1px solid var(--border);border-radius:8px}.lt-row .lt-p{grid-column:span 2}.lt-row .it-num{text-align:left}.lt-det{margin:0}.lt-head{display:none}.it-novo,.it-exist{margin:0}.np-grid{grid-template-columns:1fr 1fr 1fr}.np-grid .np-f-obs,.np-grid .np-f-min{grid-column:span 3}.it-row{grid-template-columns:1fr 1fr;padding:8px;border:1px solid var(--border);border-radius:8px}.it-row .it-n{grid-column:span 2}.it-num{text-align:left}.it-head{display:none}}
+@media (max-width:640px){.lt-row{grid-template-columns:1fr 1fr;padding:8px;border:1px solid var(--border);border-radius:8px}.lt-row .lt-p{grid-column:span 2}.lt-row .it-num{text-align:left}.lt-det{margin:0}.lt-head{display:none}.it-novo,.it-exist,.it-div{margin:0}.np-grid{grid-template-columns:1fr 1fr 1fr}.np-grid .np-f-obs,.np-grid .np-f-min{grid-column:span 3}.it-row{grid-template-columns:1fr 1fr;padding:8px;border:1px solid var(--border);border-radius:8px}.it-row .it-n{grid-column:span 2}.it-num{text-align:left}.it-head{display:none}}
 @media (max-width:560px){.grid2,.grid3{grid-template-columns:1fr}.span2{grid-column:auto}.top-in{gap:8px}.brand{width:100%}}
 </style>
 </head>
@@ -481,9 +520,11 @@ details.hist-orc summary{cursor:pointer;font-weight:700;color:var(--muted);margi
   <div class="section-head"><h1>Últimas compras</h1><div class="row"><button class="btn" id="btn-novo-orc">+ Novo orçamento</button><button class="btn primary" id="btn-nova-compra">+ Registrar compra</button></div></div>
   <div class="subtabs" id="compras-sub">
     <button class="stab" data-sub="finalizadas">✅ Compras finalizadas <span class="cnt" id="cnt-fin">0</span></button>
-    <button class="stab" data-sub="rota">🚚 Compras em rota <span class="cnt" id="cnt-rota">0</span></button>
+    <button class="stab" data-sub="rota">📦 Compras pedidas <span class="cnt" id="cnt-rota">0</span></button>
+    <button class="stab" data-sub="divergencia">⚠️ Com divergência <span class="cnt" id="cnt-div">0</span></button>
     <button class="stab" data-sub="orcamentos">📋 Orçamentos a fazer <span class="cnt" id="cnt-orc">0</span></button>
   </div>
+  <div id="compras-alerta"></div>
   <p class="hint" id="compras-dica" style="margin:-4px 0 10px"></p>
   <label class="search" for="compras-busca">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.8-4.8"/></svg>
@@ -551,7 +592,7 @@ details.hist-orc summary{cursor:pointer;font-weight:700;color:var(--muted);margi
     </div>
     <div class="panel cfg">
       <h2>Exportar para Excel</h2>
-      <p class="hint">Gera uma planilha com todos os produtos (quantidade, unidade, localização e status) e, em abas separadas, entradas, saídas, ajustes, histórico, comentários, GPS de itens (com o histórico completo), compras (finalizadas e em rota), orçamentos, tarefas, notas e um resumo.</p>
+      <p class="hint">Gera uma planilha com todos os produtos (quantidade, unidade, localização e status) e, em abas separadas, entradas, saídas, ajustes, histórico, comentários, GPS de itens (com o histórico completo), compras (finalizadas, pedidas e com divergência), orçamentos, cotações, tarefas, notas e um resumo.</p>
       <div class="cfg-actions">
         <button class="btn primary" id="btn-xlsx">Exportar Estoque Completo (.xlsx)</button>
       </div>
@@ -564,6 +605,7 @@ details.hist-orc summary{cursor:pointer;font-weight:700;color:var(--muted);margi
 <datalist id="obras"></datalist>
 <datalist id="itens-nomes"></datalist>
 <datalist id="prod-nomes"></datalist>
+<datalist id="fornecedores"></datalist>
 
 <div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="modal-title">
   <div class="modal-card">
@@ -1003,8 +1045,13 @@ document.addEventListener('click', e => {
   if (t.closest('[data-close]') || t === $('#modal')) { closeModal(); return; }
   const tab = t.closest('[data-tab]'); if (tab) { if (tab.dataset.csub) setSubCompras(tab.dataset.csub); goTab(tab.dataset.tab); return; }
   const gev = t.closest('[data-gev]'); if (gev) { abrirGpsEvento(gev.dataset.gev); return; }
+  const est = t.closest('[data-estagio]'); if (est) { mudarEstagio(est.dataset.id, est.dataset.estagio); return; }
   const rec = t.closest('[data-receber]'); if (rec) { abrirCompra(rec.dataset.receber, {receber: true}); return; }
+  const rsv = t.closest('[data-resolver]'); if (rsv) { abrirCompra(rsv.dataset.resolver, {resolver: true}); return; }
+  const dvg = t.closest('[data-divergir]'); if (dvg) { abrirCompra(dvg.dataset.divergir, {divergencia: true}); return; }
   const oc = t.closest('[data-orc-compra]'); if (oc) { orcVirouCompra(oc.dataset.orcCompra); return; }
+  const sir = t.closest('[data-sub-ir]'); if (sir) { setSubCompras(sir.dataset.subIr); window.scrollTo(0, 0); return; }
+  const cab = t.closest('[data-cot-abrir]'); if (cab) { abrirCotacao(cab.dataset.cotAbrir || null, {nome: cab.dataset.nome, add: !!cab.dataset.add}); return; }
   const orc = t.closest('[data-orc]'); if (orc) { abrirOrcamento(orc.dataset.orc); return; }
   const ga = t.closest('[data-gacao]'); if (ga) { gpsAcao(ga.dataset.id, ga.dataset.gacao); return; }
   const gme = t.closest('[data-gmov-edit]'); if (gme) { abrirGpsMovEdit(gme.dataset.gmovEdit); return; }
@@ -1026,7 +1073,7 @@ document.addEventListener('input', e => {
 document.addEventListener('keydown', e => {
   if (!$('#senha-ov').hidden) return; // a janela da senha trata as próprias teclas
   if (e.key === 'Escape' && !$('#modal').hidden) closeModal();
-  if (e.key === 'Enter' && e.target.matches('[data-mov],[data-lote],[data-prod],[data-tar],[data-compra],[data-gps],[data-orc],[data-gev]') && e.target.tagName !== 'BUTTON') e.target.click();
+  if (e.key === 'Enter' && e.target.matches('[data-mov],[data-lote],[data-prod],[data-tar],[data-compra],[data-gps],[data-orc],[data-gev],[data-cot-abrir]') && e.target.tagName !== 'BUTTON') e.target.click();
 });
 /* ---------- Campos de pessoa: nome completo digitado (sugere nomes já usados) ---------- */
 function pessoaHTML(p, label){
@@ -1108,7 +1155,8 @@ function fillSelects(){
   ], ['Estoque', 'Cadastro do produto', 'Edição do cadastro', 'Últimas compras', 'Sobra de panqueca']);
   $('#obras').innerHTML = lista([...db.gps.map(g => g.obra), ...db.gpsMovs.map(m => m.obra), ...db.movs.map(m => m.lote && m.lote.destino), ...db.compras.map(c => c.obra)]);
   $('#prod-nomes').innerHTML = [...db.produtos].sort(porNome).map(p => `<option value="${esc(p.nome)}">${esc(fmtSaldo(p))}</option>`).join('');
-  $('#itens-nomes').innerHTML = lista([...db.produtos.map(p => p.nome), ...db.gps.map(g => g.nome), ...db.compras.flatMap(c => (c.itens || []).map(i => i.nome))]);
+  $('#itens-nomes').innerHTML = lista([...db.produtos.map(p => p.nome), ...db.gps.map(g => g.nome), ...db.compras.flatMap(c => (c.itens || []).map(i => i.nome)), ...db.compras.map(c => c.item)]);
+  $('#fornecedores').innerHTML = lista([...db.compras.map(c => c.fornecedor), ...db.compras.flatMap(c => (c.lojas || []).map(l => l.loja))]);
   atualizaSaldoSaida();
 }
 
@@ -1124,7 +1172,7 @@ function renderDashboard(){
   const naRua = db.gps.filter(g => g.local === 'rua').length;
   const parados = db.gps.filter(g => gpsParado(g) != null).sort((a, b) => gpsParado(b) - gpsParado(a));
   const orcAb = orcamentos().filter(orcAberto), orcAtras = orcAb.filter(o => prazoOrc(o).atras);
-  const emRota = comprasReais().filter(c => statusCompra(c) === 'rota');
+  const emRota = comprasReais().filter(c => statusCompra(c) === 'rota'), comDiv = comprasReais().filter(c => statusCompra(c) === 'divergencia');
   $('#kpis').innerHTML = `
     <button class="kpi" data-tab="tarefas"><div class="n">${tarAbertas.length}</div><div class="l">Tarefas em aberto</div></button>
     <button class="kpi ${tarAtras.length ? 'alert' : ''}" data-tab="tarefas"><div class="n">${tarAtras.length}</div><div class="l">Tarefas atrasadas</div></button>
@@ -1133,7 +1181,8 @@ function renderDashboard(){
     <button class="kpi ${baixos.length ? 'warn' : ''}" data-tab="estoque"><div class="n">${baixos.length}</div><div class="l">Estoque baixo / zerado</div></button>
     <button class="kpi ${parados.length ? 'alert' : ''}" data-tab="gps"><div class="n">${naRua}</div><div class="l">Itens na rua (GPS)${parados.length ? ` · ${parados.length} parado(s)` : ''}</div></button>
     <button class="kpi ${orcAtras.length ? 'alert' : orcAb.length ? 'warn' : ''}" data-tab="compras" data-csub="orcamentos"><div class="n">${orcAb.length}</div><div class="l">Orçamentos a fazer${orcAtras.length ? ` · ${orcAtras.length} atrasado(s)` : ''}</div></button>
-    <button class="kpi ${emRota.length ? 'warn' : ''}" data-tab="compras" data-csub="rota"><div class="n">${emRota.length}</div><div class="l">Compras em rota</div></button>`;
+    <button class="kpi ${emRota.length ? 'warn' : ''}" data-tab="compras" data-csub="rota"><div class="n">${emRota.length}</div><div class="l">Compras pedidas (aguardando chegar)</div></button>
+    <button class="kpi ${comDiv.length ? 'alert' : ''}" data-tab="compras" data-csub="divergencia"><div class="n">${comDiv.length}</div><div class="l">Compras com divergência</div></button>`;
   const vazio = t => `<li class="empty">${t}</li>`;
   $('#dash-tar-hoje').innerHTML = tarHoje.length ? tarHoje.map(tarItem).join('') : vazio('Nada para hoje e nenhuma tarefa atrasada.');
   $('#dash-tarefas').innerHTML = tar7.length ? tar7.map(tarItem).join('') : vazio('Nenhuma tarefa com prazo nos próximos 7 dias.');
@@ -2530,15 +2579,30 @@ function abrirGps(id){
   };
 }
 
-/* ================= Últimas compras: finalizadas, em rota e orçamentos ================= */
+/* ================= Últimas compras: finalizadas, pedidas, com divergência e orçamentos ================= */
 /* A coleção "compras" guarda as compras e também os orçamentos (tipo: 'orcamento'): assim não é
    preciso liberar coleção nova no Firebase.
    Compra "finalizada" = chegou e está tudo OK (os itens entram no estoque).
-   Compra "em rota"    = já foi comprada mas ainda não chegou (não mexe no estoque até clicar em “Chegou”).
+   Compra "pedida" (status 'rota') = já foi pedida mas ainda não chegou (não mexe no estoque). Tem um estágio:
+   'pedido' (pedido feito, aguardando envio) ou 'rota' (já saiu, em rota). Chegou: vira finalizada ou com divergência.
    Compras antigas, sem situação, contam como finalizadas. */
 const ehOrc = c => !!c && c.tipo === 'orcamento';
-const statusCompra = c => c.status === 'rota' ? 'rota' : 'finalizada';
-const comprasReais = () => db.compras.filter(c => !ehOrc(c));
+const ehCot = c => !!c && c.tipo === 'cotacao';
+/* "divergencia" = chegou com problema (faltou, avariado…): só o que chegou OK entra no estoque; fica em destaque até ser resolvida */
+const statusCompra = c => c.status === 'rota' || c.status === 'divergencia' ? c.status : 'finalizada';
+const estagioPedida = c => c.estagio === 'pedido' ? 'pedido' : 'rota'; // compras antigas "em rota" continuam em rota
+const fmtDiaLocal = iso => { const d = new Date(iso); return isNaN(d) ? '' : `${pad(d.getDate())}/${pad(d.getMonth() + 1)}/${d.getFullYear()}`; };
+async function mudarEstagio(id, est){
+  const c = db.compras.find(x => x.id === id); if (!c) return;
+  if (est === 'divergencia') return abrirCompra(id, {divergencia: true});
+  if (est === 'finalizada') return abrirCompra(id, {receber: true});
+  if (statusCompra(c) !== 'rota' || (c.estagio && estagioPedida(c) === est)) return;
+  if (await commit(d => { const x = d.compras.find(y => y.id === id); if (!x) throw new Error('Compra não encontrada.'); x.estagio = est; x.estagioEm = new Date().toISOString(); }))
+    toast(est === 'rota' ? 'Estágio atualizado: 🚚 em rota.' : 'Estágio atualizado: 📝 pedido feito.');
+}
+const PROBLEMAS = ['Faltou', 'Avariado', 'Item errado', 'Outro'];
+const temProblema = i => !!i.problema || i.qtdRecebida != null;
+const comprasReais = () => db.compras.filter(c => !c.tipo);
 const orcamentos = () => db.compras.filter(ehOrc);
 const orcAberto = o => (o.situacao || 'aberto') === 'aberto';
 const compraTotalItens = c => round2((c.itens || []).reduce((a, i) => a + (Number(i.valorTotal) || 0), 0));
@@ -2570,6 +2634,13 @@ function itemRowHTML(i = {}){
         <label class="check"><input type="checkbox" class="np-sem" ${i.semEstoque ? 'checked' : ''}> Não guardar no estoque (ex.: serviço, frete, mão de obra)</label>
       </div>
     </div>
+    <div class="it-div" hidden>
+      <div class="div-linha"><b>⚠️ Conferência:</b> chegou OK
+        <input class="dv-rec" type="number" min="0" step="any" inputmode="decimal" value="${i.qtdRecebida ?? ''}" aria-label="Quantidade que chegou OK"><span class="dv-de"></span>
+        <select class="dv-prob" aria-label="Problema"><option value="">Sem problema</option>${PROBLEMAS.map(p => `<option${i.problema === p ? ' selected' : ''}>${p}</option>`).join('')}</select>
+        <input class="dv-obs" placeholder="Detalhe (ex.: 2 sacos rasgados)" value="${esc(i.problemaObs)}" aria-label="Detalhe do problema"></div>
+      <div class="dv-calc"></div>
+    </div>
   </div>`;
 }
 /* Lança no estoque a diferença entre o que a compra já tinha lançado (anterior) e o que deve lançar agora (desejado).
@@ -2587,14 +2658,16 @@ function lancarCompraNoEstoque(d, anterior, desejado, o){
       p.saldo = round3(ant + delta);
       const novo = o.criadosIds.has(pid);
       d.movs.push({id: uid(), tipo: 'entrada', produtoId: pid, produtoNome: p.nome, unidade: p.unidade, qtd: delta, saldoAnt: ant, saldoPost: p.saldo, data: o.dataMov || o.data, registradoEm: o.agora,
-        responsavel: 'Últimas compras', obs: novo ? `Item criado automaticamente pela ${ref}.` : o.chegou ? `Chegada da ${ref}.` : o.editando ? `Correção da ${ref}: quantidade aumentada.` : `Entrada pela ${ref}.`, comentarios: []});
+        responsavel: 'Últimas compras', obs: novo ? `Item criado automaticamente pela ${ref}${o.divergencia ? ' (chegou com divergência: entrou só o que chegou OK)' : ''}.`
+          : o.chegou ? (o.divergencia ? `Chegada com divergência da ${ref}: entrou só o que chegou OK.` : `Chegada da ${ref}.`)
+          : o.resolvendo ? `Resolução da divergência da ${ref}: chegou o restante.` : o.editando ? `Correção da ${ref}: quantidade aumentada.` : `Entrada pela ${ref}.`, comentarios: []});
       (novo ? res.criados : res.entradas).push(`${p.nome} (+${fmtQtd(delta)} ${p.unidade})`);
     } else {
       const tira = Math.min(-delta, ant);
       if (tira <= 0) return;
       p.saldo = round3(ant - tira);
       d.movs.push({id: uid(), tipo: 'ajuste', produtoId: pid, produtoNome: p.nome, unidade: p.unidade, qtd: -tira, saldoAnt: ant, saldoPost: p.saldo, data: hojeISO(), registradoEm: o.agora,
-        responsavel: 'Últimas compras', obs: (o.excluindo ? `Exclusão da ${ref}` : o.emRota ? `A ${ref} foi marcada como em rota (ainda não chegou)` : `Correção da ${ref}: quantidade reduzida`) + (tira < -delta ? ` (o estoque só tinha ${fmtQtd(ant)} ${p.unidade})` : '') + '.', comentarios: []});
+        responsavel: 'Últimas compras', obs: (o.excluindo ? `Exclusão da ${ref}` : o.emRota ? `A ${ref} voltou para “pedida” (ainda não chegou)` : o.divergencia || o.resolvendo ? `Conferência da ${ref}: quantidade que chegou OK reduzida` : `Correção da ${ref}: quantidade reduzida`) + (tira < -delta ? ` (o estoque só tinha ${fmtQtd(ant)} ${p.unidade})` : '') + '.', comentarios: []});
       res.retirados.push(`${p.nome} (−${fmtQtd(tira)} ${p.unidade})`);
     }
   });
@@ -2605,33 +2678,39 @@ function abrirCompra(id, opt = {}){
   if (!abaDisponivel('compras')) return;
   const orc = opt.orcId ? db.compras.find(x => x.id === opt.orcId && ehOrc(x)) : null;
   const c = id ? db.compras.find(x => x.id === id)
-    : orc ? {data: hojeISO(), status: 'rota', obra: orc.obra, obs: `Orçamento pedido por ${orc.solicitante}${orc.paraQuando ? ' para ' + fmtData(orc.paraQuando) : ''}.`,
-        itens: (orc.itens || []).map(i => ({nome: i.nome, qtd: i.qtd, unidade: i.unidade}))}
+    : orc ? {data: hojeISO(), status: 'rota', estagio: 'pedido', obra: orc.obra, fornecedor: opt.loja ? opt.loja.nome : '', obs: `Orçamento pedido por ${orc.solicitante}${orc.paraQuando ? ' para ' + fmtData(orc.paraQuando) : ''}.`,
+        itens: (orc.itens || []).map(i => { const pv = opt.loja ? opt.loja.precos[norm(i.nome)] : undefined; return {nome: i.nome, qtd: i.qtd, unidade: i.unidade, ...(pv != null ? {valorUnit: pv} : {})}; })}
     : {data: hojeISO(), itens: [{}]};
-  if (!c || ehOrc(c)) return;
+  if (!c || c.tipo) return;
   const totalManual = id && round2(c.totalNota) !== compraTotalItens(c);
   /* Compras registradas antes da integração com o estoque não têm "lancado": editar não mexe no saldo dos itens existentes */
   const legado = !!id && !c.lancado;
   const eraRota = !!id && statusCompra(c) === 'rota';
-  const st0 = opt.receber ? 'finalizada' : id ? statusCompra(c) : (c.status || '');
+  const eraDiv = !!id && statusCompra(c) === 'divergencia';
+  const teveDiv = eraDiv || !!c.teveDivergencia;
+  const st0 = opt.divergencia ? 'divergencia' : opt.receber || opt.resolver ? 'finalizada' : id ? statusCompra(c) : (c.status || '');
   const chegPadrao = c.dataChegada || (id && !eraRota ? c.data : hojeISO());
-  openModal(opt.receber ? 'Chegou — conferir compra' : id ? 'Editar compra' : orc ? 'Compra do orçamento' : 'Registrar compra', `<form id="f-cp" novalidate>
-    ${opt.receber ? '<div class="info-box">✅ Confira se chegou tudo certo (itens e quantidades) e a data da chegada. Ao confirmar, a compra vai para <b>Compras finalizadas</b> e os itens entram no estoque.</div>' : ''}
-    ${orc ? `<div class="info-box">📋 Compra feita a partir do orçamento pedido por <b>${esc(orc.solicitante)}</b> (obra ${esc(orc.obra)}). Complete fornecedor e valores. Ao salvar, o orçamento sai de “Orçamentos a fazer”.</div>` : ''}
+  openModal(opt.divergencia ? 'Informar divergência — ' + fmtData(c.data) + (c.fornecedor ? ' · ' + c.fornecedor : '') : opt.receber ? 'Chegou — conferir compra' : opt.resolver ? 'Resolver divergência da compra' : id ? 'Editar compra' : orc ? 'Compra do orçamento' : 'Registrar compra', `<form id="f-cp" novalidate>
+    ${opt.receber ? '<div class="info-box">✅ Confira se chegou tudo certo (itens e quantidades) e a data da chegada. Se estiver tudo OK, a compra vai para <b>Compras finalizadas</b> e os itens entram no estoque. <b>Faltou algo ou veio avariado?</b> Marque “⚠️ Chegou com divergência” e informe, em cada item, quanto chegou OK.</div>' : ''}
+    ${opt.divergencia ? `<div class="info-box">⚠️ Em cada item que veio com problema, informe <b>quanto chegou OK</b> e o <b>problema</b> (faltou, avariado…). Itens que chegaram certos: deixe em branco. ${statusCompra(c) === 'rota' ? 'Só o que chegou OK entra no estoque.' : 'O estoque é corrigido: fica só o que chegou OK.'} A compra fica em “⚠️ Com divergência” até ser resolvida.</div>` : ''}
+    ${opt.resolver ? '<div class="info-box">⚠️ → ✅ Atualize quanto chegou OK de cada item (se o que faltava chegou ou foi trocado, coloque a quantidade toda ou deixe em branco) e conte como foi resolvido. O estoque acompanha a diferença e a compra vai para <b>Compras finalizadas</b>. Se ainda não resolveu, marque “⚠️ Chegou com divergência” para só atualizar.</div>' : ''}
+    ${orc ? `<div class="info-box">📋 Compra feita a partir do orçamento pedido por <b>${esc(orc.solicitante)}</b> (obra ${esc(orc.obra)}). ${opt.loja ? ` Fornecedor e valores vieram da cotação da <b>${esc(opt.loja.nome)}</b>${opt.loja.n < (orc.itens || []).length ? ' (complete os itens que ela não cotou)' : ''}.` : ' Complete fornecedor e valores.'} Ao salvar, o orçamento sai de “Orçamentos a fazer”.</div>` : ''}
     <div class="field" id="cpr-st-f">
       <div class="auth-title" style="margin:0 0 6px">Situação da compra <b class="req">*</b></div>
       <div class="opts-row" style="margin:0">
-        <label class="opt"><input type="radio" name="cpr-st" value="rota" ${st0 === 'rota' ? 'checked' : ''}> 🚚 Em rota (ainda não chegou)</label>
-        <label class="opt"><input type="radio" name="cpr-st" value="finalizada" ${st0 === 'finalizada' ? 'checked' : ''}> ✅ Chegou — tudo OK</label>
+        <label class="opt"><input type="radio" name="cpr-st" value="rota" ${st0 === 'rota' ? 'checked' : ''}> 📦 Pedida (ainda não chegou)</label>
+        <label class="opt"><input type="radio" name="cpr-st" value="finalizada" ${st0 === 'finalizada' ? 'checked' : ''}> ✅ Chegou — tudo OK${teveDiv ? ' / resolvida' : ''}</label>
+        <label class="opt"><input type="radio" name="cpr-st" value="divergencia" ${st0 === 'divergencia' ? 'checked' : ''}> ⚠️ Chegou com divergência</label>
       </div>
     </div>
     <div class="grid3">
       <div class="field"><label for="cpr-data">Data da compra <b class="req">*</b></label><input id="cpr-data" type="date" value="${esc(c.data)}"></div>
-      ${campoTxt('cpr-forn', 'Fornecedor', false, `value="${esc(c.fornecedor)}"`)}
+      ${campoTxt('cpr-forn', 'Fornecedor', false, `list="fornecedores" value="${esc(c.fornecedor)}"`)}
       ${campoTxt('cpr-num', 'Nº da nota', false, `value="${esc(c.numeroNota)}"`)}
     </div>
     <div class="grid3">
       ${campoTxt('cpr-obra', 'Para qual obra (opcional)', false, `list="obras" value="${esc(c.obra)}"`)}
+      <div class="field" id="cpr-est-f"><label for="cpr-estagio">Estágio do pedido</label><select id="cpr-estagio"><option value="pedido"${c.estagio === 'pedido' || (!id && !c.estagio) ? ' selected' : ''}>📝 Pedido feito (aguardando envio)</option><option value="rota"${id && statusCompra(c) === 'rota' && estagioPedida(c) === 'rota' ? ' selected' : ''}>🚚 Em rota (já saiu da loja)</option></select></div>
       <div class="field" id="cpr-prev-f"><label for="cpr-prev">Previsão de chegada (opcional)</label><input id="cpr-prev" type="date" value="${esc(c.previsao)}"></div>
       <div class="field" id="cpr-cheg-f"><label for="cpr-cheg">Data em que chegou <b class="req">*</b></label><input id="cpr-cheg" type="date" value="${esc(chegPadrao)}"></div>
     </div>
@@ -2643,12 +2722,32 @@ function abrirCompra(id, opt = {}){
       <div class="field"><label for="cpr-total">Valor total da nota (R$) <b class="req">*</b></label><input id="cpr-total" inputmode="decimal" value="${c.totalNota != null ? fmtDec2(c.totalNota) : ''}" ${totalManual ? 'data-manual="1"' : ''}>
         <div class="hint" id="cpr-soma"></div></div>
     </div>
+    <div class="field" id="cpr-res-f" hidden><label for="cpr-res">Como a divergência foi resolvida? <b class="req">*</b></label><textarea id="cpr-res" rows="2" placeholder="ex.: fornecedor entregou o que faltava em 10/11; trocou os sacos rasgados; devolveu o dinheiro…">${esc(c.resolucao)}</textarea></div>
     <div class="field"><label for="cpr-obs">Observação (opcional)</label><textarea id="cpr-obs" rows="2">${esc(c.obs)}</textarea></div>
-    <div class="actions">${id && !opt.receber ? '<button type="button" class="btn danger" id="cpr-del">Excluir compra</button>' : ''}<button type="button" class="btn" data-close>Cancelar</button><button class="btn primary" type="submit" id="cpr-btn">Salvar</button></div>
+    <div class="actions">${id && !opt.receber && !opt.resolver ? '<button type="button" class="btn danger" id="cpr-del">Excluir compra</button>' : ''}<button type="button" class="btn" data-close>Cancelar</button><button class="btn primary" type="submit" id="cpr-btn">Salvar</button></div>
   </form>`);
   $('.modal-card').classList.add('wide');
   const box = $('#cpr-itens');
   const getSt = () => ($('input[name="cpr-st"]:checked') || {}).value || '';
+  /* Quadros de conferência (quanto chegou OK / problema): na divergência e na hora de resolver */
+  const mostraDiv = () => { const st = getSt(); return st === 'divergencia' || (st === 'finalizada' && teveDiv); };
+  const fracRec = r => {
+    if (!mostraDiv()) return 1;
+    const q = parseQtd($('.it-q', r).value), v = $('.dv-rec', r).value.trim(); if (!v) return 1;
+    const rec = parseQtd(v); return isFinite(rec) && q > 0 ? Math.max(0, Math.min(1, rec / q)) : 1;
+  };
+  const desenhaDiv = r => {
+    const dv = $('.it-div', r), nome = $('.it-n', r).value.trim();
+    dv.hidden = !(mostraDiv() && nome);
+    if (dv.hidden) return;
+    const q = parseQtd($('.it-q', r).value), un = $('.it-u', r).value, v = $('.dv-rec', r).value.trim(), rec = parseQtd(v);
+    const qOk = isFinite(q) && q > 0;
+    $('.dv-de', r).textContent = `de ${qOk ? fmtQtd(q) : '?'} ${un}`;
+    $('.dv-rec', r).placeholder = qOk ? fmtQtd(q) : '';
+    $('.dv-calc', r).textContent = !v ? (($('.dv-prob', r).value) ? `Chegou a quantidade toda, com problema: ${$('.dv-prob', r).value}.` : '✓ Chegou tudo certo (deixe em branco quando chegar a quantidade toda).')
+      : !isFinite(rec) || rec < 0 || (qOk && rec > q) ? `Informe de 0 até ${qOk ? fmtQtd(q) : 'a quantidade comprada'}.`
+      : `Entram no estoque ${fmtQtd(rec)} ${un}${qOk && rec < q ? ` · ficam pendentes ${fmtQtd(round3(q - rec))} ${un}` : ''}.`;
+  };
   const linhaVazia = r => !$('.it-n', r).value.trim() && !$('.it-q', r).value.trim() && !$('.it-v', r).value.trim() && !$('.it-t', r).value.trim();
   const novaLinha = (dados = {}) => { box.insertAdjacentHTML('beforeend', itemRowHTML(dados)); return $$('.it-row', box).pop(); };
   /* Sempre deixa uma linha em branco no fim, pronta para o próximo item */
@@ -2658,6 +2757,7 @@ function abrirCompra(id, opt = {}){
     const st = getSt(), rota = st === 'rota';
     const grupos = new Map();
     $$('.it-row', box).forEach((r, i) => {
+      desenhaDiv(r);
       const nome = $('.it-n', r).value.trim().replace(/\s+/g, ' ');
       const novo = nome && !db.produtos.some(p => norm(p.nome) === norm(nome));
       const pn = $('.it-novo', r), pe = $('.it-exist', r);
@@ -2669,22 +2769,22 @@ function abrirCompra(id, opt = {}){
         const lanc = legado ? null : (c.lancado || {})[prod.id];
         $('.ex-conv', r).hidden = !difUn || nao || legado;
         if (difUn) $('.ex-conv-lbl', r).textContent = `No estoque este item é contado em “${prod.unidade}”. Quantos ${prod.unidade} entram no estoque?`;
-        const qEst = difUn ? parseQtd($('.ex-qtd', r).value) : q;
+        const qEst = (difUn ? parseQtd($('.ex-qtd', r).value) : q) * fracRec(r);
         const qTxt = `<b>+${isFinite(qEst) && qEst > 0 ? fmtQtd(round3(qEst)) : '?'} ${esc(prod.unidade)}</b>`;
         $('.ex-tit', r).innerHTML = `✓ Já existe no estoque (saldo atual: <b>${fmtQtd(prod.saldo)} ${esc(prod.unidade)}</b>).` +
           (legado ? ' Compra antiga: editar não altera o estoque deste item.'
             : nao ? ' <b>Não</b> será somado no estoque.'
-            : rota ? (lanc ? ` Esta compra já tinha lançado ${fmtQtd(lanc)} ${esc(prod.unidade)}; marcada como em rota, essa quantidade sai do estoque até a compra chegar.` : ` Em rota: quando a compra chegar, entra ${qTxt} no estoque.`)
-            : lanc != null ? ` Esta compra já lançou ${fmtQtd(lanc)} ${esc(prod.unidade)}; ao salvar, o estoque acompanha a diferença.`
+            : rota ? (lanc ? ` Esta compra já tinha lançado ${fmtQtd(lanc)} ${esc(prod.unidade)}; marcada como pedida, essa quantidade sai do estoque até a compra chegar.` : ` Pedida: quando a compra chegar, entra ${qTxt} no estoque.`)
+            : lanc != null ? ` Esta compra já lançou ${fmtQtd(lanc)} ${esc(prod.unidade)}; ao salvar, fica ${qTxt.replace('+', '')} (o estoque acompanha a diferença).`
             : ` Ao salvar, entra ${qTxt} como entrada.`);
       }
       if (!novo) { pn.hidden = true; delete pn.dataset.dup; return; }
       pn.hidden = false;
       const k = norm(nome), q = parseQtd($('.it-q', r).value);
       const g = grupos.get(k);
-      if (g) { pn.dataset.dup = '1'; g.qtd += isFinite(q) && q > 0 ? q : 0; g.dups.push(r); return; }
+      if (g) { pn.dataset.dup = '1'; g.qtd += isFinite(q) && q > 0 ? q * fracRec(r) : 0; g.dups.push(r); return; }
       delete pn.dataset.dup;
-      grupos.set(k, {r, linha: i + 1, nome, qtd: isFinite(q) && q > 0 ? q : 0, dups: []});
+      grupos.set(k, {r, linha: i + 1, nome, qtd: isFinite(q) && q > 0 ? q * fracRec(r) : 0, dups: []});
     });
     grupos.forEach(g => {
       const r = g.r, sem = $('.np-sem', r).checked, un = $('.it-u', r).value;
@@ -2698,9 +2798,12 @@ function abrirCompra(id, opt = {}){
   };
   const atualizaSt = () => {
     const st = getSt();
-    $('#cpr-prev-f').hidden = st !== 'rota';
-    $('#cpr-cheg-f').hidden = st !== 'finalizada';
-    $('#cpr-btn').textContent = opt.receber ? 'Confirmar chegada e dar entrada' : st === 'rota' ? (id ? 'Salvar (em rota)' : 'Registrar compra em rota')
+    $('#cpr-prev-f').hidden = st !== 'rota'; $('#cpr-est-f').hidden = st !== 'rota';
+    $('#cpr-cheg-f').hidden = st !== 'finalizada' && st !== 'divergencia';
+    $('#cpr-res-f').hidden = !(st === 'finalizada' && teveDiv);
+    $('#cpr-btn').textContent = st === 'divergencia' ? (eraDiv ? 'Salvar (continua com divergência)' : 'Registrar chegada com divergência')
+      : st === 'finalizada' && eraDiv ? 'Resolver e finalizar'
+      : opt.receber ? 'Confirmar chegada e dar entrada' : st === 'rota' ? (id ? 'Salvar (pedida)' : 'Registrar compra pedida')
       : st === 'finalizada' ? (id ? (eraRota ? 'Salvar e dar entrada no estoque' : 'Salvar alterações') : 'Registrar compra (chegou)') : (id ? 'Salvar alterações' : 'Registrar compra');
   };
   const recalc = () => {
@@ -2775,14 +2878,14 @@ function abrirCompra(id, opt = {}){
   $('#f-cp').onsubmit = async e => {
     e.preventDefault(); clearErr(e.target); const errs = [];
     $$('.bad', box).forEach(x => x.classList.remove('bad'));
-    const st = getSt(), fin = st === 'finalizada';
-    if (!st) errs.push([$('input[name="cpr-st"]'), 'Informe se a compra já chegou ou se está em rota.']);
+    const st = getSt(), fin = st === 'finalizada', chegou = fin || st === 'divergencia';
+    if (!st) errs.push([$('input[name="cpr-st"]'), 'Informe se a compra já chegou ou se ainda está pedida.']);
     const data = $('#cpr-data').value; if (!dataValida(data)) errs.push([$('#cpr-data'), 'Informe a data da compra.']);
     const cheg = $('#cpr-cheg').value, prev = $('#cpr-prev').value;
-    if (fin && !dataValida(cheg)) errs.push([$('#cpr-cheg'), 'Informe a data em que a compra chegou.']);
+    if (chegou && !dataValida(cheg)) errs.push([$('#cpr-cheg'), 'Informe a data em que a compra chegou.']);
     if (st === 'rota' && prev && !dataValida(prev)) errs.push([$('#cpr-prev'), 'Data inválida.']);
     recalc();
-    const itens = []; let itemErr = null, locErr = false; const novos = new Map();
+    const itens = []; let itemErr = null, locErr = false, divErr = null; const novos = new Map();
     $$('.it-row', box).forEach(r => {
       const nome = $('.it-n', r).value.trim().replace(/\s+/g, ' '), qs = $('.it-q', r).value, un = $('.it-u', r).value, vs = $('.it-v', r).value, ts = $('.it-t', r).value;
       if (!nome && !qs.trim() && !vs.trim() && !ts.trim()) return; // linha em branco: ignora
@@ -2802,8 +2905,20 @@ function abrirCompra(id, opt = {}){
         else if (!$('.ex-conv', r).hidden) {
           const qe = parseQtd($('.ex-qtd', r).value);
           if (isFinite(qe) && qe > 0) item.qtdEstoque = round3(qe);
-          else if (fin || $('.ex-qtd', r).value.trim()) { $('.ex-qtd', r).classList.add('bad'); locErr = locErr || $('.ex-qtd', r); }
+          else if (chegou || $('.ex-qtd', r).value.trim()) { $('.ex-qtd', r).classList.add('bad'); locErr = locErr || $('.ex-qtd', r); }
         }
+      }
+      /* Conferência: quanto chegou OK e qual o problema */
+      if (!$('.it-div', r).hidden) {
+        const rv = $('.dv-rec', r).value.trim(), pb = $('.dv-prob', r).value, po = $('.dv-obs', r).value.trim();
+        if (rv !== '') {
+          const rec = parseQtd(rv);
+          if (!isFinite(rec) || rec < 0 || rec > item.qtd) { $('.dv-rec', r).classList.add('bad'); divErr = divErr || $('.dv-rec', r); }
+          else if (round3(rec) < item.qtd) item.qtdRecebida = round3(rec);
+        }
+        if (item.qtdRecebida != null && !pb) { $('.dv-prob', r).classList.add('bad'); divErr = divErr || $('.dv-prob', r); }
+        if (pb) item.problema = pb;
+        if (po) item.problemaObs = po;
       }
       const pn = $('.it-novo', r);
       if (!pn.hidden) {
@@ -2814,7 +2929,7 @@ function abrirCompra(id, opt = {}){
             obs: $('.np-obs', r).value.trim(), minimo: null, itens: []};
           const mr = $('.np-min', r).value.trim();
           if (mr !== '') { const mn = parseQtd(mr); if (!isFinite(mn) || mn < 0) { $('.np-min', r).classList.add('bad'); locErr = locErr || $('.np-min', r); } else n.minimo = mn; }
-          if (!sem && fin) ['andar', 'estante', 'fileira'].forEach(c => { if (!n[c]) { $('.np-' + c, r).classList.add('bad'); locErr = locErr || $('.np-' + c, r); } });
+          if (!sem && chegou) ['andar', 'estante', 'fileira'].forEach(c => { if (!n[c]) { $('.np-' + c, r).classList.add('bad'); locErr = locErr || $('.np-' + c, r); } });
           novos.set(k, n);
           /* Guarda a localização digitada (útil na compra em rota: na chegada já vem preenchida) */
           if (!sem) item.novo = {andar: n.andar, estante: n.estante, fileira: n.fileira, obs: n.obs, minimo: n.minimo};
@@ -2832,11 +2947,16 @@ function abrirCompra(id, opt = {}){
     if (itemErr) errs.push([anchor, 'Complete os itens destacados em vermelho (nome, quantidade, unidade e valor da unidade). O mesmo item novo deve ter a mesma unidade em todas as linhas.']);
     else if (locErr) { itemErr = locErr; errs.push([anchor, 'Complete os campos destacados: andar, estante e fileira dos itens novos (quadros amarelos) e a quantidade que entra no estoque quando a unidade é diferente (quadros verdes).']); }
     else if (!itens.length) { $('.it-n', box).classList.add('bad'); itemErr = $('.it-n', box); errs.push([anchor, 'Informe pelo menos um item.']); }
+    else if (divErr) { itemErr = divErr; errs.push([anchor, 'Confira os quadros vermelhos: “chegou OK” vai de 0 até a quantidade comprada e, quando chegou menos, escolha o problema (faltou, avariado…).']); }
+    else if (st === 'divergencia' && !itens.some(temProblema)) { itemErr = $('.dv-rec', box) || $('.it-n', box); errs.push([anchor, 'Divergência: informe em pelo menos um item quanto chegou OK e qual foi o problema. Se chegou tudo certo, marque “✅ Chegou — tudo OK”.']); }
+    const resolTxt = $('#cpr-res').value.trim();
+    if (fin && teveDiv && !resolTxt) errs.push([$('#cpr-res'), 'Conte como a divergência foi resolvida.']);
     const total = parseMoeda($('#cpr-total').value);
     if (!isFinite(total) || total < 0) errs.push([$('#cpr-total'), 'Informe o valor total da nota.']);
     if (errs.length) { showErrs(errs); if (errs[0][0] === anchor && itemErr) itemErr.focus(); return; }
     const v = {data, fornecedor: $('#cpr-forn').value.trim(), numeroNota: $('#cpr-num').value.trim(), obra: $('#cpr-obra').value.trim().replace(/\s+/g, ' '),
-      itens, totalNota: round2(total), obs: $('#cpr-obs').value.trim(), status: st, previsao: st === 'rota' ? prev : (c.previsao || ''), dataChegada: fin ? cheg : ''};
+      itens, totalNota: round2(total), obs: $('#cpr-obs').value.trim(), status: st, previsao: st === 'rota' ? prev : (c.previsao || ''), estagio: st === 'rota' ? $('#cpr-estagio').value : (c.estagio || ''), dataChegada: chegou ? cheg : '',
+      teveDivergencia: st === 'divergencia' || teveDiv, resolucao: fin && teveDiv ? resolTxt : (c.resolucao || '')};
     let res = null; const novoId = id || uid();
     const ok = await commit(d => {
       const agora = new Date().toISOString();
@@ -2844,7 +2964,7 @@ function abrirCompra(id, opt = {}){
       if (id && !x) throw new Error('Compra não encontrada.');
       const criadosIds = new Set();
       /* 1) Itens novos: só são criados no estoque quando a compra chegou (o saldo entra no passo 2, como entrada) */
-      if (fin) novos.forEach(n => {
+      if (chegou) novos.forEach(n => {
         if (n.sem || d.produtos.some(p => norm(p.nome) === norm(n.nome))) return;
         const pid = uid();
         d.produtos.push({id: pid, nome: n.nome, unidade: n.unidade, andar: n.andar, estante: n.estante, fileira: n.fileira, obs: n.obs, minimo: n.minimo,
@@ -2858,16 +2978,20 @@ function abrirCompra(id, opt = {}){
         if (it.semEstoque) return;
         const p = d.produtos.find(pp => norm(pp.nome) === norm(it.nome)); if (!p) return;
         it.produtoId = p.id;
-        if (!fin || it.naoSomar) return;
+        if (!chegou || it.naoSomar) return;
         if (legado && !criadosIds.has(p.id)) return;
-        desejado[p.id] = round3((desejado[p.id] || 0) + (it.qtdEstoque != null ? it.qtdEstoque : it.qtd));
+        const base = it.qtdEstoque != null ? it.qtdEstoque : it.qtd;
+        const qq = it.qtdRecebida != null ? round3(base * it.qtdRecebida / it.qtd) : base; // só o que chegou OK
+        desejado[p.id] = round3((desejado[p.id] || 0) + qq);
       });
       const anterior = (x && x.lancado) || {};
-      res = lancarCompraNoEstoque(d, anterior, desejado, {data, dataMov: fin ? cheg : data, fornecedor: v.fornecedor, numeroNota: v.numeroNota, agora, criadosIds,
-        editando: !!x, chegou: fin && (!x || statusCompra(x) === 'rota'), emRota: !fin});
+      res = lancarCompraNoEstoque(d, anterior, desejado, {data, dataMov: chegou ? cheg : data, fornecedor: v.fornecedor, numeroNota: v.numeroNota, agora, criadosIds,
+        editando: !!x, chegou: chegou && (!x || statusCompra(x) === 'rota'), emRota: !chegou, divergencia: st === 'divergencia', resolvendo: !!x && statusCompra(x) === 'divergencia'});
       const reg = {...v, lancado: legado ? undefined : desejado};
       if (legado) delete reg.lancado;
-      if (fin && (!x || statusCompra(x) === 'rota')) reg.recebidoEm = agora;
+      if (chegou && (!x || statusCompra(x) === 'rota')) reg.recebidoEm = agora;
+      if (st === 'rota' && (!x || x.estagio !== reg.estagio)) reg.estagioEm = agora;
+      if (fin && x && statusCompra(x) === 'divergencia') reg.resolvidaEm = agora;
       if (x) Object.assign(x, reg, {editadoEm: agora});
       else d.compras.push({id: novoId, ...reg, ...(orc ? {orcamentoId: orc.id} : {}), criadoEm: agora});
       if (orc) {
@@ -2881,9 +3005,11 @@ function abrirCompra(id, opt = {}){
       if (res.criados.length) partes.push(`Criado(s) no estoque: ${res.criados.join(', ')}`);
       if (res.entradas.length) partes.push(`Entrada no estoque: ${res.entradas.join(', ')}`);
       if (res.retirados.length) partes.push(`Retirado do estoque: ${res.retirados.join(', ')}`);
-      const msg = opt.receber || (fin && eraRota) ? 'Chegada confirmada: compra finalizada.' : st === 'rota' ? (id ? 'Compra atualizada (em rota).' : 'Compra registrada em rota. Quando chegar, clique em “Chegou”.') : id ? 'Compra atualizada.' : 'Compra registrada.';
+      const msg = st === 'divergencia' ? (eraDiv ? 'Compra atualizada: continua com divergência.' : 'Divergência registrada: no estoque fica só o que chegou OK. A compra fica em “⚠️ Com divergência” até ser resolvida.')
+        : fin && eraDiv ? 'Divergência resolvida: compra finalizada.'
+        : opt.receber || (fin && eraRota) ? 'Chegada confirmada: compra finalizada.' : st === 'rota' ? (id ? 'Compra atualizada (pedida).' : 'Compra registrada em “Compras pedidas”. Quando chegar, mude o estágio no card.') : id ? 'Compra atualizada.' : 'Compra registrada.';
       toast(msg + (partes.length ? ' ' + partes.join('. ') + '.' : ''));
-      closeModal(); setSubCompras(fin ? 'finalizadas' : 'rota');
+      closeModal(); setSubCompras(st === 'divergencia' ? 'divergencia' : fin ? 'finalizadas' : 'rota');
     }
   };
 }
@@ -2898,31 +3024,64 @@ function prazoOrc(o){
   if (n === 1) return {t: 'Para amanhã', cls: 'l-pendente', atras: false};
   return {t: `Em ${n} dias`, cls: 'b-n2', atras: false};
 }
+/* Card do item dentro do orçamento: as lojas cotadas (valor e data), a mais barata em destaque */
+function orcItemCot(i){
+  const cot = cotacaoDe(i.nome), ls = lojasOrd(cot), best = ls[0], hoje = hojeISO();
+  const attr = `data-cot-abrir="${cot ? cot.id : ''}" data-nome="${esc(i.nome)}"`;
+  return `<div class="oc-item${ls.length ? '' : ' sem'}" ${attr} tabindex="0" title="Clique para cotar / editar as lojas deste item">
+    <div class="oc-item-top"><b>${esc(i.nome)}</b><span class="q">${fmtQtd(i.qtd)} ${esc(i.unidade)}</span></div>
+    ${ls.length ? `<table class="cc-tab"><thead><tr><th>Loja</th><th class="num">Valor${cot.unidade ? ' / ' + esc(cot.unidade) : ''}</th><th>Cotado em</th></tr></thead><tbody>
+      ${ls.map((l, k) => { const d = l.data ? diasEntre(l.data, hoje) : null; return `<tr${k === 0 ? ' class="best"' : ''}><td>${k === 0 ? '🏆 ' : ''}${esc(l.loja)}${l.obs ? `<span class="cc-obs">${esc(l.obs)}</span>` : ''}</td><td class="num">${fmtMoeda(l.valor)}</td><td>${fmtData(l.data)}${d != null && d > COT_ANTIGA ? ` <span class="badge l-atrasado">${d} dias</span>` : ''}</td></tr>`; }).join('')}
+      </tbody></table>
+      <div class="small">Mais barato: <b>${esc(best.loja)}</b> · ${fmtQtd(i.qtd)} × ${fmtMoeda(best.valor)} = <b>${fmtMoeda(round2(best.valor * i.qtd))}</b></div>`
+      : '<div class="muted small">Nenhuma loja cotada ainda.</div>'}
+    <div><button type="button" class="btn sm ${ls.length ? '' : 'primary'}" ${attr} data-add="1">+ ${ls.length ? 'Adicionar loja' : 'Cotar: adicionar loja'}</button></div>
+  </div>`;
+}
 function orcCard(o){
   const aberto = orcAberto(o), pz = prazoOrc(o), [ac, at] = AUT_ORC[o.autorizado] || AUT_ORC.aguardando;
-  const its = o.itens || [], max = 6;
-  return `<article class="ocard ${!aberto ? 'feito' : pz.atras ? 'atras' : ''}" data-orc="${o.id}" tabindex="0">
-    <div class="mc-top"><span class="tag" style="color:var(--warn)">📋 Orçamento · ${its.length} ${its.length === 1 ? 'item' : 'itens'}</span>
-      ${aberto ? `<span class="badge ${pz.cls}">${esc(pz.t)}</span>` : `<span class="badge ${o.situacao === 'comprado' ? 'b-ok' : 'b-neutro'}">${o.situacao === 'comprado' ? 'Virou compra' : 'Cancelado'}</span>`}</div>
-    <dl class="g-info"><dt>Quem solicitou</dt><dd>${esc(o.solicitante)}</dd><dt>Obra</dt><dd>${esc(o.obra)}</dd><dt>Para quando</dt><dd>${o.paraQuando ? fmtData(o.paraQuando) : '—'}</dd></dl>
-    <ul class="lote-itens">${its.slice(0, max).map(i => `<li><span class="q">${fmtQtd(i.qtd)} ${esc(i.unidade)}</span><span>${esc(i.nome)}</span></li>`).join('')}</ul>
-    ${its.length > max ? `<div class="muted small">+ ${its.length - max} item(ns)…</div>` : ''}
-    <div><span class="badge ${ac}">${at}</span></div>
-    ${o.obs ? `<div class="muted small">${esc(o.obs)}</div>` : ''}
-    ${aberto ? `<div class="row" style="margin-top:4px"><button type="button" class="btn sm primary" data-orc-compra="${o.id}">🛒 Virou compra</button><button type="button" class="btn sm" data-orc="${o.id}">✏️ Editar</button></div>` : ''}
+  const its = o.itens || [];
+  const topo = `<div class="mc-top"><span class="tag" style="color:var(--warn)">📋 Orçamento · ${its.length} ${its.length === 1 ? 'item' : 'itens'}</span>
+      ${aberto ? `<span class="badge ${pz.cls}">${esc(pz.t)}</span>` : `<span class="badge ${o.situacao === 'comprado' ? 'b-ok' : 'b-neutro'}">${o.situacao === 'comprado' ? 'Virou compra' : 'Cancelado'}</span>`}</div>`;
+  const dados = `<dl class="g-info"><dt>Quem solicitou</dt><dd>${esc(o.solicitante)}</dd><dt>Obra</dt><dd>${esc(o.obra)}</dd><dt>Para quando</dt><dd>${o.paraQuando ? fmtData(o.paraQuando) : '—'}</dd></dl>`;
+  if (!aberto) {
+    const max = 6;
+    return `<article class="ocard feito" data-orc="${o.id}" tabindex="0">${topo}${dados}
+      <ul class="lote-itens">${its.slice(0, max).map(i => `<li><span class="q">${fmtQtd(i.qtd)} ${esc(i.unidade)}</span><span>${esc(i.nome)}</span></li>`).join('')}</ul>
+      ${its.length > max ? `<div class="muted small">+ ${its.length - max} item(ns)…</div>` : ''}
+      <div><span class="badge ${ac}">${at}</span></div>${o.obs ? `<div class="muted small">${esc(o.obs)}</div>` : ''}</article>`;
+  }
+  /* Resumo das cotações: quantos itens já têm loja e quanto sai comprando o mais barato de cada um */
+  let cotados = 0, total = 0;
+  its.forEach(i => { const b = melhorLoja(cotacaoDe(i.nome)); if (b) { cotados++; total += b.valor * i.qtd; } });
+  return `<article class="ocard largo ${pz.atras ? 'atras' : ''}" data-orc="${o.id}" tabindex="0">
+    ${topo}
+    <div class="oc-cab">${dados}<div class="oc-aut"><span class="badge ${ac}">${at}</span>${o.obs ? `<div class="muted small" style="margin-top:6px">${esc(o.obs)}</div>` : ''}</div></div>
+    <div class="oc-itens">${its.map(orcItemCot).join('')}</div>
+    <div class="oc-pe">
+      <span class="small">${cotados === its.length ? '✅' : '⏳'} Cotados <b>${cotados} de ${its.length}</b> item(ns)${cotados ? ` · comprando o mais barato de cada um: <b>${fmtMoeda(round2(total))}</b>` : ''}</span>
+      <span class="row"><button type="button" class="btn sm primary" data-orc-compra="${o.id}">🛒 Virou compra</button><button type="button" class="btn sm" data-orc="${o.id}">✏️ Editar orçamento</button></span>
+    </div>
   </article>`;
 }
-let histOrcAberto = false;
+let histOrcAberto = false, outrasCotAberto = false;
 function renderOrcamentos(q){
-  const bate = o => !q || [o.solicitante, o.obra, o.obs, ...(o.itens || []).map(i => i.nome)].some(x => norm(x).includes(q));
+  const bateItem = i => { const c = cotacaoDe(i.nome); return norm(i.nome).includes(q) || !!(c && (c.lojas || []).some(l => norm(l.loja).includes(q))); };
+  const bate = o => !q || [o.solicitante, o.obra, o.obs].some(x => norm(x).includes(q)) || (o.itens || []).some(bateItem);
   const ord = (a, b) => (a.paraQuando || '9999-12-31').localeCompare(b.paraQuando || '9999-12-31') || String(a.criadoEm).localeCompare(String(b.criadoEm));
   const todos = orcamentos();
   const abertos = todos.filter(o => orcAberto(o) && bate(o)).sort(ord);
   const feitos = todos.filter(o => !orcAberto(o) && bate(o)).sort((a, b) => String(b.concluidoEm || b.editadoEm || '').localeCompare(String(a.concluidoEm || a.editadoEm || '')));
-  $('#compras-lista').innerHTML = (abertos.length ? `<div class="ocards">${abertos.map(orcCard).join('')}</div>`
+  /* Cotações de itens que não estão em nenhum orçamento aberto: ficam guardadas como referência de preço */
+  const emAberto = new Set(todos.filter(orcAberto).flatMap(o => (o.itens || []).map(i => norm(i.nome))));
+  const outras = cotacoes().filter(c => !emAberto.has(norm(c.item)))
+    .filter(c => !q || norm(c.item).includes(q) || (c.lojas || []).some(l => norm(l.loja).includes(q))).sort((a, b) => cmpTxt(a.item, b.item));
+  $('#compras-lista').innerHTML = (abertos.length ? abertos.map(orcCard).join('')
     : `<div class="panel" style="text-align:center"><p class="empty">${todos.some(orcAberto) ? 'Nenhum orçamento encontrado para esta pesquisa.' : 'Nenhum orçamento a fazer. Clique em “+ Novo orçamento”.'}</p></div>`)
+    + (outras.length ? `<details class="hist-orc" id="outras-cot"${outrasCotAberto || q ? ' open' : ''}><summary>💲 Cotações guardadas de outros itens (${outras.length}) — referência de preço</summary><div class="ocards">${outras.map(c => cotCard({cot: c, nome: c.item, unidade: c.unidade, orcs: []})).join('')}</div></details>` : '')
     + (feitos.length ? `<details class="hist-orc" id="hist-orc"${histOrcAberto ? ' open' : ''}><summary>Orçamentos já resolvidos — viraram compra ou foram cancelados (${feitos.length})</summary><div class="ocards">${feitos.map(orcCard).join('')}</div></details>` : '');
   const det = $('#hist-orc'); if (det) det.addEventListener('toggle', () => { histOrcAberto = det.open; });
+  const oc = $('#outras-cot'); if (oc) oc.addEventListener('toggle', () => { if (!q) outrasCotAberto = oc.open; });
 }
 function orcRowHTML(i = {}){
   return `<div class="or-row">
@@ -3027,13 +3186,149 @@ function abrirOrcamento(id){
 function orcVirouCompra(id){
   const o = db.compras.find(x => x.id === id && ehOrc(x)); if (!o || !orcAberto(o)) return;
   if (o.autorizado !== 'sim' && !confirm(o.autorizado === 'nao' ? 'Seu Ricardo NÃO autorizou este orçamento. Registrar a compra mesmo assim?' : 'Seu Ricardo ainda não autorizou este orçamento. Registrar a compra mesmo assim?')) return;
-  abrirCompra(null, {orcId: id});
+  /* Se há cotações dos itens, pergunta de qual loja vai comprar e já preenche fornecedor e valores */
+  const its = o.itens || [], lojas = new Map();
+  its.forEach(i => (cotacaoDe(i.nome) || {lojas: []}).lojas.forEach(l => {
+    const k = norm(l.loja); let e = lojas.get(k);
+    if (!e) { e = {nome: l.loja, precos: {}, total: 0, n: 0}; lojas.set(k, e); }
+    if (e.precos[norm(i.nome)] == null) { e.precos[norm(i.nome)] = l.valor; e.n++; e.total = round2(e.total + l.valor * i.qtd); }
+  }));
+  if (!lojas.size) { abrirCompra(null, {orcId: id}); return; }
+  const arr = [...lojas.values()].sort((a, b) => b.n - a.n || a.total - b.total);
+  const menor = arr.filter(e => e.n === its.length).sort((a, b) => a.total - b.total)[0];
+  const melhores = its.map(i => { const b = melhorLoja(cotacaoDe(i.nome)); return `<li><span>${esc(i.nome)}</span><span class="muted">· ${b ? `${fmtMoeda(b.valor)} na ${esc(b.loja)}` : 'sem cotação'}</span></li>`; }).join('');
+  openModal('De qual loja vai comprar?', `<p class="hint" style="margin-top:0">Escolha a loja: o fornecedor e os valores cotados por ela já vêm preenchidos na compra.</p>
+    <div class="gg-lista" style="max-height:none">${arr.map((e, k) => `<button type="button" class="gg-opt" data-loja-k="${k}"><b>${esc(e.nome)}</b>${e === menor ? ' <span class="badge b-ok">🏆 menor total</span>' : ''}<small>Cotou ${e.n} de ${its.length} item(ns) · total dos itens cotados: ${fmtMoeda(e.total)}</small></button>`).join('')}
+      <button type="button" class="gg-opt" data-loja-k="-1"><b>Outra loja / sem cotação</b><small>Preencho o fornecedor e os valores na hora</small></button></div>
+    <div class="info-box" style="margin-top:12px"><b>Mais barato de cada item:</b><ul class="lote-itens">${melhores}</ul></div>`);
+  $$('[data-loja-k]').forEach(b => { b.onclick = () => { const k = Number(b.dataset.lojaK); abrirCompra(null, {orcId: id, loja: k >= 0 ? arr[k] : null}); }; });
+}
+
+/* ---------- Cotações: um card por item, com as lojas, valores e data de cada cotação ----------
+   Ficam na coleção "compras" com tipo: 'cotacao' (sem precisar liberar coleção nova no Firebase).
+   {item, unidade, obs, lojas: [{id, loja, valor, data, obs}]} */
+const COT_ANTIGA = 30; // dias: cotação mais velha que isso ganha aviso
+const cotacoes = () => db.compras.filter(ehCot);
+const cotacaoDe = nome => cotacoes().find(c => norm(c.item) === norm(nome));
+const lojasOrd = c => [...((c && c.lojas) || [])].sort((a, b) => a.valor - b.valor || String(b.data).localeCompare(String(a.data)));
+const melhorLoja = c => lojasOrd(c)[0] || null;
+function ultimaCompraDe(nome){
+  let r = null;
+  comprasReais().forEach(c => (c.itens || []).forEach(i => { if (norm(i.nome) === norm(nome) && (!r || c.data > r.c.data)) r = {c, i}; }));
+  return r;
+}
+function cotCard(e){
+  const c = e.cot, ls = lojasOrd(c), best = ls[0], hoje = hojeISO(), uc = ultimaCompraDe(e.nome);
+  const attr = `data-cot-abrir="${c ? c.id : ''}" data-nome="${esc(e.nome)}"`;
+  const dif = best && ls[1] ? round2(ls[1].valor - best.valor) : 0;
+  return `<article class="ocard ccard${ls.length ? '' : ' sem'}" ${attr} tabindex="0">
+    <div class="mc-top"><span class="tag" style="color:var(--primary)">💲 Cotação${e.unidade ? ' · preço por ' + esc(e.unidade) : ''}</span><span class="muted">${ls.length} loja(s)</span></div>
+    <b class="cc-nome">${esc(e.nome)}</b>
+    ${e.orcs.length ? `<div class="small"><span class="badge b-baixo">📋 pedido em orçamento</span> ${e.orcs.map(o => `${esc(o.obra)}${o.paraQuando ? ' · para ' + fmtData(o.paraQuando) : ''}`).join('; ')}</div>` : ''}
+    ${best ? `<div class="cc-best">🏆 Mais barato: <b>${fmtMoeda(best.valor)}</b> na <b>${esc(best.loja)}</b>${dif > 0 ? ` <span class="muted small">(${fmtMoeda(dif)} a menos que a ${esc(ls[1].loja)})</span>` : ''}</div>
+      <table class="cc-tab"><thead><tr><th>Loja</th><th class="num">Valor</th><th>Data da cotação</th></tr></thead><tbody>
+      ${ls.map((l, k) => { const d = l.data ? diasEntre(l.data, hoje) : null; return `<tr${k === 0 ? ' class="best"' : ''}><td>${k === 0 ? '🏆 ' : ''}${esc(l.loja)}${l.obs ? `<span class="cc-obs">${esc(l.obs)}</span>` : ''}</td><td class="num">${fmtMoeda(l.valor)}</td>
+        <td>${fmtData(l.data)}${d != null && d > COT_ANTIGA ? ` <span class="badge l-atrasado">${d} dias</span>` : ''}</td></tr>`; }).join('')}
+      </tbody></table>` : '<div class="empty" style="padding:4px 0">Nenhuma loja cotada ainda.</div>'}
+    ${uc ? `<div class="muted small">Última compra: ${fmtMoeda(uc.i.valorUnit)} por ${esc(uc.i.unidade)} em ${fmtData(uc.c.data)}${uc.c.fornecedor ? ' · ' + esc(uc.c.fornecedor) : ''}</div>` : ''}
+    <div class="row" style="margin-top:4px"><button type="button" class="btn sm primary" ${attr} data-add="1">+ Adicionar loja</button>${c ? `<button type="button" class="btn sm" ${attr}>✏️ Editar</button>` : ''}</div>
+  </article>`;
+}
+function cotRowHTML(l = {}){
+  return `<div class="cq-row" data-lid="${esc(l.id || '')}">
+    <span class="it-num"></span>
+    <input class="cq-loja" list="fornecedores" placeholder="Loja" value="${esc(l.loja)}" aria-label="Loja" autocomplete="off">
+    <input class="cq-valor" inputmode="decimal" placeholder="Valor (R$)" value="${l.valor != null ? fmtDec2(l.valor) : ''}" aria-label="Valor">
+    <input class="cq-data" type="date" value="${esc(l.data || hojeISO())}" aria-label="Data da cotação">
+    <input class="cq-obs" placeholder="Obs. (frete, prazo, marca…)" value="${esc(l.obs)}" aria-label="Observação">
+    <button type="button" class="it-del" title="Remover loja" aria-label="Remover loja">×</button>
+  </div>`;
+}
+function abrirCotacao(id, opt = {}){
+  if (!abaDisponivel('compras')) return;
+  const c = id ? db.compras.find(x => x.id === id && ehCot(x)) : null;
+  if (id && !c) return;
+  const unPadrao = !c && opt.nome ? ((orcamentos().flatMap(o => o.itens || []).find(i => norm(i.nome) === norm(opt.nome)) || {}).unidade || '') : '';
+  const v0 = c || {item: opt.nome || '', unidade: unPadrao, lojas: []};
+  openModal(c ? 'Cotação — ' + c.item : 'Nova cotação', `<form id="f-cot" novalidate>
+    <div class="grid2">
+      ${campoTxt('cq-item', 'Item', true, `list="itens-nomes" value="${esc(v0.item)}" placeholder="ex.: Capacitor 2,5"`)}
+      <div class="field"><label for="cq-unid">Preço por (unidade)</label><select id="cq-unid">${unidOptions(v0.unidade)}</select></div>
+    </div>
+    <p class="hint" style="margin:0 0 8px">Uma linha por loja: valor da unidade e data em que a loja passou o preço. Ao preencher a última linha aparece outra em branco.</p>
+    <div class="cq-row it-head"><span>#</span><span>Loja *</span><span>Valor (R$) *</span><span>Data da cotação *</span><span>Observação</span><span></span></div>
+    <div id="cq-lojas">${[...lojasOrd(v0), {}].map(cotRowHTML).join('')}</div>
+    <div class="itens-bar"><button type="button" class="btn sm" id="cq-add">+ Adicionar loja</button><span class="small" id="cq-best"></span><i id="cq-err-slot" hidden></i></div>
+    <div class="field" style="margin-top:12px"><label for="cq-obs">Observação (opcional)</label><textarea id="cq-obs" rows="2">${esc(v0.obs)}</textarea></div>
+    <div class="actions">${c ? '<button type="button" class="btn danger" id="cq-del">Excluir cotação</button>' : ''}<button type="button" class="btn" data-close>Fechar</button><button class="btn primary" type="submit">Salvar cotação</button></div>
+  </form>`);
+  $('.modal-card').classList.add('wide');
+  const box = $('#cq-lojas');
+  const vazia = r => !$('.cq-loja', r).value.trim() && !$('.cq-valor', r).value.trim();
+  const novaLinha = () => { box.insertAdjacentHTML('beforeend', cotRowHTML()); return $$('.cq-row', box).pop(); };
+  const recalc = () => {
+    const rs = $$('.cq-row', box); if (!rs.length || !vazia(rs[rs.length - 1])) novaLinha();
+    let best = null;
+    $$('.cq-row', box).forEach((r, i) => {
+      $('.it-num', r).textContent = i + 1;
+      const v = parseMoeda($('.cq-valor', r).value), l = $('.cq-loja', r).value.trim();
+      if (l && isFinite(v) && v > 0 && (!best || v < best.v)) best = {v, l};
+    });
+    $('#cq-best').innerHTML = best ? `🏆 Mais barato: <b>${fmtMoeda(best.v)}</b> na <b>${esc(best.l)}</b>` : '';
+  };
+  box.addEventListener('input', e => { e.target.classList.remove('bad'); recalc(); });
+  box.addEventListener('click', e => { const b = e.target.closest('.it-del'); if (!b) return; b.closest('.cq-row').remove(); recalc(); });
+  box.addEventListener('keydown', e => {
+    if (e.key !== 'Enter' || e.target.tagName === 'BUTTON') return;
+    e.preventDefault(); recalc();
+    const r = e.target.closest('.cq-row'); const cls = [...e.target.classList].find(x => x.startsWith('cq-')) || 'cq-loja';
+    const prox = r.nextElementSibling || novaLinha(); const alvo = $('.' + cls, prox); alvo.focus(); if (alvo.select) alvo.select();
+  });
+  $('#cq-add').onclick = () => { recalc(); $$('.cq-loja', box).pop().focus(); };
+  recalc();
+  if (!v0.item) $('#cq-item').focus(); else if (opt.add || !(v0.lojas || []).length) $$('.cq-loja', box).pop().focus();
+  if ($('#cq-del')) $('#cq-del').onclick = async () => {
+    if (!confirm(`Excluir a cotação de “${c.item}” com todas as lojas?`)) return;
+    if (await commit(d => { d.compras = d.compras.filter(x => x.id !== id); })) { toast('Cotação excluída.'); closeModal(); }
+  };
+  $('#f-cot').onsubmit = async e => {
+    e.preventDefault(); clearErr(e.target); $$('.bad', box).forEach(x => x.classList.remove('bad'));
+    const errs = [], item = $('#cq-item').value.trim().replace(/\s+/g, ' ');
+    if (!item) errs.push([$('#cq-item'), 'Informe o item.']);
+    else if (cotacoes().some(x => x.id !== id && norm(x.item) === norm(item))) errs.push([$('#cq-item'), 'Já existe uma cotação para este item: abra o card dele e adicione a loja lá.']);
+    const lojas = [], vistas = new Set(); let itemErr = null; const msgs = [];
+    $$('.cq-row', box).forEach(r => {
+      if (vazia(r)) return;
+      const loja = $('.cq-loja', r).value.trim().replace(/\s+/g, ' '), valor = parseMoeda($('.cq-valor', r).value), data = $('.cq-data', r).value;
+      const ruim = (cls, m) => { $(cls, r).classList.add('bad'); itemErr = itemErr || $(cls, r); if (!msgs.includes(m)) msgs.push(m); };
+      if (!loja) ruim('.cq-loja', 'Informe a loja.');
+      else if (vistas.has(norm(loja))) ruim('.cq-loja', `A loja ${loja} aparece duas vezes: deixe só a cotação mais recente.`);
+      vistas.add(norm(loja));
+      if (!isFinite(valor) || valor <= 0) ruim('.cq-valor', 'Informe o valor de cada loja.');
+      if (!dataValida(data)) ruim('.cq-data', 'Informe a data da cotação.');
+      lojas.push({id: r.dataset.lid || uid(), loja, valor: round2(valor), data, obs: $('.cq-obs', r).value.trim()});
+    });
+    const anchor = $('#cq-err-slot');
+    if (itemErr) errs.push([anchor, msgs.join(' ')]);
+    if (errs.length) { showErrs(errs); if (errs[0][0] === anchor && itemErr) itemErr.focus(); return; }
+    const v = {item, unidade: $('#cq-unid').value, lojas, obs: $('#cq-obs').value.trim()};
+    const ok = await commit(d => {
+      const agora = new Date().toISOString();
+      if (id) { const x = d.compras.find(y => y.id === id); if (!x) throw new Error('Cotação não encontrada.'); Object.assign(x, v, {editadoEm: agora}); }
+      else d.compras.push({id: uid(), tipo: 'cotacao', ...v, criadoEm: agora});
+    });
+    if (ok) {
+      const b = lojas.length ? [...lojas].sort((a, z) => a.valor - z.valor)[0] : null;
+      toast('Cotação salva.' + (b ? ` Mais barato: ${fmtMoeda(b.valor)} na ${b.loja}.` : ''));
+      closeModal(); setSubCompras('orcamentos');
+    }
+  };
 }
 
 /* ---------- Tela da aba ---------- */
-const SUBS_COMPRAS = ['finalizadas', 'rota', 'orcamentos'];
+const SUBS_COMPRAS = ['finalizadas', 'rota', 'divergencia', 'orcamentos'];
 let subCompras = 'finalizadas';
-try { const s = localStorage.getItem('crm_sub_compras'); if (SUBS_COMPRAS.includes(s)) subCompras = s; } catch (e) {}
+try { const s = localStorage.getItem('crm_sub_compras'); if (SUBS_COMPRAS.includes(s)) subCompras = s; else if (s === 'cotacoes') subCompras = 'orcamentos'; } catch (e) {}
 function setSubCompras(s){
   subCompras = SUBS_COMPRAS.includes(s) ? s : 'finalizadas';
   try { localStorage.setItem('crm_sub_compras', subCompras); } catch (e) {}
@@ -3042,17 +3337,21 @@ function setSubCompras(s){
 $('#compras-sub').addEventListener('click', e => { const b = e.target.closest('.stab'); if (b) setSubCompras(b.dataset.sub); });
 const DICA_SUB = {
   finalizadas: 'Compras que já chegaram e estão OK. Os itens já entraram no estoque.',
-  rota: 'Compras feitas que ainda não chegaram. Não mexem no estoque: quando chegar, clique em “✅ Chegou” para conferir e dar entrada.',
-  orcamentos: 'Orçamentos que precisam ser feitos: quem solicitou, para qual obra, para quando, quais itens e se Seu Ricardo autorizou. Quando comprar, clique em “🛒 Virou compra”.'
+  divergencia: 'No topo, as compras que chegaram com problema (faltou, avariado, item errado…) e aguardam solução. Abaixo, todas as outras compras: para informar uma divergência, clique em “⚠️” no próprio card.',
+  rota: 'Compras pedidas que ainda não chegaram — não mexem no estoque. Em cada card, mude o estágio: 📝 pedido feito → 🚚 em rota → ✅ chegou tudo OK (finaliza e dá entrada no estoque) ou ⚠️ chegou com divergência.',
+  orcamentos: 'Cada orçamento mostra quem solicitou, a obra, para quando e se Seu Ricardo autorizou. Dentro dele, cada item tem o seu card de cotação: clique em “+ Adicionar loja” para lançar o valor e a data de cada loja — a mais barata fica em destaque 🏆. Quando comprar, clique em “🛒 Virou compra”.'
 };
-const PH_SUB = {finalizadas: 'Pesquisar item, fornecedor, obra ou nº da nota…', rota: 'Pesquisar item, fornecedor, obra ou nº da nota…', orcamentos: 'Pesquisar item, quem solicitou ou obra…'};
+const PH_SUB = {finalizadas: 'Pesquisar item, fornecedor, obra ou nº da nota…', rota: 'Pesquisar item, fornecedor, obra ou nº da nota…', divergencia: 'Pesquisar item, fornecedor, obra, nota ou problema…', orcamentos: 'Pesquisar item, loja, quem solicitou ou obra…'};
 $('#btn-nova-compra').onclick = () => abrirCompra(null);
 $('#btn-novo-orc').onclick = () => abrirOrcamento(null);
 $('#compras-busca').addEventListener('input', () => renderCompras());
 function renderCompras(){
   const reais = comprasReais();
-  const fin = reais.filter(c => statusCompra(c) === 'finalizada'), rota = reais.filter(c => statusCompra(c) === 'rota');
-  $('#cnt-fin').textContent = fin.length; $('#cnt-rota').textContent = rota.length; $('#cnt-orc').textContent = orcamentos().filter(orcAberto).length;
+  const fin = reais.filter(c => statusCompra(c) === 'finalizada'), rota = reais.filter(c => statusCompra(c) === 'rota'), div = reais.filter(c => statusCompra(c) === 'divergencia');
+  $('#cnt-fin').textContent = fin.length; $('#cnt-rota').textContent = rota.length; $('#cnt-div').textContent = div.length;
+  $('[data-sub=divergencia]').classList.toggle('alerta', div.length > 0);
+  $('#compras-alerta').innerHTML = div.length && subCompras !== 'divergencia' ? `<button type="button" class="div-banner" id="div-banner">⚠️ ${div.length === 1 ? '1 compra chegou' : div.length + ' compras chegaram'} com divergência e ainda não ${div.length === 1 ? 'foi resolvida' : 'foram resolvidas'}. Clique para ver.</button>` : '';
+  if ($('#div-banner')) $('#div-banner').onclick = () => setSubCompras('divergencia'); $('#cnt-orc').textContent = orcamentos().filter(orcAberto).length;
   $$('#compras-sub .stab').forEach(b => b.classList.toggle('on', b.dataset.sub === subCompras));
   $('#compras-dica').textContent = DICA_SUB[subCompras];
   $('#compras-busca').placeholder = PH_SUB[subCompras];
@@ -3060,35 +3359,61 @@ function renderCompras(){
   if (subCompras === 'orcamentos') { $('#compras-itens').innerHTML = ''; renderOrcamentos(q); return; }
   const ordC = (a, b) => b.data.localeCompare(a.data) || String(b.criadoEm).localeCompare(String(a.criadoEm));
   const itemBate = i => norm(i.nome).includes(q);
-  const bate = c => [c.fornecedor, c.numeroNota, c.obs, c.obra].some(x => norm(x).includes(q)) || (c.itens || []).some(itemBate);
+  const bate = c => [c.fornecedor, c.numeroNota, c.obs, c.obra, c.resolucao].some(x => norm(x).includes(q)) || (c.itens || []).some(i => itemBate(i) || norm(i.problema).includes(q) || norm(i.problemaObs).includes(q));
   /* Busca por item: tabela com cada compra daquele item (finalizadas e em rota), a mais recente primeiro (= última compra) */
   if (q) {
     const linhas = [];
     [...reais].sort(ordC).filter(bate).forEach(c => (c.itens || []).filter(itemBate).forEach(i => linhas.push({c, i})));
     $('#compras-itens').innerHTML = linhas.length ? `<div class="panel"><h2>Itens encontrados — o mais recente primeiro</h2><div class="table-wrap"><table>
       <thead><tr><th>Data</th><th>Item</th><th class="num">Qtd</th><th>Un.</th><th class="num">Valor da unidade</th><th class="num">Total do item</th><th>Fornecedor</th><th>Nota</th><th>Situação</th></tr></thead><tbody>
-      ${linhas.map(({c, i}, k) => `<tr class="click${k === 0 ? ' ultima' : ''}" data-compra="${c.id}" tabindex="0"><td>${fmtData(c.data)}${k === 0 ? '<br><span class="badge b-ok">última compra</span>' : ''}</td><td><b>${esc(i.nome)}</b></td><td class="num">${fmtQtd(i.qtd)}</td><td>${esc(i.unidade)}</td><td class="num">${fmtMoeda(i.valorUnit)}</td><td class="num">${fmtMoeda(i.valorTotal)}</td><td>${esc(c.fornecedor) || '—'}</td><td>${esc(c.numeroNota) || '—'}</td><td>${statusCompra(c) === 'rota' ? '<span class="badge b-baixo">🚚 Em rota</span>' : '<span class="badge b-ok">✅ Finalizada</span>'}</td></tr>`).join('')}
+      ${linhas.map(({c, i}, k) => `<tr class="click${k === 0 ? ' ultima' : ''}" data-compra="${c.id}" tabindex="0"><td>${fmtData(c.data)}${k === 0 ? '<br><span class="badge b-ok">última compra</span>' : ''}</td><td><b>${esc(i.nome)}</b></td><td class="num">${fmtQtd(i.qtd)}</td><td>${esc(i.unidade)}</td><td class="num">${fmtMoeda(i.valorUnit)}</td><td class="num">${fmtMoeda(i.valorTotal)}</td><td>${esc(c.fornecedor) || '—'}</td><td>${esc(c.numeroNota) || '—'}</td><td>${statusCompra(c) === 'rota' ? '<span class="badge b-baixo">📦 Pedida</span>' : statusCompra(c) === 'divergencia' ? '<span class="badge l-atrasado">⚠️ Divergência</span>' : '<span class="badge b-ok">✅ Finalizada</span>'}</td></tr>`).join('')}
       </tbody></table></div></div>` : '';
   } else $('#compras-itens').innerHTML = '';
-  const ehRota = subCompras === 'rota';
-  let cs = (ehRota ? rota : fin).sort(ehRota ? (a, b) => (a.previsao || '9999').localeCompare(b.previsao || '9999') || ordC(a, b) : ordC);
-  if (q) cs = cs.filter(bate);
+  const ehRota = subCompras === 'rota', ehDiv = subCompras === 'divergencia';
   const hoje = hojeISO();
-  $('#compras-lista').innerHTML = cs.length ? (q ? `<h2>${ehRota ? 'Compras em rota' : 'Notas'} encontradas</h2>` : '') + cs.map(c => {
-    const soma = compraTotalItens(c);
+  /* Card de compra: o botão de ação depende da situação da compra (e, na subaba de divergência, todas podem receber uma) */
+  const cardCompra = c => {
+    const sc = statusCompra(c), soma = compraTotalItens(c);
     const prevTxt = c.previsao ? (c.previsao < hoje ? `<span class="badge l-atrasado">Previsão ${fmtData(c.previsao)} — atrasada ${diasEntre(c.previsao, hoje)} dia(s)</span>` : `<span class="badge b-n2">Previsão de chegada: ${fmtData(c.previsao)}</span>`) : '<span class="badge b-neutro">Sem previsão de chegada</span>';
-    return `<div class="panel compra ${ehRota ? 'rota' : 'fin'}" data-compra="${c.id}" tabindex="0">
+    const comConf = sc === 'divergencia' || c.teveDivergencia || (c.itens || []).some(temProblema);
+    const ep = estagioPedida(c);
+    const badge = sc === 'rota' ? `<span class="badge b-neutro">📦 Pedida</span> ${ep === 'pedido' ? '<span class="badge b-n2">📝 Pedido feito</span>' : `<span class="badge b-baixo">🚚 Em rota${c.estagioEm ? ' desde ' + fmtDiaLocal(c.estagioEm) : ''}</span>`} ${prevTxt}`
+      : sc === 'divergencia' ? `<span class="badge l-atrasado">⚠️ Chegou com divergência${c.dataChegada ? ' em ' + fmtData(c.dataChegada) : ''}${c.dataChegada ? (diasEntre(c.dataChegada, hoje) > 0 ? ` · há ${diasEntre(c.dataChegada, hoje)} dia(s)` : ' · hoje') : ''}</span>`
+      : `<span class="badge b-ok">✅ Chegou${c.dataChegada ? ' em ' + fmtData(c.dataChegada) : ''}</span>${c.teveDivergencia ? ' <span class="badge b-baixo">⚠️ teve divergência — resolvida</span>' : ''}`;
+    const estBtn = (v, txt, cls = '') => `<button type="button" class="est ${cls}${v === ep ? ' on' : ''}" data-estagio="${v}" data-id="${c.id}">${txt}</button>`;
+    const estagios = sc === 'rota' ? `<div class="estagios"><b class="small">Estágio:</b>${estBtn('pedido', '📝 Pedido feito')}${estBtn('rota', '🚚 Em rota')}<span class="est-sep">chegou →</span>${estBtn('finalizada', '✅ Tudo OK — finalizar', 'est-ok')}${estBtn('divergencia', '⚠️ Com divergência', 'est-div')}</div>` : '';
+    const botoes = sc === 'divergencia' ? `<button type="button" class="btn primary" data-resolver="${c.id}">✔ Resolver divergência</button>`
+      : ehDiv && sc !== 'rota' ? `<button type="button" class="btn danger" data-divergir="${c.id}">⚠️ Informar divergência</button>` : '';
+    return `<div class="panel compra ${sc === 'rota' ? 'rota' : sc === 'divergencia' ? 'div' : 'fin'}" data-compra="${c.id}" tabindex="0">
       <div class="compra-head"><div><b>${fmtData(c.data)}</b>${c.fornecedor ? ' · ' + esc(c.fornecedor) : ''}${c.numeroNota ? ` · <span class="muted">Nota nº ${esc(c.numeroNota)}</span>` : ''}
         <div class="muted small">${(c.itens || []).length} item(ns)${soma !== round2(c.totalNota) ? ` · soma dos itens ${fmtMoeda(soma)}` : ''}${c.obra ? ` · Obra: <b>${esc(c.obra)}</b>` : ''}</div>
-        <div class="row" style="margin-top:6px">${ehRota ? `<span class="badge b-baixo">🚚 Em rota</span> ${prevTxt}` : `<span class="badge b-ok">✅ Chegou${c.dataChegada ? ' em ' + fmtData(c.dataChegada) : ''}</span>`}${c.orcamentoId ? ' <span class="badge b-neutro">📋 veio de orçamento</span>' : ''}</div></div>
+        <div class="row" style="margin-top:6px">${badge}${c.orcamentoId ? ' <span class="badge b-neutro">📋 veio de orçamento</span>' : ''}</div></div>
         <div class="compra-total"><span class="muted small" style="font-weight:600">Total da nota</span><br>${fmtMoeda(c.totalNota)}</div></div>
-      <div class="table-wrap"><table><thead><tr><th>Item</th><th class="num">Qtd</th><th>Un.</th><th class="num">Valor da unidade</th><th class="num">Total do item</th></tr></thead><tbody>
-        ${(c.itens || []).map(i => `<tr${q && itemBate(i) ? ' class="ultima"' : ''}><td>${esc(i.nome)}</td><td class="num">${fmtQtd(i.qtd)}</td><td>${esc(i.unidade)}</td><td class="num">${fmtMoeda(i.valorUnit)}</td><td class="num">${fmtMoeda(i.valorTotal)}</td></tr>`).join('')}
+      <div class="table-wrap"><table><thead><tr><th>Item</th><th class="num">Qtd</th><th>Un.</th><th class="num">Valor da unidade</th><th class="num">Total do item</th>${comConf ? '<th class="num">Chegou OK</th><th>Problema</th>' : ''}</tr></thead><tbody>
+        ${(c.itens || []).map(i => `<tr${q && itemBate(i) ? ' class="ultima"' : ''}><td>${esc(i.nome)}</td><td class="num">${fmtQtd(i.qtd)}</td><td>${esc(i.unidade)}</td><td class="num">${fmtMoeda(i.valorUnit)}</td><td class="num">${fmtMoeda(i.valorTotal)}</td>${comConf
+          ? `<td class="num${i.qtdRecebida != null ? ' prob' : ''}">${fmtQtd(i.qtdRecebida != null ? i.qtdRecebida : i.qtd)}</td><td${i.problema ? ' class="prob"' : ''}>${i.problema ? esc(i.problema) + (i.problemaObs ? ' — ' + esc(i.problemaObs) : '') : '<span class="okt">OK</span>'}</td>` : ''}</tr>`).join('')}
       </tbody></table></div>
+      ${c.resolucao && sc !== 'divergencia' ? `<p class="hint"><b>Como foi resolvida:</b> ${esc(c.resolucao)}${c.resolvidaEm ? ` (${fmtDataHora(c.resolvidaEm)})` : ''}</p>` : ''}
       ${c.obs ? `<p class="hint">${esc(c.obs)}</p>` : ''}
-      ${ehRota ? `<div class="actions" style="margin-top:8px"><button type="button" class="btn primary" data-receber="${c.id}">✅ Chegou — conferir e dar entrada no estoque</button></div>` : ''}
-    </div>`; }).join('')
-    : `<div class="panel" style="text-align:center"><p class="empty">${q ? 'Nenhuma compra encontrada para esta pesquisa.' : ehRota ? 'Nenhuma compra em rota. Ao registrar uma compra que ainda não chegou, marque “🚚 Em rota”.' : 'Nenhuma compra finalizada ainda. Clique em “+ Registrar compra”.'}</p></div>`;
+      ${estagios}
+      ${botoes ? `<div class="actions" style="margin-top:8px">${botoes}</div>` : ''}
+    </div>`;
+  };
+  const filtra = arr => q ? arr.filter(bate) : arr;
+  const vazio = t => `<div class="panel" style="text-align:center"><p class="empty">${t}</p></div>`;
+  if (ehDiv) {
+    /* Subaba de divergência: primeiro as pendentes; abaixo todas as outras compras (pedidas e finalizadas), para informar direto no card */
+    const pend = filtra([...div].sort((a, b) => String(a.dataChegada || a.data).localeCompare(String(b.dataChegada || b.data))));
+    const outras = filtra([...rota.sort(ordC), ...fin.sort(ordC)]);
+    $('#compras-lista').innerHTML =
+      `<h2>⚠️ Aguardando solução (${pend.length})</h2>` + (pend.length ? pend.map(cardCompra).join('') : vazio(q ? 'Nenhuma compra com divergência encontrada para esta pesquisa.' : 'Nenhuma compra com divergência pendente. 👍'))
+      + `<h2 style="margin-top:22px">Informar divergência em outra compra (${outras.length})</h2><p class="hint" style="margin:-6px 0 10px">Todas as últimas compras, pedidas e finalizadas. Faltou algo ou veio avariado? Clique em “⚠️” no card da compra.</p>`
+      + (outras.length ? outras.map(cardCompra).join('') : vazio(q ? 'Nenhuma compra encontrada para esta pesquisa.' : 'Nenhuma compra registrada ainda.'));
+    return;
+  }
+  const cs = filtra((ehRota ? rota : fin).sort(ehRota ? (a, b) => (a.previsao || '9999').localeCompare(b.previsao || '9999') || ordC(a, b) : ordC));
+  $('#compras-lista').innerHTML = cs.length ? (q ? `<h2>${ehRota ? 'Compras pedidas' : 'Notas'} encontradas</h2>` : '') + cs.map(cardCompra).join('')
+    : vazio(q ? 'Nenhuma compra encontrada para esta pesquisa.' : ehRota ? 'Nenhuma compra pedida aguardando chegar. Ao registrar uma compra que ainda não chegou, marque “📦 Pedida”.' : 'Nenhuma compra finalizada ainda. Clique em “+ Registrar compra”.');
 }
 
 /* ================= Tarefas ================= */
@@ -3557,11 +3882,13 @@ function gerarPlanilha(){
   /* Compras: uma linha por item */
   const CP = comprasReais().sort((a, b) => b.data.localeCompare(a.data));
   const compras = xTabela('Compras', [
-    {h: 'Situação', st: v => v === 'Em rota' ? XS.warn : XS.ok, min: 12}, {h: 'Data da compra', t: 'd'}, {h: 'Previsão de chegada', t: 'd'}, {h: 'Data da chegada', t: 'd'},
+    {h: 'Situação', st: v => /^Pedida/.test(v) ? XS.warn : v === 'Com divergência' ? XS.bad : XS.ok, min: 15}, {h: 'Data da compra', t: 'd'}, {h: 'Previsão de chegada', t: 'd'}, {h: 'Data da chegada', t: 'd'},
     {h: 'Fornecedor', min: 16}, {h: 'Nº da nota'}, {h: 'Obra', min: 16}, {h: 'Item', t: 'b', min: 18}, {h: 'Quantidade', t: 'n'}, {h: 'Unidade'},
-    {h: 'Valor da unidade', t: 'money', min: 14}, {h: 'Valor total do item', t: 'money', min: 14}, {h: 'Valor total da nota', t: 'money', min: 14}, {h: 'Observação', t: 'wrap', w: 36}
-  ], CP.flatMap(c => (c.itens || []).map(i => [statusCompra(c) === 'rota' ? 'Em rota' : 'Finalizada', c.data, statusCompra(c) === 'rota' ? c.previsao || '' : '', c.dataChegada || '',
-    c.fornecedor, c.numeroNota, c.obra, i.nome, i.qtd, i.unidade, i.valorUnit, i.valorTotal, c.totalNota, c.obs])));
+    {h: 'Valor da unidade', t: 'money', min: 14}, {h: 'Valor total do item', t: 'money', min: 14}, {h: 'Valor total da nota', t: 'money', min: 14}, {h: 'Observação', t: 'wrap', w: 36},
+    {h: 'Chegou OK', t: 'n'}, {h: 'Problema', min: 12}, {h: 'Detalhe do problema', t: 'wrap', w: 30}, {h: 'Como a divergência foi resolvida', t: 'wrap', w: 36}
+  ], CP.flatMap(c => (c.itens || []).map(i => [statusCompra(c) === 'rota' ? (estagioPedida(c) === 'pedido' ? 'Pedida — pedido feito' : 'Pedida — em rota') : ({divergencia: 'Com divergência'})[statusCompra(c)] || (c.teveDivergencia ? 'Finalizada (teve divergência)' : 'Finalizada'), c.data, statusCompra(c) === 'rota' ? c.previsao || '' : '', c.dataChegada || '',
+    c.fornecedor, c.numeroNota, c.obra, i.nome, i.qtd, i.unidade, i.valorUnit, i.valorTotal, c.totalNota, c.obs,
+    statusCompra(c) === 'rota' ? '' : (i.qtdRecebida != null ? i.qtdRecebida : i.qtd), i.problema || '', i.problemaObs || '', c.resolucao || ''])));
 
   const ORC_SIT = {aberto: 'A fazer', comprado: 'Virou compra', cancelado: 'Cancelado'};
   const ORC_AUT = {sim: 'Sim', nao: 'Não', aguardando: 'Aguardando'};
@@ -3570,6 +3897,11 @@ function gerarPlanilha(){
     {h: 'Itens', t: 'wrap', w: 50}, {h: 'Seu Ricardo autorizou?', st: v => v === 'Sim' ? XS.ok : v === 'Não' ? XS.bad : XS.warn, min: 14}, {h: 'Observação', t: 'wrap', w: 36}, {h: 'Criado em', t: 'dt'}, {h: 'Resolvido em', t: 'dt'}
   ], orcamentos().sort((a, b) => (a.paraQuando || '').localeCompare(b.paraQuando || '')).map(o => [ORC_SIT[o.situacao || 'aberto'] || o.situacao, o.paraQuando, o.solicitante, o.obra,
     (o.itens || []).map(i => `${fmtQtd(i.qtd)} ${i.unidade} — ${i.nome}`).join('\n'), ORC_AUT[o.autorizado] || '', o.obs, o.criadoEm, o.concluidoEm]));
+
+  const cots = xTabela('Cotações', [
+    {h: 'Item', t: 'b', min: 18}, {h: 'Preço por'}, {h: 'Loja', min: 16}, {h: 'Valor', t: 'money', min: 14}, {h: 'Data da cotação', t: 'd'},
+    {h: 'Mais barato?', st: v => v === 'Sim' ? XS.ok : XS.s}, {h: 'Observação da loja', t: 'wrap', w: 30}, {h: 'Observação', t: 'wrap', w: 30}
+  ], [...cotacoes()].sort((a, b) => cmpTxt(a.item, b.item)).flatMap(c => lojasOrd(c).map((l, k) => [c.item, c.unidade, l.loja, l.valor, l.data, k === 0 ? 'Sim' : '', l.obs, c.obs])));
 
   const TAR_ST = {concluida: 'Concluída', atrasada: 'Atrasada', hoje: 'Vence hoje', futura: 'No prazo', semprazo: 'Sem prazo'};
   const tarefas = xTabela('Tarefas', [
@@ -3601,8 +3933,10 @@ function gerarPlanilha(){
     kv('Itens do GPS na rua', db.gps.filter(g => g.local === 'rua').length),
     kv('Movimentações do GPS (histórico completo)', db.gpsMovs.length),
     kv('Compras finalizadas', comprasReais().filter(c => statusCompra(c) === 'finalizada').length),
-    kv('Compras em rota', comprasReais().filter(c => statusCompra(c) === 'rota').length),
+    kv('Compras pedidas (aguardando chegar)', comprasReais().filter(c => statusCompra(c) === 'rota').length),
+    kv('Compras com divergência (não resolvidas)', comprasReais().filter(c => statusCompra(c) === 'divergencia').length),
     kv('Orçamentos a fazer', orcamentos().filter(orcAberto).length),
+    kv('Itens com cotação', cotacoes().length),
     kv('Tarefas em aberto', db.tarefas.filter(t => !t.concluida).length),
     kv('Tarefas atrasadas', db.tarefas.filter(t => stTar(t) === 'atrasada').length),
     kv('Notas', db.notas.length),
@@ -3618,7 +3952,8 @@ function gerarPlanilha(){
       ['Comentários', 'Cada comentário ou ocorrência em uma linha, ligado à sua movimentação.'],
       ['GPS Itens', 'Itens que saem do estoque para a rua: situação atual, responsável, obra, níveis do nitrogênio e ciclo de movimentações.'],
       ['GPS Histórico', 'Todas as passagens de responsabilidade de todos os itens, sem limite, com ciclo e número no ciclo.'],
-      ['Compras', 'Cada item comprado em uma linha: situação (finalizada ou em rota), datas, fornecedor, nota, obra, quantidade, unidade, valor da unidade, total do item e total da nota.'],
+      ['Compras', 'Cada item comprado em uma linha: situação (finalizada, pedida — pedido feito ou em rota — ou com divergência — com quanto chegou OK e o problema), datas, fornecedor, nota, obra, quantidade, unidade, valor da unidade, total do item e total da nota.'],
+      ['Cotações', 'Uma linha por loja de cada item: valor, data da cotação e qual é a mais barata.'],
       ['Orçamentos', 'Orçamentos a fazer e já resolvidos: quem solicitou, obra, para quando, itens e se Seu Ricardo autorizou.'],
       ['Tarefas', 'Tarefas da aba Tarefas (inclui os antigos lembretes), com prazo, horário e status.'],
       ['Notas', 'Texto das notas autoadesivas.'],
@@ -3629,7 +3964,7 @@ function gerarPlanilha(){
   ];
   const resumo = {name: 'Resumo', widths: [40, 90], rows: resumoRows, noGrid: true};
 
-  return xMontar([estoque, entradas, saidas, ajustes, historico, comentarios, gpsItens, gpsHist, compras, orcs, tarefas, notas, alteracoes, resumo]);
+  return xMontar([estoque, entradas, saidas, ajustes, historico, comentarios, gpsItens, gpsHist, compras, orcs, cots, tarefas, notas, alteracoes, resumo]);
 }
 $('#imp-file').addEventListener('change', e => {
   const file = e.target.files[0]; if (!file) return;
